@@ -1,7 +1,7 @@
 # project_thebattlecars
 The Battle Cars: Proyecto personal de un juego de cartas en la web
 
-## The Battle Cars
+## Que es "The Battle Cars"
 
 Un proyecto sencillo de un juego de cartas sobre una pelea de carros usando armas y poderes absurdos.
 
