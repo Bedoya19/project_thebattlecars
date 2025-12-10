@@ -20,7 +20,7 @@
     padding: 10px;
 }
 
-#player1-cards > .player1-card-zone {
+.players-cards-zone {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
@@ -29,39 +29,39 @@
 }
 
 /* Diseño general del juego */
-.card-board-weapon-p1-1 {
+.card-board-weapon-p-1 {
     grid-row: 1;
     grid-column: 1;
 }
-.card-board-weapon-p1-2 {
+.card-board-weapon-p-2 {
     grid-row: 1;
     grid-column: 2;
 }
-.card-board-weapon-p1-3 {
+.card-board-weapon-p-3 {
     grid-row: 1;
     grid-column: 3;
 }
-.card-board-weapon-p1-4 {
+.card-board-weapon-p-4 {
     grid-row: 2;
     grid-column: 1;
 }
-.card-board-car-p1 {
+.card-board-car-p {
     grid-row: 2;
     grid-column: 2;
 }
-.card-board-weapon-p1-5 {
+.card-board-weapon-p-5 {
     grid-row: 2;
     grid-column: 3;
 }
-.card-board-weapon-p1-6 {
+.card-board-weapon-p-6 {
     grid-row: 3;
     grid-column: 1;
 }
-.card-board-weapon-p1-7 {
+.card-board-weapon-p-7 {
     grid-row: 3;
     grid-column: 2;
 }
-.card-board-weapon-p1-8 {
+.card-board-weapon-p-8 {
     grid-row: 3;
     grid-column: 3;
 }
