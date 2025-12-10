@@ -1,20 +1,33 @@
+:root {
+    --tamaño-cartas-x: 35px;
+    --tamaño-cartas-y: 45px;
+}
+
 *, *::before, *::after {
     box-sizing: border-box;
     padding: 0;
     margin: 0;
 }
 
+
 #player1 {
     background-color: aqua;
     padding: 15px;
+    display: flex;
 }
 
 #player2 {
     background-color: aquamarine;
     padding: 15px;
+    display: flex;
 }
 
 #player1-cards {
+    display: flex;
+    background-color: azure;
+    padding: 10px;
+}
+#player2-cards {
     display: flex;
     background-color: azure;
     padding: 10px;
@@ -68,6 +81,22 @@
 
 .card-board-player1 {
     background-color: yellowgreen;
-    padding: 10px;
+    /*padding: var(--tamaño-cartas-y) var(--tamaño-cartas-x);*/
     margin: 3px;
+}
+.card-board-player2 {
+    background-color: rgb(112, 150, 37);
+    /*padding: 10px;*/
+    margin: 3px;
+}
+
+.card-board {
+    padding: var(--tamaño-cartas-y) var(--tamaño-cartas-x);
+}
+
+#card-effect-universal {
+    background-color: blue;
+}
+#board-players {
+    display: flex;
 }
