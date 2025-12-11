@@ -109,6 +109,10 @@
 .card-board-effect-buff {
     background-color: #1a3d0f !important;
 }
+.card-board-effect-nerf {
+    background-color: #520101 !important;
+}
+
 /*
 .card-board-card {
     background-color: red !important;
