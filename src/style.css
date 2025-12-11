@@ -58,9 +58,10 @@
     grid-row: 2;
     grid-column: 1;
 }
-.card-board-car-p {
+.card-board-car {
     grid-row: 2;
     grid-column: 2;
+    background-color: red !important;
 }
 .card-board-weapon-p-5 {
     grid-row: 2;
@@ -99,4 +100,16 @@
 }
 #board-players {
     display: flex;
+    align-items: center;
 }
+
+.card-board-effect {
+    border: 3px dashed black;
+}
+.card-board-effect-buff {
+    background-color: #1a3d0f !important;
+}
+/*
+.card-board-card {
+    background-color: red !important;
+}*/
