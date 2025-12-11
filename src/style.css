@@ -11,25 +11,25 @@
 
 
 #player1 {
-    background-color: aqua;
+    background-color: #000000;
     padding: 15px;
     display: flex;
 }
 
 #player2 {
-    background-color: aquamarine;
+    background-color: #000000;
     padding: 15px;
     display: flex;
 }
 
 #player1-cards {
     display: flex;
-    background-color: azure;
+    background-color: #242424;
     padding: 10px;
 }
 #player2-cards {
     display: flex;
-    background-color: azure;
+    background-color: #5c5c5c;
     padding: 10px;
 }
 
@@ -37,7 +37,7 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-template-rows: repeat(3, 1fr);
-    background-color: blueviolet;
+    background-color: none;
     padding: 10px;
 }
 
@@ -81,12 +81,12 @@
 }
 
 .card-board-player1 {
-    background-color: yellowgreen;
+    background-color: #3c3c3c;
     /*padding: var(--tamaño-cartas-y) var(--tamaño-cartas-x);*/
     margin: 3px;
 }
 .card-board-player2 {
-    background-color: rgb(112, 150, 37);
+    background-color: #3c3c3c;
     /*padding: 10px;*/
     margin: 3px;
 }
