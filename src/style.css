@@ -141,7 +141,7 @@ body {
     padding-bottom: 10px;
 }
 #card-selected-image {
-    width: 220px; /* Fixed width */
+    width: 220px; 
     height: auto;
 }
 
@@ -160,4 +160,8 @@ body {
 }
 #board-players {
     background-color: #0e0e0e;
+}
+
+#game-stats {
+    width: 500px;
 }
