@@ -155,3 +155,9 @@ body {
 .player-effects {
     padding: 10px;
 }
+#card-selected-player {
+    text-align: center;
+}
+#board-players {
+    background-color: #0e0e0e;
+}

@@ -8,6 +8,8 @@
         <link rel="stylesheet" href="./src/style.css">
         <script src="./src/script.js" defer></script>
     </head>
+    <!-- PROJECT: THE BATTLE CARS -->
+    <!-- El juego en donde usas carros sencillos para pelear con otros carros usando armas absurdas -->
     <body>
         <!--<h1>The Battle Cars</h1>-->
         <div id="game">
@@ -102,7 +104,9 @@
                     <div id="card-effect-universal" class="card-board"></div>
                 </div>
             </div>
+            <!-- Informacion general de la carta jugada -->
             <div id="card-selected-information">
+                <h2 id="card-selected-player" class="card-selected-information">Jugador 1</h2>
                 <div id="card-selected-main-information">
                     <div>
                         <h1 id="card-selected-name"></h1>
@@ -119,6 +123,24 @@
                     </div>
                     <hr id="card-selected-bar">
                     <p id="card-selected-description" class="card-selected-information">"El carro mas basico, todo el mundo lo tiene"</p>
+                </div>
+            </div>
+            <!-- Estado del juego, y otra informacion-->
+            <div id="game-stats">
+                <div id="state-players">
+                    <h3>Estado del juego:</h3>
+                    <p>Carros del jugador 1: <span>5</span>/5</p>
+                    <p>Carros del jugador 2: <span>5</span>/5</p>
+                    <p>Ronda <span>1</span></p>
+                    <p>Turno <span>1</span></p>
+                </div>
+                <div id="game-values">
+                    <p>Carga: <span>6</span>-6</p>
+                    <p>Nitro: <span>5</span></p>
+                    <p>Poder: <span>5</span></p>
+                </div>
+                <div id="turn-notes">
+
                 </div>
             </div>
             <div id="deck">
