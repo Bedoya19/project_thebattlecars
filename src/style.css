@@ -118,3 +118,28 @@
 .card-board-card {
     background-color: red !important;
 }*/
+
+#game {
+    display: flex;
+}
+
+#card-selected-information {
+    background-color: #323232;
+    padding: 15px;
+}
+#card-selected-general-information {
+    text-align: center;
+    padding-bottom: 10px;
+}
+#card-selected-image {
+    width: 220px; /* Fixed width */
+    height: auto;
+}
+
+.card-selected-information {
+    color: #c6c6c6;
+    padding-bottom: 10px;
+}
+#card-selected-bar {
+    margin-bottom: 10px;
+}
