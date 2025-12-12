@@ -169,3 +169,11 @@ body {
 #game-information {
     display: flex;
 }
+#game-stats {
+    border: 5px solid black;
+    border-radius: 10px;
+    padding: 5px;
+}
+.game-stat {
+    margin-bottom: 5px;
+}
