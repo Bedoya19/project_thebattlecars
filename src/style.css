@@ -12,13 +12,13 @@
 
 #player1 {
     background-color: #000000;
-    padding: 15px;
+    /*padding: 15px;*/
     display: flex;
 }
 
 #player2 {
     background-color: #000000;
-    padding: 15px;
+    /*padding: 15px;*/
     display: flex;
 }
 
@@ -127,7 +127,7 @@
     background-color: #323232;
     padding: 15px;
 }
-#card-selected-general-information {
+#card-selected-main-information {
     text-align: center;
     padding-bottom: 10px;
 }
