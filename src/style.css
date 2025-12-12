@@ -61,7 +61,7 @@
 .card-board-car {
     grid-row: 2;
     grid-column: 2;
-    background-color: red !important;
+    background-color: #7d1c1c !important;
 }
 .card-board-weapon-p-5 {
     grid-row: 2;
@@ -96,7 +96,8 @@
 }
 
 #card-effect-universal {
-    background-color: blue;
+    border: 3px solid black;
+    background-color: #8174d9;
 }
 #board-players {
     display: flex;
