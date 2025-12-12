@@ -134,7 +134,7 @@ body {
 #card-selected-information {
     background-color: #323232;
     padding: 15px;
-    width: 100%;
+    width: 60%;
 }
 #card-selected-main-information {
     text-align: center;
@@ -163,5 +163,9 @@ body {
 }
 
 #game-stats {
-    width: 500px;
+    width: 40%;
+}
+
+#game-information {
+    display: flex;
 }
