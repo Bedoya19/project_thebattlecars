@@ -128,7 +128,9 @@ body {
 }*/
 
 #game {
+    min-height: 80vh;
     display: flex;
+    /*flex-direction: column;*/
 }
 
 #card-selected-information {
