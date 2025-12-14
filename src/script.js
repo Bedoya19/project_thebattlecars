@@ -19,3 +19,34 @@ const TypeCard = Object.freeze({
     MATERIAL: Symbol("material"),
     POWER: Symbol("power")
 });
+
+const card = {
+    category: 1,
+    type: types[0],
+    name: "Dodge Dart GT",
+    description: "El carro mas basico, todo el mundo lo tiene",
+    health: 10,
+    capacity: 4,
+    attBuff: 0,
+    nitro: [3, 3],
+    "descripcion larga": "El Dodge Dart GT es la carta de carro mas basica y comun de todas. Que sea basica y comun no significa que sea una mala carta, ya que es bastante balanceada, estable en lo que se espera, y combina con muchas estrategias"
+}
+
+// Clase de carta de carro
+class CarCard {
+    static #nextId = 1;
+
+    constructor(category, type, name, description, health, capacity, attBuff, nitro, largeDescription) {
+        this.id = `car-${CarCard.#nextId++}`;
+        this.category = category;
+        this.type = type;
+        this.name = name;
+        this.description = description;
+        this.health = health;
+        this.capacity = capacity;
+        this.attBuff = attBuff;
+        this.nitro = nitro;
+        this.largeDescription = largeDescription;
+    }
+
+}
