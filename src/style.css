@@ -1,9 +1,29 @@
 :root {
+    --fondo-jugador1: #242424;
+    --fondo-jugador2: #5c5c5c;
+    
+    --tablero-juego: #0e0e0e;
+
+    --casilla-carta: #3c3c3c;
+    --casilla-carta-carro: #103447;
+
+    --casilla-carta-buff: #1a3d0f;
+    --casilla-carta-nerf: #520101;
+    --casilla-carta-universal: #8174d9;
+
     --tamaño-cartas-x: 60px;
     --tamaño-cartas-y: 90px;
 
     --tamaño-cartas-deck: 100px;
 
+    --fondo-carta-seleccionada: #323232;
+    --texto-carta-seleccionada: #c6c6c6;
+
+    --fondo-juego-estadisticas: #373434;
+    --borde-juego-estadisticas: #bdbdbd;
+
+    --fondo-deck: #2a2a2a;
+    --fondo-cartas-en-deck: #696f77;
     --color-baras-deck: #919191;
     --grosor-bara-deck: 5px;
 }
@@ -34,12 +54,12 @@ body {
 
 #player1-cards {
     display: flex;
-    background-color: #242424;
+    background-color: var(--fondo-jugador1);
     /*padding: 10px;*/
 }
 #player2-cards {
     display: flex;
-    background-color: #5c5c5c;
+    background-color: var(--fondo-jugador2);
     /*padding: 10px;*/
 }
 
@@ -71,7 +91,7 @@ body {
 .card-board-car {
     grid-row: 2;
     grid-column: 2;
-    background-color: #103447 !important;
+    background-color: var(--casilla-carta-carro) !important;
 }
 .card-board-weapon-p-5 {
     grid-row: 2;
@@ -91,7 +111,7 @@ body {
 }
 
 .card-board {
-    background-color: #3c3c3c;
+    background-color: var(--casilla-carta);
     /*padding: var(--tamaño-cartas-y) var(--tamaño-cartas-x);*/
     margin: 3px;
 }
@@ -110,7 +130,7 @@ body {
 
 #card-effect-universal {
     border: 3px dashed #ffffff;
-    background-color: #8174d9;
+    background-color: var(--casilla-carta-universal);
 }
 #board-players {
     display: flex;
@@ -121,10 +141,10 @@ body {
     border: 3px dashed black;
 }
 .card-board-effect-buff {
-    background-color: #1a3d0f !important;
+    background-color: var(--casilla-carta-buff) !important;
 }
 .card-board-effect-nerf {
-    background-color: #520101 !important;
+    background-color: var(--casilla-carta-nerf) !important;
 }
 
 /*
@@ -140,7 +160,7 @@ body {
 }
 
 #card-selected-information {
-    background-color: #323232;
+    background-color: var(--fondo-carta-seleccionada);
     padding: 15px;
     width: 60%;
 }
@@ -154,7 +174,7 @@ body {
 }
 
 .card-selected-information {
-    color: #c6c6c6;
+    color: var(--texto-carta-seleccionada);
     padding-bottom: 10px;
 }
 #card-selected-bar {
@@ -167,7 +187,7 @@ body {
     text-align: center;
 }
 #board-players {
-    background-color: #0e0e0e;
+    background-color: var(--tablero-juego);
 }
 
 #game-stats {
@@ -178,10 +198,10 @@ body {
     display: flex;
 }
 #game-stats {
-    border: 5px solid #bdbdbd;
+    border: 5px solid var(--borde-juego-estadisticas);
     padding: 5px;
-    background-color: #373434;
-    color: #bdbdbd;
+    background-color: var(--fondo-juego-estadisticas);
+    color: var(--borde-juego-estadisticas);
 }
 .game-stat-div {
     margin-bottom: 5px;
@@ -206,7 +226,7 @@ body {
     flex: 1;
     height: 100%;
     display: flex;
-    background-color: #2a2a2a;
+    background-color: var(--fondo-deck);
 }
 
 #change-deck-icon-div {
@@ -222,7 +242,7 @@ body {
     margin: 0;
 }
 #deck-cards {
-    background-color: #696f77;
+    background-color: var(--fondo-cartas-en-deck);
     width: 100%;
     height: 100%;
     display: flex;
