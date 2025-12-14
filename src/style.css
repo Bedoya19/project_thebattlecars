@@ -71,7 +71,7 @@ body {
 .card-board-car {
     grid-row: 2;
     grid-column: 2;
-    background-color: #7d1c1c !important;
+    background-color: #103447 !important;
 }
 .card-board-weapon-p-5 {
     grid-row: 2;
@@ -109,7 +109,7 @@ body {
 }
 
 #card-effect-universal {
-    border: 3px solid black;
+    border: 3px dashed #ffffff;
     background-color: #8174d9;
 }
 #board-players {
@@ -227,6 +227,7 @@ body {
     height: 100%;
     display: flex;
     align-items: center;
+    overflow-y: auto;
 }
 .deck-card, img {
     height: var(--tamaño-cartas-deck);
