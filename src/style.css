@@ -203,12 +203,13 @@ body {
     height: 100%;
     display: flex;
     background-color: #2a2a2a;
-    align-items: center;
 }
 
 #change-deck-icon-div {
-    padding-right: 10px;
-    padding-left: 10px;
+    margin-right: 10px;
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
 }
 #deck-icon-current {
     height: var(--tamaño-cartas-deck);
@@ -225,7 +226,8 @@ body {
 .deck-card, img {
     height: var(--tamaño-cartas-deck);
     width: auto;
-    margin: 3px;
+    margin-left: 3px;
+    margin-right: 3px;
 }
 
 
