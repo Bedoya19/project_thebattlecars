@@ -20,29 +20,6 @@ const TypeCard = Object.freeze({
     POWER: Symbol("power")
 });
 
-// Temporal: Materiales en la Categoria 1
-const materialsCategory1 = [
-    ["cardboard", 1],
-    ["rubberband", 2],
-    ["rubber", 2],
-    ["foam", 2],
-    ["gunpowder", 3]
-];
-const materialsCategory2 = [
-    ["stone tablet", 1],
-    ["reinforced rubberband", 2],
-    ["stone", 2],
-    ["clay", 2],
-    ["high-quality gunpowder", 3]
-];
-const materialsCategory3 = [
-    ["steel", 1],
-    ["silicon", 2],
-    ["mechanic toolkit", 2]
-    ["welding kit", 2],
-    ["maximum-quality gunpowder", 3]
-];
-
 
 // Objeto de guia temporal
 const card = {
