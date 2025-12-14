@@ -176,6 +176,11 @@ body {
 .card-selected-information {
     color: var(--texto-carta-seleccionada);
     padding-bottom: 10px;
+    font-family: "Lexend", sans-serif;
+    font-size: 90%;
+}
+#card-selected-description {
+    font-size: 75%;
 }
 #card-selected-bar {
     margin-bottom: 10px;
@@ -185,6 +190,9 @@ body {
 }
 #card-selected-player {
     text-align: center;
+    font-family: "BBH Hegarty", sans-serif;
+    font-weight: 400;
+    font-style: normal;
 }
 #board-players {
     background-color: var(--tablero-juego);
@@ -192,16 +200,14 @@ body {
 
 #game-stats {
     width: 40%;
-}
-
-#game-information {
-    display: flex;
-}
-#game-stats {
     border: 5px solid var(--borde-juego-estadisticas);
     padding: 5px;
     background-color: var(--fondo-juego-estadisticas);
     color: var(--borde-juego-estadisticas);
+}
+
+#game-information {
+    display: flex;
 }
 .game-stat-div {
     margin-bottom: 5px;
@@ -210,6 +216,16 @@ body {
     text-align: center;
     font-weight: bold;
     text-decoration: underline;
+    font-family: "BBH Hegarty", sans-serif !important;
+    font-weight: 400 !important;
+    font-style: normal !important;
+    font-size: 16px !important;
+}
+.game-stat-text {
+    font-family: "Lexend", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-size: 80%;
 }
 #game-stats > hr {
     margin-top: 10px;
