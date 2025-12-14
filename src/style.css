@@ -3,6 +3,9 @@
     --tamaño-cartas-y: 90px;
 
     --tamaño-cartas-deck: 100px;
+
+    --color-baras-deck: #919191;
+    --grosor-bara-deck: 5px;
 }
 
 *, *::before, *::after {
@@ -133,6 +136,7 @@ body {
     min-height: 80vh;
     display: flex;
     /*flex-direction: column;*/
+    border-bottom: solid var(--color-baras-deck) var(--grosor-bara-deck);
 }
 
 #card-selected-information {
@@ -206,10 +210,11 @@ body {
 }
 
 #change-deck-icon-div {
-    margin-right: 10px;
-    margin-left: 10px;
+    padding-right: 10px;
+    padding-left: 10px;
     display: flex;
     align-items: center;
+    border-right: solid var(--color-baras-deck) var(--grosor-bara-deck);
 }
 #deck-icon-current {
     height: var(--tamaño-cartas-deck);
