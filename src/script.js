@@ -32,14 +32,23 @@ const card = {
     "descripcion larga": "El Dodge Dart GT es la carta de carro mas basica y comun de todas. Que sea basica y comun no significa que sea una mala carta, ya que es bastante balanceada, estable en lo que se espera, y combina con muchas estrategias"
 }
 
+// Validar categorias y tipos correctos para evitar problemas a futuro
+class ValidateEnums {
+    static isValidEnum(value, enumObj, msg = "Valor invalido") {
+        const set = new Set(Object.values(enumObj));
+        if (!set.has(value)) throw new Error(msg);
+        return value;
+    }
+}
+
 // Clase de carta de carro
 class CarCard {
     static #nextId = 1;
 
     constructor(category, type, name, description, health, capacity, attBuff, nitro, largeDescription) {
         this.id = `car-${CarCard.#nextId++}`;
-        this.category = category;
-        this.type = type;
+        this.category = ValidateEnums(category, Category, "Categoria invalida");
+        this.type = ValidateEnums(category, TypeCard, "Tipo de carta invalida");
         this.name = name;
         this.description = description;
         this.health = health;
