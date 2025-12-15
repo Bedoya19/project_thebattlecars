@@ -110,7 +110,8 @@ const carCard = new CarCard(
     4, 
     0, 
     [3, 3], 
-    "El Dodge Dart GT es la carta de carro mas basica y comun de todas. Que sea basica y comun no significa que sea una mala carta, ya que es bastante balanceada, estable en lo que se espera, y combina con muchas estrategias."
+    "El Dodge Dart GT es la carta de carro mas basica y comun de todas. Que sea basica y comun no significa que sea una mala carta, ya que es bastante balanceada, estable en lo que se espera, y combina con muchas estrategias.",
+    "./src/images/dodgedartgt.png"
 );
 console.log(carCard);
 const weaponCard = new WeaponCard(
@@ -124,6 +125,7 @@ const weaponCard = new WeaponCard(
     [["cardboard", 4],
     ["rubberband", 2],
     ["gunpowder", 1]],
-    "Por mas que parezca una mala idea, este lanzacohetes de carton es una de las armas mas basicas, pero la mismo tiempo mas robustas de la categoria. Tiene una progresion estable en su ataque, sus mejoras son creibles y lineales, y no es muy caro de mejorar."
+    "Por mas que parezca una mala idea, este lanzacohetes de carton es una de las armas mas basicas, pero la mismo tiempo mas robustas de la categoria. Tiene una progresion estable en su ataque, sus mejoras son creibles y lineales, y no es muy caro de mejorar.",
+    "./src/images/cohete_carton.png"
 );
 console.log(weaponCard);
