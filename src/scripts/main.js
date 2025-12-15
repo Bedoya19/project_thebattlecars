@@ -141,11 +141,18 @@ const clickOnDeckCard = (card) => {
 // Este va a ser un display general, mientras se prueban cosas.
 const displayCard = (card) => {
     let quantityCardsInDeck = document.querySelectorAll(".deck-card").length;
-    //console.log(n);
-    deckCards.innerHTML += `<div id="deck-card-${quantityCardsInDeck}" class="deck-card"><img src="${card.image}" alt="card-${quantityCardsInDeck}"></div>`;
-    
-    // No me acuerdo como se hacia de una forma mas eficiente, entonces...
-    const recentCardDeck = document.getElementById(`deck-card-${quantityCardsInDeck}`);
-    recentCardDeck.addEventListener("click", () => {clickOnDeckCard(card)});
+
+    // Crea un div de la carta
+    const divCardInDeck = document.createElement("div");
+    divCardInDeck.setAttribute("id", `deck-card-${quantityCardsInDeck}`);
+    divCardInDeck.setAttribute("class", "deck-card")
+    divCardInDeck.insertAdjacentHTML("beforeend", 
+        `<img src="${card.image}" alt="card-${quantityCardsInDeck}">`
+    )
+    divCardInDeck.addEventListener("click", () => {clickOnDeckCard(card)});
+
+    // La agrega al mazo.
+    deckCards.appendChild(divCardInDeck);
 }
 displayCard(carCard);
+displayCard(weaponCard);

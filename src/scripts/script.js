@@ -22,7 +22,7 @@ const materialsCategory2 = [
 // Materiales en la Categoria 3
 const materialsCategory3 = [
     ["stone tablet", 1],
-    ["polymer adhesive", 2],
+    ["masonry adhesive", 2],
     ["stone rock", 2],
     ["clay", 2],
     ["leather strip", 2],
