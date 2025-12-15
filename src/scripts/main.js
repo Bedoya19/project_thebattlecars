@@ -25,30 +25,6 @@ const TypeCard = Object.freeze({
 });
 
 
-// Objetos de guia temporal
-const card = {
-    category: 1,
-    //type: types[0],
-    name: "Dodge Dart GT",
-    description: "El carro mas basico, todo el mundo lo tiene",
-    health: 10,
-    capacity: 4,
-    attBuff: 0,
-    nitro: [3, 3],
-    longDescription: "El Dodge Dart GT es la carta de carro mas basica y comun de todas. Que sea basica y comun no significa que sea una mala carta, ya que es bastante balanceada, estable en lo que se espera, y combina con muchas estrategias."
-}
-const card1 = {
-    category: 1,
-    name: "Lanzacohetes de carton",
-    description: "¿Un lanzacohetes de carto? ¿Y eso como se supone que debe funcionar?",
-    attacksLv1: [1, 2, 3, 4, 5, 6],
-    attacksLv2: [2, 3, 4, 5, 6, 7],
-    attacksLv3: [3, 4, 5, 6, 7, 8],
-    energy: 4,
-    // Cambiar esto despues.
-    materials: [["cardboard", 4], ["rubberband", 2], ["gunpowder", 1]],
-    longDescription: "Por mas que parezca una mala idea, este lanzacohetes de carton es una de las armas mas basicas, pero la mismo tiempo mas robustas de la categoria. Tiene una progresion estable en su ataque, sus mejoras son creibles y lineales, y no es muy caro de mejorar."
-}
 const card2 = {
     category: 1,
     type: "material",
@@ -82,7 +58,7 @@ class Card {
     }
 }
 
-// Clase de carta de carro
+// (sub)clase de carta de carro
 // La subdivision funciona correctamente!
 class CarCard extends Card{
     static #nextId = 1;
@@ -98,7 +74,7 @@ class CarCard extends Card{
     }
 
 }
-
+// (sub)clase de carta de arma
 class WeaponCard extends Card {
     static #nextId = 1;
 
@@ -138,6 +114,7 @@ const weaponCard = new WeaponCard(
     "Por mas que parezca una mala idea, este lanzacohetes de carton es una de las armas mas basicas, pero la mismo tiempo mas robustas de la categoria. Tiene una progresion estable en su ataque, sus mejoras son creibles y lineales, y no es muy caro de mejorar.",
     "./src/images/cohete_carton.png"
 );
+const cards = [carCard, weaponCard];
 
 // Funcion de lo que hace cuando se hace click en una carta (temporal para pruebas)
 const clickOnDeckCard = (card) => {
@@ -145,7 +122,7 @@ const clickOnDeckCard = (card) => {
 }
 
 // Este va a ser un display general, mientras se prueban cosas.
-const displayCard = (card) => {
+const displayCardOnDeck = (card) => {
     let quantityCardsInDeck = document.querySelectorAll(".deck-card").length;
 
     // Crea un div de la carta
@@ -161,7 +138,19 @@ const displayCard = (card) => {
     deckCards.appendChild(divCardInDeck);
 }
 
-displayCard(carCard);
-displayCard(weaponCard);
+//displayCardOnDeck(carCard);
+//displayCardOnDeck(weaponCard);
 
-// La siguiente funcion que voy a hacer es que mediante un array de clases de cartas
+// La siguiente funcion que voy a hacer es que mediante un array de clases de cartas, las muestre en el deck
+const showDeckOfCards = (cards) => {
+    if (cards.length !== 0) {
+        for (const card of cards) {
+            displayCardOnDeck(card);
+        }
+    } else {
+        // Esto tendra que avisarle al usuario en pantalla, pero eso vendra despues
+        console.log("No existen cartas en este mazo!");
+    }
+    
+}
+showDeckOfCards(cards);
