@@ -83,12 +83,13 @@ class Card {
 }
 
 // Clase de carta de carro
+// La subdivision funciona correctamente!
 class CarCard extends Card{
     static #nextId = 1;
 
     constructor(category, name, description, health, capacity, attBuff, nitro, longDescription, image) {
         super(category, TypeCard.CAR, name, description, longDescription, image);
-        
+
         this.health = health;
         this.capacity = capacity;
         this.attBuff = attBuff;
@@ -98,22 +99,16 @@ class CarCard extends Card{
 
 }
 
-class WeaponCard {
+class WeaponCard extends Card {
     static #nextId = 1;
 
     constructor(category, name, description, attacks, energy, materials, longDescription, image) {
-        this.id = `weapon-${WeaponCard.#nextId++}`;
-        this.category = ValidateEnums.isValidEnum(category, Category, "Categoria invalidad");
-        this.type = TypeCard.WEAPON;
-        this.name = name;
-        this.description = description;
+        super(category, TypeCard.WEAPON, name, description, longDescription, image);
         // Toca revisar que la informacion este correcta
         this.attacks = attacks;
         this.energy = energy;
         // Esto tambien tiene que tener algun diseño en especifico.
         this.materials = materials;
-        this.longDescription = longDescription;
-        this.image = image;
     }
 }
 
