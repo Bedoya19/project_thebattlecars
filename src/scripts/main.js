@@ -67,6 +67,16 @@ class ValidateEnums {
     }
 }
 
+// Clase padre de Cartas
+class Card {
+    constructor(category, type, name, descripcion) {
+        this.category = ValidateEnums.isValidEnum(category, Category, "Categoria invalida");
+        this.type = ValidateEnums.isValidEnum(type, TypeCard, "Tipo de carta invalido");
+        this.name = name;
+        this.descripcion = descripcion;
+    }
+}
+
 // Clase de carta de carro
 class CarCard {
     static #nextId = 1;
@@ -158,4 +168,4 @@ const displayCard = (card) => {
 displayCard(carCard);
 displayCard(weaponCard);
 
-// La siguiente funcion que voy a hacer es que mediante un array de clases de cartas, 
+// La siguiente funcion que voy a hacer es que mediante un array de clases de cartas
