@@ -3,7 +3,7 @@
 const materialsCategory1 = [
     ["cardboard", 1],
     ["rubberband", 2],
-    ["rubber", 2],
+    ["rubber kit", 2],
     ["foam", 2],
     ["glue", 2],
     ["gunpowder", 3],

@@ -69,7 +69,7 @@ class CarCard {
 
     constructor(category, name, description, health, capacity, attBuff, nitro, longDescription, imagen) {
         this.id = `car-${CarCard.#nextId++}`;
-        this.category = ValidateEnums(category, Category, "Categoria invalida");
+        this.category = ValidateEnums.isValidEnum(category, Category, "Categoria invalida");
         this.type = TypeCard.CAR
         this.name = name;
         this.description = description;
@@ -88,14 +88,19 @@ class WeaponCard {
 
     constructor(category, name, description, attacks, energy, materials, longDescription) {
         this.id = `weapon-${WeaponCard.#nextId++}`;
-        this.category = ValidateEnums(category, Category, "Categoria invalidad");
+        this.category = ValidateEnums.isValidEnum(category, Category, "Categoria invalidad");
         this.type = TypeCard.WEAPON;
         this.name = name;
         this.description = description;
         // Toca revisar que la informacion este correcta
         this.attacks = attacks;
         this.energy = energy;
+        // Esto tambien tiene que tener algun diseño en especifico.
         this.materials = materials;
         this.longDescription = longDescription;
     }
 }
+
+
+const carCard = new CarCard(Category.CATEGORY1, "Dodge Dart GT", "El carro mas basico, todo el mundo lo tiene", 10, 4, 0, [3, 3], "El Dodge Dart GT es la carta de carro mas basica y comun de todas. Que sea basica y comun no significa que sea una mala carta, ya que es bastante balanceada, estable en lo que se espera, y combina con muchas estrategias.");
+console.log(carCard);
