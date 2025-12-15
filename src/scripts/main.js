@@ -133,7 +133,7 @@ const weaponCard = new WeaponCard(
     "./src/images/cohete_carton.png"
 );
 
-// Funcion de lo que hace cuando se hace click en una carta:
+// Funcion de lo que hace cuando se hace click en una carta (temporal para pruebas)
 const clickOnDeckCard = (card) => {
     console.log(`Clicked on ${card.name}`)
 }
@@ -154,5 +154,8 @@ const displayCard = (card) => {
     // La agrega al mazo.
     deckCards.appendChild(divCardInDeck);
 }
+
 displayCard(carCard);
 displayCard(weaponCard);
+
+// La siguiente funcion que voy a hacer es que mediante un array de clases de cartas, 
