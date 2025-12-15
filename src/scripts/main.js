@@ -3,6 +3,10 @@
 // Hecho por Bedoya1905
 // Alpha v0.0.01
 
+
+// Display del mazo
+const deckCards = document.getElementById("deck-cards");
+
 // Enum de categoria
 const Category = Object.freeze({
     CATEGORY1: Symbol("category 1"),
@@ -67,7 +71,7 @@ class ValidateEnums {
 class CarCard {
     static #nextId = 1;
 
-    constructor(category, name, description, health, capacity, attBuff, nitro, longDescription, imagen) {
+    constructor(category, name, description, health, capacity, attBuff, nitro, longDescription, image) {
         this.id = `car-${CarCard.#nextId++}`;
         this.category = ValidateEnums.isValidEnum(category, Category, "Categoria invalida");
         this.type = TypeCard.CAR
@@ -78,7 +82,7 @@ class CarCard {
         this.attBuff = attBuff;
         this.nitro = nitro;
         this.longDescription = longDescription;
-        this.imagen = imagen;
+        this.image = image;
     }
 
 }
@@ -86,7 +90,7 @@ class CarCard {
 class WeaponCard {
     static #nextId = 1;
 
-    constructor(category, name, description, attacks, energy, materials, longDescription) {
+    constructor(category, name, description, attacks, energy, materials, longDescription, image) {
         this.id = `weapon-${WeaponCard.#nextId++}`;
         this.category = ValidateEnums.isValidEnum(category, Category, "Categoria invalidad");
         this.type = TypeCard.WEAPON;
@@ -98,6 +102,7 @@ class WeaponCard {
         // Esto tambien tiene que tener algun diseño en especifico.
         this.materials = materials;
         this.longDescription = longDescription;
+        this.image = image;
     }
 }
 
@@ -113,7 +118,6 @@ const carCard = new CarCard(
     "El Dodge Dart GT es la carta de carro mas basica y comun de todas. Que sea basica y comun no significa que sea una mala carta, ya que es bastante balanceada, estable en lo que se espera, y combina con muchas estrategias.",
     "./src/images/dodgedartgt.png"
 );
-console.log(carCard);
 const weaponCard = new WeaponCard(
     Category.CATEGORY1, 
     "Lanzacohetes de carton", 
@@ -128,4 +132,20 @@ const weaponCard = new WeaponCard(
     "Por mas que parezca una mala idea, este lanzacohetes de carton es una de las armas mas basicas, pero la mismo tiempo mas robustas de la categoria. Tiene una progresion estable en su ataque, sus mejoras son creibles y lineales, y no es muy caro de mejorar.",
     "./src/images/cohete_carton.png"
 );
-console.log(weaponCard);
+
+// Funcion de lo que hace cuando se hace click en una carta:
+const clickOnDeckCard = (card) => {
+    console.log(`Clicked on ${card.name}`)
+}
+
+// Este va a ser un display general, mientras se prueban cosas.
+const displayCard = (card) => {
+    let quantityCardsInDeck = document.querySelectorAll(".deck-card").length;
+    //console.log(n);
+    deckCards.innerHTML += `<div id="deck-card-${quantityCardsInDeck}" class="deck-card"><img src="${card.image}" alt="card-${quantityCardsInDeck}"></div>`;
+    
+    // No me acuerdo como se hacia de una forma mas eficiente, entonces...
+    const recentCardDeck = document.getElementById(`deck-card-${quantityCardsInDeck}`);
+    recentCardDeck.addEventListener("click", () => {clickOnDeckCard(card)});
+}
+displayCard(carCard);
