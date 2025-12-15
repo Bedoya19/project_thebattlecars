@@ -9,19 +9,19 @@ const deckCards = document.getElementById("deck-cards");
 
 // Enum de categoria
 const Category = Object.freeze({
-    CATEGORY1: Symbol("category 1"),
-    CATEGORY2: Symbol("category 2"),
-    CATEGORY3: Symbol("category 3"),
-    CATEGORY4: Symbol("category 4"),
-    CATEGORY5: Symbol("category 5"),
-    CATEGORY6: Symbol("category 6")
+    CATEGORY1: Symbol.for("category 1"),
+    CATEGORY2: Symbol.for("category 2"),
+    CATEGORY3: Symbol.for("category 3"),
+    CATEGORY4: Symbol.for("category 4"),
+    CATEGORY5: Symbol.for("category 5"),
+    CATEGORY6: Symbol.for("category 6")
 });
 // Enum de tipos de cartas
 const TypeCard = Object.freeze({
-    CAR: Symbol("car"),
-    WEAPON: Symbol("weapon"),
-    MATERIAL: Symbol("material"),
-    POWER: Symbol("power")
+    CAR:      Symbol.for("car"),
+    WEAPON:   Symbol.for("weapon"),
+    MATERIAL: Symbol.for("material"),
+    POWER:    Symbol.for("power")
 });
 
 
@@ -61,6 +61,7 @@ const card2 = {
 // Validar categorias y tipos correctos para evitar problemas a futuro
 class ValidateEnums {
     static isValidEnum(value, enumObj, msg = "Valor invalido") {
+        console.log("Validar")
         const set = new Set(Object.values(enumObj));
         if (!set.has(value)) throw new Error(msg);
         return value;
@@ -69,30 +70,30 @@ class ValidateEnums {
 
 // Clase padre de Cartas
 class Card {
-    constructor(category, type, name, descripcion) {
-        this.category = ValidateEnums.isValidEnum(category, Category, "Categoria invalida");
-        this.type = ValidateEnums.isValidEnum(type, TypeCard, "Tipo de carta invalido");
+    constructor(category, type, name, descripcion, longDescription, image) {
+        ValidateEnums.isValidEnum(category, Category, "Categoria invalida")
+        ValidateEnums.isValidEnum(type, TypeCard, "Tipo de carta invalido")
+        this.category = category;
+        this.type = type;
         this.name = name;
         this.descripcion = descripcion;
+        this.longDescription = longDescription;
+        this.image = image;
     }
 }
 
 // Clase de carta de carro
-class CarCard {
+class CarCard extends Card{
     static #nextId = 1;
 
     constructor(category, name, description, health, capacity, attBuff, nitro, longDescription, image) {
-        this.id = `car-${CarCard.#nextId++}`;
-        this.category = ValidateEnums.isValidEnum(category, Category, "Categoria invalida");
-        this.type = TypeCard.CAR
-        this.name = name;
-        this.description = description;
+        super(category, TypeCard.CAR, name, description, longDescription, image);
+        
         this.health = health;
         this.capacity = capacity;
         this.attBuff = attBuff;
         this.nitro = nitro;
-        this.longDescription = longDescription;
-        this.image = image;
+        this.id = `car-${CarCard.#nextId++}`
     }
 
 }
