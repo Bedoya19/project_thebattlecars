@@ -12,7 +12,6 @@ export class CarCard extends Card{
         this.capacity = capacity;
         this.attBuff = attBuff;
         this.nitro = nitro;
-        this.id = `car-${CarCard.#nextId++}`;
     }
 
     // Esta funcion es para duplicar las cartas sin modificar la original
@@ -28,4 +27,20 @@ export class CarCard extends Card{
             this.image
         );
     }
+    static async loadCarFromJSON(category, index) {
+        fetch("src/scripts/cardsData/cars.json")
+            .then(response => {
+                if (!response.ok) {
+                throw new Error('Network response was not ok: ' + response.statusText);
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log(data);
+            })
+            .catch(error => {
+                console.error('Error fetching JSON:', error);
+            });
+        }
+    
 }

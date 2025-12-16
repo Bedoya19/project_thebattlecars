@@ -8,6 +8,9 @@ import { Category } from "./models/constants/enums.js";
 import { TypeCard } from "./models/constants/enums.js";
 import { ValidateEnums } from "./models/constants/enums.js";
 
+
+//console.log(Symbol.keyFor(Category.CATEGORY1));
+
 // Importar cartas
 // Clase madre de Carta
 import { Card } from "./models/cards/Card.js"
@@ -18,6 +21,8 @@ import { WeaponCard } from "./models/cards/WeaponCard.js"
 
 // Display del mazo
 const deckCards = document.getElementById("deck-cards");
+
+console.log(CarCard.loadCarFromJSON("s", "s"));
 
 
 
