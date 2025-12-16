@@ -1,7 +1,7 @@
 // Temporal
 // Materiales en la Categoria 1
 const materialsCategory1 = [
-    ["cardboard", 1],
+    ["cardboard sheet", 1],
     ["rubberband", 2],
     ["rubber kit", 2],
     ["foam", 2],
@@ -13,9 +13,9 @@ const materialsCategory1 = [
 const materialsCategory2 = [
     ["wood plank", 1],
     ["reinforced rubberband", 2],
-    ["log", 2],
     ["carpentry toolkit", 2],
-    ["nails", 2],
+    ["log", 2],
+    ["wood glue", 2],
     ["high-quality gunpowder", 3],
     ["refined vegetable oil", 3]
 ];
@@ -56,6 +56,6 @@ const materialsCategory6 = [
     ["microcontroller", 2],
     ["industrial welding kit", 2],
     ["servomotor", 2],
-    ["liquid explosive", 3],
+    ["artillery kit", 3],
     ["napalm", 3]
 ]; 
