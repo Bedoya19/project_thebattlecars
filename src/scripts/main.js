@@ -3,28 +3,16 @@
 // Hecho por Bedoya1905
 // Alpha v0.0.01
 
+// Importar Enumso de Categoria, TypeCard y ValidateEnums
+import { Category } from "./models/constants/enums.js";
+import { TypeCard } from "./models/constants/enums.js";
+import { ValidateEnums } from "./models/constants/enums.js";
 
 // Display del mazo
 const deckCards = document.getElementById("deck-cards");
 
 
-// Todos estos enums (especialmente el de los materiales) iran despues a otro script.
-// Enum de categoria
-const Category = Object.freeze({
-    CATEGORY1: Symbol.for("category 1"),
-    CATEGORY2: Symbol.for("category 2"),
-    CATEGORY3: Symbol.for("category 3"),
-    CATEGORY4: Symbol.for("category 4"),
-    CATEGORY5: Symbol.for("category 5"),
-    CATEGORY6: Symbol.for("category 6")
-});
-// Enum de tipos de cartas
-const TypeCard = Object.freeze({
-    CAR:      Symbol.for("car"),
-    WEAPON:   Symbol.for("weapon"),
-    MATERIAL: Symbol.for("material"),
-    POWER:    Symbol.for("power")
-});
+
 
 // (Despues reviso por internet) Enum de materiales de la categoria 1
 const MaterialsCat1 = Object.freeze({
@@ -48,16 +36,9 @@ const card2 = {
 }
 
 // Validar categorias y tipos correctos para evitar problemas a futuro
-class ValidateEnums {
-    static isValidEnum(value, enumObj, msg = "Valor invalido") {
-        console.log("Validar")
-        const set = new Set(Object.values(enumObj));
-        if (!set.has(value)) throw new Error(msg);
-        return value;
-    }
-}
 
 // Clase padre de Cartas
+/*
 class Card {
     constructor(category, type, name, descripcion, longDescription, image) {
         ValidateEnums.isValidEnum(category, Category, "Categoria invalida")
@@ -69,10 +50,12 @@ class Card {
         this.longDescription = longDescription;
         this.image = image;
     }
-}
+}*/
+import { Card } from "./models/cards/Card.js"
 
 // (sub)clase de carta de carro
 // La subdivision funciona correctamente!
+
 class CarCard extends Card{
     static #nextId = 1;
 
@@ -100,6 +83,7 @@ class CarCard extends Card{
         );
     }
 }
+
 // (sub)clase de carta de arma
 class WeaponCard extends Card {
     static #nextId = 1;
