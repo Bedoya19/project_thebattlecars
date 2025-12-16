@@ -7,6 +7,8 @@
 // Display del mazo
 const deckCards = document.getElementById("deck-cards");
 
+
+// Todos estos enums (especialmente el de los materiales) iran despues a otro script.
 // Enum de categoria
 const Category = Object.freeze({
     CATEGORY1: Symbol.for("category 1"),
@@ -22,6 +24,17 @@ const TypeCard = Object.freeze({
     WEAPON:   Symbol.for("weapon"),
     MATERIAL: Symbol.for("material"),
     POWER:    Symbol.for("power")
+});
+
+// (Despues reviso por internet) Enum de materiales de la categoria 1
+const MaterialsCat1 = Object.freeze({
+    CARDBOARD: Object.freeze(["cardboard", 1]),
+    RUBBERBAND: Object.freeze(["rubberband", 2]),
+    RUBBER_KIT: Object.freeze(["rubber kit", 2]),
+    FOAM: Object.freeze(["foam", 2]),
+    GLUE: Object.freeze(["glue", 2]),
+    GUNPOWDER: Object.freeze(["gunpowder", 3]),
+    VEGETABLE_OIL: Object.freeze(["vegetable oil", 3])
 });
 
 
@@ -141,7 +154,7 @@ const displayCardOnDeck = (card) => {
 //displayCardOnDeck(carCard);
 //displayCardOnDeck(weaponCard);
 
-// La siguiente funcion que voy a hacer es que mediante un array de clases de cartas, las muestre en el deck
+// Mostrar todas las cartas de un array al div del deck.
 const showDeckOfCards = (cards) => {
     if (cards.length !== 0) {
         for (const card of cards) {
@@ -154,3 +167,4 @@ const showDeckOfCards = (cards) => {
     
 }
 showDeckOfCards(cards);
+
