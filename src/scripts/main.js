@@ -22,9 +22,13 @@ import { WeaponCard } from "./models/cards/WeaponCard.js"
 // Display del mazo
 const deckCards = document.getElementById("deck-cards");
 
-console.log(CarCard.loadCarFromJSON("s", "s"));
-
-
+async function prueba() {
+    const carData = await CarCard.loadCarFromJSON("category1", 0);
+    console.log(carData);
+    const carDataObj = CarCard.convertCarJSON(carData);
+    console.log(carDataObj.name);
+}
+prueba();
 
 
 // (Despues reviso por internet) Enum de materiales de la categoria 1

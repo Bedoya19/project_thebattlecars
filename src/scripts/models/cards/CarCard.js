@@ -1,6 +1,7 @@
 import { Category } from "../constants/enums.js";
 import { TypeCard } from "../constants/enums.js";
 import { Card } from "./Card.js";
+import { DataConversor } from "../constants/enums.js";
 
 export class CarCard extends Card{
     static #nextId = 1;
@@ -28,19 +29,26 @@ export class CarCard extends Card{
         );
     }
     static async loadCarFromJSON(category, index) {
-        fetch("src/scripts/cardsData/cars.json")
-            .then(response => {
-                if (!response.ok) {
-                throw new Error('Network response was not ok: ' + response.statusText);
-                }
-                return response.json();
-            })
-            .then(data => {
-                console.log(data);
-            })
-            .catch(error => {
-                console.error('Error fetching JSON:', error);
-            });
-        }
-    
+        const res = await fetch("src/scripts/cardsData/cars.json");
+        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
+        const data = await res.json();
+        //console.log(data["category1"]);
+        const car = data?.[category]?.[index];
+
+        if (!car) throw new Error(`No existe data[${category}][${index}]`);
+        return car;
+    }
+    static convertCarJSON(carData) {
+        return new CarCard(
+            DataConversor.stringToEnum("category", carData.category),
+            carData.name,
+            carData.descripcion,
+            carData.health,
+            carData.capacity,
+            carData.attBuff,
+            carData.nitro,
+            carData.longDescription
+        )
+    }
 }
