@@ -8,6 +8,13 @@ import { Category } from "./models/constants/enums.js";
 import { TypeCard } from "./models/constants/enums.js";
 import { ValidateEnums } from "./models/constants/enums.js";
 
+// Importar cartas
+// Clase madre de Carta
+import { Card } from "./models/cards/Card.js"
+// Subclase de Car
+import { CarCard } from ".models/cards/CarCard.js";
+//
+
 // Display del mazo
 const deckCards = document.getElementById("deck-cards");
 
@@ -36,53 +43,6 @@ const card2 = {
 }
 
 // Validar categorias y tipos correctos para evitar problemas a futuro
-
-// Clase padre de Cartas
-/*
-class Card {
-    constructor(category, type, name, descripcion, longDescription, image) {
-        ValidateEnums.isValidEnum(category, Category, "Categoria invalida")
-        ValidateEnums.isValidEnum(type, TypeCard, "Tipo de carta invalido")
-        this.category = category;
-        this.type = type;
-        this.name = name;
-        this.descripcion = descripcion;
-        this.longDescription = longDescription;
-        this.image = image;
-    }
-}*/
-import { Card } from "./models/cards/Card.js"
-
-// (sub)clase de carta de carro
-// La subdivision funciona correctamente!
-
-class CarCard extends Card{
-    static #nextId = 1;
-
-    constructor(category, name, description, health, capacity, attBuff, nitro, longDescription, image) {
-        super(category, TypeCard.CAR, name, description, longDescription, image);
-
-        this.health = health;
-        this.capacity = capacity;
-        this.attBuff = attBuff;
-        this.nitro = nitro;
-        this.id = `car-${CarCard.#nextId++}`
-    }
-
-    // Esta funcion es para duplicar las cartas sin modificar la original
-    clone() {
-        return new CarCard(
-            this.category,
-            this.name,
-            this.descripcion,
-            this.health,
-            this.capacity,
-            this.attBuff,
-            [...this.nitro],
-            this.image
-        );
-    }
-}
 
 // (sub)clase de carta de arma
 class WeaponCard extends Card {
