@@ -10,7 +10,8 @@
             "health": 10,
             "capacity": 4,
             "attBuff": 0,
-            "nitro": [3, 3]
+            "nitro": [3, 3],
+            "image": "./src/images/dodgedartgt.png"
         }
     ],
     "category2": [],

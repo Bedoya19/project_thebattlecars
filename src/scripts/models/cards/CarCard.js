@@ -28,7 +28,7 @@ export class CarCard extends Card{
             this.image
         );
     }
-    static async loadCarFromJSON(category, index) {
+    static async loadCarDataFromJSON(category, index) {
         const res = await fetch("src/scripts/cardsData/cars.json");
         if (!res.ok) throw new Error(`HTTP ${res.status}`);
 
@@ -43,12 +43,18 @@ export class CarCard extends Card{
         return new CarCard(
             DataConversor.stringToEnum("category", carData.category),
             carData.name,
-            carData.descripcion,
+            carData.description,
             carData.health,
             carData.capacity,
             carData.attBuff,
             carData.nitro,
-            carData.longDescription
+            carData.longDescription,
+            carData.image
         )
+    }
+    // Esta funcion basicamente hace lo que hice en prueba, pero junto
+    static async loadCarObjectFromJSON(category, index) {
+        const carData = await CarCard.loadCarDataFromJSON(category, index);
+        return CarCard.convertCarJSON(carData);
     }
 }
