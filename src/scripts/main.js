@@ -43,35 +43,6 @@ const card2 = {
     description: "Este simple pedazo de carton te puede ayudar a mejorar todas las armas de la categoria 1 a un nivel mayor, mejorando sus habilidades y rellenando su poder en el proceso." 
 }
 
-// Validar categorias y tipos correctos para evitar problemas a futuro
-
-// (sub)clase de carta de arma
-/*
-class WeaponCard extends Card {
-    static #nextId = 1;
-
-    constructor(category, name, description, attacks, energy, materials, longDescription, image) {
-        super(category, TypeCard.WEAPON, name, description, longDescription, image);
-        // Toca revisar que la informacion este correcta
-        this.attacks = attacks;
-        this.energy = energy;
-        // Esto tambien tiene que tener algun diseño en especifico.
-        this.materials = materials;
-    }
-
-    clone() {
-        return new WeaponCard(
-            this.category,
-            this.name,
-            this.descripcion,
-            this.longDescription,
-            this.image,
-            structuredClone(attacks),
-            this.energy,
-            structuredClone(this.materials)
-        )
-    }
-}*/
 // (sub)clase de carta de material
 class MaterialCard extends Card {
     static #nextId = 1;
