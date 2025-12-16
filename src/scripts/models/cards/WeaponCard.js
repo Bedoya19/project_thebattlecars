@@ -3,7 +3,7 @@ import { TypeCard } from "../constants/enums.js";
 import { Card } from "./Card.js";
 
 
-class WeaponCard extends Card {
+export class WeaponCard extends Card {
     static #nextId = 1;
 
     constructor(category, name, description, attacks, energy, materials, longDescription, image) {
