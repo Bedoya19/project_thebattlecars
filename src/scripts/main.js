@@ -13,7 +13,8 @@ import { ValidateEnums } from "./models/constants/enums.js";
 import { Card } from "./models/cards/Card.js"
 // Subclase de Car
 import { CarCard } from ".models/cards/CarCard.js";
-//
+// Subclase de Weapon
+import { WeaponCard } from ".models/cards/WeaponCard.js"
 
 // Display del mazo
 const deckCards = document.getElementById("deck-cards");
@@ -45,6 +46,7 @@ const card2 = {
 // Validar categorias y tipos correctos para evitar problemas a futuro
 
 // (sub)clase de carta de arma
+/*
 class WeaponCard extends Card {
     static #nextId = 1;
 
@@ -69,7 +71,7 @@ class WeaponCard extends Card {
             structuredClone(this.materials)
         )
     }
-}
+}*/
 // (sub)clase de carta de material
 class MaterialCard extends Card {
     static #nextId = 1;
