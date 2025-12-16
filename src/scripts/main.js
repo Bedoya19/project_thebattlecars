@@ -100,6 +100,16 @@ class WeaponCard extends Card {
         this.materials = materials;
     }
 }
+// (sub)clase de carta de material
+class MaterialCard extends Material {
+    static #nextId = 1;
+
+    constructor(category, name, description, longDescription, image, materialInQuestion, quantity) {
+        super(category, TypeCard.MATERIAL, name, description, longDescription, image);
+        this.materialInQuestion = ValidateEnums.isValidEnum(materialInQuestion, MaterialsCat1, "Material de Categoria 1 invalido");
+        this.quantity = quantity;
+    }
+}
 
 
 const carCard = new CarCard(
