@@ -86,6 +86,19 @@ class CarCard extends Card{
         this.id = `car-${CarCard.#nextId++}`
     }
 
+    // Esta funcion es para duplicar las cartas sin modificar la original
+    clone() {
+        return new CarCard(
+            this.category,
+            this.name,
+            this.descripcion,
+            this.health,
+            this.capacity,
+            this.attBuff,
+            [...this.nitro],
+            this.image
+        );
+    }
 }
 // (sub)clase de carta de arma
 class WeaponCard extends Card {
@@ -98,6 +111,19 @@ class WeaponCard extends Card {
         this.energy = energy;
         // Esto tambien tiene que tener algun diseño en especifico.
         this.materials = materials;
+    }
+
+    clone() {
+        return new WeaponCard(
+            this.category,
+            this.name,
+            this.descripcion,
+            this.longDescription,
+            this.image,
+            structuredClone(attacks),
+            this.energy,
+            structuredClone(this.materials)
+        )
     }
 }
 // (sub)clase de carta de material
