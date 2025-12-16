@@ -12,9 +12,9 @@ import { ValidateEnums } from "./models/constants/enums.js";
 // Clase madre de Carta
 import { Card } from "./models/cards/Card.js"
 // Subclase de Car
-import { CarCard } from ".models/cards/CarCard.js";
+import { CarCard } from "./models/cards/CarCard.js";
 // Subclase de Weapon
-import { WeaponCard } from ".models/cards/WeaponCard.js"
+import { WeaponCard } from "./models/cards/WeaponCard.js"
 
 // Display del mazo
 const deckCards = document.getElementById("deck-cards");

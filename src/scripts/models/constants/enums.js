@@ -18,7 +18,7 @@ export const TypeCard = Object.freeze({
 // Validar enums correctos en inputs selectivos
 export class ValidateEnums {
     static isValidEnum(value, enumObj, msg = "Valor invalido") {
-        console.log("Validar")
+        console.log(`Validar ${enumObj}`)
         const set = new Set(Object.values(enumObj));
         if (!set.has(value)) throw new Error(msg);
         return value;

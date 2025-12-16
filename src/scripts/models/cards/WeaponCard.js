@@ -13,6 +13,7 @@ export class WeaponCard extends Card {
         this.energy = energy;
         // Esto tambien tiene que tener algun diseño en especifico.
         this.materials = materials;
+        this.id = `weapon-${WeaponCard.#nextId++}`;
     }
 
     clone() {

@@ -1,6 +1,6 @@
-import { Category } from "../constants/enums";
-import { TypeCard } from "../constants/enums";
-import { Card } from "./Card";
+import { Category } from "../constants/enums.js";
+import { TypeCard } from "../constants/enums.js";
+import { Card } from "./Card.js";
 
 export class CarCard extends Card{
     static #nextId = 1;
@@ -12,7 +12,7 @@ export class CarCard extends Card{
         this.capacity = capacity;
         this.attBuff = attBuff;
         this.nitro = nitro;
-        this.id = `car-${CarCard.#nextId++}`
+        this.id = `car-${CarCard.#nextId++}`;
     }
 
     // Esta funcion es para duplicar las cartas sin modificar la original
