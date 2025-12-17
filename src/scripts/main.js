@@ -18,6 +18,8 @@ import { Card } from "./models/cards/Card.js"
 import { CarCard } from "./models/cards/CarCard.js";
 // Subclase de Weapon
 import { WeaponCard } from "./models/cards/WeaponCard.js"
+// Subclase de Material
+import { MaterialCard } from "./models/cards/MaterialCard.js";
 
 // Display del mazo
 const deckCards = document.getElementById("deck-cards");
@@ -44,6 +46,7 @@ const card2 = {
 }
 
 // (sub)clase de carta de material
+/*
 class MaterialCard extends Card {
     static #nextId = 1;
 
@@ -52,11 +55,11 @@ class MaterialCard extends Card {
         this.materialInQuestion = ValidateEnums.isValidEnum(materialInQuestion, MaterialsCat1, "Material de Categoria 1 invalido");
         this.quantity = quantity;
     }
-}
+}*/
 
 const carCard = await CarCard.loadCarObjectFromJSON("category1", 0);
 const weaponCard = await WeaponCard.loadWeaponObjectFromJSON("category1", 0);
-
+/*
 const materialCard = new MaterialCard(
     Category.CATEGORY1,
     "Carton x1",
@@ -65,7 +68,9 @@ const materialCard = new MaterialCard(
     "./src/images/carton_x1.png",
     "cardboard", // Corregir esto despues
     1
-);
+);*/
+const materialCard = await MaterialCard.loadMaterialObjectFromJSON("category1", 0);
+
 const cards = [carCard, weaponCard, materialCard];
 
 // Funcion de lo que hace cuando se hace click en una carta (temporal para pruebas)
