@@ -1,0 +1,27 @@
+{
+    "category1": [
+        {
+            "id": "weapon-cardboard-rockerlauncher",
+            "category": "category 1",
+            "type": "weapon",
+            "name": "Lanzacohetes de carton",
+            "description": "¿Un lanzacohetes de carto? ¿Y eso como se supone que debe funcionar?",
+            "longDescription": "Por mas que parezca una mala idea, este lanzacohetes de carton es una de las armas mas basicas, pero la mismo tiempo mas robustas de la categoria. Tiene una progresion estable en su ataque, sus mejoras son creibles y lineales, y no es muy caro de mejorar.",
+            "attacks": [
+                [1, 2, 3, 4, 5, 6],
+                [2, 3, 4, 5, 6, 7],
+                [3, 4, 5, 6, 7, 8]
+            ],
+            "materials:": [
+                ["cardboard", 4],
+                ["rubberband", 2],
+                ["gunpowder", 1]
+            ]
+        }
+    ],
+    "category2": [],
+    "category3": [],
+    "category4": [],
+    "category5": [],
+    "category6": []
+}
