@@ -22,13 +22,6 @@ import { WeaponCard } from "./models/cards/WeaponCard.js"
 // Display del mazo
 const deckCards = document.getElementById("deck-cards");
 
-async function prueba() {
-    const carObj = await CarCard.loadCarObjectFromJSON("category1", 0);
-    console.log(carObj);
-}
-prueba();
-
-
 // (Despues reviso por internet) Enum de materiales de la categoria 1
 const MaterialsCat1 = Object.freeze({
     CARDBOARD: Object.freeze(["cardboard", 1]),
@@ -61,18 +54,7 @@ class MaterialCard extends Card {
     }
 }
 
-
-const carCard = new CarCard(
-    Category.CATEGORY1, 
-    "Dodge Dart GT", 
-    "El carro mas basico, todo el mundo lo tiene", 
-    10, 
-    4, 
-    0, 
-    [3, 3], 
-    "El Dodge Dart GT es la carta de carro mas basica y comun de todas. Que sea basica y comun no significa que sea una mala carta, ya que es bastante balanceada, estable en lo que se espera, y combina con muchas estrategias.",
-    "./src/images/dodgedartgt.png"
-);
+const carCard = await CarCard.loadCarObjectFromJSON("category1", 0);
 const weaponCard = new WeaponCard(
     Category.CATEGORY1, 
     "Lanzacohetes de carton", 
