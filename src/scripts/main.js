@@ -55,6 +55,8 @@ class MaterialCard extends Card {
 }
 
 const carCard = await CarCard.loadCarObjectFromJSON("category1", 0);
+const weaponCard = await WeaponCard.loadWeaponObjectFromJSON("category1", 0);
+/*
 const weaponCard = new WeaponCard(
     Category.CATEGORY1, 
     "Lanzacohetes de carton", 
@@ -68,7 +70,8 @@ const weaponCard = new WeaponCard(
     ["gunpowder", 1]],
     "Por mas que parezca una mala idea, este lanzacohetes de carton es una de las armas mas basicas, pero la mismo tiempo mas robustas de la categoria. Tiene una progresion estable en su ataque, sus mejoras son creibles y lineales, y no es muy caro de mejorar.",
     "./src/images/cohete_carton.png"
-);
+);*/
+console.log(weaponCard);
 const materialCard = new MaterialCard(
     Category.CATEGORY1,
     "Carton x1",

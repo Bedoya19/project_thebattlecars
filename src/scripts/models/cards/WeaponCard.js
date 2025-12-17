@@ -44,12 +44,12 @@ export class WeaponCard extends Card {
         return new WeaponCard(
             DataConversor.stringToEnum("category", weaponData.category),
             weaponData.name,
-            weaponData.descripcion,
-            weaponData.longDescription,
-            weaponData.image,
+            weaponData.description,
             weaponData.attacks,
             weaponData.energy,
-            weaponData.materials
+            weaponData.materials,
+            weaponData.longDescription,
+            weaponData.image
         )
     }
     static async loadWeaponObjectFromJSON(category, index) {
