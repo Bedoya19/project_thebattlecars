@@ -30,7 +30,7 @@ export class CarCard extends Card{
     }
     static async loadCarDataFromJSON(category, index) {
         const res = await fetch("src/scripts/cardsData/cars.json");
-        if (!res.ok) throw new Error(`HTTP ${res.status}`);
+        if (!res.ok) throw new Error(`HTTP Error ${res.status}`);
 
         const data = await res.json();
         //console.log(data["category1"]);
