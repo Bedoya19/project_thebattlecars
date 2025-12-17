@@ -1,0 +1,20 @@
+{
+    "category1": [
+        {
+            "id": "material-cardboard_x1",
+            "category": "category 1",
+            "type": "material",
+            "name": "Cardboard x1",
+            "description": "Este simple individual pedazo de carton te puede ayudar a mejorar todas las armas de la categoria 1 a un nivel mayor, mejorando sus habilidades y rellenando su energia en el proceso.",
+            "longDescription": "¡El material mas sencillo y coumn de la categoria! Aunque no es mucho un simple pedazo de carton, puede contribuir a la mejora de una armas, ya que todas las armas de esta categoria requerien por lo minimo un pedazo de carton, entonces tener esta carta nunca hace falta en un mazo de la Categoria 1. Mejorar armas es una excelente opcion ya que mejora las habilidades de la arma, y ademas rellena el poder. ¡Aprovecha a mejorar un arma cuando tengas la opcion!",
+            "materialInQuestion": "cardboard",
+            "quantity": 1,
+            "image": "./src/images/carton_x1.png"
+        }
+    ],
+    "category2": [],
+    "category3": [],
+    "category4": [],
+    "category5": [],
+    "category6": []
+}

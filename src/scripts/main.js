@@ -60,7 +60,7 @@ const weaponCard = await WeaponCard.loadWeaponObjectFromJSON("category1", 0);
 const materialCard = new MaterialCard(
     Category.CATEGORY1,
     "Carton x1",
-    "Este simple pedazo de carton te puede ayudar a mejorar todas las armas de la categoria 1 a un nivel mayor, mejorando sus habilidades y rellenando su poder en el proceso.",
+    "Este simple individual pedazo de carton te puede ayudar a mejorar todas las armas de la categoria 1 a un nivel mayor, mejorando sus habilidades y rellenando su poder en el proceso.",
     "¡El material mas sencillo y coumn de la categoria! Aunque no es mucho un simple pedazo de carton, puede contribuir a la mejora de una armas, ya que todas las armas de esta categoria requerien por lo minimo un pedazo de carton, entonces tener esta carta nunca hace falta en un mazo de la Categoria 1. Mejorar armas es una excelente opcion ya que mejora las habilidades de la arma, y ademas rellena el poder. ¡Aprovecha a mejorar un arma cuando tengas la opcion!",
     "./src/images/carton_x1.png",
     "cardboard", // Corregir esto despues
