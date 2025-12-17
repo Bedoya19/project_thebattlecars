@@ -56,29 +56,14 @@ class MaterialCard extends Card {
 
 const carCard = await CarCard.loadCarObjectFromJSON("category1", 0);
 const weaponCard = await WeaponCard.loadWeaponObjectFromJSON("category1", 0);
-/*
-const weaponCard = new WeaponCard(
-    Category.CATEGORY1, 
-    "Lanzacohetes de carton", 
-    "¿Un lanzacohetes de carto? ¿Y eso como se supone que debe funcionar?",
-    [[1, 2, 3, 4, 5, 6],
-    [2, 3, 4, 5, 6, 7], 
-    [3, 4, 5, 6, 7, 8]],
-    4,
-    [["cardboard", 4],
-    ["rubberband", 2],
-    ["gunpowder", 1]],
-    "Por mas que parezca una mala idea, este lanzacohetes de carton es una de las armas mas basicas, pero la mismo tiempo mas robustas de la categoria. Tiene una progresion estable en su ataque, sus mejoras son creibles y lineales, y no es muy caro de mejorar.",
-    "./src/images/cohete_carton.png"
-);*/
-console.log(weaponCard);
+
 const materialCard = new MaterialCard(
     Category.CATEGORY1,
     "Carton x1",
     "Este simple pedazo de carton te puede ayudar a mejorar todas las armas de la categoria 1 a un nivel mayor, mejorando sus habilidades y rellenando su poder en el proceso.",
     "¡El material mas sencillo y coumn de la categoria! Aunque no es mucho un simple pedazo de carton, puede contribuir a la mejora de una armas, ya que todas las armas de esta categoria requerien por lo minimo un pedazo de carton, entonces tener esta carta nunca hace falta en un mazo de la Categoria 1. Mejorar armas es una excelente opcion ya que mejora las habilidades de la arma, y ademas rellena el poder. ¡Aprovecha a mejorar un arma cuando tengas la opcion!",
     "./src/images/carton_x1.png",
-    MaterialsCat1.CARDBOARD,
+    "cardboard", // Corregir esto despues
     1
 );
 const cards = [carCard, weaponCard, materialCard];
