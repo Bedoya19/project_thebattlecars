@@ -24,53 +24,11 @@ import { MaterialCard } from "./models/cards/MaterialCard.js";
 // Display del mazo
 const deckCards = document.getElementById("deck-cards");
 
-// (Despues reviso por internet) Enum de materiales de la categoria 1
-const MaterialsCat1 = Object.freeze({
-    CARDBOARD: Object.freeze(["cardboard", 1]),
-    RUBBERBAND: Object.freeze(["rubberband", 2]),
-    RUBBER_KIT: Object.freeze(["rubber kit", 2]),
-    FOAM: Object.freeze(["foam", 2]),
-    GLUE: Object.freeze(["glue", 2]),
-    GUNPOWDER: Object.freeze(["gunpowder", 3]),
-    VEGETABLE_OIL: Object.freeze(["vegetable oil", 3])
-});
 
-
-const card2 = {
-    category: 1,
-    type: "material",
-    name: "Carton",
-    materialInQuestion: "cardboard",
-    quantity: 1,
-    description: "Este simple pedazo de carton te puede ayudar a mejorar todas las armas de la categoria 1 a un nivel mayor, mejorando sus habilidades y rellenando su poder en el proceso." 
-}
-
-// (sub)clase de carta de material
-/*
-class MaterialCard extends Card {
-    static #nextId = 1;
-
-    constructor(category, name, description, longDescription, image, materialInQuestion, quantity) {
-        super(category, TypeCard.MATERIAL, name, description, longDescription, image);
-        this.materialInQuestion = ValidateEnums.isValidEnum(materialInQuestion, MaterialsCat1, "Material de Categoria 1 invalido");
-        this.quantity = quantity;
-    }
-}*/
-
+// Creacion de las cartas de prueba
 const carCard = await CarCard.loadCarObjectFromJSON("category1", 0);
 const weaponCard = await WeaponCard.loadWeaponObjectFromJSON("category1", 0);
-/*
-const materialCard = new MaterialCard(
-    Category.CATEGORY1,
-    "Carton x1",
-    "Este simple individual pedazo de carton te puede ayudar a mejorar todas las armas de la categoria 1 a un nivel mayor, mejorando sus habilidades y rellenando su poder en el proceso.",
-    "¡El material mas sencillo y coumn de la categoria! Aunque no es mucho un simple pedazo de carton, puede contribuir a la mejora de una armas, ya que todas las armas de esta categoria requerien por lo minimo un pedazo de carton, entonces tener esta carta nunca hace falta en un mazo de la Categoria 1. Mejorar armas es una excelente opcion ya que mejora las habilidades de la arma, y ademas rellena el poder. ¡Aprovecha a mejorar un arma cuando tengas la opcion!",
-    "./src/images/carton_x1.png",
-    "cardboard", // Corregir esto despues
-    1
-);*/
 const materialCard = await MaterialCard.loadMaterialObjectFromJSON("category1", 0);
-
 const cards = [carCard, weaponCard, materialCard];
 
 // Funcion de lo que hace cuando se hace click en una carta (temporal para pruebas)
