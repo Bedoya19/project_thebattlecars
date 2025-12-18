@@ -12,9 +12,9 @@ import { Card } from "./models/cards/Card.js" // Clase madre de Carta
 import { CarCard } from "./models/cards/CarCard.js"; // Subclase de Car
 import { WeaponCard } from "./models/cards/WeaponCard.js" // Subclase de Weapon
 import { MaterialCard } from "./models/cards/MaterialCard.js"; // Subclase de Material
-// Scripts de display
-import { displayCardOnDeck } from "./display/deckDisplay.js";
-import { showDeckOfCards } from "./display/deckDisplay.js";
+// Clase de display en el mazo
+import { DisplayCardsInDeck } from "./display/deckDisplay.js";
+
 
 
 // Display del mazo
@@ -27,5 +27,5 @@ const weaponCard = await WeaponCard.loadWeaponObjectFromJSON("category1", 0);
 const materialCard = await MaterialCard.loadMaterialObjectFromJSON("category1", 0);
 const cards = [carCard, weaponCard, materialCard];
 
-showDeckOfCards(deckCards, cards);
+DisplayCardsInDeck.showDeckOfCards(deckCards, cards);
 
