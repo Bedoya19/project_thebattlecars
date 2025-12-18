@@ -19,7 +19,9 @@ import { DisplayCardsInDeck } from "./display/deckDisplay.js";
 
 // Display del mazo
 const deckCards = document.getElementById("deck-cards");
-
+// Display de la informacion de una carta
+const cardInformation = document.getElementById("card-selected-information");
+console.log(cardInformation);
 
 // Creacion de las cartas de prueba
 const carCard = await CarCard.loadCarObjectFromJSON("category1", 0);
@@ -27,5 +29,5 @@ const weaponCard = await WeaponCard.loadWeaponObjectFromJSON("category1", 0);
 const materialCard = await MaterialCard.loadMaterialObjectFromJSON("category1", 0);
 const cards = [carCard, weaponCard, materialCard];
 
-DisplayCardsInDeck.showDeckOfCards(deckCards, cards);
+DisplayCardsInDeck.showDeckOfCards(deckCards, cards, cardInformation);
 
