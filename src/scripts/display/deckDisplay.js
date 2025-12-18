@@ -5,7 +5,7 @@ import { DisplayCardInformation } from "./displayCardInformation.js";
 // Funcion de lo que hace cuando se hace click en una carta (temporal para pruebas)
 const clickOnDeckCard = (divInformation, card) => {
     //console.log(`Clicked on ${card.name}`)
-    DisplayCardInformation.displayInformation(divInformation, card);
+    DisplayCardInformation.displayInformationOnDeck(divInformation, card);
 }
 
 
