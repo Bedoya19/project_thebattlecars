@@ -20,7 +20,7 @@ export class CarCard extends Card{
         return new CarCard(
             this.category,
             this.name,
-            this.descripcion,
+            this.description,
             this.health,
             this.capacity,
             this.attBuff,

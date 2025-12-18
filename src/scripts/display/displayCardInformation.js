@@ -31,7 +31,7 @@ export class DisplayCardInformation {
 
     // Mostrar la informacion de una carta de carro del deck
     static displayCarCardInformationDeck(divElement, card) {
-        //console.log(divElement);
+        console.log(card);
         // Esto es solo para mostrar la informacion de la carta en el deck.
         const carInformationFormat = `
             ${this.mainCardInformation("Jugador 1", card.image, card.name)}
@@ -44,14 +44,17 @@ export class DisplayCardInformation {
                     <p id="nitro-quantity" class="card-selected-information">Capacidad de nitro: <span>${card.nitro[0]}</span></p>
                     <p id="nitro-duration" class="card-selected-information">Duracion de nitro: <span>${card.nitro[1]}</span></p>
                 </div>
-                <hr id="card-selected-bar">
-                <p id="card-selected-description" class="card-selected-information">"El carro mas basico, todo el mundo lo tiene"</p>
+                ${this.descriptionCardInformation(card)}
             </div>
         `;
         divElement.innerHTML = carInformationFormat;
     }
     
-    static displayWeaponCardInformationDeck(divElement, card) {
-        return "";
+    // Funcion de mostrar la desripcion de la carta
+    static descriptionCardInformation(card) {
+        return `
+            <hr id="card-selected-bar">
+            <p id="card-selected-description" class="card-selected-information">"${card.description}"</p>
+        `
     }
 }

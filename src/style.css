@@ -291,3 +291,7 @@ body {
         height: 75px;
     }
 }
+
+.card-selected-attack{
+    line-height : 20px;
+}
