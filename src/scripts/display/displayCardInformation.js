@@ -46,7 +46,6 @@ export class DisplayCardInformation {
         const carInformationFormat = `
             ${this.mainCardInformation("Jugador 1", card.image, card.name)}
             <div id="card-selected-general-information">
-                <!-- Esta informacion cambiara dependiendo del tipo de carta que es -->
                 <p id="car-selected-health" class="card-selected-information">Vida: <span>${card.health}</span></p>
                 <p id="car-selected-capacity" class="card-selected-information">Capacidad <span>${card.capacity}</span></p>
                 <p id="car-selected-attackbuff" class="card-selected-information">Aumento de ataque: <span>${card.attBuff}</span></p>
@@ -71,7 +70,7 @@ export class DisplayCardInformation {
                         ${WeaponListStatsDisplay.displayWeaponAttacks(card)}
                     </div>
                 </div>
-                <p id="card-selected-energy" class="card-selected-information">Energia: <span>4</span></p>
+                <p id="card-selected-energy" class="card-selected-information">Energia: <span>${card.energy}</span></p>
                 <div>
                     <p id="card-selected-upgrade" class="card-selected-information">Materiales para mejorar:</p>
                     <div id="card-selected-materials">
