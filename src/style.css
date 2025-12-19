@@ -292,6 +292,11 @@ body {
     }
 }
 
-.card-selected-attack{
-    line-height : 20px;
+.card-selected-list {
+    line-height : 10px;
+}
+
+.card-selected-lists {
+    list-style-position: inside;
+    font-size: 13px;
 }
