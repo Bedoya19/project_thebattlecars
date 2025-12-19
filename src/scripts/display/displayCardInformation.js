@@ -72,7 +72,7 @@ export class DisplayCardInformation {
                 </div>
                 <p id="card-selected-energy" class="card-selected-information">Energia: <span>4</span></p>
                 <div>
-                    <p class="card-selected-information">Materiales para mejorar:</p>
+                    <p id="card-selected-upgrade" class="card-selected-information">Materiales para mejorar:</p>
                     <div id="card-selected-materials">
                         ${WeaponListStatsDisplay.displayWeaponMaterials(card)}
                     </div>
