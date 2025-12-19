@@ -10,6 +10,7 @@ export class DisplayCardInformation {
                 DisplayCardInformation.displayWeaponCardInformationDeck(divElement, card);
                 break;
             case "material":
+                DisplayCardInformation.displayMaterialCardInformationDeck(divElement, card);
                 break;
             case "power":
                 break;
@@ -81,6 +82,18 @@ export class DisplayCardInformation {
             </div>
         `
         divElement.innerHTML = weaponInformationFormat;
+    }
+
+    // Mostrar la informacion de una carta de material del deck
+    static displayMaterialCardInformationDeck(divElement, card) {
+        // Es bastante sencillo, en teoria la descripcion dice lo que hace, pero tal vez cambie
+        const materialInformationFormat = `
+            ${this.mainCardInformation("Jugador 1", card.image, card.name)}
+            <div id="card-selected-general-information">
+                <p class="card-selected-information">${card.description}</p>
+            </div>
+        `
+        divElement.innerHTML = materialInformationFormat;
     }
 }
 
