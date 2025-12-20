@@ -94,6 +94,11 @@ export class DisplayCardInformation {
         `
         divElement.innerHTML = materialInformationFormat;
     }
+
+    // Poner la informacion respectiva en las datas del div de informacion para que sepa de donde vino
+    // data-card: La informacion JSON de la carta (si esta viene del deck)
+    // data-origin: De donde vino la informacion de la carta. Del deck o del tablero
+    // data-player: El dueño de la carta del jugador
 }
 
 // Clase de las funciones de mostrar los ataques y los materiales de cada arma respectiva en un formato de lista, ya preparado para adjuntarlo a cualquier HTML
