@@ -57,4 +57,14 @@ export class CarCard extends Card{
         const carData = await CarCard.loadCarDataFromJSON(category, index);
         return CarCard.convertCarJSON(carData);
     }
+    
+    // Esta sera una solucion bastante a fuerza bruta, pero no se me ocurre otra solucion
+    /*
+    static convertCarToJSON(carCard) {
+        return {
+            "id": carCard.name,
+            "category": DataConversor.enumToString(carCard.category),
+            ""
+        }
+    }*/
 }
