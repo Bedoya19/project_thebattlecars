@@ -6,7 +6,6 @@ import { CarCard } from "../models/cards/CarCard.js";
 // Funcion de lo que hace cuando se hace click en una carta (temporal para pruebas)
 const clickOnDeckCard = (divInformation, card) => {
     //console.log(`Clicked on ${card.name}`)
-    console.log(card.convertCarCardToJSON());
     DisplayCardInformation.displayInformationOnDeck(divInformation, card);
 }
 

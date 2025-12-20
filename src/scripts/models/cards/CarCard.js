@@ -62,7 +62,7 @@ export class CarCard extends Card{
     // Convierte un objecto de Car a un simple objecto de JS
     // No tiene sentido que sean static, esto es para convertir un tipo de CarCard a un objeto
     convertCarCardToJSON() {
-        console.log(`Convert ${this.name}`)
+        //console.log(`Convert ${this.name}`)
         return JSON.stringify({
             "id": `car-${this.name}`,
             "category": DataConversor.enumToString(this.category),
