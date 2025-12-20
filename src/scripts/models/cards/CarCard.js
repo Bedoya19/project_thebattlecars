@@ -59,12 +59,22 @@ export class CarCard extends Card{
     }
     
     // Esta sera una solucion bastante a fuerza bruta, pero no se me ocurre otra solucion
-    /*
-    static convertCarToJSON(carCard) {
-        return {
-            "id": carCard.name,
-            "category": DataConversor.enumToString(carCard.category),
-            ""
-        }
-    }*/
+    // Convierte un objecto de Car a un simple objecto de JS
+    // No tiene sentido que sean static, esto es para convertir un tipo de CarCard a un objeto
+    convertCarCardToJSON() {
+        console.log(`Convert ${this.name}`)
+        return JSON.stringify({
+            "id": `car-${this.name}`,
+            "category": DataConversor.enumToString(this.category),
+            "type": "car",
+            "name": this.name,
+            "description": this.description,
+            "longDescription": this.longDescription,
+            "health": this.health,
+            "capacity": this.capacity,
+            "attBuff": this.attBuff,
+            "nitro": this.nitro,
+            "image": this.image
+        });
+    }
 }

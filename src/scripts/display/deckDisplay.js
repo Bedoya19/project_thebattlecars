@@ -1,10 +1,12 @@
 import { DisplayCardInformation } from "./displayCardInformation.js";
+import { CarCard } from "../models/cards/CarCard.js";
 
 // Script de mostrar las cartas en el deck.
 
 // Funcion de lo que hace cuando se hace click en una carta (temporal para pruebas)
 const clickOnDeckCard = (divInformation, card) => {
     //console.log(`Clicked on ${card.name}`)
+    console.log(card.convertCarCardToJSON());
     DisplayCardInformation.displayInformationOnDeck(divInformation, card);
 }
 
