@@ -39,4 +39,32 @@ export class DisplayCardsInDeck {
             console.log("No existen cartas en este mazo!");
         }
     }
+
+    static changeDeck(deckIconImage, decksDefaultIcons, decks, divDeck, cardInformation) {
+        // Consigue el index actual del deck que se esta actualmente
+        const decksTypeList = Object.keys(decksDefaultIcons);
+        console.log(deckIconImage.dataset.deck);
+        let deckTypeIndex = decksTypeList.indexOf(deckIconImage.dataset.deck);
+
+        // Si el index del tipo del deck llega a la longitud maxima permitida, le da vuelta
+        console.log(deckTypeIndex);
+        if (deckTypeIndex === decksTypeList.length - 1) {
+            deckTypeIndex = 0;
+        } else {
+            ++deckTypeIndex;
+        }
+        console.log(deckTypeIndex);
+
+        // Reinicia el deck de cartas
+        divDeck.innerHTML = "";
+        // Muestra el deck resultante
+        // Uso mucho esto, y es mucho mas sencillo de entender que "decksTypeList[deckTypeIndex]"
+        const newDeck = decksTypeList[deckTypeIndex];
+        console.log(newDeck);
+        this.showDeckOfCards(divDeck, decks[newDeck], cardInformation);
+        // Cambia la informacion en el icono
+        deckIconImage.dataset.deck = newDeck;
+        console.log(decksDefaultIcons[newDeck]);
+        deckIconImage.setAttribute("src", decksDefaultIcons[newDeck]);
+    }
 }

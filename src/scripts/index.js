@@ -14,20 +14,38 @@ import { WeaponCard } from "./models/cards/WeaponCard.js" // Subclase de Weapon
 import { MaterialCard } from "./models/cards/MaterialCard.js"; // Subclase de Material
 // Clase de display en el mazo
 import { DisplayCardsInDeck } from "./display/deckDisplay.js";
+//import { image } from "./../images/default_icons/default_cars.png";
 
 
 
 // Display del mazo
 const deckCards = document.getElementById("deck-cards");
+const deckIcon = document.getElementById("deck-icon-current");
 // Display de la informacion de una carta
 const cardInformation = document.getElementById("card-selected-information");
 console.log(cardInformation);
+
+// Imagenes default del deck
+const deckDefaultIconsDir = {
+    "cars": "src/images/default_icons/default_cars.png",
+    "weapons": "src/images/default_icons/default_weapons.png",
+    "materials": "src/images/default_icons/default_material.png"
+    //"powers": "../images/default_icons/default_power.png"
+}
 
 // Creacion de las cartas de prueba
 const carCard = await CarCard.loadCarObjectFromJSON("category1", 0);
 const weaponCard = await WeaponCard.loadWeaponObjectFromJSON("category1", 0);
 const materialCard = await MaterialCard.loadMaterialObjectFromJSON("category1", 0);
-const cards = [carCard, weaponCard, materialCard];
+//const cards = [carCard, weaponCard, materialCard];
+const decks = {
+    "cars": [carCard, carCard, carCard],
+    "weapons": [weaponCard, weaponCard, weaponCard],
+    "materials": [materialCard, materialCard, materialCard]
+}
 
-DisplayCardsInDeck.showDeckOfCards(deckCards, cards, cardInformation);
+
+DisplayCardsInDeck.showDeckOfCards(deckCards, decks["cars"], cardInformation);
+
+deckIcon.addEventListener("click", () => { DisplayCardsInDeck.changeDeck(deckIcon, deckDefaultIconsDir, decks, deckCards, cardInformation) })
 
