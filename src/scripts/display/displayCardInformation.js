@@ -52,8 +52,17 @@ export class DisplayCardInformation {
                 <p id="car-selected-capacity" class="card-selected-information">Capacidad <span>${card.capacity}</span></p>
                 <p id="car-selected-attackbuff" class="card-selected-information">Aumento de ataque: <span>${card.attBuff}</span></p>
                 <div id="car-selected-nitro">
-                    <p id="nitro-quantity" class="card-selected-information">Capacidad de nitro: <span>${card.nitro[0]}</span></p>
-                    <p id="nitro-duration" class="card-selected-information">Duracion de nitro: <span>${card.nitro[1]}</span></p>
+                    <div id="car-selected-nitro-amount">
+                        <p id="nitro-quantity" class="card-selected-information">Capacidad de nitro: <span>${card.nitro[0]}</span></p>
+                        <p id="nitro-duration" class="card-selected-information">Duracion de nitro: <span>${card.nitro[1]}</span></p>
+                    </div>
+                    <div id="car-selected-nitro-buff">
+                        <p class="card-selected-information">Cuando nitro activo:</p>
+                        <ul class="card-selected-lists">
+                            <li class="card-selected-information card-selected-list">Resistencia: ${card.nitroBuff[0]}</li>
+                            <li class="card-selected-information card-selected-list">Ataque: +${card.nitroBuff[1]}</li>
+                        </ul>
+                    </div>
                 </div>
                 ${this.descriptionCardInformation(card)}
             </div>
