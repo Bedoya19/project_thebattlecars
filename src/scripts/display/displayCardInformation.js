@@ -2,11 +2,11 @@ import { DataConversor } from "../models/constants/enums.js";
 import { CarCard } from "../models/cards/CarCard.js";
 
 export class DisplayCardInformation {
-    static displayInformationOnDeck(divElement, card) {
+    static displayInformationOnDeck(divElement, card, cardId) {
         switch (DataConversor.enumToString(card.type)) {
             case "car":
                 const carJSON = card.convertCarCardToJSON();
-                DisplayCardInformation.displayCarCardInformationDeck(divElement, card, [carJSON, "player1"]);
+                DisplayCardInformation.displayCarCardInformationDeck(divElement, card, [carJSON, "player1"], cardId);
                 break;
             case "weapon":
                 DisplayCardInformation.displayWeaponCardInformationDeck(divElement, card);
@@ -42,12 +42,12 @@ export class DisplayCardInformation {
     }
 
     // Mostrar la informacion de una carta de carro del deck
-    static displayCarCardInformationDeck(divElement, card, [json, player]) {
+    static displayCarCardInformationDeck(divElement, card, [json, player], cardId) {
         //console.log(card);
         // Esto es solo para mostrar la informacion de la carta en el deck.
         const carInformationFormat = `
             ${this.mainCardInformation("Jugador 1", card.image, card.name)}
-            <div id="card-selected-general-information" data-card='${json}' data-origin="deck" data-player="${player}">
+            <div id="card-selected-general-information" data-card='${json}' data-origin="deck" data-player="${player}" data-card-id="${cardId}">
                 <p id="car-selected-health" class="card-selected-information">Vida: <span>${card.health}</span></p>
                 <p id="car-selected-capacity" class="card-selected-information">Capacidad <span>${card.capacity}</span></p>
                 <p id="car-selected-attackbuff" class="card-selected-information">Aumento de ataque: <span>${card.attBuff}</span></p>

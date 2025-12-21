@@ -4,9 +4,9 @@ import { CarCard } from "../models/cards/CarCard.js";
 // Script de mostrar las cartas en el deck.
 
 // Funcion de lo que hace cuando se hace click en una carta (temporal para pruebas)
-const clickOnDeckCard = (divInformation, card) => {
+const clickOnDeckCard = (divInformation, card, cardId) => {
     //console.log(`Clicked on ${card.name}`)
-    DisplayCardInformation.displayInformationOnDeck(divInformation, card);
+    DisplayCardInformation.displayInformationOnDeck(divInformation, card, cardId);
 }
 
 // Case de mostrar las cartas en el Display y todo lo que hace
@@ -18,11 +18,11 @@ export class DisplayCardsInDeck {
         // Crea un div de la carta
         const divCardInDeck = document.createElement("div");
         divCardInDeck.setAttribute("id", `deck-card-${quantityCardsInDeck}`);
-        divCardInDeck.setAttribute("class", "deck-card")
+        divCardInDeck.setAttribute("class", "deck-card");
         divCardInDeck.insertAdjacentHTML("beforeend", 
             `<img src="${card.image}" alt="card-${quantityCardsInDeck}">`
         )
-        divCardInDeck.addEventListener("click", () => {clickOnDeckCard(divInformation, card)});
+        divCardInDeck.addEventListener("click", () => {clickOnDeckCard(divInformation, card, divCardInDeck.id)});
 
         // La agrega al mazo.
         divDeck.appendChild(divCardInDeck);
