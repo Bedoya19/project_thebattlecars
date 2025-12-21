@@ -17,7 +17,7 @@ import { DisplayCardsInDeck } from "./display/deckDisplay.js";
 // Clase de acciones del tablero 
 import { BoardClick } from "./board/boardActions.js";
 //import { image } from "./../images/default_icons/default_cars.png";
-
+import { Player1 } from "./players/player1.js";
 
 
 // Display del mazo
@@ -59,3 +59,6 @@ for (const carSquare of carsSquares) {
     carSquare.addEventListener("click", () => { BoardClick.clickOnCarSquare(carSquare) });
 }
 
+console.log(Player1.getCars());
+console.log(Player1.deleteFromDeck("cars", 1));
+console.log(Player1.getCars());
