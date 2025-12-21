@@ -42,11 +42,7 @@ const carCard = await CarCard.loadCarObjectFromJSON("category1", 0);
 const weaponCard = await WeaponCard.loadWeaponObjectFromJSON("category1", 0);
 const materialCard = await MaterialCard.loadMaterialObjectFromJSON("category1", 0);
 //const cards = [carCard, weaponCard, materialCard];
-const decks = {
-    "cars": [carCard, carCard, carCard],
-    "weapons": [weaponCard, weaponCard, weaponCard],
-    "materials": [materialCard, materialCard, materialCard]
-}
+const decks = Player1.getDecks();
 
 
 DisplayCardsInDeck.showDeckOfCards(deckCards, decks["cars"], cardInformation);

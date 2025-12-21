@@ -1,3 +1,6 @@
+import { Player1 } from "../players/player1.js";
+import { DisplayCardsInDeck } from "../display/deckDisplay.js";
+
 export class BoardClick {
     static clickOnCarSquare(carSquare) {
         // Saco de aqui mismo los datos necesarios
@@ -5,6 +8,9 @@ export class BoardClick {
         try{
             const cardObj = JSON.parse(cardGeneralInformation.dataset.card);
             const currentPlayer = document.getElementById("deck").dataset.player;
+            const currentDeck = document.getElementById("deck-icon-current");
+            const deckCards = document.getElementById("deck-cards")
+            const cardInformation = document.getElementById("card-selected-information");
             console.log(cardObj.type);
 
             const carBoardPlayer = carSquare.classList[2];
@@ -27,11 +33,17 @@ export class BoardClick {
                 carSquare.dataset.nitroResistance = cardObj.nitroBuff[0];
                 carSquare.dataset.nitroAttack = cardObj.nitroBuff[1];
 
+                console.log(cardGeneralInformation.dataset.cardId);
+                const deckIndex = cardGeneralInformation.dataset.cardId.slice(10);
+                Player1.deleteFromDeck("cars", deckIndex);
+                if (currentDeck.dataset.deck === "car") {
+                    deckCards.innerHTML = "";
+                    DisplayCardsInDeck.showDeckOfCards(deckCards, Player1.getCars(), cardInformation);
+                }
                 console.log("carta agregada exitosamente!");
             } else {
                 console.log(checkBoard.checkCarSquareAvailability(carBoardPlayer, currentPlayer, carSquare)[1]);
             }
-            
         }
         catch (e) {
             // Si hubo un error, lo mas probable es que fuera que el JSON estuviera undefined, entonces esto se muestra

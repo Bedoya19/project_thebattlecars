@@ -23,7 +23,7 @@ export class Player1 {
     };
 
     // Getters de todo tipo
-    static getDeck() {
+    static getDecks() {
         return this.#decks;
     }
 
