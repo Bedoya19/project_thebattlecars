@@ -9,6 +9,22 @@ const clickOnDeckCard = (divInformation, card) => {
     DisplayCardInformation.displayInformationOnDeck(divInformation, card);
 }
 
+export class BoardClick {
+    static clickOnCarSquare(carSquare) {
+        // Saco de aqui mismo los datos necesarios
+        const cardGeneralInformation = document.getElementById("card-selected-general-information");
+        try{
+            const cardObj = JSON.parse(cardGeneralInformation.dataset.card);
+            console.log(cardObj.type);
+        }
+        catch (e) {
+            // Si hubo un error, lo mas probable es que fuera que el JSON estuviera undefined, entonces esto se muestra
+            console.log("Ninguna carta seleccionada! Mostrar aqui que la casilla es del jugador X de la zona Y");
+        }
+        //console.log(carSquare.classList);
+    }
+}
+
 
 // Case de mostrar las cartas en el Display y todo lo que hace
 export class DisplayCardsInDeck {
@@ -61,7 +77,7 @@ export class DisplayCardsInDeck {
         // Muestra el deck resultante
         // Uso mucho esto, y es mucho mas sencillo de entender que "decksTypeList[deckTypeIndex]"
         const newDeck = decksTypeList[deckTypeIndex];
-        console.log(newDeck);
+        //console.log(newDeck);
         this.showDeckOfCards(divDeck, decks[newDeck], cardInformation);
         // Cambia la informacion en el icono
         deckIconImage.dataset.deck = newDeck;

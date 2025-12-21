@@ -14,6 +14,8 @@ import { WeaponCard } from "./models/cards/WeaponCard.js" // Subclase de Weapon
 import { MaterialCard } from "./models/cards/MaterialCard.js"; // Subclase de Material
 // Clase de display en el mazo
 import { DisplayCardsInDeck } from "./display/deckDisplay.js";
+// Clase de acciones del tablero 
+import { BoardClick } from "./display/deckDisplay.js";
 //import { image } from "./../images/default_icons/default_cars.png";
 
 
@@ -23,6 +25,8 @@ const deckCards = document.getElementById("deck-cards");
 const deckIcon = document.getElementById("deck-icon-current");
 // Display de la informacion de una carta
 const cardInformation = document.getElementById("card-selected-information");
+const carsSquares = document.getElementsByClassName("card-board-car");
+
 console.log(cardInformation);
 
 // Imagenes default del deck
@@ -47,5 +51,10 @@ const decks = {
 
 DisplayCardsInDeck.showDeckOfCards(deckCards, decks["cars"], cardInformation);
 
-deckIcon.addEventListener("click", () => { DisplayCardsInDeck.changeDeck(deckIcon, deckDefaultIconsDir, decks, deckCards, cardInformation) })
+deckIcon.addEventListener("click", () => { DisplayCardsInDeck.changeDeck(deckIcon, deckDefaultIconsDir, decks, deckCards, cardInformation) });
+
+for (const carSquare of carsSquares) {
+    //console.log(carsSquare);
+    carSquare.addEventListener("click", () => { BoardClick.clickOnCarSquare(carSquare) });
+}
 

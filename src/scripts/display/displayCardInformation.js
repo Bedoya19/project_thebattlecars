@@ -47,7 +47,7 @@ export class DisplayCardInformation {
         // Esto es solo para mostrar la informacion de la carta en el deck.
         const carInformationFormat = `
             ${this.mainCardInformation("Jugador 1", card.image, card.name)}
-            <div id="card-selected-general-information" data-card="${json}" data-origin="deck" data-player="${player}">
+            <div id="card-selected-general-information" data-card='${json}' data-origin="deck" data-player="${player}">
                 <p id="car-selected-health" class="card-selected-information">Vida: <span>${card.health}</span></p>
                 <p id="car-selected-capacity" class="card-selected-information">Capacidad <span>${card.capacity}</span></p>
                 <p id="car-selected-attackbuff" class="card-selected-information">Aumento de ataque: <span>${card.attBuff}</span></p>
