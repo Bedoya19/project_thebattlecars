@@ -15,7 +15,7 @@ import { MaterialCard } from "./models/cards/MaterialCard.js"; // Subclase de Ma
 // Clase de display en el mazo
 import { DisplayCardsInDeck } from "./display/deckDisplay.js";
 // Clase de acciones del tablero 
-import { BoardClick } from "./display/deckDisplay.js";
+import { BoardClick } from "./board/boardActions.js";
 //import { image } from "./../images/default_icons/default_cars.png";
 
 
@@ -53,6 +53,7 @@ DisplayCardsInDeck.showDeckOfCards(deckCards, decks["cars"], cardInformation);
 
 deckIcon.addEventListener("click", () => { DisplayCardsInDeck.changeDeck(deckIcon, deckDefaultIconsDir, decks, deckCards, cardInformation) });
 
+// Agrega funcionalidad a las casillas de carro
 for (const carSquare of carsSquares) {
     //console.log(carsSquare);
     carSquare.addEventListener("click", () => { BoardClick.clickOnCarSquare(carSquare) });
