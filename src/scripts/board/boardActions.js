@@ -10,14 +10,46 @@ export class BoardClick {
             const carBoardPlayer = carSquare.classList[2];
             const carBoardZone = carSquare.classList[3];
 
-            console.log(carBoardPlayer, carBoardZone, currentPlayer);
-            console.log(checkBoard.checkCarSquareAvailability(carBoardPlayer, currentPlayer, carSquare));
+            //console.log(carBoardPlayer, carBoardZone, currentPlayer);
+            //console.log(checkBoard.checkCarSquareAvailability(carBoardPlayer, currentPlayer, carSquare));
+            
+            // Revisa que se pueda poner la carta:
+            if (checkBoard.checkCarSquareAvailability(carBoardPlayer, currentPlayer, carSquare)[0]) {
+                // Agrega la carta al tablero
+                carSquare.appendChild(this.createImgInBoard(cardObj));
+                carSquare.dataset.health = cardObj.health;
+                carSquare.dataset.maxHealth = cardObj.health;
+                carSquare.dataset.capacity = cardObj.capacity;
+                carSquare.dataset.maxCapacity = cardObj.capacity;
+                carSquare.dataset.nitro = 0;
+                carSquare.dataset.nitroQuantity = cardObj.nitro[0];
+                carSquare.dataset.nitroDuration = cardObj.nitro[1];
+                carSquare.dataset.nitroResistance = cardObj.nitroBuff[0];
+                carSquare.dataset.nitroAttack = cardObj.nitroBuff[1];
+
+                console.log("carta agregada exitosamente!");
+            } else {
+                console.log(checkBoard.checkCarSquareAvailability(carBoardPlayer, currentPlayer, carSquare)[1]);
+            }
+            
         }
         catch (e) {
             // Si hubo un error, lo mas probable es que fuera que el JSON estuviera undefined, entonces esto se muestra
-            console.log("Ninguna carta seleccionada! Mostrar aqui que la casilla es del jugador X de la zona Y");
+            console.log(e, "Ninguna carta seleccionada! Mostrar aqui que la casilla es del jugador X de la zona Y");
         }
     }
+
+    // Pone una imagen en una casilla
+    // (tal vez poner en una futura clase de estandarizar elementos HTML)
+    static createImgInBoard(carObj) {
+        const cardImage = document.createElement("img");
+        // Lo mas probable es que esto cambie despues
+        cardImage.src = `${carObj.image}`;
+        cardImage.classList.add("image-board");
+        return cardImage;
+    }
+
+    // 
 }
 
 // Esta clase revisa si la carta seleccionada puede ser puesta en el tablero
