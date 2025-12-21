@@ -11,7 +11,8 @@
             "capacity": 4,
             "attBuff": 0,
             "nitro": [3, 3],
-            "image": "./src/images/dodgedartgt.png"
+            "image": "./src/images/dodgedartgt.png",
+            "nitroBuff": [2, 2]
         }
     ],
     "category2": [],

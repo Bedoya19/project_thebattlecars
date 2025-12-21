@@ -6,13 +6,16 @@ import { DataConversor } from "../constants/enums.js";
 export class CarCard extends Card{
     static #nextId = 1;
 
-    constructor(category, name, description, health, capacity, attBuff, nitro, longDescription, image) {
+    constructor(category, name, description, health, capacity, attBuff, nitro, longDescription, image, nitroBuff) {
         super(category, TypeCard.CAR, name, description, longDescription, image);
 
         this.health = health;
         this.capacity = capacity;
         this.attBuff = attBuff;
         this.nitro = nitro;
+        // Nuevo atributo: Nitro Buff
+        // Un array con dos posciciones: La resistencia a los ataques (se le resta por el valor de resistencia todos los ataques), y el aumento de ataque
+        this.nitroBuff = nitroBuff;
     }
 
     // Esta funcion es para duplicar las cartas sin modificar la original
@@ -49,7 +52,8 @@ export class CarCard extends Card{
             carData.attBuff,
             carData.nitro,
             carData.longDescription,
-            carData.image
+            carData.image,
+            carData.nitroBuff
         )
     }
     // Esta funcion basicamente hace lo que hice en prueba, pero junto
@@ -74,7 +78,8 @@ export class CarCard extends Card{
             "capacity": this.capacity,
             "attBuff": this.attBuff,
             "nitro": this.nitro,
-            "image": this.image
+            "image": this.image,
+            "nitroBuff": this.nitroBuff
         });
     }
 }
