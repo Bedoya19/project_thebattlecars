@@ -165,3 +165,5 @@ class WeaponListStatsDisplay {
         return ulElement;
     }
 }
+
+// Estandarizar la agregacion de elementos HTML (todo)
