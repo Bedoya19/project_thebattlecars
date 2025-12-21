@@ -59,6 +59,6 @@ for (const carSquare of carsSquares) {
     carSquare.addEventListener("click", () => { BoardClick.clickOnCarSquare(carSquare) });
 }
 
-console.log(Player1.getCars());
-console.log(Player1.deleteFromDeck("cars", 1));
-console.log(Player1.getCars());
+//console.log(Player1.getCars());
+//console.log(Player1.deleteFromDeck("cars", 1));
+//console.log(Player1.getCars());
