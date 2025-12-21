@@ -36,7 +36,8 @@ export class BoardClick {
                 console.log(cardGeneralInformation.dataset.cardId);
                 const deckIndex = cardGeneralInformation.dataset.cardId.slice(10);
                 Player1.deleteFromDeck("cars", deckIndex);
-                if (currentDeck.dataset.deck === "car") {
+                if (currentDeck.dataset.deck === "cars") {
+                    console.log("reiniciar mazo...");
                     deckCards.innerHTML = "";
                     DisplayCardsInDeck.showDeckOfCards(deckCards, Player1.getCars(), cardInformation);
                 }
