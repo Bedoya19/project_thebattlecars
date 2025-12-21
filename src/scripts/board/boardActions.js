@@ -6,36 +6,24 @@ export class BoardClick {
         // Saco de aqui mismo los datos necesarios
         const cardGeneralInformation = document.getElementById("card-selected-general-information");
         try{
+            
             const cardObj = JSON.parse(cardGeneralInformation.dataset.card);
+            // Consigue un guevo de valores del Document para hacer los cambios respectivos en la pagina
+            // (no supe hacer algo mejor, para bien y para mal).
             const currentPlayer = document.getElementById("deck").dataset.player;
             const currentDeck = document.getElementById("deck-icon-current");
             const deckCards = document.getElementById("deck-cards")
             const cardInformation = document.getElementById("card-selected-information");
-            console.log(cardObj.type);
-
             const carBoardPlayer = carSquare.classList[2];
-            const carBoardZone = carSquare.classList[3];
-
-            //console.log(carBoardPlayer, carBoardZone, currentPlayer);
-            //console.log(checkBoard.checkCarSquareAvailability(carBoardPlayer, currentPlayer, carSquare));
             
             // Revisa que se pueda poner la carta:
             if (checkBoard.checkCarSquareAvailability(carBoardPlayer, currentPlayer, carSquare)[0]) {
                 // Agrega la carta al tablero
-                carSquare.appendChild(this.createImgInBoard(cardObj));
-                carSquare.dataset.health = cardObj.health;
-                carSquare.dataset.maxHealth = cardObj.health;
-                carSquare.dataset.capacity = cardObj.capacity;
-                carSquare.dataset.maxCapacity = cardObj.capacity;
-                carSquare.dataset.nitro = 0;
-                carSquare.dataset.nitroQuantity = cardObj.nitro[0];
-                carSquare.dataset.nitroDuration = cardObj.nitro[1];
-                carSquare.dataset.nitroResistance = cardObj.nitroBuff[0];
-                carSquare.dataset.nitroAttack = cardObj.nitroBuff[1];
-
-                console.log(cardGeneralInformation.dataset.cardId);
+                this.putCarOnBoard(carSquare, cardObj);
+                // Elimina la carta del deck
                 const deckIndex = cardGeneralInformation.dataset.cardId.slice(10);
                 Player1.deleteFromDeck("cars", deckIndex);
+                // Reinicia el mazo si se esta mostrando el deck de carros
                 if (currentDeck.dataset.deck === "cars") {
                     console.log("reiniciar mazo...");
                     deckCards.innerHTML = "";
@@ -43,11 +31,13 @@ export class BoardClick {
                 }
                 console.log("carta agregada exitosamente!");
             } else {
+                // (Esto en algun momento se tendra que mostrar al usuario)
                 console.log(checkBoard.checkCarSquareAvailability(carBoardPlayer, currentPlayer, carSquare)[1]);
             }
         }
         catch (e) {
             // Si hubo un error, lo mas probable es que fuera que el JSON estuviera undefined, entonces esto se muestra
+            // (Esto en algun momento tambien se tendra que mostrar al usuario)
             console.log(e, "Ninguna carta seleccionada! Mostrar aqui que la casilla es del jugador X de la zona Y");
         }
     }
@@ -62,7 +52,24 @@ export class BoardClick {
         return cardImage;
     }
 
-    // 
+    // Poner una carta de carro en el tablero, con sus respecitvos valores
+    // (!OJO!, esta funcion solo permite la version JSON del carro)
+    static putCarOnBoard(carSquare, carObj) {
+        carSquare.appendChild(this.createImgInBoard(carObj));
+        carSquare.dataset.health = carObj.health;
+        carSquare.dataset.maxHealth = carObj.health;
+        carSquare.dataset.capacity = carObj.capacity;
+        carSquare.dataset.maxCapacity = carObj.capacity;
+        carSquare.dataset.nitro = 0;
+        carSquare.dataset.nitroQuantity = carObj.nitro[0];
+        carSquare.dataset.nitroDuration = carObj.nitro[1];
+        carSquare.dataset.nitroResistance = carObj.nitroBuff[0];
+        carSquare.dataset.nitroAttack = carObj.nitroBuff[1];
+        /*
+            Esta funcion nisiquiera esta para ahorrar codigo, es solo para no ser tan muralla de codigo clickOnCarSquare(), que en acciones
+            ni siquiera es una funcion complicada
+        */
+    }
 }
 
 // Esta clase revisa si la carta seleccionada puede ser puesta en el tablero
