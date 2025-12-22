@@ -1,4 +1,5 @@
 import { DisplayCardInformation } from "./displayCardInformation.js";
+import { StandarizedDocCreation } from "./standard/standarizedDocCreaction.js";
 import { CarCard } from "../models/cards/CarCard.js";
 
 // Script de mostrar las cartas en el deck.
@@ -16,9 +17,16 @@ export class DisplayCardsInDeck {
         let quantityCardsInDeck = document.querySelectorAll(".deck-card").length;
 
         // Crea un div de la carta
-        const divCardInDeck = document.createElement("div");
-        divCardInDeck.setAttribute("id", `deck-card-${quantityCardsInDeck}`);
-        divCardInDeck.setAttribute("class", "deck-card");
+        const divCardInDeck = StandarizedDocCreation.elementCreator(
+            {
+                "element": "div",
+                "id": `deck-card-${quantityCardsInDeck}`,
+                "classes": ["deck-card"]
+            }
+        )
+        //const divCardInDeck = document.createElement("div");
+        //divCardInDeck.setAttribute("id", `deck-card-${quantityCardsInDeck}`);
+        //divCardInDeck.setAttribute("class", "deck-card");
         divCardInDeck.insertAdjacentHTML("beforeend", 
             `<img src="${card.image}" alt="card-${quantityCardsInDeck}">`
         )
