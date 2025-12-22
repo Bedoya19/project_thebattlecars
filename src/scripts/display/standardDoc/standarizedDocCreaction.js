@@ -1,4 +1,4 @@
-// Esta clase va a estandarizar la creacion de documentos HTML.
+
 const element = {
     "element": "div",
     "id": "hola",
@@ -7,7 +7,8 @@ const element = {
         "alt": "prueba de div"
     }
 }
-
+// Esta clase va a estandarizar la creacion de documentos HTML
+// tal vez ahorre algunas lineas de codigo y ayude a solucionar ciertos errores especificos en partes del codigo
 export class StandarizedDocCreation {
     // Crear un elemento con id, clases, y atributos opcionales
     static elementCreator(elementObj) {
@@ -22,5 +23,9 @@ export class StandarizedDocCreation {
             }
         }
         return element;
+    }
+    // Crea un elemento sin id o classes, solo con algunos atributos personalizados
+    static customElementCreator(elementObj) {
+        
     }
 }
