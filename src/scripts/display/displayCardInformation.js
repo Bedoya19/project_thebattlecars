@@ -1,5 +1,6 @@
 import { DataConversor } from "../models/constants/enums.js";
 import { CarCard } from "../models/cards/CarCard.js";
+import { StandarizedDocCreation } from "./standardDoc/standarizedDocCreaction.js";
 
 export class DisplayCardInformation {
     static displayInformationOnDeck(divElement, card, cardId) {

@@ -5,7 +5,8 @@ const element = {
     "classes": ["hola-div", "hola-subdiv"],
     "otherAttributes": {
         "alt": "prueba de div"
-    }
+    },
+    "content": "hola"
 }
 const element1 = {
     "element": "div",
@@ -26,6 +27,10 @@ export class StandarizedDocCreation {
                 element.setAttribute(key, value);
             }
         }
+        if (elementObj?.["content"] !== undefined) {
+            element.innerHTML = elementObj["content"];
+        }
+        
         return element;
     }
     // Crea un elemento sin id o classes, solo con algunos atributos personalizados
