@@ -7,6 +7,10 @@ const element = {
         "alt": "prueba de div"
     }
 }
+const element1 = {
+    "element": "div",
+    "attribute1": "value1"
+}
 // Esta clase va a estandarizar la creacion de documentos HTML
 // tal vez ahorre algunas lineas de codigo y ayude a solucionar ciertos errores especificos en partes del codigo
 export class StandarizedDocCreation {
@@ -18,14 +22,19 @@ export class StandarizedDocCreation {
             element.classList.add(classElement);
         }
         if (elementObj?.["otherAttributes"] !== undefined) {
-            for (const [key, value] of Object.entries(elementObj)) {
+            for (const [key, value] of Object.entries(elementObj["otherAttributes"])) {
                 element.setAttribute(key, value);
             }
         }
         return element;
     }
     // Crea un elemento sin id o classes, solo con algunos atributos personalizados
+    // (Tecnicamente si puede crear elementos con ID y classes, pero es mejor el anterior)
     static customElementCreator(elementObj) {
-        
+        const element = document.createElement(elementObj["element"]);
+        for (const [key, value] of Object.entries(elementObj)) {
+            element.setAttribute(key, value);
+        }
+        return element;
     }
 }

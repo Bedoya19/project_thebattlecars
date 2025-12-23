@@ -1,5 +1,5 @@
 import { DisplayCardInformation } from "./displayCardInformation.js";
-import { StandarizedDocCreation } from "./standard/standarizedDocCreaction.js";
+import { StandarizedDocCreation } from "./standardDoc/standarizedDocCreaction.js";
 import { CarCard } from "../models/cards/CarCard.js";
 
 // Script de mostrar las cartas en el deck.
@@ -16,7 +16,7 @@ export class DisplayCardsInDeck {
     static displayCardOnDeck(divDeck, card, divInformation) {
         let quantityCardsInDeck = document.querySelectorAll(".deck-card").length;
 
-        // Crea un div de la carta
+        // Crea un div de la carta, con su respectiva imagen
         const divCardInDeck = StandarizedDocCreation.elementCreator(
             {
                 "element": "div",
@@ -24,12 +24,13 @@ export class DisplayCardsInDeck {
                 "classes": ["deck-card"]
             }
         )
-        //const divCardInDeck = document.createElement("div");
-        //divCardInDeck.setAttribute("id", `deck-card-${quantityCardsInDeck}`);
-        //divCardInDeck.setAttribute("class", "deck-card");
-        divCardInDeck.insertAdjacentHTML("beforeend", 
-            `<img src="${card.image}" alt="card-${quantityCardsInDeck}">`
-        )
+        divCardInDeck.appendChild(StandarizedDocCreation.customElementCreator(
+            {
+                "element": "img",
+                "src": card.image,
+                "alt": `card-${quantityCardsInDeck}`
+            }
+        ));
         divCardInDeck.addEventListener("click", () => {clickOnDeckCard(divInformation, card, divCardInDeck.id)});
 
         // La agrega al mazo.
