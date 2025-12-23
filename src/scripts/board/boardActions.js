@@ -1,6 +1,6 @@
 import { Player1 } from "../players/player1.js";
 import { DisplayCardsInDeck } from "../display/deckDisplay.js";
-
+import { DisplayCardInformation } from "../display/displayCardInformation.js";
 export class BoardClick {
     static clickOnCarSquare(carSquare) {
         // Saco de aqui mismo los datos necesarios
@@ -16,6 +16,8 @@ export class BoardClick {
             const cardInformation = document.getElementById("card-selected-information");
             const carBoardPlayer = carSquare.classList[2];
             
+            //console.log("Zone " + carSquare.id.slice(23));
+
             // Revisa que se pueda poner la carta:
             if (checkBoard.checkCarSquareAvailability(carBoardPlayer, currentPlayer, carSquare)[0]) {
                 // Agrega la carta al tablero
@@ -30,6 +32,7 @@ export class BoardClick {
                     DisplayCardsInDeck.showDeckOfCards(deckCards, Player1.getCars(), cardInformation);
                 }
                 console.log("carta agregada exitosamente!");
+                DisplayCardInformation.displayCarCardInformationBoard(cardInformation, carSquare, currentPlayer, cardObj.image, cardObj.name, cardObj.description)
             } else {
                 // (Esto en algun momento se tendra que mostrar al usuario)
                 console.log(checkBoard.checkCarSquareAvailability(carBoardPlayer, currentPlayer, carSquare)[1]);
@@ -53,18 +56,24 @@ export class BoardClick {
     }
 
     // Poner una carta de carro en el tablero, con sus respecitvos valores
-    // (!OJO!, esta funcion solo permite la version JSON del carro)
+    // (!OJO!, esta funcion solo permite la version JSON de los datos del carro, NO un objeto de la clase)
     static putCarOnBoard(carSquare, carObj) {
         carSquare.appendChild(this.createImgInBoard(carObj));
+        carSquare.dataset.name = carObj.name;
         carSquare.dataset.health = carObj.health;
         carSquare.dataset.maxHealth = carObj.health;
         carSquare.dataset.capacity = carObj.capacity;
         carSquare.dataset.maxCapacity = carObj.capacity;
+        /* 
+        Este valor en especifico (data-nitro) es el que determina si el nitro esta activado o no.
+        Si esta en 0, es que esta desactivado, si esta en otro numero, significa que esta activado y es cuantas rondas faltan para desactivarse
+        */
         carSquare.dataset.nitro = 0;
         carSquare.dataset.nitroQuantity = carObj.nitro[0];
         carSquare.dataset.nitroDuration = carObj.nitro[1];
         carSquare.dataset.nitroResistance = carObj.nitroBuff[0];
         carSquare.dataset.nitroAttack = carObj.nitroBuff[1];
+        carSquare.dataset.attBuff = carObj.attBuff;
         /*
             Esta funcion nisiquiera esta para ahorrar codigo, es solo para no ser tan muralla de codigo clickOnCarSquare(), que en acciones
             ni siquiera es una funcion complicada

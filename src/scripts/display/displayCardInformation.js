@@ -35,10 +35,10 @@ export class DisplayCardInformation {
     }
 
     // Funcion de mostrar la desripcion de la carta
-    static descriptionCardInformation(card) {
+    static descriptionCardInformation(cardDescription) {
         return `
             <hr id="card-selected-bar">
-            <p id="card-selected-description" class="card-selected-information">"${card.description}"</p>
+            <p id="card-selected-description" class="card-selected-information">"${cardDescription}"</p>
         `
     }
 
@@ -65,10 +65,43 @@ export class DisplayCardInformation {
                         </ul>
                     </div>
                 </div>
-                ${this.descriptionCardInformation(card)}
+                ${this.descriptionCardInformation(card.description)}
             </div>
         `;
         divElement.innerHTML = carInformationFormat;
+    }
+    // Mostrar la informacion de una carta de carro del tablero
+    static displayCarCardInformationBoard(divElement, carSquare, player, cardImage, cardName, cardDescription) {
+        // Es bastante parecido al anterior salvo que es lo que exactamente dicen los valores.
+        // Se puede fusionar en un futuro cercano, pero por ahora necesito que funcione...
+        divElement.innerHTML = `
+            ${this.mainCardInformation(player, cardImage, cardName)}
+            <div id="card-selected-general-information" data-card='undefined' data-origin="board" data-player="${player}" data-card-id="${ carSquare.id.slice(23)}">
+                <p id="car-selected-health" class="card-selected-information">
+                    Vida: <span>${carSquare.dataset.health}</span> / <span>${carSquare.dataset.maxHealth}</span>
+                </p>
+                <p id="car-selected-capacity" class="card-selected-information">
+                    Capacidad <span>${carSquare.dataset.capacity}</span> / <span>${carSquare.dataset.maxCapacity}</span>
+                </p>
+                <p id="car-selected-attackbuff" class="card-selected-information">
+                    Aumento de ataque: <span>${carSquare.dataset.attBuff}</span>
+                </p>
+                <div id="car-selected-nitro">
+                    <div id="car-selected-nitro-amount">
+                        <p id="nitro-quantity" class="card-selected-information">Capacidad de nitro: <span>${carSquare.dataset.nitroQuantity}</span></p>
+                        <p id="nitro-duration" class="card-selected-information">Duracion de nitro: <span>${carSquare.dataset.nitroDuration}</span></p>
+                    </div>
+                    <div id="car-selected-nitro-buff">
+                        <p class="card-selected-information">Cuando nitro activo:</p>
+                        <ul class="card-selected-lists">
+                            <li class="card-selected-information card-selected-list">Resistencia: ${carSquare.dataset.nitroResistance}</li>
+                            <li class="card-selected-information card-selected-list">Ataque: +${carSquare.dataset.nitroAttack}</li>
+                        </ul>
+                    </div>
+                </div>
+                ${this.descriptionCardInformation(cardDescription)}
+            </div>
+        `
     }
     
     // Mostrar la informacion de una carta de weapon del deck
@@ -89,7 +122,7 @@ export class DisplayCardInformation {
                         ${WeaponListStatsDisplay.displayWeaponMaterials(card)}
                     </div>
                 </div>
-                ${this.descriptionCardInformation(card)}
+                ${this.descriptionCardInformation(card.description)}
             </div>
         `
         divElement.innerHTML = weaponInformationFormat;
