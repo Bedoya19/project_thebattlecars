@@ -71,12 +71,12 @@ export class DisplayCardInformation {
         divElement.innerHTML = carInformationFormat;
     }
     // Mostrar la informacion de una carta de carro del tablero
-    static displayCarCardInformationBoard(divElement, carSquare, player, cardImage, cardName, cardDescription) {
+    static displayCarCardInformationBoard(divElement, carSquare, playerOriginal, cardImage, cardName, cardDescription) {
         // Es bastante parecido al anterior salvo que es lo que exactamente dicen los valores.
         // Se puede fusionar en un futuro cercano, pero por ahora necesito que funcione...
         divElement.innerHTML = `
-            ${this.mainCardInformation(player, cardImage, cardName)}
-            <div id="card-selected-general-information" data-card='undefined' data-origin="board" data-player="${player}" data-card-id="${ carSquare.id.slice(23)}">
+            ${this.mainCardInformation(this.convertPlayerString(playerOriginal), cardImage, cardName)}
+            <div id="card-selected-general-information" data-card='undefined' data-origin="board" data-player="${playerOriginal}" data-card-id="${ carSquare.id.slice(23)}">
                 <p id="car-selected-health" class="card-selected-information">
                     Vida: <span>${carSquare.dataset.health}</span> / <span>${carSquare.dataset.maxHealth}</span>
                 </p>
@@ -144,6 +144,16 @@ export class DisplayCardInformation {
     // data-card: La informacion JSON de la carta (si esta viene del deck)
     // data-origin: De donde vino la informacion de la carta. Del deck o del tablero
     // data-player: El dueño de la carta del jugador
+
+    // Si es necesario, convierte un "player1" o "player2" a "Jugador 1" o "Jugador 2"
+    // (Solo se permiten esas inputs)
+    static convertPlayerString(player) {
+        if (player === "player1" || player === "player2") {
+            return (player === "player1") ? "Jugador 1" : "Jugador 2"
+        } else {
+            return undefined;
+        }
+    }
 }
 
 // Clase de las funciones de mostrar los ataques y los materiales de cada arma respectiva en un formato de lista, ya preparado para adjuntarlo a cualquier HTML
