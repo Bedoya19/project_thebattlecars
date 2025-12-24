@@ -5,21 +5,25 @@ export class BoardClick {
     static clickOnCarSquare(carSquare) {
         // Saco de aqui mismo los datos necesarios
         const cardGeneralInformation = document.getElementById("card-selected-general-information");
-        try{
-            
-            const cardObj = JSON.parse(cardGeneralInformation.dataset.card);
+        try {
             // Consigue un guevo de valores del Document para hacer los cambios respectivos en la pagina
             // (no supe hacer algo mejor, para bien y para mal).
+            // Primero se consigue los datos necesarios para revisar la disponiblidad de la casilla
             const currentPlayer = document.getElementById("deck").dataset.player;
-            const currentDeck = document.getElementById("deck-icon-current");
-            const deckCards = document.getElementById("deck-cards")
-            const cardInformation = document.getElementById("card-selected-information");
             const carBoardPlayer = carSquare.classList[2];
             
             //console.log("Zone " + carSquare.id.slice(23));
 
             // Revisa que se pueda poner la carta:
             if (checkBoard.checkCarSquareAvailability(carBoardPlayer, currentPlayer, carSquare)[0]) {
+
+                // El resto de los datos
+                const currentDeck = document.getElementById("deck-icon-current");
+                const deckCards = document.getElementById("deck-cards")
+                const cardInformation = document.getElementById("card-selected-information");
+                const cardObj = JSON.parse(cardGeneralInformation.dataset.card);
+                //
+
                 // Agrega la carta al tablero
                 this.putCarOnBoard(carSquare, cardObj);
                 // Elimina la carta del deck
@@ -34,15 +38,30 @@ export class BoardClick {
                 console.log("carta agregada exitosamente!");
                 DisplayCardInformation.displayCarCardInformationBoard(cardInformation, carSquare, currentPlayer, cardObj.image, cardObj.name, cardObj.description)
             } else {
-                // (Esto en algun momento se tendra que mostrar al usuario)
-                console.log(checkBoard.checkCarSquareAvailability(carBoardPlayer, currentPlayer, carSquare)[1]);
+                // Yo de pendejo, tengo que mostrar la informacion de la carta, sin importar de que jugador sea
+                // Igualmente toca revisar si esta vacio cuando esta en las cartas del otro jugador
+                if (carSquare.dataset.name !== "undefined") {
+                    console.log("Esta es una casilla vacia de carro del otro jugador.");
+                }
+                //console.log(checkBoard.checkCarSquareAvailability(carBoardPlayer, currentPlayer, carSquare)[1]);
+
+                const cardInformation = document.getElementById("card-selected-information");
+                console.log(carSquare.firstElementChild.src);
+                DisplayCardInformation.displayCarCardInformationBoard(
+                    cardInformation, 
+                    carSquare, 
+                    currentPlayer, 
+                    carSquare.firstElementChild.src, 
+                    carSquare.dataset.name, 
+                    carSquare.dataset.description
+                );
             }
         }
         catch (e) {
             // Si hubo un error, lo mas probable es que fuera que el JSON estuviera undefined, entonces esto se muestra
             // (Esto en algun momento tambien se tendra que mostrar al usuario)
             console.log(e, "Ninguna carta seleccionada! Mostrar aqui que la casilla es del jugador X de la zona Y");
-        }
+        } 
     }
 
     // Pone una imagen en una casilla
