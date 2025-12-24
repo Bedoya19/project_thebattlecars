@@ -93,6 +93,7 @@ export class BoardClick {
         carSquare.dataset.nitroResistance = carObj.nitroBuff[0];
         carSquare.dataset.nitroAttack = carObj.nitroBuff[1];
         carSquare.dataset.attBuff = carObj.attBuff;
+        carSquare.dataset.description = carObj.description;
         /*
             Esta funcion nisiquiera esta para ahorrar codigo, es solo para no ser tan muralla de codigo clickOnCarSquare(), que en acciones
             ni siquiera es una funcion complicada
