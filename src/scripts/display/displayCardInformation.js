@@ -140,6 +140,7 @@ export class DisplayCardInformation {
         divElement.innerHTML = materialInformationFormat;
     }
 
+    // Funcion simple que lo unico que hace es reiniciar #card-selected-information para que no alla ninguna carta seleccionada
     static deselectCardInformation(divElement) {
         divElement.innerHTML = `
         <div id="card-selected-information">
