@@ -5,12 +5,14 @@ export class BoardClick {
     static clickOnCarSquare(carSquare) {
         // Saco de aqui mismo los datos necesarios
         const cardGeneralInformation = document.getElementById("card-selected-general-information");
+        const squarePlayer = carSquare.id.slice(0, 7);
+        const cardInformation = document.getElementById("card-selected-information");
         try {
             // Consigue un guevo de valores del Document para hacer los cambios respectivos en la pagina
             // (no supe hacer algo mejor, para bien y para mal).
             // Primero se consigue los datos necesarios para revisar la disponiblidad de la casilla
             const currentPlayer = document.getElementById("deck").dataset.player;
-            const squarePlayer = carSquare.id.slice(0, 7);
+            
             console.log(squarePlayer);
             const carBoardPlayer = carSquare.classList[2];
             
@@ -22,7 +24,6 @@ export class BoardClick {
                 // El resto de los datos
                 const currentDeck = document.getElementById("deck-icon-current");
                 const deckCards = document.getElementById("deck-cards")
-                const cardInformation = document.getElementById("card-selected-information");
                 const cardObj = JSON.parse(cardGeneralInformation.dataset.card);
                 //
 
@@ -65,7 +66,8 @@ export class BoardClick {
         catch (e) {
             // Si hubo un error, lo mas probable es que fuera que el JSON estuviera undefined, entonces esto se muestra
             // (Esto en algun momento tambien se tendra que mostrar al usuario)
-            console.log(e, "Ninguna carta seleccionada! Mostrar aqui que la casilla es del jugador X de la zona Y");
+            //console.log(e, "Ninguna carta seleccionada! Mostrar aqui que la casilla es del jugador X de la zona Y");
+            DisplayCardInformation.displayEmptyCarSquare(cardInformation, carSquare, squarePlayer);
         } 
     }
 

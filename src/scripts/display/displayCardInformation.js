@@ -148,7 +148,17 @@ export class DisplayCardInformation {
             <div id="card-selected-general-information" data.card="undefined" data-origin="undefined" data-player="undefined">
             </div>
         </div>
-        `
+        `;
+    }
+
+    static displayEmptyCarSquare(divElement, carSquare, squarePlayer) {
+        divElement.innerHTML = `
+        <div id="card-selected-information">
+            <h2 class="card-selected-information">Casilla vacia de carro del ${this.convertPlayerString(squarePlayer)} en la zona ${carSquare.id.slice(23)}</h2>
+            <div id="card-selected-general-information" data.card="undefined" data-origin="undefined" data-player="undefined">
+            </div>
+        </div>
+        `;
     }
     // Poner la informacion respectiva en las datas del div de informacion para que sepa de donde vino
     // data-card: La informacion JSON de la carta (si esta viene del deck)
