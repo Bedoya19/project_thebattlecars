@@ -14,6 +14,7 @@ import { WeaponCard } from "./models/cards/WeaponCard.js" // Subclase de Weapon
 import { MaterialCard } from "./models/cards/MaterialCard.js"; // Subclase de Material
 // Clase de display en el mazo
 import { DisplayCardsInDeck } from "./display/deckDisplay.js";
+import { DisplayCardInformation } from "./display/displayCardInformation.js";
 // Clase de acciones del tablero 
 import { BoardClick } from "./board/boardActions.js";
 //import { image } from "./../images/default_icons/default_cars.png";
@@ -25,7 +26,11 @@ const deckCards = document.getElementById("deck-cards");
 const deckIcon = document.getElementById("deck-icon-current");
 // Display de la informacion de una carta
 const cardInformation = document.getElementById("card-selected-information");
+// Todas las casillas de carro en el tablero, sin importar jugador
 const carsSquares = document.getElementsByClassName("card-board-car");
+
+// Boton de de seleccionar carta
+const deselectButton = document.getElementById("deselect-button");
 
 console.log(cardInformation);
 
@@ -54,6 +59,8 @@ for (const carSquare of carsSquares) {
     //console.log(carsSquare);
     carSquare.addEventListener("click", () => { BoardClick.clickOnCarSquare(carSquare) });
 }
+
+deselectButton.addEventListener("click", () => { DisplayCardInformation.deselectCardInformation(cardInformation) })
 
 //console.log(Player1.getCars());
 //console.log(Player1.deleteFromDeck("cars", 1));

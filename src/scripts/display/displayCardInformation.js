@@ -140,6 +140,15 @@ export class DisplayCardInformation {
         divElement.innerHTML = materialInformationFormat;
     }
 
+    static deselectCardInformation(divElement) {
+        divElement.innerHTML = `
+        <div id="card-selected-information">
+            <h2 class="card-selected-information">Ninguna carta seleccionada</h2>
+            <div id="card-selected-general-information" data.card="undefined" data-origin="undefined" data-player="undefined">
+            </div>
+        </div>
+        `
+    }
     // Poner la informacion respectiva en las datas del div de informacion para que sepa de donde vino
     // data-card: La informacion JSON de la carta (si esta viene del deck)
     // data-origin: De donde vino la informacion de la carta. Del deck o del tablero

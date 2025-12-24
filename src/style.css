@@ -307,3 +307,23 @@ img.image-board {
     padding: 0;
     margin: 0;
 }
+
+
+#deselect-div {
+    display: flex;
+    justify-content: center;
+}
+#deselect-button {
+    padding: 2px;
+    border: 2px solid var(--borde-juego-estadisticas);
+    background-color: var(--fondo-carta-seleccionada);
+    color: var(--borde-juego-estadisticas);
+}
+#deselect-button:hover {
+    background-color: #000000;
+}
+#deselect-button:active {
+    background-color: var(--borde-juego-estadisticas);
+    border: 2px solid #000000;
+    color: var(--fondo-juego-estadisticas);
+}
