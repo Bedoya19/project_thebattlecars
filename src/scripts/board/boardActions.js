@@ -10,6 +10,8 @@ export class BoardClick {
             // (no supe hacer algo mejor, para bien y para mal).
             // Primero se consigue los datos necesarios para revisar la disponiblidad de la casilla
             const currentPlayer = document.getElementById("deck").dataset.player;
+            const squarePlayer = carSquare.id.slice(0, 7);
+            console.log(squarePlayer);
             const carBoardPlayer = carSquare.classList[2];
             
             //console.log("Zone " + carSquare.id.slice(23));
@@ -33,10 +35,11 @@ export class BoardClick {
                 if (currentDeck.dataset.deck === "cars") {
                     console.log("reiniciar mazo...");
                     deckCards.innerHTML = "";
+                    // Player1.getCards() tendra que cambiar cuando se agrege el jugador 2.
                     DisplayCardsInDeck.showDeckOfCards(deckCards, Player1.getCars(), cardInformation);
                 }
                 console.log("carta agregada exitosamente!");
-                DisplayCardInformation.displayCarCardInformationBoard(cardInformation, carSquare, currentPlayer, cardObj.image, cardObj.name, cardObj.description)
+                DisplayCardInformation.displayCarCardInformationBoard(cardInformation, carSquare, squarePlayer, cardObj.image, cardObj.name, cardObj.description)
             } else {
                 // Yo de pendejo, tengo que mostrar la informacion de la carta, sin importar de que jugador sea
                 // Igualmente toca revisar si esta vacio cuando esta en las cartas del otro jugador
@@ -47,10 +50,12 @@ export class BoardClick {
 
                 const cardInformation = document.getElementById("card-selected-information");
                 console.log(carSquare.firstElementChild.src);
+                // Muestra la informacion del carro que se hizo clic
+                // (Sorpresivamente funciona bien sin ninguna carta seleccionada)
                 DisplayCardInformation.displayCarCardInformationBoard(
                     cardInformation, 
                     carSquare, 
-                    currentPlayer, 
+                    squarePlayer, 
                     carSquare.firstElementChild.src, 
                     carSquare.dataset.name, 
                     carSquare.dataset.description
