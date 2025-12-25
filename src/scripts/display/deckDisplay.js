@@ -1,12 +1,16 @@
 import { DisplayCardInformation } from "./displayCardInformation.js";
 import { StandarizedDocCreation } from "./standardDoc/standarizedDocCreaction.js";
 import { CarCard } from "../models/cards/CarCard.js";
+import { BoardClick } from "../board/boardActions.js";
 
 // Script de mostrar las cartas en el deck.
 
 // Funcion de lo que hace cuando se hace click en una carta (temporal para pruebas)
 const clickOnDeckCard = (divInformation, card, cardId) => {
     //console.log(`Clicked on ${card.name}`)
+    //const carSquares = document.getElementsByClassName("card-board-car");
+    //const player = document.getElementById("deck").dataset.player;
+    //BoardClick.showValidCarSquares(player, carSquares);
     DisplayCardInformation.displayInformationOnDeck(divInformation, card, cardId);
 }
 

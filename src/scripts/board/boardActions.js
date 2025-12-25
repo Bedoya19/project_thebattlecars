@@ -5,6 +5,7 @@ export class BoardClick {
     static clickOnCarSquare(carSquare) {
         // Saco de aqui mismo los datos necesarios
         const cardGeneralInformation = document.getElementById("card-selected-general-information");
+        //const squarePlayer = this.createImgInBoard(carSquare);
         const squarePlayer = carSquare.id.slice(0, 7);
         const cardInformation = document.getElementById("card-selected-information");
         try {
@@ -115,6 +116,23 @@ export class BoardClick {
             ni siquiera es una funcion complicada
         */
     }
+
+    static showValidCarSquares(player, carSquares) {
+        for (const carSquare of carSquares) {
+            //console.log(carSquare);
+            if (carSquare.id.slice(0, 7) === player) {
+                console.log("Casilla permitida para el jugador");
+            }
+        }
+    }
+
+    // Siempre se me olvida el numero del .slice(), entonces esto se estandariza
+    // (lamento informar de que esta funcion por alguna razon hace que explote algo del codigo, y no tengo ni idea porque)
+    /*
+    static getPlayerFromId(divPlayer) {
+        return divPlayer.id.slice(0, 7);
+    }
+    */
 }
 
 // Esta clase revisa si la carta seleccionada puede ser puesta en el tablero
