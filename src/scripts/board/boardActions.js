@@ -40,7 +40,15 @@ export class BoardClick {
                     DisplayCardsInDeck.showDeckOfCards(deckCards, Player1.getCars(), cardInformation);
                 }
                 console.log("carta agregada exitosamente!");
-                DisplayCardInformation.displayCarCardInformationBoard(cardInformation, carSquare, squarePlayer, cardObj.image, cardObj.name, cardObj.description)
+                // Actualiza el div de informacion para mostrar la mas reciente carta puesta en el tablero
+                DisplayCardInformation.displayCarCardInformationBoard(
+                    cardInformation, 
+                    carSquare, 
+                    squarePlayer, 
+                    cardObj.image, 
+                    cardObj.name, 
+                    cardObj.description
+                );
             } else {
                 // Yo de pendejo, tengo que mostrar la informacion de la carta, sin importar de que jugador sea
                 // Igualmente toca revisar si esta vacio cuando esta en las cartas del otro jugador
@@ -49,7 +57,6 @@ export class BoardClick {
                 }
                 //console.log(checkBoard.checkCarSquareAvailability(carBoardPlayer, currentPlayer, carSquare)[1]);
 
-                const cardInformation = document.getElementById("card-selected-information");
                 console.log(carSquare.firstElementChild.src);
                 // Muestra la informacion del carro que se hizo clic
                 // (Sorpresivamente funciona bien sin ninguna carta seleccionada)
@@ -85,6 +92,8 @@ export class BoardClick {
     // (!OJO!, esta funcion solo permite la version JSON de los datos del carro, NO un objeto de la clase)
     static putCarOnBoard(carSquare, carObj) {
         carSquare.appendChild(this.createImgInBoard(carObj));
+        // Lo peor es que esto fue una buena idea, si es necesario agregar un dato mas, aqui se agrega con minima 
+        // interferencia de algo.
         carSquare.dataset.name = carObj.name;
         carSquare.dataset.health = carObj.health;
         carSquare.dataset.maxHealth = carObj.health;

@@ -93,6 +93,15 @@ body {
     grid-column: 2;
     background-color: var(--casilla-carta-carro) !important;
 }
+.card-board-car:hover {
+    background-color: #1f6b93 !important;
+}
+.card-board-car:active {
+    outline: none;
+    border-color: #ffffff;
+    box-shadow: 0 0 10px #ffffff;
+    background-color: #8da0ab !important;
+}
 .card-board-weapon-p-5 {
     grid-row: 2;
     grid-column: 3;
