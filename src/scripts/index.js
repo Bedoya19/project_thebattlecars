@@ -28,6 +28,7 @@ const deckIcon = document.getElementById("deck-icon-current");
 const cardInformation = document.getElementById("card-selected-information");
 // Todas las casillas de carro en el tablero, sin importar jugador
 const carsSquares = document.getElementsByClassName("card-board-car");
+const weaponSquares = document.getElementsByClassName("card-board-weapon");
 
 // Boton de de seleccionar carta
 const deselectButton = document.getElementById("deselect-button");
@@ -58,6 +59,12 @@ deckIcon.addEventListener("click", () => { DisplayCardsInDeck.changeDeck(deckIco
 for (const carSquare of carsSquares) {
     //console.log(carsSquare);
     carSquare.addEventListener("click", () => { BoardClick.clickOnCarSquare(carSquare) });
+}
+
+// Agrega funcionalidad a casillas de arma
+for (const weaponSquare of weaponSquares) {
+    //console.log(weaponSquare);
+    weaponSquare.addEventListener("click", () => { BoardClick.clickOnWeaponSquare(weaponSquare) });
 }
 
 deselectButton.addEventListener("click", () => { DisplayCardInformation.deselectCardInformation(cardInformation) })

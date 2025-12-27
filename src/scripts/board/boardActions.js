@@ -2,6 +2,7 @@ import { Player1 } from "../players/player1.js";
 import { DisplayCardsInDeck } from "../display/deckDisplay.js";
 import { DisplayCardInformation } from "../display/displayCardInformation.js";
 export class BoardClick {
+    // Cuando se hace click en una casilla de carro
     static clickOnCarSquare(carSquare) {
         // Saco de aqui mismo los datos necesarios
         const cardGeneralInformation = document.getElementById("card-selected-general-information");
@@ -77,6 +78,14 @@ export class BoardClick {
             //console.log(e, "Ninguna carta seleccionada! Mostrar aqui que la casilla es del jugador X de la zona Y");
             DisplayCardInformation.displayEmptyCarSquare(cardInformation, carSquare, squarePlayer);
         } 
+    }
+
+    // Cuando se hace click a una casilla de arma
+    static clickOnWeaponSquare(weaponSquare) {
+        const squarePlayer = weaponSquare.id.slice(0, 7);
+        const squareZone = weaponSquare.id.slice(12,13);
+        console.log(`${squarePlayer}, zona ${squareZone}`);
+
     }
 
     // Pone una imagen en una casilla
