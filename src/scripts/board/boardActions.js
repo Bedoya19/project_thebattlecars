@@ -120,7 +120,8 @@ export class BoardClick {
     static showValidCarSquares(player, carSquares) {
         for (const carSquare of carSquares) {
             //console.log(carSquare);
-            if (carSquare.id.slice(0, 7) === player) {
+            if ((carSquare.id.slice(0, 7) === player) && (carSquare.dataset.name === "undefined")) {
+                //console.log(carSquare.dataset.name);
                 console.log("Casilla permitida para el jugador");
             }
         }
