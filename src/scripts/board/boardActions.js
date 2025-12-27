@@ -26,7 +26,6 @@ export class BoardClick {
                 const currentDeck = document.getElementById("deck-icon-current");
                 const deckCards = document.getElementById("deck-cards")
                 const cardObj = JSON.parse(cardGeneralInformation.dataset.card);
-                //
 
                 // Agrega la carta al tablero
                 this.putCarOnBoard(carSquare, cardObj);
@@ -50,6 +49,7 @@ export class BoardClick {
                     cardObj.name, 
                     cardObj.description
                 );
+                this.removeValidCarSquare();
             } else {
                 // Yo de pendejo, tengo que mostrar la informacion de la carta, sin importar de que jugador sea
                 // Igualmente toca revisar si esta vacio cuando esta en las cartas del otro jugador
@@ -128,7 +128,11 @@ export class BoardClick {
         }
     }
 
-    
+    // Quita la seleccion de casillas validas
+    static removeValidCarSquare() {
+        // Sigue siendo una linea, pero TAL VEZ le tenga que agregar otras funciones.
+        document.querySelectorAll(".car-square-valid").forEach(carSquare => carSquare.classList.remove("car-square-valid"));
+    }
 
     // Siempre se me olvida el numero del .slice(), entonces esto se estandariza
     // (lamento informar de que esta funcion por alguna razon hace que explote algo del codigo, y no tengo ni idea porque)
