@@ -116,16 +116,19 @@ export class BoardClick {
             ni siquiera es una funcion complicada
         */
     }
-
+    // Muestra las casillas validas de carro para el jugador
     static showValidCarSquares(player, carSquares) {
         for (const carSquare of carSquares) {
             //console.log(carSquare);
             if ((carSquare.id.slice(0, 7) === player) && (carSquare.dataset.name === "undefined")) {
                 //console.log(carSquare.dataset.name);
                 console.log("Casilla permitida para el jugador");
+                carSquare.classList.add("car-square-valid");
             }
         }
     }
+
+    
 
     // Siempre se me olvida el numero del .slice(), entonces esto se estandariza
     // (lamento informar de que esta funcion por alguna razon hace que explote algo del codigo, y no tengo ni idea porque)
