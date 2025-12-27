@@ -336,3 +336,6 @@ img.image-board {
     border: 2px solid #000000;
     color: var(--fondo-juego-estadisticas);
 }
+.car-square-valid {
+    border: 3px dotted #c7cdd0;
+}

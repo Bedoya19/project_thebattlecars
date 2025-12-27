@@ -1,12 +1,16 @@
 import { DataConversor } from "../models/constants/enums.js";
 import { CarCard } from "../models/cards/CarCard.js";
 import { StandarizedDocCreation } from "./standardDoc/standarizedDocCreaction.js";
+import { BoardClick } from "../board/boardActions.js";
 
 export class DisplayCardInformation {
     static displayInformationOnDeck(divElement, card, cardId) {
         switch (DataConversor.enumToString(card.type)) {
             case "car":
                 const carJSON = card.convertCarCardToJSON();
+                const carSquares = document.getElementsByClassName("card-board-car");
+                const player = document.getElementById("deck").dataset.player;
+                BoardClick.showValidCarSquares(player, carSquares);
                 DisplayCardInformation.displayCarCardInformationDeck(divElement, card, [carJSON, "player1"], cardId);
                 break;
             case "weapon":
