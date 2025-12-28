@@ -153,7 +153,12 @@ export class BoardClick {
                 // carSquare.id.slice(0, 7) = jugador
                 // carSquare.id.slice(23) = zona
                 // (tal vez poner en variable para mejor lectura)
-                this.checkValidZone(carSquare, carSquare.id.slice(0, 7), carSquare.id.slice(23));
+                const validZoneResponse = this.checkValidZone(carSquare, carSquare.id.slice(0, 7), carSquare.id.slice(23));
+                if (!validZoneResponse) {
+                    console.log("No tiene capacidad el carro!");
+                    continue;
+                }
+                
             }
         }
         //console.log(carSquares);
@@ -165,11 +170,16 @@ export class BoardClick {
         console.log(carSquare.dataset.capacity);
         if (carSquare.dataset.capacity <= 0) {
             // Esto se le tiene que avisar al usuario
-            console.log("No tiene capacidad el carro!");
+            //console.log("No tiene capacidad el carro!");
             return false;
         }
         console.log(`El carro en la zona ${zone} tiene capacidad`);
         const weaponSquares = document.getElementsByClassName(`card-board-weapon-${player}-zone${zone}`);
+        //console.log(Array.from(weaponSquares));
+        // Devuelve las casillas que estan vacias.
+        return Array.from(weaponSquares).filter(weaponSquare => {
+            return weaponSquare.dataset.name === "undefined";
+        });
         //console.log(weaponSquares);
     }
     // Siempre se me olvida el numero del .slice(), entonces esto se estandariza
