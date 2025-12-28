@@ -143,6 +143,11 @@ export class BoardClick {
         document.querySelectorAll(".car-square-valid").forEach(carSquare => carSquare.classList.remove("car-square-valid"));
     }
 
+    // Muestra las casillas validas de arma para el jugador
+    static showValidWeaponSquares(player, weaponSquares) {
+        
+    }
+
     // Siempre se me olvida el numero del .slice(), entonces esto se estandariza
     // (lamento informar de que esta funcion por alguna razon hace que explote algo del codigo, y no tengo ni idea porque)
     /*
