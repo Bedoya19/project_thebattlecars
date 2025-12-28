@@ -86,6 +86,13 @@ export class BoardClick {
         const squareZone = weaponSquare.id.slice(12,13);
         console.log(`${squarePlayer}, zona ${squareZone}`);
 
+        try {
+            const currentPlayer = document.getElementById("deck").dataset.player;
+            
+        }
+        catch (e) {
+            // Si hubo un error, una vez mas, es probable que fuera el JSON de la carta estuviera indefinida. 
+        }
     }
 
     // Pone una imagen en una casilla
@@ -153,7 +160,7 @@ export class BoardClick {
                 // carSquare.id.slice(0, 7) = jugador
                 // carSquare.id.slice(23) = zona
                 // (tal vez poner en variable para mejor lectura)
-                const validZoneSquares = this.checkValidZone(carSquare, carSquare.id.slice(0, 7), carSquare.id.slice(23));
+                const validZoneSquares = this.showValidSquaresByZone(carSquare, carSquare.id.slice(0, 7), carSquare.id.slice(23));
                 if (!validZoneSquares) {
                     console.log("No tiene capacidad el carro!");
                     continue;
@@ -166,7 +173,7 @@ export class BoardClick {
 
     // Revisa si la zona con el carro puede tener mas armas
     // Si tiene casillas disponibles, las devuelve. Sino, devuelve un false
-    static checkValidZone(carSquare, player, zone) {
+    static showValidSquaresByZone(carSquare, player, zone) {
         console.log(carSquare.dataset.capacity);
         if (carSquare.dataset.capacity <= 0) {
             // Esto se le tiene que avisar al usuario
@@ -200,6 +207,7 @@ export class BoardClick {
 // Las limitantes pueden incluir desde casilla de jugador incorrecta, a capacidad maxima del carro (tal vez allan otras despues)
 class checkBoard {
     // Revisa que la casilla del jugador sea la correcta
+    // Devuelve true si el jugador es el mismo que se menciona, false si no es asi
     static checkPlayer(boardPlayer, currentPlayer) {
         if (boardPlayer.indexOf(currentPlayer) !== -1) {
             return true;
@@ -207,6 +215,7 @@ class checkBoard {
         return false;
     }
     // Revisa que la casilla de carro no este ocupada
+    // Devuelve True si esta vacia la casilla, false si esta ocupada
     static checkCarSpace(carSquare) {
         if (carSquare.dataset.health === "undefined") {
             return true;
@@ -223,5 +232,37 @@ class checkBoard {
             return [false, "La casilla ya esta ocupada por otro carro"];
         }
         return [true, "La casilla esta disponible para ser usada por una carta de carro"];
+    }
+
+    // Revisa si la casilla de arma esta vacia
+    // Devuelve true si esta vacia, false si esta ocupada
+    static checkWeaponSpace(weaponSquare) {
+        if (weaponSquare.dataset.name === "undefined") {
+            return true;
+        }
+        return false;
+    }
+    // Revisa si existe por lo menos una carta de carro puesta en el tablero
+    // Devuelve true si efectivamente hay una carta de arma en el tablero (independiente de su disponibilidad)
+    // false si no existe ninguna carta puesta en el tablero
+    static checkForExistingCarsForWeapon(player) {
+        const carSquaresPlayer = document.getElementsByClassName(`card-board-car-${player}`);
+        for (const carSquare of carSquaresPlayer) {
+            if (!this.checkCarSpace(carSquare)) {
+                // Por lo menos existe un carro en el jugador deseado, puede continuar
+                return true;
+            }
+        }
+        // Si llego a este punto es que no existe carro en el tablero, entonces debe de devolver false
+        return false;
+    }
+
+    // Devuelve los carros actuales en el tablero
+    // Esto sera usado para revisar disponiblidad para las armas, pero puede ser de gran ayuda para despues
+    static getCurrentCarsInBoard(player) {
+        const carSquaresPlayer = document.getElementsByClassName(`card-board-car-${player}`);
+        return Array.from(carSquaresPlayer).filter(carSquare => {
+            return carSquare.dataset.health !== "undefined";
+        })
     }
 }
