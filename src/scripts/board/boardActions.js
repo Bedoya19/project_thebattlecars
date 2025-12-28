@@ -153,12 +153,12 @@ export class BoardClick {
                 // carSquare.id.slice(0, 7) = jugador
                 // carSquare.id.slice(23) = zona
                 // (tal vez poner en variable para mejor lectura)
-                const validZoneResponse = this.checkValidZone(carSquare, carSquare.id.slice(0, 7), carSquare.id.slice(23));
-                if (!validZoneResponse) {
+                const validZoneSquares = this.checkValidZone(carSquare, carSquare.id.slice(0, 7), carSquare.id.slice(23));
+                if (!validZoneSquares) {
                     console.log("No tiene capacidad el carro!");
                     continue;
                 }
-                
+                this.styleValidWeaponSquares(validZoneSquares);
             }
         }
         //console.log(carSquares);
@@ -181,6 +181,11 @@ export class BoardClick {
             return weaponSquare.dataset.name === "undefined";
         });
         //console.log(weaponSquares);
+    }
+
+    // Pone el estilo de seleccion a las casillas de arma
+    static styleValidWeaponSquares(weaponSquares) {
+        weaponSquares.forEach(weaponSquare => weaponSquare.classList.add("weapon-square-valid"));
     }
     // Siempre se me olvida el numero del .slice(), entonces esto se estandariza
     // (lamento informar de que esta funcion por alguna razon hace que explote algo del codigo, y no tengo ni idea porque)
