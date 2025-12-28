@@ -56,4 +56,20 @@ export class WeaponCard extends Card {
         const weaponData = await WeaponCard.loadWeaponFromJSON(category, index);
         return WeaponCard.convertWeaponFromJSON(weaponData);
     }
+
+    // Convertir un objeto de arma a un elemento JSON
+    convertWeaponCardToJSON() {
+        return JSON.stringify({
+            "id": `weapon-${this.name}`,
+            "category": DataConversor.enumToString(this.category),
+            "type": "weapon",
+            "name": this.name,
+            "description": this.description,
+            "longDescription": this.longDescription,
+            "attacks": this.attacks,
+            "energy": 4,
+            "materials": this.materials,
+            "image": this.image
+        })
+    }
 }

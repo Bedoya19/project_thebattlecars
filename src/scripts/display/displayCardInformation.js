@@ -11,13 +11,13 @@ export class DisplayCardInformation {
                 const carSquares = document.getElementsByClassName("card-board-car");
                 const player = document.getElementById("deck").dataset.player;
                 BoardClick.showValidCarSquares(player, carSquares);
-                DisplayCardInformation.displayCarCardInformationDeck(divElement, card, [carJSON, "player1"], cardId);
+                this.displayCarCardInformationDeck(divElement, card, [carJSON, player], cardId);
                 break;
             case "weapon":
-                DisplayCardInformation.displayWeaponCardInformationDeck(divElement, card);
+                this.displayWeaponCardInformationDeck(divElement, card);
                 break;
             case "material":
-                DisplayCardInformation.displayMaterialCardInformationDeck(divElement, card);
+                this.displayMaterialCardInformationDeck(divElement, card);
                 break;
             case "power":
                 break;
@@ -109,10 +109,10 @@ export class DisplayCardInformation {
     }
     
     // Mostrar la informacion de una carta de weapon del deck
-    static displayWeaponCardInformationDeck(divElement, card) {
+    static displayWeaponCardInformationDeck(divElement, card, [json, player], cardId) {
         const weaponInformationFormat = `
             ${this.mainCardInformation("Jugador 1", card.image, card.name)}
-            <div id="card-selected-general-information">
+            <div id="card-selected-general-information" data-card='${json}' data-origin="deck" data-player="${player}" data-card-id=""${cardId}>
                 <div id="card-selected-attacks">
                     <p class="card-selected-information">Ataques:</p>
                     <div id="card-selected-attacks">
