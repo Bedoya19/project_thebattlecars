@@ -5,16 +5,19 @@ import { BoardClick } from "../board/boardActions.js";
 
 export class DisplayCardInformation {
     static displayInformationOnDeck(divElement, card, cardId) {
+        const player = document.getElementById("deck").dataset.player;
         switch (DataConversor.enumToString(card.type)) {
             case "car":
                 const carJSON = card.convertCarCardToJSON();
                 const carSquares = document.getElementsByClassName("card-board-car");
-                const player = document.getElementById("deck").dataset.player;
+                //const player = document.getElementById("deck").dataset.player;
                 BoardClick.showValidCarSquares(player, carSquares);
                 this.displayCarCardInformationDeck(divElement, card, [carJSON, player], cardId);
                 break;
             case "weapon":
-                this.displayWeaponCardInformationDeck(divElement, card);
+                const weaponJSON = card.convertWeaponCardToJSON();
+                const weaponSquares = document.getElementsByClassName("card-board-weapon");
+                this.displayWeaponCardInformationDeck(divElement, card, [weaponJSON, player], cardId);
                 break;
             case "material":
                 this.displayMaterialCardInformationDeck(divElement, card);
