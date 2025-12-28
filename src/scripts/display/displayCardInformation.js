@@ -17,6 +17,7 @@ export class DisplayCardInformation {
             case "weapon":
                 const weaponJSON = card.convertWeaponCardToJSON();
                 const weaponSquares = document.getElementsByClassName("card-board-weapon");
+                BoardClick.showValidWeaponSquares(player);
                 this.displayWeaponCardInformationDeck(divElement, card, [weaponJSON, player], cardId);
                 break;
             case "material":

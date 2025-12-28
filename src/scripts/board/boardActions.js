@@ -144,10 +144,34 @@ export class BoardClick {
     }
 
     // Muestra las casillas validas de arma para el jugador
-    static showValidWeaponSquares(player, weaponSquares) {
-        
+    static showValidWeaponSquares(player) {
+        // Consigue los carSquares con espacio
+        const carSquares = document.getElementsByClassName("card-board-car")
+        for (const carSquare of carSquares) {
+            if ((carSquare.id.slice(0, 7) === player) && (carSquare.dataset.name !== "undefined")) {
+                console.log(`Esta libre la zona ${carSquare.id.slice(23)}`);
+                // carSquare.id.slice(0, 7) = jugador
+                // carSquare.id.slice(23) = zona
+                // (tal vez poner en variable para mejor lectura)
+                this.checkValidZone(carSquare, carSquare.id.slice(0, 7), carSquare.id.slice(23));
+            }
+        }
+        //console.log(carSquares);
     }
 
+    // Revisa si la zona con el carro puede tener mas armas
+    // Si tiene casillas disponibles, las devuelve. Sino, devuelve un false
+    static checkValidZone(carSquare, player, zone) {
+        console.log(carSquare.dataset.capacity);
+        if (carSquare.dataset.capacity <= 0) {
+            // Esto se le tiene que avisar al usuario
+            console.log("No tiene capacidad el carro!");
+            return false;
+        }
+        console.log(`El carro en la zona ${zone} tiene capacidad`);
+        const weaponSquares = document.getElementsByClassName(`card-board-weapon-${player}-zone${zone}`);
+        //console.log(weaponSquares);
+    }
     // Siempre se me olvida el numero del .slice(), entonces esto se estandariza
     // (lamento informar de que esta funcion por alguna razon hace que explote algo del codigo, y no tengo ni idea porque)
     /*
