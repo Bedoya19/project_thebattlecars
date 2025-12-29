@@ -186,7 +186,7 @@ export class BoardClick {
 }
 
 // Esta clase revisa si la carta seleccionada puede ser puesta en el tablero
-// Las limitantes pueden incluir desde casilla de jugador incorrecta, a capacidad maxima del carro (tal vez allan otras despues)
+// Las limitantes pueden incluir desde casilla de jugador incorrecta, a capacidad maxima del carro (tal vez vayan a haber otras despues)
 class checkBoard {
     // Revisa que la casilla del jugador sea la correcta
     // Devuelve true si el jugador es el mismo que se menciona, false si no es asi
@@ -214,7 +214,7 @@ class checkBoard {
         if (!this.checkCarSpace(carSquare)) {
             return [false, "La casilla ya esta ocupada por otro carro"];
         }
-        return [true, "La casilla esta disponible para ser usada por una carta de carro"];
+        return [true, "La casilla esta disponible para colocar una carta de carro"];
     }
 
     // Revisa si la casilla de arma esta vacia
@@ -295,6 +295,19 @@ class checkBoard {
         return true;
     }
 
-    // Revisa que si se pueda poner una carta de arma en el tablero
-    // Tiene que revisar que si tenga 
+    // Revisa que si se pueda poner una carta de arma en el tablero en una casilla en especifico
+    static checkWeaponSquareAvailability(weaponSquare, boardPlayer, currentPlayer) {
+        if (!this.checkPlayer(boardPlayer, currentPlayer)) {
+            return [false, 'La casilla es del otro jugador'];
+        }
+        if (!this.checkWeaponSpace(weaponSquare)) {
+            return [false, "La casilla ya esta ocupada por otro carro"];
+        }
+        // currentPlayer.id.slice(23) = numero de la zona
+        if (!this.checkForCarCapacity(currentPlayer, currentPlayer.id.slice(23))) {
+            return [false, "El carro no tiene suficiente capacidad para otra arma"];
+        }
+        // Si todo sale bien, la carta se puede colocar en la casilla
+        return [true, "La casilla esta disponible para colocar una carta de arma"]
+    }
 }
