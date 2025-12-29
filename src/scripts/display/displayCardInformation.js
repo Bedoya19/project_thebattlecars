@@ -139,6 +139,7 @@ export class DisplayCardInformation {
     // Mostrar la informacion de una carta de arma del tablero
     static displayWeaponCardInformationBoard(divElement, weaponSquare, playerOriginal, cardImage, cardName, cardDescription) {
         // Muy probablemente, cuando ya tenga todo funcionando correctamente, puedo fusionar algunas funciones repetitivas
+        // Igualmente, al contrario de los displays de los carros, no cambia mucho este, entonces tal vez sea mas sencillo
         divElement.innerHTML = `
             ${this.mainCardInformation(this.convertPlayerString(playerOriginal), cardImage, cardName)}
             <div id="card-selected-general-information" data-card='${json}' data-origin="deck" data-player="${playerOriginal}" data-card-id=""${weaponSquare.id.slice(23)}>

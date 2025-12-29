@@ -124,6 +124,14 @@ export class BoardClick {
 
                 console.log("carta de arma agregada exitosamente!");
 
+                DisplayCardInformation.displayWeaponCardInformationBoard(
+                    cardInformation,
+                    weaponSquare,
+                    squarePlayer,
+                    cardObj.image,
+                    cardObj.name,
+                    cardObj.description
+                );
             } else {
                 // Despues se muestra la informacion del arma aqui
             }
