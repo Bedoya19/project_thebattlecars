@@ -142,14 +142,14 @@ export class DisplayCardInformation {
         // Igualmente, al contrario de los displays de los carros, no cambia mucho este, entonces tal vez sea mas sencillo
         divElement.innerHTML = `
             ${this.mainCardInformation(this.convertPlayerString(playerOriginal), cardImage, cardName)}
-            <div id="card-selected-general-information" data-card='${json}' data-origin="deck" data-player="${playerOriginal}" data-card-id=""${weaponSquare.id.slice(23)}>
+            <div id="card-selected-general-information" data-card='undefined' data-origin="deck" data-player="${playerOriginal}" data-card-id=""${weaponSquare.id.slice(23)}>
                 <div id="card-selected-attacks">
                     <p class="card-selected-information">Ataques:</p>
                     <div id="card-selected-attacks">
                         ${WeaponListStatsDisplay.displayWeaponAttacks(JSON.parse(weaponSquare.dataset.attacks))}
                     </div>
                 </div>
-                <p id="card-selected-energy" class="card-selected-information">Energia: <span>${card.energy}</span></p>
+                <p id="card-selected-energy" class="card-selected-information">Energia: <span>${weaponSquare.dataset.energy}</span></p>
                 <div>
                     <p id="card-selected-upgrade" class="card-selected-information">Materiales para mejorar:</p>
                     <div id="card-selected-materials">
