@@ -90,6 +90,8 @@ export class BoardClick {
         const cardInformation = document.getElementById("card-selected-information");
 
         console.log(`${squarePlayer}, zona ${squareZone}`);
+
+        this.removeValidWeaponSquare();
         // Despues agregar lo de eliminar la estetica esta
         //console.log(checkBoard.checkForCarCapacity(squarePlayer, squareZone));
         try {
@@ -209,7 +211,7 @@ export class BoardClick {
         }
     }
 
-    // Quita la seleccion de casillas validas
+    // Quita la seleccion de casillas validas para carros
     static removeValidCarSquare() {
         // Sigue siendo una linea, pero TAL VEZ le tenga que agregar otras funciones.
         document.querySelectorAll(".car-square-valid").forEach(carSquare => carSquare.classList.remove("car-square-valid"));
@@ -239,6 +241,12 @@ export class BoardClick {
     // Pone el estilo de seleccion a las casillas de arma
     static styleValidWeaponSquares(weaponSquares) {
         weaponSquares.forEach(weaponSquare => weaponSquare.classList.add("weapon-square-valid"));
+    }
+
+    // Quita la seleccion de casillas validas para armas
+    static removeValidWeaponSquare() {
+        // Muy probablemente lo puedo fusionar con el de remover la de los carros...
+        document.querySelectorAll(".weapon-square-valid").forEach(weaponSquare => weaponSquare.classList.remove("weapon-square-valid"));
     }
     // Siempre se me olvida el numero del .slice(), entonces esto se estandariza
     // (lamento informar de que esta funcion por alguna razon hace que explote algo del codigo, y no tengo ni idea porque)

@@ -11,6 +11,8 @@ const clickOnDeckCard = (divInformation, card, cardId) => {
     //const carSquares = document.getElementsByClassName("card-board-car");
     //const player = document.getElementById("deck").dataset.player;
     //BoardClick.showValidCarSquares(player, carSquares);
+    BoardClick.removeValidCarSquare();
+    BoardClick.removeValidWeaponSquare();
     DisplayCardInformation.displayInformationOnDeck(divInformation, card, cardId);
 }
 

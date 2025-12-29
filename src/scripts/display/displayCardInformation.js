@@ -184,6 +184,7 @@ export class DisplayCardInformation {
         `;
         // Si algo, quita la estetica de casillas validas
         BoardClick.removeValidCarSquare();
+        BoardClick.removeValidWeaponSquare();
     }
 
     static displayEmptyCarSquare(divElement, carSquare, squarePlayer) {
