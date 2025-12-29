@@ -83,14 +83,21 @@ export class BoardClick {
 
     // Cuando se hace click a una casilla de arma
     static clickOnWeaponSquare(weaponSquare) {
+        const cardGeneralInformation = document.getElementById("card-selected-general-information");
+
         const squarePlayer = weaponSquare.id.slice(0, 7);
         const squareZone = weaponSquare.id.slice(12,13);
         console.log(`${squarePlayer}, zona ${squareZone}`);
+
+        const cardObj = JSON.parse(cardGeneralInformation.dataset.card);
+        // Despues agregar lo de eliminar la estetica esta
         //console.log(checkBoard.checkForCarCapacity(squarePlayer, squareZone));
         try {
             const currentPlayer = document.getElementById("deck").dataset.player;
             //const weaponBoardPlayer = weaponSquare.classList[0];
-            if (checkBoard.checkWeaponSquareAvailability(weaponSquare, weaponSquare.id, currentPlayer)) {
+            if (checkBoard.checkWeaponSquareAvailability(weaponSquare, weaponSquare.id, currentPlayer)[0]) {
+                this.putWeaponOnBoard(weaponSquare, cardObj);
+
 
             } else {
                 // Despues se muestra la informacion del arma aqui
@@ -207,7 +214,7 @@ export class BoardClick {
         return divPlayer.id.slice(0, 7);
     }
     */
-}
+}   
 
 // Esta clase revisa si la carta seleccionada puede ser puesta en el tablero
 // Las limitantes pueden incluir desde casilla de jugador incorrecta, a capacidad maxima del carro (tal vez vayan a haber otras despues)
