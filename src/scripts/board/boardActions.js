@@ -90,7 +90,11 @@ export class BoardClick {
         try {
             const currentPlayer = document.getElementById("deck").dataset.player;
             //const weaponBoardPlayer = weaponSquare.classList[0];
-            console.log(checkBoard.checkWeaponSquareAvailability(weaponSquare, weaponSquare.id, currentPlayer));
+            if (checkBoard.checkWeaponSquareAvailability(weaponSquare, weaponSquare.id, currentPlayer)) {
+
+            } else {
+                // Despues se muestra la informacion del arma aqui
+            }
         }
         catch (e) {
             // Si hubo un error, una vez mas, es probable que fuera el JSON de la carta estuviera indefinida. 
@@ -135,6 +139,24 @@ export class BoardClick {
             ni siquiera es una funcion complicada
         */
     }
+
+    // Poner una carta de arma en el tablero, con sus respectivos
+    // (LO MISMO CON EL ANTERIOR, solo permite la version JSON de los datos, no el objeto cardWeapon)
+    static putWeaponOnBoard(weaponSquare, weaponObj) {
+        // Aunque se ve chistoso, es la mejor forma que se me ocurre hacer esto.
+        // Agrega la imagen en el div
+        weaponSquare.appendChild(this.createImgInBoard(weaponObj));
+
+        // Datos de la carta
+        weaponSquare.dataset.name = weaponObj.name;
+        weaponSquare.dataset.description = weaponObj.description;
+        // No existe maxEnergy porque tengo pensado que gracias a poderes pueda facilmente incrementar al valor original.
+        // (Aunque me tocara probar como sera que me va con eso)
+        weaponSquare.dataset.energy = weaponObj.energy;
+        weaponSquare.dataset.attacks = JSON.stringify(weaponObj.attacks);
+        weaponSquare.dataset.materials = JSON.stringify(weaponObj.materials);
+    }
+
     // Muestra las casillas validas de carro para el jugador
     static showValidCarSquares(player, carSquares) {
         for (const carSquare of carSquares) {
