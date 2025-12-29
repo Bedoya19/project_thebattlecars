@@ -9,6 +9,7 @@ export class BoardClick {
         //const squarePlayer = this.createImgInBoard(carSquare);
         const squarePlayer = carSquare.id.slice(0, 7);
         const cardInformation = document.getElementById("card-selected-information");
+        this.removeValidCarSquare();
         try {
             // Consigue un guevo de valores del Document para hacer los cambios respectivos en la pagina
             // (no supe hacer algo mejor, para bien y para mal).
@@ -50,7 +51,6 @@ export class BoardClick {
                     cardObj.name, 
                     cardObj.description
                 );
-                this.removeValidCarSquare();
             } else {
                 // Yo de pendejo, tengo que mostrar la informacion de la carta, sin importar de que jugador sea
                 // Igualmente toca revisar si esta vacio cuando esta en las cartas del otro jugador
