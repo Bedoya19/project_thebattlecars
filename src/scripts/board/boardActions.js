@@ -86,13 +86,15 @@ export class BoardClick {
         const squarePlayer = weaponSquare.id.slice(0, 7);
         const squareZone = weaponSquare.id.slice(12,13);
         console.log(`${squarePlayer}, zona ${squareZone}`);
-        console.log(checkBoard.checkForCarCapacity(squarePlayer, squareZone));
+        //console.log(checkBoard.checkForCarCapacity(squarePlayer, squareZone));
         try {
             const currentPlayer = document.getElementById("deck").dataset.player;
-            
+            //const weaponBoardPlayer = weaponSquare.classList[0];
+            console.log(checkBoard.checkWeaponSquareAvailability(weaponSquare, weaponSquare.id, currentPlayer));
         }
         catch (e) {
             // Si hubo un error, una vez mas, es probable que fuera el JSON de la carta estuviera indefinida. 
+            console.log("Error", e);
         }
     }
 
@@ -281,6 +283,7 @@ class checkBoard {
 
     // Solamente revisa si en donde se hizo click (en la casilla de arma) se puede colocar un arma
     static checkForCarCapacity(player, zone) {
+        console.log(zone);
         // Conseguir el jugador y zona del id de weaponSquare
         const carSquare = document.getElementById(`${player}-zone${zone}-card-car-${zone}`);
         if (carSquare.dataset.capacity === "undefined") {
@@ -303,8 +306,8 @@ class checkBoard {
         if (!this.checkWeaponSpace(weaponSquare)) {
             return [false, "La casilla ya esta ocupada por otro carro"];
         }
-        // currentPlayer.id.slice(23) = numero de la zona
-        if (!this.checkForCarCapacity(currentPlayer, currentPlayer.id.slice(23))) {
+        // weaponSquare.id.slice(12, 13) = numero de la zona
+        if (!this.checkForCarCapacity(currentPlayer, weaponSquare.id.slice(12, 13))) {
             return [false, "El carro no tiene suficiente capacidad para otra arma"];
         }
         // Si todo sale bien, la carta se puede colocar en la casilla
