@@ -84,7 +84,7 @@ export class DisplayCardInformation {
         // Se puede fusionar en un futuro cercano, pero por ahora necesito que funcione...
         divElement.innerHTML = `
             ${this.mainCardInformation(this.convertPlayerString(playerOriginal), cardImage, cardName)}
-            <div id="card-selected-general-information" data-card='undefined' data-origin="board" data-player="${playerOriginal}" data-card-id="${ carSquare.id.slice(23)}">
+            <div id="card-selected-general-information" data-card='undefined' data-origin="board" data-player="${playerOriginal}" data-card-id="${carSquare.id.slice(23)}">
                 <p id="car-selected-health" class="card-selected-information">
                     Vida: <span>${carSquare.dataset.health}</span> / <span>${carSquare.dataset.maxHealth}</span>
                 </p>
@@ -109,7 +109,7 @@ export class DisplayCardInformation {
                 </div>
                 ${this.descriptionCardInformation(cardDescription)}
             </div>
-        `
+        `;
     }
     
     // Mostrar la informacion de una carta de weapon del deck
@@ -117,6 +117,30 @@ export class DisplayCardInformation {
         const weaponInformationFormat = `
             ${this.mainCardInformation("Jugador 1", card.image, card.name)}
             <div id="card-selected-general-information" data-card='${json}' data-origin="deck" data-player="${player}" data-card-id=""${cardId}>
+                <div id="card-selected-attacks">
+                    <p class="card-selected-information">Ataques:</p>
+                    <div id="card-selected-attacks">
+                        ${WeaponListStatsDisplay.displayWeaponAttacks(card.attacks)}
+                    </div>
+                </div>
+                <p id="card-selected-energy" class="card-selected-information">Energia: <span>${card.energy}</span></p>
+                <div>
+                    <p id="card-selected-upgrade" class="card-selected-information">Materiales para mejorar:</p>
+                    <div id="card-selected-materials">
+                        ${WeaponListStatsDisplay.displayWeaponMaterials(card.materials)}
+                    </div>
+                </div>
+                ${this.descriptionCardInformation(card.description)}
+            </div>
+        `
+        divElement.innerHTML = weaponInformationFormat;
+    }
+
+    // Mostrar la informacion de una carta de arma del tablero
+    static displayWeaponCardInformationBoard(divElement, weaponSquare, playerOriginal, cardImage, cardName, cardDescription) {
+        divElement.innerHTML = `
+            ${this.mainCardInformation(this.convertPlayerString(playerOriginal), cardImage, cardName)}
+            <div id="card-selected-general-information" data-card='${json}' data-origin="deck" data-player="${playerOriginal}" data-card-id=""${weaponSquare.id.slice(23)}>
                 <div id="card-selected-attacks">
                     <p class="card-selected-information">Ataques:</p>
                     <div id="card-selected-attacks">
@@ -132,8 +156,7 @@ export class DisplayCardInformation {
                 </div>
                 ${this.descriptionCardInformation(card.description)}
             </div>
-        `
-        divElement.innerHTML = weaponInformationFormat;
+        `;
     }
 
     // Mostrar la informacion de una carta de material del deck
@@ -190,13 +213,13 @@ export class DisplayCardInformation {
 // Esta separada de DisplayCardInformation ya que no quiero se exportada por ahora al main.js
 class WeaponListStatsDisplay {
     // Devolver los ataques de una arma en formato HTML
-    // En todo esto se asume que se da una carta de arma, por ahora no veo factible revisar
-    static displayWeaponAttacks(weaponCard) {
+    // Ahora, en vez de la carta, se recibe solamente la lista de ataques
+    static displayWeaponAttacks(weaponAttacks) {
         const attackList = this.createUlElementForWeapon("attacks");
 
-        for (let i = 0; i < weaponCard.attacks.length ; i++) {
+        for (let i = 0; i < weaponAttacks.length ; i++) {
             // Crea una string bonita de cada elemento de attackValues
-            const attackValues = weaponCard.attacks[i].join(", ");
+            const attackValues = weaponAttacks[i].join(", ");
         
             // Creacion de cada elemento de la lista
             const attackListLi = this.createListElementInWeapon("card-selected-attack");
@@ -206,12 +229,12 @@ class WeaponListStatsDisplay {
         return attackList.outerHTML;
     }
     // Devolver los materiales de un arma en un formato HTML
-    // Una vez mas, se asumo que se da una carta de arma.
-    static displayWeaponMaterials(weaponCard) {
+    // Ahora, en vez de la carta, se recibe solamente la lista de materiales
+    static displayWeaponMaterials(weaponMaterials) {
         const materialList = this.createUlElementForWeapon("materials");
 
         // Lo mismo que el anterior, creacion de cada elemento de la lista, esta vez con un formato distinto
-        for (const material of weaponCard.materials) {
+        for (const material of weaponMaterials) {
             //console.log(material);
             // Crea cada elemento de la lista
             const materialListLi = this.createListElementInWeapon("card-selected-material");
