@@ -18,6 +18,7 @@ export class BoardClick {
             
             console.log(squarePlayer);
             const carBoardPlayer = carSquare.classList[2];
+            console.log(carBoardPlayer);
             
             //console.log("Zone " + carSquare.id.slice(23));
 
@@ -85,7 +86,7 @@ export class BoardClick {
         const squarePlayer = weaponSquare.id.slice(0, 7);
         const squareZone = weaponSquare.id.slice(12,13);
         console.log(`${squarePlayer}, zona ${squareZone}`);
-
+        console.log(checkBoard.checkForCarCapacity(squarePlayer, squareZone));
         try {
             const currentPlayer = document.getElementById("deck").dataset.player;
             
@@ -157,10 +158,10 @@ export class BoardClick {
         for (const carSquare of carSquares) {
             if ((carSquare.id.slice(0, 7) === player) && (carSquare.dataset.name !== "undefined")) {
                 console.log(`Esta libre la zona ${carSquare.id.slice(23)}`);
-                // carSquare.id.slice(0, 7) = jugador
-                // carSquare.id.slice(23) = zona
-                // (tal vez poner en variable para mejor lectura)
-                const validZoneSquares = this.showValidSquaresByZone(carSquare, carSquare.id.slice(0, 7), carSquare.id.slice(23));
+                // Variables usados para showValidSquaresByZone()
+                const squarePlayer = carSquare.id.slice(0, 7);
+                const squareZone = carSquare.id.slice(23);
+                const validZoneSquares = checkBoard.showValidSquaresByZone(carSquare, carSquare.id.slice(0, 7), carSquare.id.slice(23));
                 if (!validZoneSquares) {
                     console.log("No tiene capacidad el carro!");
                     continue;
@@ -169,25 +170,6 @@ export class BoardClick {
             }
         }
         //console.log(carSquares);
-    }
-
-    // Revisa si la zona con el carro puede tener mas armas
-    // Si tiene casillas disponibles, las devuelve. Sino, devuelve un false
-    static showValidSquaresByZone(carSquare, player, zone) {
-        console.log(carSquare.dataset.capacity);
-        if (carSquare.dataset.capacity <= 0) {
-            // Esto se le tiene que avisar al usuario
-            //console.log("No tiene capacidad el carro!");
-            return false;
-        }
-        console.log(`El carro en la zona ${zone} tiene capacidad`);
-        const weaponSquares = document.getElementsByClassName(`card-board-weapon-${player}-zone${zone}`);
-        //console.log(Array.from(weaponSquares));
-        // Devuelve las casillas que estan vacias.
-        return Array.from(weaponSquares).filter(weaponSquare => {
-            return weaponSquare.dataset.name === "undefined";
-        });
-        //console.log(weaponSquares);
     }
 
     // Pone el estilo de seleccion a las casillas de arma
@@ -217,6 +199,7 @@ class checkBoard {
     // Revisa que la casilla de carro no este ocupada
     // Devuelve True si esta vacia la casilla, false si esta ocupada
     static checkCarSpace(carSquare) {
+        console.log(carSquare);
         if (carSquare.dataset.health === "undefined") {
             return true;
         }
@@ -246,6 +229,12 @@ class checkBoard {
     // Devuelve true si efectivamente hay una carta de arma en el tablero (independiente de su disponibilidad)
     // false si no existe ninguna carta puesta en el tablero
     static checkForExistingCarsForWeapon(player) {
+        if (this.getCurrentCarsInBoard(player).length !== 0) {
+            return true;
+        } else {
+            return false;
+        }
+        /*
         const carSquaresPlayer = document.getElementsByClassName(`card-board-car-${player}`);
         for (const carSquare of carSquaresPlayer) {
             if (!this.checkCarSpace(carSquare)) {
@@ -254,7 +243,7 @@ class checkBoard {
             }
         }
         // Si llego a este punto es que no existe carro en el tablero, entonces debe de devolver false
-        return false;
+        return false;*/
     }
 
     // Devuelve los carros actuales en el tablero
@@ -265,4 +254,47 @@ class checkBoard {
             return carSquare.dataset.health !== "undefined";
         })
     }
+
+    // Revisa si la zona con el carro puede tener mas armas
+    // Si tiene casillas disponibles, las devuelve. Sino, devuelve un false
+    static showValidSquaresByZone(carSquare, player, zone) {
+        console.log(carSquare.dataset.capacity);
+        if (!this.checkForCarCapacity(player, zone)) {
+            // Se le tiene que decir al usuario
+            return false;
+        }
+        /*
+        if (carSquare.dataset.capacity <= 0) {
+            // Esto se le tiene que avisar al usuario
+            //console.log("No tiene capacidad el carro!");
+            return false;
+        }*/
+        console.log(`El carro en la zona ${zone} tiene capacidad`);
+        const weaponSquares = document.getElementsByClassName(`card-board-weapon-${player}-zone${zone}`);
+        //console.log(Array.from(weaponSquares));
+        // Devuelve las casillas que estan vacias.
+        return Array.from(weaponSquares).filter(weaponSquare => {
+            return weaponSquare.dataset.name === "undefined";
+        });
+        //console.log(weaponSquares);
+    }
+
+    // Solamente revisa si en donde se hizo click (en la casilla de arma) se puede colocar un arma
+    static checkForCarCapacity(player, zone) {
+        // Conseguir el jugador y zona del id de weaponSquare
+        const carSquare = document.getElementById(`${player}-zone${zone}-card-car-${zone}`);
+        if (carSquare.dataset.capacity === "undefined") {
+            // No existe carta de carro, igualmente no se puede poner
+            return false;
+        } else if (carSquare.dataset.capacity <= 0) {
+            // Otra vez, se tiene que decir al usuario
+            console.log("no tiene capacidad el carro!");
+            return false;
+        }
+        // Irrelevante de la cantidad de capacidad faltante, por lo menos tiene.
+        return true;
+    }
+
+    // Revisa que si se pueda poner una carta de arma en el tablero
+    // Tiene que revisar que si tenga 
 }
