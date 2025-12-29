@@ -87,17 +87,42 @@ export class BoardClick {
 
         const squarePlayer = weaponSquare.id.slice(0, 7);
         const squareZone = weaponSquare.id.slice(12,13);
-        console.log(`${squarePlayer}, zona ${squareZone}`);
+        const cardInformation = document.getElementById("card-selected-information");
 
-        const cardObj = JSON.parse(cardGeneralInformation.dataset.card);
+        console.log(`${squarePlayer}, zona ${squareZone}`);
         // Despues agregar lo de eliminar la estetica esta
         //console.log(checkBoard.checkForCarCapacity(squarePlayer, squareZone));
         try {
             const currentPlayer = document.getElementById("deck").dataset.player;
             //const weaponBoardPlayer = weaponSquare.classList[0];
             if (checkBoard.checkWeaponSquareAvailability(weaponSquare, weaponSquare.id, currentPlayer)[0]) {
+                
+                // Datos generales
+                // (Tal vez fusionar en algun momento con la otra funcion de arriba...?)
+                // A final de todo, es bastante parecido al codigo de arriba, yo creo que se puede resumir ciertos temas.
+                // Pero primero tiene que funcionar lo de poner armas
+                const currentDeck = document.getElementById("deck-icon-current");
+                const deckCards = document.getElementById("deck-cards");
+                const cardObj = JSON.parse(cardGeneralInformation.dataset.card);
+
                 this.putWeaponOnBoard(weaponSquare, cardObj);
 
+                const deckIndex = cardGeneralInformation.dataset.cardId.slice(10);
+                Player1.deleteFromDeck("weapons", deckIndex)
+                if (currentDeck.dataset.deck === "weapons") {
+                    console.log("reiniciar mazo...");
+                    deckCards.innerHTML = "";
+
+                    DisplayCardsInDeck.showDeckOfCards(deckCards, Player1.getWeapons(), cardInformation);
+                }
+
+                // Edita carSquare para quitarle capacidad al carro
+                console.log(`${squarePlayer}-zone${squareZone}-card-car-${squareZone}`);
+                const carSquare = document.getElementById(`${squarePlayer}-zone${squareZone}-card-car-${squareZone}`);
+                console.log(carSquare);
+                carSquare.dataset.capacity = parseInt(carSquare.dataset.capacity) - 1;
+
+                console.log("carta de arma agregada exitosamente!");
 
             } else {
                 // Despues se muestra la informacion del arma aqui
