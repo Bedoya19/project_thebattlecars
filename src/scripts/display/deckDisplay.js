@@ -2,6 +2,7 @@ import { DisplayCardInformation } from "./displayCardInformation.js";
 import { StandarizedDocCreation } from "./standardDoc/standarizedDocCreaction.js";
 import { CarCard } from "../models/cards/CarCard.js";
 import { BoardClick } from "../board/boardActions.js";
+import { PlayerActions } from "../players/playerActions.js";
 
 // Script de mostrar las cartas en el deck.
 
@@ -81,5 +82,34 @@ export class DisplayCardsInDeck {
         deckIconImage.dataset.deck = newDeck;
         console.log(decksDefaultIcons[newDeck]);
         deckIconImage.setAttribute("src", decksDefaultIcons[newDeck]);
+    }
+
+    // Nuevo metodo totalmente refractorizado de cambiar el deck
+    static changeDeckPlayer(deckIconImage, decksDefaultIcons, player, divDeck, cardInformation) {
+        // El primer pedazo es identico al proceso anterior, que estara marcado por lo siguiente:
+        // - inicio -
+        // Consigue el index actual del deck
+        const decksTypeList = Object.keys(decksDefaultIcons);
+        let deckTypeIndex = decksTypeList.indexOf(deckIconImage.dataset.deck);
+
+        if (deckTypeIndex === decksTypeList.length - 1) {
+            deckTypeIndex = 0;
+        } else {
+            ++deckTypeIndex;
+        }
+        //console.log(deckTypeIndex);
+
+        divDeck.innerHTML = "";
+        //const newDeck = decksTypeList[deckTypeIndex];
+        // - fin -
+        // Aqui es en donde va a cambiar la cosa que con el anterior
+        // Resulta que con el anterior recibia el deck en si. Aqui solo se recibe el jugador,
+        // y aqui mismo se consigue el deck que se quiere conseguir
+        const newDeck = decksTypeList[deckTypeIndex];
+        this.showDeckOfCards(divDeck, PlayerActions.getDeckFromPlayer(player, newDeck), cardInformation)
+
+        deckIconImage.dataset.deck = newDeck;
+        deckIconImage.setAttribute("src", decksDefaultIcons[newDeck]);
+
     }
 }
