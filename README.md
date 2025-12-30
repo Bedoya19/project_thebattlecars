@@ -24,7 +24,7 @@ Las cartas tambien estan(estaran) divididas en 6 categorias. En donde los carros
 Explicaciones detalladas vendran despues mientras se trabaja el el proyecto.
 
 
-### LO QUE SE TIENE QUE HACER
+#### LO QUE SE TIENE QUE HACER
 El objetivo definitivo "ultimate" es tener un juego con algo de progreso, pero va a tomar mucho tiempo eso.
 El objetivo mas aterrizado a tierra es tener un juego que se pueda jugar o en solitario con una IA (mas un bot con algoritmos) o local con dos jugadores (online queda extremadamente fuera de juego para esto), que PRINCIPALMENTE tiene que tener lo siguiente:
 
@@ -37,5 +37,7 @@ El objetivo mas aterrizado a tierra es tener un juego que se pueda jugar o en so
     - Categoria 5: 2 series
     - Categoria 6: 1 serie
 
-Mi sueño es algun dia tener POR LO MENOS esto logrado. Al menos que solo sea jugable localmente con dos jugadores. 
+Mi sueño es algun dia tener POR LO MENOS esto logrado. Al menos que solo sea jugable localmente con dos jugadores.
+
+Tambien, el primer modo que se va a lograr es sin poderes, pero el objetivo sera hacer el modo con poderes. Y despues en los dos estan de que si el ataque es aleatorio en el momento de atacar, o ya se sabe el numero antes de atacar. Vamos viendo como se hacen los modos.
 
