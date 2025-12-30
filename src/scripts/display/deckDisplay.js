@@ -1,5 +1,6 @@
 import { DisplayCardInformation } from "./displayCardInformation.js";
 import { StandarizedDocCreation } from "./standardDoc/standarizedDocCreaction.js";
+import { DeckDefaultIconsDir } from "../models/constants/deckDefaultIconsDir.js";
 import { CarCard } from "../models/cards/CarCard.js";
 import { BoardClick } from "../board/boardActions.js";
 import { PlayerActions } from "../players/playerActions.js";
@@ -85,11 +86,11 @@ export class DisplayCardsInDeck {
     }
 
     // Nuevo metodo totalmente refractorizado de cambiar el deck
-    static changeDeckPlayer(deckIconImage, decksDefaultIcons, player, divDeck, cardInformation) {
+    static changeDeckPlayer(deckIconImage, player, divDeck, cardInformation) {
         // El primer pedazo es identico al proceso anterior, que estara marcado por lo siguiente:
         // - inicio -
         // Consigue el index actual del deck
-        const decksTypeList = Object.keys(decksDefaultIcons);
+        const decksTypeList = Object.keys(DeckDefaultIconsDir.getDeckIcons());
         let deckTypeIndex = decksTypeList.indexOf(deckIconImage.dataset.deck);
 
         if (deckTypeIndex === decksTypeList.length - 1) {
@@ -109,7 +110,7 @@ export class DisplayCardsInDeck {
         this.showDeckOfCards(divDeck, PlayerActions.getDeckFromPlayer(player, newDeck), cardInformation)
 
         deckIconImage.dataset.deck = newDeck;
-        deckIconImage.setAttribute("src", decksDefaultIcons[newDeck]);
+        deckIconImage.setAttribute("src", DeckDefaultIconsDir.getDeckIcons()[newDeck]);
 
     }
 }
