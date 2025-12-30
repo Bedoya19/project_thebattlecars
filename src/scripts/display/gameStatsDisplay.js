@@ -5,3 +5,30 @@ Esto incluye actualizar los datos del juego en general, como los turnos y las ro
 personales del jugador, que es la cantidad de nitro, poder y "carga" (el ataque que va a hacer el poder), y las
 acciones que se hacen en el tablero.
 */
+
+export class GameStatsDisplay {
+    // Reinicia el contenido de las notas de los turnos
+    static restartTurnNotes() {
+        document.getElementById("turn-notes-content").innerHTML = "";
+    }
+
+    // Agrega en las notas del turno la colocacion de una carta de carro
+    static carOnBoardTurnNotes(player, zone, carName) {
+        const turnContent = document.getElementById("turn-notes-content");
+        const text = this.createStatsText();
+        text.innerText = `${player} coloco "${carName}" en la zona ${zone}`;
+        turnContent.appendChild(text);
+    }
+
+    // Agrega en las notas del turno la colocaccion de una carta de arma
+    static weaponOnBoardTurnNotes(player, carName, weaponName) {
+        const turnContent = document.getElementById("turn-notes-content");
+        const text = this.createStatsText();
+        text.innerText = `${player} coloco "${weaponName}" en el carro ${carName}`;
+    }
+
+    // Crear un elemento P. Esto es para evitar escribir la clase del elemento P cada rato
+    static createStatsText() {
+        return document.createElement("p").classList.add("game-stat-text");
+    }
+}
