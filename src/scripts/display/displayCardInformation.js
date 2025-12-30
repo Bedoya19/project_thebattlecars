@@ -186,7 +186,7 @@ export class DisplayCardInformation {
         BoardClick.removeValidCarSquare();
         BoardClick.removeValidWeaponSquare();
     }
-
+    // Mostrar una casilla vacia de carro
     static displayEmptyCarSquare(divElement, carSquare, squarePlayer) {
         divElement.innerHTML = `
         <div id="card-selected-information">
@@ -196,6 +196,17 @@ export class DisplayCardInformation {
         </div>
         `;
     }
+
+    // Mostrar una casilla vacia de arma
+    static displayEmptyWeaponSquare(divElement, weaponSquare, squarePlayer) {
+        divElement.innerHTML = `
+        <div id="card-selected-information">
+            <h2 class="card-selected-information">Casilla vacia de arma del ${this.convertPlayerString(squarePlayer)} en la zona ${weaponSquare.id.slice(12, 13)}</h2>
+            <div id="card-selected-general-information" data.card="undefined" data-origin="undefined" data-player="undefined">
+        </div>
+        `
+    }
+
     // Poner la informacion respectiva en las datas del div de informacion para que sepa de donde vino
     // data-card: La informacion JSON de la carta (si esta viene del deck)
     // data-origin: De donde vino la informacion de la carta. Del deck o del tablero

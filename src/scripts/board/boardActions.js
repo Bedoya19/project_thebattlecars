@@ -4,6 +4,7 @@ import { DisplayCardInformation } from "../display/displayCardInformation.js";
 export class BoardClick {
     // Cuando se hace click en una casilla de carro
     static clickOnCarSquare(carSquare) {
+
         // Saco de aqui mismo los datos necesarios
         const cardGeneralInformation = document.getElementById("card-selected-general-information");
         //const squarePlayer = this.createImgInBoard(carSquare);
@@ -83,6 +84,7 @@ export class BoardClick {
 
     // Cuando se hace click a una casilla de arma
     static clickOnWeaponSquare(weaponSquare) {
+        //console.log("hola");
         const cardGeneralInformation = document.getElementById("card-selected-general-information");
 
         const squarePlayer = weaponSquare.id.slice(0, 7);
@@ -136,11 +138,22 @@ export class BoardClick {
                 );
             } else {
                 // Despues se muestra la informacion del arma aqui
+                
+                DisplayCardInformation.displayWeaponCardInformationBoard(
+                    cardInformation,
+                    weaponSquare,
+                    squarePlayer,
+                    weaponSquare.firstElementChild.src,
+                    weaponSquare.dataset.name,
+                    weaponSquare.dataset.description
+                );
             }
         }
         catch (e) {
             // Si hubo un error, una vez mas, es probable que fuera el JSON de la carta estuviera indefinida. 
-            console.log("Error", e);
+            //console.log("Error", e);
+            //console.log("hola");
+            DisplayCardInformation.displayEmptyWeaponSquare(cardInformation, weaponSquare, squarePlayer);
         }
     }
 
