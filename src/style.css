@@ -354,3 +354,6 @@ img.image-board {
     box-shadow: 0 0 10px #ffffff;
     background-color: #8da0ab !important;
 }
+.turn-note {
+    list-style-position: inside;
+}

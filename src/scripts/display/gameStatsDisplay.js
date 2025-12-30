@@ -34,8 +34,8 @@ export class GameStatsDisplay {
 
     // Crear un elemento P. Esto es para evitar escribir la clase del elemento P cada rato
     static createStatsText() {
-        const pElement = document.createElement('p');
-        pElement.classList.add("game-stat-text");
+        const pElement = document.createElement('li');
+        pElement.classList.add("game-stat-text", "turn-note");
         return pElement;
         // Genuinamente no se porque esto no funciona...
         //return document.createElement("p").classList.add("game-stat-text");
