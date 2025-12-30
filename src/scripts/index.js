@@ -20,6 +20,8 @@ import { BoardClick } from "./board/boardActions.js";
 //import { image } from "./../images/default_icons/default_cars.png";
 import { Player1 } from "./players/player1.js";
 import { GameStatsDisplay } from "./display/gameStatsDisplay.js";
+// Clase de las operaciones del juego
+import { MainGame } from "./game/mainGame.js";
 
 
 // Display del mazo
@@ -31,9 +33,9 @@ const cardInformation = document.getElementById("card-selected-information");
 const carsSquares = document.getElementsByClassName("card-board-car");
 const weaponSquares = document.getElementsByClassName("card-board-weapon");
 
-// Boton de de seleccionar carta
+// Botones del juego
 const deselectButton = document.getElementById("deselect-button");
-
+const nextRoundButton = document.getElementById("next-round-button");
 console.log(cardInformation);
 
 // Imagenes default del deck
@@ -66,6 +68,8 @@ for (const weaponSquare of weaponSquares) {
 
 deselectButton.addEventListener("click", () => { DisplayCardInformation.deselectCardInformation(cardInformation) })
 GameStatsDisplay.restartTurnNotes();
+
+nextRoundButton.addEventListener("click", () => { MainGame.changePlayers()});
 
 //console.log(Player1.getCars());
 //console.log(Player1.deleteFromDeck("cars", 1));

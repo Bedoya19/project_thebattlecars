@@ -12,6 +12,7 @@ export class MainGame {
     static changePlayers() {
         // Cambia el data del deck para que sea del otro jugador
         const currentPlayer = document.getElementById("deck").dataset.player;
-        console.log(currentPlayer);
+        document.getElementById("deck").dataset.player = (currentPlayer === "player1") ? "player2" : "player1";
+        
     }
 }
