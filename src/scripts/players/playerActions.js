@@ -28,6 +28,10 @@ export class PlayerActions {
         }
     }
 
+    static getAllDecksFromPlayer(player) {
+        return (player === "player1") ? Player1.getDecks() : Player2.getDecks();
+    }
+
     // Remueve una carta del deck
     static removeCardInDeck(player, deck, index) {
         (player === "player1") ? Player1.deleteFromDeck(deck, index) : Player2.deleteFromDeck(deck, index);
