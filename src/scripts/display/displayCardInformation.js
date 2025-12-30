@@ -56,7 +56,7 @@ export class DisplayCardInformation {
         // Esto es solo para mostrar la informacion de la carta en el deck.
         const carInformationFormat = `
             ${this.mainCardInformation("Jugador 1", card.image, card.name)}
-            <div id="card-selected-general-information" data-card='${json}' data-origin="deck" data-player="${player}" data-card-id="${cardId}">
+            <div id="card-selected-general-information" data-card='${json}' data-origin="deck" data-player="${player}" data-card-id="${cardId}" data-type="car">
                 <p id="car-selected-health" class="card-selected-information">Vida: <span>${card.health}</span></p>
                 <p id="car-selected-capacity" class="card-selected-information">Capacidad <span>${card.capacity}</span></p>
                 <p id="car-selected-attackbuff" class="card-selected-information">Aumento de ataque: <span>${card.attBuff}</span></p>
@@ -84,7 +84,7 @@ export class DisplayCardInformation {
         // Se puede fusionar en un futuro cercano, pero por ahora necesito que funcione...
         divElement.innerHTML = `
             ${this.mainCardInformation(this.convertPlayerString(playerOriginal), cardImage, cardName)}
-            <div id="card-selected-general-information" data-card='undefined' data-origin="board" data-player="${playerOriginal}" data-card-id="${carSquare.id.slice(23)}">
+            <div id="card-selected-general-information" data-card='undefined' data-origin="board" data-player="${playerOriginal}" data-card-id="${carSquare.id.slice(23)}" data-type="car">
                 <p id="car-selected-health" class="card-selected-information">
                     Vida: <span>${carSquare.dataset.health}</span> / <span>${carSquare.dataset.maxHealth}</span>
                 </p>
@@ -116,7 +116,7 @@ export class DisplayCardInformation {
     static displayWeaponCardInformationDeck(divElement, card, [json, player], cardId) {
         const weaponInformationFormat = `
             ${this.mainCardInformation("Jugador 1", card.image, card.name)}
-            <div id="card-selected-general-information" data-card='${json}' data-origin="deck" data-player="${player}" data-card-id=""${cardId}>
+            <div id="card-selected-general-information" data-card='${json}' data-origin="deck" data-player="${player}" data-card-id=""${cardId} data-type="weapon">
                 <div id="card-selected-attacks">
                     <p class="card-selected-information">Ataques:</p>
                     <div id="card-selected-attacks">

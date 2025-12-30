@@ -27,7 +27,7 @@ export class BoardClick {
             //console.log("Zone " + carSquare.id.slice(23));
 
             // Revisa que se pueda poner la carta:
-            if (checkBoard.checkCarSquareAvailability(carBoardPlayer, currentPlayer, carSquare)[0]) {
+            if (checkBoard.checkCarSquareAvailability(carBoardPlayer, currentPlayer, carSquare, cardGeneralInformation)[0]) {
 
                 // El resto de los datos
                 const currentDeck = document.getElementById("deck-icon-current");
@@ -104,7 +104,7 @@ export class BoardClick {
         try {
             const currentPlayer = document.getElementById("deck").dataset.player;
             //const weaponBoardPlayer = weaponSquare.classList[0];
-            if (checkBoard.checkWeaponSquareAvailability(weaponSquare, weaponSquare.id, currentPlayer)[0]) {
+            if (checkBoard.checkWeaponSquareAvailability(weaponSquare, weaponSquare.id, currentPlayer, cardGeneralInformation)[0]) {
                 
                 // Datos generales
                 // (Tal vez fusionar en algun momento con la otra funcion de arriba...?)
@@ -299,12 +299,15 @@ class checkBoard {
     }
     // Junta las dos anteriores, revisa si se puede poner una carta de carro en la casilla seleccionada del tablero
     // Devuelve el error exacto de lo que esta mal, si detecta que no puede colocar el carro
-    static checkCarSquareAvailability(boardPlayer, currentPlayer, carSquare) {
+    static checkCarSquareAvailability(boardPlayer, currentPlayer, carSquare, cardGeneralInformation) {
         if (!this.checkPlayer(boardPlayer, currentPlayer)) {
             return [false, "La casilla es del otro jugador!"];
         }
         if (!this.checkCarSpace(carSquare)) {
             return [false, "La casilla ya esta ocupada por otro carro"];
+        }
+        if (cardGeneralInformation.dataset.type !== "car") {
+            return [false, "se va a poner otro tipo de carta en una casilla de carro"];
         }
         return [true, "La casilla esta disponible para colocar una carta de carro"];
     }
@@ -389,7 +392,7 @@ class checkBoard {
     }
 
     // Revisa que si se pueda poner una carta de arma en el tablero en una casilla en especifico
-    static checkWeaponSquareAvailability(weaponSquare, boardPlayer, currentPlayer) {
+    static checkWeaponSquareAvailability(weaponSquare, boardPlayer, currentPlayer, cardGeneralInformation) {
         if (!this.checkPlayer(boardPlayer, currentPlayer)) {
             return [false, 'La casilla es del otro jugador'];
         }
@@ -399,6 +402,9 @@ class checkBoard {
         // weaponSquare.id.slice(12, 13) = numero de la zona
         if (!this.checkForCarCapacity(currentPlayer, weaponSquare.id.slice(12, 13))) {
             return [false, "El carro no tiene suficiente capacidad para otra arma"];
+        }
+        if (cardGeneralInformation.dataset.type !== "weapon") {
+            return [false, "se va a poner otro tipo de carta en una casilla de arma"];
         }
         // Si todo sale bien, la carta se puede colocar en la casilla
         return [true, "La casilla esta disponible para colocar una carta de arma"]
