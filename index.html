@@ -187,27 +187,33 @@
                     <div id="game-stats">
                         <div id="state-players" class="game-stat-div">
                             <h3 id="general-game-state-text" class="game-stat-text game-stat-subtitle-text">Estado del juego:</h3>
-                            <p class="game-stat-text">Carros del jugador 1: <span id="value-cars-player1">5</span>/5</p>
-                            <p class="game-stat-text">Carros del jugador 2: <span id="value-cars-player2">5</span>/5</p>
-                            <p class="game-stat-text">Ronda <span id="value-current-round">1</span></p>
-                            <p class="game-stat-text">Turno <span id="value-current-turn">1</span></p>
+                            <div id="general-game-stat-content">
+                                <p class="game-stat-text">Carros del jugador 1: <span id="value-cars-player1">5</span>/5</p>
+                                <p class="game-stat-text">Carros del jugador 2: <span id="value-cars-player2">5</span>/5</p>
+                                <p class="game-stat-text">Ronda <span id="value-current-round">1</span></p>
+                                <p class="game-stat-text">Turno <span id="value-current-turn">1</span></p>
+                            </div>
                         </div>
                         <div id="game-values" class="game-stat-div">
                             <!-- Carga, el ataque que va a hacer la arma -->
                             <h3 class="game-stat-text game-stat-subtitle-text">Valores:</h3>
-                            <p class="game-stat-text">Carga: <span id="value-local-charge">6</span>-6</p>
-                            <!-- Nitro: La cantidad de nitro que se puede usar. Se entrega 1 de nitro por turno. Tambien se consigue por carro destruido -->
-                            <p class="game-stat-text">Nitro: <span id="value-local-nitro">5</span></p>
-                            <!-- Poder: La cantidad de poder que se puuede usar. El poder se usa para hacer acciones en el juego y para usar las cartas de poder. Se entrega de manera linealmente incremental por turno, y es acumulativo -->
-                            <p class="game-stat-text">Poder: <span id="value-local-power">5</span></p>
+                            <div id="game-value-content">
+                                <p class="game-stat-text">Carga: <span id="value-local-charge">6</span>-6</p>
+                                <!-- Nitro: La cantidad de nitro que se puede usar. Se entrega 1 de nitro por turno. Tambien se consigue por carro destruido -->
+                                <p class="game-stat-text">Nitro: <span id="value-local-nitro">5</span></p>
+                                <!-- Poder: La cantidad de poder que se puuede usar. El poder se usa para hacer acciones en el juego y para usar las cartas de poder. Se entrega de manera linealmente incremental por turno, y es acumulativo -->
+                                <p class="game-stat-text">Poder: <span id="value-local-power">5</span></p>
+                            </div>
                         </div>
                         <hr>
                         <div id="turn-notes" class="game-stat-div">
                             <!-- Ejemplo para ver el diseño general -->
-                            <p class="game-stat-text">Turno 3:</p>
-                            <p class="game-stat-text">Se le entrega a cada jugador su respecitvo nitro, mas 3 de poder. Usenlos bien!</p>
-                            <p class="game-stat-text">Jugador 1 usa (arma) en (carro1) para atacar (carro2), (carro) ahora queda con 6/10 de vida.</p>
-                            <p class="game-stat-text">Jugador 2 usa (poder): Ahora tiene mas de uno</p>
+                            <div id="turn-notes-content">
+                                <p class="game-stat-text">Turno 3:</p>
+                                <p class="game-stat-text">Se le entrega a cada jugador su respecitvo nitro, mas 3 de poder. Usenlos bien!</p>
+                                <p class="game-stat-text">Jugador 1 usa (arma) en (carro1) para atacar (carro2), (carro) ahora queda con 6/10 de vida.</p>
+                                <p class="game-stat-text">Jugador 2 usa (poder): Ahora tiene mas de uno</p>
+                            </div>
                         </div>
                             <!-- Este es un boton de prueba para hacer ciertas cosas -->
                         <div id="deselect-div">
