@@ -2,6 +2,8 @@ import { Player1 } from "../players/player1.js";
 import { Player2 } from "../players/player2.js";
 import { DisplayCardsInDeck } from "../display/deckDisplay.js";
 import { DisplayCardInformation } from "../display/displayCardInformation.js";
+import { GameStatsDisplay } from "../display/gameStatsDisplay.js";
+
 export class BoardClick {
     // Cuando se hace click en una casilla de carro
     static clickOnCarSquare(carSquare) {
@@ -54,6 +56,7 @@ export class BoardClick {
                     cardObj.name, 
                     cardObj.description
                 );
+                GameStatsDisplay.carOnBoardTurnNotes(squarePlayer, carSquare.id.slice(23), cardObj.name);
             } else {
                 // Yo de pendejo, tengo que mostrar la informacion de la carta, sin importar de que jugador sea
                 // Igualmente toca revisar si esta vacio cuando esta en las cartas del otro jugador
@@ -79,6 +82,7 @@ export class BoardClick {
             // Si hubo un error, lo mas probable es que fuera que el JSON estuviera undefined, entonces esto se muestra
             // (Esto en algun momento tambien se tendra que mostrar al usuario)
             //console.log(e, "Ninguna carta seleccionada! Mostrar aqui que la casilla es del jugador X de la zona Y");
+            console.log(e);
             DisplayCardInformation.displayEmptyCarSquare(cardInformation, carSquare, squarePlayer);
         } 
     }

@@ -19,6 +19,7 @@ import { DisplayCardInformation } from "./display/displayCardInformation.js";
 import { BoardClick } from "./board/boardActions.js";
 //import { image } from "./../images/default_icons/default_cars.png";
 import { Player1 } from "./players/player1.js";
+import { GameStatsDisplay } from "./display/gameStatsDisplay.js";
 
 
 // Display del mazo
@@ -68,6 +69,7 @@ for (const weaponSquare of weaponSquares) {
 }
 
 deselectButton.addEventListener("click", () => { DisplayCardInformation.deselectCardInformation(cardInformation) })
+GameStatsDisplay.restartTurnNotes();
 
 //console.log(Player1.getCars());
 //console.log(Player1.deleteFromDeck("cars", 1));

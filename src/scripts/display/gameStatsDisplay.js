@@ -14,9 +14,10 @@ export class GameStatsDisplay {
 
     // Metodo generico para agregar una anotacion en las notas del turno
     static addTurnNote(message) {
-        const turnContent = document.getElementById("turn-notets-content");
+        const turnContent = document.getElementById("turn-notes-content");
         const text = this.createStatsText();
-        text.innerText = message;
+        console.log(text);
+        text.innerHTML = message;
         turnContent.appendChild(text);
     }
 
@@ -32,6 +33,10 @@ export class GameStatsDisplay {
 
     // Crear un elemento P. Esto es para evitar escribir la clase del elemento P cada rato
     static createStatsText() {
-        return document.createElement("p").classList.add("game-stat-text");
+        const pElement = document.createElement('p');
+        pElement.classList.add("game-stat-text");
+        return pElement;
+        // Genuinamente no se porque esto no funciona...
+        //return document.createElement("p").classList.add("game-stat-text");
     }
 }
