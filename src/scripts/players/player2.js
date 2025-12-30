@@ -10,8 +10,8 @@ const materialCard = await MaterialCard.loadMaterialObjectFromJSON("category1", 
 // Tal vez en un futuro fusionar con Player1? Pero esta es mi unica solucion
 export class Player2 {
     static #decks = {
-        "cars": [carCard, carCard, carCard],
-        "weapons": [weaponCard, weaponCard, weaponCard],
+        "cars": [carCard, carCard, carCard, carCard, carCard],
+        "weapons": [weaponCard, weaponCard, weaponCard, weaponCard, weaponCard, weaponCard, weaponCard],
         "materials": [materialCard, materialCard, materialCard]
     }
     static #power = 1;

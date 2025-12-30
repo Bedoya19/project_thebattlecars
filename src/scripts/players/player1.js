@@ -17,8 +17,8 @@ const materialCard = await MaterialCard.loadMaterialObjectFromJSON("category1", 
 
 export class Player1 {
     static #decks = {
-        "cars": [carCard, carCard, carCard],
-        "weapons": [weaponCard, weaponCard, weaponCard],
+        "cars": [carCard, carCard, carCard, carCard, carCard],
+        "weapons": [weaponCard, weaponCard, weaponCard, weaponCard, weaponCard, weaponCard, weaponCard],
         "materials": [materialCard, materialCard, materialCard]
     };
     static #power = 1;

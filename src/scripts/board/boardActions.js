@@ -1,4 +1,5 @@
 import { Player1 } from "../players/player1.js";
+import { Player2 } from "../players/player2.js";
 import { DisplayCardsInDeck } from "../display/deckDisplay.js";
 import { DisplayCardInformation } from "../display/displayCardInformation.js";
 export class BoardClick {
