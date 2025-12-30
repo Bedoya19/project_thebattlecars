@@ -29,7 +29,7 @@ export class GameStatsDisplay {
 
     // Agrega en las notas del turno la colocaccion de una carta de arma
     static weaponOnBoardTurnNotes(player, carName, weaponName) {
-        this.addTurnNote(`${DisplayCardInformation.convertPlayerString(player)} coloco "${weaponName}" en el carro ${carName}`);
+        this.addTurnNote(`${DisplayCardInformation.convertPlayerString(player)} coloco "${weaponName}" en el carro "${carName}"`);
     }
 
     // Crear un elemento P. Esto es para evitar escribir la clase del elemento P cada rato

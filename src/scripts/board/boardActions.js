@@ -141,6 +141,8 @@ export class BoardClick {
                     cardObj.name,
                     cardObj.description
                 );
+
+                GameStatsDisplay.weaponOnBoardTurnNotes(squarePlayer, carSquare.dataset.name, cardObj.name);
             } else {
                 // Despues se muestra la informacion del arma aqui
                 
