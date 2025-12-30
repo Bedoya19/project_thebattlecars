@@ -46,7 +46,7 @@ export class BoardClick {
                     console.log("reiniciar mazo...");
                     deckCards.innerHTML = "";
                     // Player1.getCards() tendra que cambiar cuando se agrege el jugador 2.
-                    DisplayCardsInDeck.showDeckOfCards(deckCards, Player1.getCars(), cardInformation);
+                    DisplayCardsInDeck.showDeckOfCards(deckCards, PlayerActions.getDeckFromPlayer(squarePlayer, "cars"), cardInformation);
                 }
                 console.log("carta agregada exitosamente!");
                 // Actualiza el div de informacion para mostrar la mas reciente carta puesta en el tablero
@@ -126,7 +126,7 @@ export class BoardClick {
                     console.log("reiniciar mazo...");
                     deckCards.innerHTML = "";
 
-                    DisplayCardsInDeck.showDeckOfCards(deckCards, Player1.getWeapons(), cardInformation);
+                    DisplayCardsInDeck.showDeckOfCards(deckCards, PlayerActions.getDeckFromPlayer(squarePlayer, "weapons"), cardInformation);
                 }
 
                 // Edita carSquare para quitarle capacidad al carro
