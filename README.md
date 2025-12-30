@@ -41,3 +41,10 @@ Mi sueño es algun dia tener POR LO MENOS esto logrado. Al menos que solo sea ju
 
 Tambien, el primer modo que se va a lograr es sin poderes, pero el objetivo sera hacer el modo con poderes. Y despues en los dos estan de que si el ataque es aleatorio en el momento de atacar, o ya se sabe el numero antes de atacar. Vamos viendo como se hacen los modos.
 
+#### Pasos a corto plazo para lograr el Minimum Viable Product
+Despues de que se logre el Minimum Viable Product
+(El minimum viable product NO tendra poderes)
+- Agregar turnos para el jugador 2 local
+- Agregar la funcionalidad de mejorar armas
+- Atacar carros del jugador contrincante
+
