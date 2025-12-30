@@ -343,3 +343,12 @@ img.image-board {
 .card-board-weapon-player1:hover {
     background-color: #686868;
 }
+.card-board-weapon-player2:hover {
+    background-color: #212121;
+}
+.card-board-weapon-player1:active, .card-board-weapon-player2:active {
+    outline: none;
+    border-color: #ffffff;
+    box-shadow: 0 0 10px #ffffff;
+    background-color: #8da0ab !important;
+}
