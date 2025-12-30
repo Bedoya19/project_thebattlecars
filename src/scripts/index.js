@@ -54,7 +54,8 @@ const decks = Player1.getDecks();
 
 DisplayCardsInDeck.showDeckOfCards(deckCards, decks["cars"], cardInformation);
 
-deckIcon.addEventListener("click", () => { DisplayCardsInDeck.changeDeck(deckIcon, deckDefaultIconsDir, decks, deckCards, cardInformation) });
+//deckIcon.addEventListener("click", () => { DisplayCardsInDeck.changeDeck(deckIcon, deckDefaultIconsDir, decks, deckCards, cardInformation) });
+deckIcon.addEventListener("click", () => { DisplayCardsInDeck.changeDeckPlayer(deckIcon, deckDefaultIconsDir, "player1", deckCards, cardInformation) });
 
 // Agrega funcionalidad a las casillas de carro
 for (const carSquare of carsSquares) {
