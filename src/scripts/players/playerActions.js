@@ -6,8 +6,8 @@ Por ahora lo unico que tendra es que revisa si es del jugador 1 o jugador 2, y s
 mazo
 */
 // Importar jugadores
-import { Player1 } from "./player1";
-import { Player2 } from "./player2";
+import { Player1 } from "./player1.js";
+import { Player2 } from "./player2.js";
 
 // Clase que va a hacer todo
 export class PlayerActions {

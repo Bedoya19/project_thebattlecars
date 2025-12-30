@@ -1,5 +1,6 @@
 import { Player1 } from "../players/player1.js";
 import { Player2 } from "../players/player2.js";
+import { PlayerActions } from "../players/playerActions.js";
 import { DisplayCardsInDeck } from "../display/deckDisplay.js";
 import { DisplayCardInformation } from "../display/displayCardInformation.js";
 import { GameStatsDisplay } from "../display/gameStatsDisplay.js";
@@ -38,7 +39,8 @@ export class BoardClick {
                 this.putCarOnBoard(carSquare, cardObj);
                 // Elimina la carta del deck
                 const deckIndex = cardGeneralInformation.dataset.cardId.slice(10);
-                Player1.deleteFromDeck("cars", deckIndex);
+                //Player1.deleteFromDeck("cars", deckIndex);
+                PlayerActions.removeCardInDeck(squarePlayer, "cars", deckIndex);
                 // Reinicia el mazo si se esta mostrando el deck de carros
                 if (currentDeck.dataset.deck === "cars") {
                     console.log("reiniciar mazo...");
@@ -117,7 +119,9 @@ export class BoardClick {
                 this.putWeaponOnBoard(weaponSquare, cardObj);
 
                 const deckIndex = cardGeneralInformation.dataset.cardId.slice(10);
-                Player1.deleteFromDeck("weapons", deckIndex)
+                //Player1.deleteFromDeck("weapons", deckIndex)
+                PlayerActions.removeCardInDeck(squarePlayer, "weapons", deckIndex);
+
                 if (currentDeck.dataset.deck === "weapons") {
                     console.log("reiniciar mazo...");
                     deckCards.innerHTML = "";
