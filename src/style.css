@@ -339,3 +339,7 @@ img.image-board {
 .car-square-valid, .weapon-square-valid {
     border: 3px dotted #c7cdd0;
 }
+
+.card-board-weapon-player1:hover {
+    background-color: #686868;
+}
