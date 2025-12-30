@@ -107,10 +107,14 @@ export class DisplayCardsInDeck {
         // Resulta que con el anterior recibia el deck en si. Aqui solo se recibe el jugador,
         // y aqui mismo se consigue el deck que se quiere conseguir
         const newDeck = decksTypeList[deckTypeIndex];
-        this.showDeckOfCards(divDeck, PlayerActions.getDeckFromPlayer(player, newDeck), cardInformation)
+       this.changeSpecificDeck(divDeck, deckIconImage, cardInformation, player, newDeck);
+    }
 
-        deckIconImage.dataset.deck = newDeck;
-        deckIconImage.setAttribute("src", DeckDefaultIconsDir.getDeckIcons()[newDeck]);
-
+    // Cambia el deck a uno en especifico, no necesariamente al siguiente
+    // (igualmente yo creeria que se puede juntar con el final de lo anterior)
+    static changeSpecificDeck(divDeck, deckIcon, cardInformation, player, deck) {
+        this.showDeckOfCards(divDeck, PlayerActions.getDeckFromPlayer(player, deck), cardInformation);
+        deckIcon.dataset.deck = deck;
+        deckIcon.setAttribute("src", DeckDefaultIconsDir.getDeckIcons()[deck]);
     }
 }

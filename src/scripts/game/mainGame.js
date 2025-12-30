@@ -14,5 +14,7 @@ export class MainGame {
         const currentPlayer = document.getElementById("deck").dataset.player;
         document.getElementById("deck").dataset.player = (currentPlayer === "player1") ? "player2" : "player1";
         
+        // Reinicia el deck en su totalidad
+        
     }
 }
