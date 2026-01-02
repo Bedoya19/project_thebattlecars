@@ -77,6 +77,11 @@ export class DisplayCardInformation {
             </div>
         `;
         divElement.innerHTML = carInformationFormat;
+        /*
+        divElement.innerHTML = `
+            ${this.mainCardInformation("Jugador 1", card.image, card.name)}
+            ${this.generalCarCardInformation()}
+        `*/
     }
     // Mostrar la informacion de una carta de carro del tablero
     static displayCarCardInformationBoard(divElement, carSquare, playerOriginal, cardImage, cardName, cardDescription) {
@@ -103,10 +108,10 @@ export class DisplayCardInformation {
     // nitroStats[1]: nitroDuration
     // nitroBuffs[0]: nitroResistance
     // nitroBuffs[1]: nitroAttack
-    static generalCarCardInformation(player, carId, health, capacity, attBuff, nitroStats, nitroBuffs, cardDescription) {
+    static generalCarCardInformation(player, carId, health, capacity, attBuff, nitroStats, nitroBuffs, cardDescription, data) {
         console.log(player, carId, health, capacity, attBuff, nitroStats, nitroBuffs, cardDescription);
         return `
-            <div id="card-selected-general-information" data-card='undefined' data-origin="board" data-player="${player}" data-card-id="${carId}" data-type="car">
+            <div id="card-selected-general-information" data-card='${data}' data-origin="board" data-player="${player}" data-card-id="${carId}" data-type="car">
                 <p id="car-selected-health" class="card-selected-information">
                     Vida: ${health}
                 </p>
