@@ -54,34 +54,21 @@ export class DisplayCardInformation {
     static displayCarCardInformationDeck(divElement, card, [json, player], cardId) {
         //console.log(card);
         // Esto es solo para mostrar la informacion de la carta en el deck.
-        const carInformationFormat = `
+        divElement.innerHTML = `
             ${this.mainCardInformation("Jugador 1", card.image, card.name)}
-            <div id="card-selected-general-information" data-card='${json}' data-origin="deck" data-player="${player}" data-card-id="${cardId}" data-type="car">
-                <p id="car-selected-health" class="card-selected-information">Vida: <span>${card.health}</span></p>
-                <p id="car-selected-capacity" class="card-selected-information">Capacidad <span>${card.capacity}</span></p>
-                <p id="car-selected-attackbuff" class="card-selected-information">Aumento de ataque: <span>${card.attBuff}</span></p>
-                <div id="car-selected-nitro">
-                    <div id="car-selected-nitro-amount">
-                        <p id="nitro-quantity" class="card-selected-information">Capacidad de nitro: <span>${card.nitro[0]}</span></p>
-                        <p id="nitro-duration" class="card-selected-information">Duracion de nitro: <span>${card.nitro[1]}</span></p>
-                    </div>
-                    <div id="car-selected-nitro-buff">
-                        <p class="card-selected-information">Cuando nitro activo:</p>
-                        <ul class="card-selected-lists">
-                            <li class="card-selected-information card-selected-list">Resistencia: ${card.nitroBuff[0]}</li>
-                            <li class="card-selected-information card-selected-list">Ataque: +${card.nitroBuff[1]}</li>
-                        </ul>
-                    </div>
-                </div>
-                ${this.descriptionCardInformation(card.description)}
-            </div>
+            ${this.generalCarCardInformation(
+                player,
+                cardId,
+                card.health,
+                card.capacity,
+                card.attBuff,
+                card.nitro,
+                card.nitroBuff,
+                card.description,
+                "deck",
+                json
+            )}
         `;
-        divElement.innerHTML = carInformationFormat;
-        
-        //divElement.innerHTML = `
-        //    ${this.mainCardInformation("Jugador 1", card.image, card.name)}
-        //    ${this.generalCarCardInformation()}
-        //`*/
     }
     // Mostrar la informacion de una carta de carro del tablero
     static displayCarCardInformationBoard(divElement, carSquare, playerOriginal, cardImage, cardName, cardDescription) {
