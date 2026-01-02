@@ -111,6 +111,43 @@ export class DisplayCardInformation {
             </div>
         `;
     }
+
+    // Metodo general para el contenido general de la carta de carro (con esto se ahora bastantes lineas)
+    // Anoto que "health" y "capacity" pueden llegar a ser o un numero, o una string (para mostrar el maximo de capacidad o vida).
+    // Para, en mi vision, una mayor claridad, las estadisticas de nitro estaran divididas en 2 arrays, que son las siguientes
+    // nitroStats[0]: nitroQuantity
+    // nitroStats[1]: nitroDuration
+    // nitroBuffs[0]: nitroResistance
+    // nitroBuffs[1]: nitroAttack
+    static generalCarCardInformation(player, carId, health, capacity, attBuff, nitroStats, nitroBuffs, cardDescription) {
+        return `
+            <div id="card-selected-general-information" data-card='undefined' data-origin="board" data-player="${player}" data-card-id="${carId}" data-type="car">
+                <p id="car-selected-health" class="card-selected-information">
+                    Vida: <span>${health}</span>
+                </p>
+                <p id="car-selected-capacity" class="card-selected-information">
+                    Capacidad <span>${capacity}</span>
+                </p>
+                <p id="car-selected-attackbuff" class="card-selected-information">
+                    Aumento de ataque: <span>${attBuff}</span>
+                </p>
+                <div id="car-selected-nitro">
+                    <div id="car-selected-nitro-amount">
+                        <p id="nitro-quantity" class="card-selected-information">Capacidad de nitro: <span>${nitroStats[0]}</span></p>
+                        <p id="nitro-duration" class="card-selected-information">Duracion de nitro: <span>${nitroStats[1]}</span></p>
+                    </div>
+                    <div id="car-selected-nitro-buff">
+                        <p class="card-selected-information">Cuando nitro activo:</p>
+                        <ul class="card-selected-lists">
+                            <li class="card-selected-information card-selected-list">Resistencia: ${nitroBuffs[0]}</li>
+                            <li class="card-selected-information card-selected-list">Ataque: +${nitroBuffs[1]}</li>
+                        </ul>
+                    </div>
+                </div>
+                ${this.descriptionCardInformation(cardDescription)}
+            </div>
+        `;
+    }
     
     // Mostrar la informacion de una carta de weapon del deck
     static displayWeaponCardInformationDeck(divElement, card, [json, player], cardId) {
