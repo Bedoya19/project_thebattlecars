@@ -77,11 +77,11 @@ export class DisplayCardInformation {
             </div>
         `;
         divElement.innerHTML = carInformationFormat;
-        /*
-        divElement.innerHTML = `
-            ${this.mainCardInformation("Jugador 1", card.image, card.name)}
-            ${this.generalCarCardInformation()}
-        `*/
+        
+        //divElement.innerHTML = `
+        //    ${this.mainCardInformation("Jugador 1", card.image, card.name)}
+        //    ${this.generalCarCardInformation()}
+        //`*/
     }
     // Mostrar la informacion de una carta de carro del tablero
     static displayCarCardInformationBoard(divElement, carSquare, playerOriginal, cardImage, cardName, cardDescription) {
@@ -96,7 +96,9 @@ export class DisplayCardInformation {
                 carSquare.dataset.attBuff,
                 [carSquare.dataset.nitroQuantity, carSquare.dataset.nitroDuration],
                 [carSquare.dataset.nitroResistance, carSquare.dataset.nitroAttack],
-                cardDescription)
+                cardDescription,
+                "board"
+            )
             }
        `;
     }
@@ -108,10 +110,10 @@ export class DisplayCardInformation {
     // nitroStats[1]: nitroDuration
     // nitroBuffs[0]: nitroResistance
     // nitroBuffs[1]: nitroAttack
-    static generalCarCardInformation(player, carId, health, capacity, attBuff, nitroStats, nitroBuffs, cardDescription, data) {
+    static generalCarCardInformation(player, carId, health, capacity, attBuff, nitroStats, nitroBuffs, cardDescription, origin, data) {
         console.log(player, carId, health, capacity, attBuff, nitroStats, nitroBuffs, cardDescription);
         return `
-            <div id="card-selected-general-information" data-card='${data}' data-origin="board" data-player="${player}" data-card-id="${carId}" data-type="car">
+            <div id="card-selected-general-information" data-card='${data}' data-origin="${origin}" data-player="${player}" data-card-id="${carId}" data-type="car">
                 <p id="car-selected-health" class="card-selected-information">
                     Vida: ${health}
                 </p>
