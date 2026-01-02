@@ -82,6 +82,7 @@ export class DisplayCardInformation {
     static displayCarCardInformationBoard(divElement, carSquare, playerOriginal, cardImage, cardName, cardDescription) {
         // Es bastante parecido al anterior salvo que es lo que exactamente dicen los valores.
         // Se puede fusionar en un futuro cercano, pero por ahora necesito que funcione...
+        /*
         divElement.innerHTML = `
             ${this.mainCardInformation(this.convertPlayerString(playerOriginal), cardImage, cardName)}
             <div id="card-selected-general-information" data-card='undefined' data-origin="board" data-player="${playerOriginal}" data-card-id="${carSquare.id.slice(23)}" data-type="car">
@@ -110,6 +111,20 @@ export class DisplayCardInformation {
                 ${this.descriptionCardInformation(cardDescription)}
             </div>
         `;
+        */
+        divElement.innerHTML = `
+            ${this.mainCardInformation(this.convertPlayerString(playerOriginal), cardImage, cardName)}
+            ${this.generalCarCardInformation(
+                playerOriginal, 
+                carSquare.id.slice(23), 
+                `<span>${carSquare.dataset.health}</span> / <span>${carSquare.dataset.maxHealth}</span>`,
+                `<span>${carSquare.dataset.capacity}</span> / <span>${carSquare.dataset.maxCapacity}</span>`,
+                carSquare.dataset.attBuff,
+                [carSquare.dataset.nitroQuantity, carSquare.dataset.nitroDuration],
+                [carSquare.dataset.nitroResistance, carSquare.dataset.nitroAttack],
+                cardDescription)
+            }
+       `;
     }
 
     // Metodo general para el contenido general de la carta de carro (con esto se ahora bastantes lineas)
@@ -120,16 +135,17 @@ export class DisplayCardInformation {
     // nitroBuffs[0]: nitroResistance
     // nitroBuffs[1]: nitroAttack
     static generalCarCardInformation(player, carId, health, capacity, attBuff, nitroStats, nitroBuffs, cardDescription) {
+        console.log(player, carId, health, capacity, attBuff, nitroStats, nitroBuffs, cardDescription);
         return `
             <div id="card-selected-general-information" data-card='undefined' data-origin="board" data-player="${player}" data-card-id="${carId}" data-type="car">
                 <p id="car-selected-health" class="card-selected-information">
-                    Vida: <span>${health}</span>
+                    Vida: ${health}
                 </p>
                 <p id="car-selected-capacity" class="card-selected-information">
-                    Capacidad <span>${capacity}</span>
+                    Capacidad: ${capacity}
                 </p>
                 <p id="car-selected-attackbuff" class="card-selected-information">
-                    Aumento de ataque: <span>${attBuff}</span>
+                    Aumento de ataque: ${attBuff}
                 </p>
                 <div id="car-selected-nitro">
                     <div id="car-selected-nitro-amount">
