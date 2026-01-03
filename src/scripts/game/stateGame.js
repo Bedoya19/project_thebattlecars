@@ -28,13 +28,19 @@ export class StateGame {
         return this.#turn;
     }
     // Avanzar a la siguiente ronda, tambien avanza al sigueinte turno si es el momento (ronda impar)
+    // 1: Siguiente ronda
+    // 2: Siguiente ronda y siguiente turno
+    // (Esto va a ser manejado por (probablemente) mainGame.js)
     static nextRound() {
+        // Siempre avanza a la siguiente ronda
         ++this.#round;
+        // Si la ronda es impar, avanza al siguiente turno, sino es asi, no hace nada peculiar (por ahora)
+        // Devuelve datos que seran usados en otros scripts.
         if (this.#round % 2 !== 0) {
             ++this.#turn;
-            return [1, "siguiente ronda, siguiente turno"];
+            return [2, "siguiente ronda, siguiente turno"];
         } else {
-            return [2, "siguiente ronda"];
+            return [1, "siguiente ronda"];
         }
     }
 }
