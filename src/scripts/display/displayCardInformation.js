@@ -54,56 +54,72 @@ export class DisplayCardInformation {
     static displayCarCardInformationDeck(divElement, card, [json, player], cardId) {
         //console.log(card);
         // Esto es solo para mostrar la informacion de la carta en el deck.
-        const carInformationFormat = `
-            ${this.mainCardInformation("Jugador 1", card.image, card.name)}
-            <div id="card-selected-general-information" data-card='${json}' data-origin="deck" data-player="${player}" data-card-id="${cardId}" data-type="car">
-                <p id="car-selected-health" class="card-selected-information">Vida: <span>${card.health}</span></p>
-                <p id="car-selected-capacity" class="card-selected-information">Capacidad <span>${card.capacity}</span></p>
-                <p id="car-selected-attackbuff" class="card-selected-information">Aumento de ataque: <span>${card.attBuff}</span></p>
-                <div id="car-selected-nitro">
-                    <div id="car-selected-nitro-amount">
-                        <p id="nitro-quantity" class="card-selected-information">Capacidad de nitro: <span>${card.nitro[0]}</span></p>
-                        <p id="nitro-duration" class="card-selected-information">Duracion de nitro: <span>${card.nitro[1]}</span></p>
-                    </div>
-                    <div id="car-selected-nitro-buff">
-                        <p class="card-selected-information">Cuando nitro activo:</p>
-                        <ul class="card-selected-lists">
-                            <li class="card-selected-information card-selected-list">Resistencia: ${card.nitroBuff[0]}</li>
-                            <li class="card-selected-information card-selected-list">Ataque: +${card.nitroBuff[1]}</li>
-                        </ul>
-                    </div>
-                </div>
-                ${this.descriptionCardInformation(card.description)}
-            </div>
+        divElement.innerHTML = `
+            ${this.mainCardInformation(this.convertPlayerString(player), card.image, card.name)}
+            ${this.generalCarCardInformation(
+                player,
+                cardId,
+                card.health,
+                card.capacity,
+                card.attBuff,
+                card.nitro,
+                card.nitroBuff,
+                card.description,
+                "deck",
+                json
+            )}
         `;
-        divElement.innerHTML = carInformationFormat;
     }
     // Mostrar la informacion de una carta de carro del tablero
     static displayCarCardInformationBoard(divElement, carSquare, playerOriginal, cardImage, cardName, cardDescription) {
         // Es bastante parecido al anterior salvo que es lo que exactamente dicen los valores.
-        // Se puede fusionar en un futuro cercano, pero por ahora necesito que funcione...
         divElement.innerHTML = `
             ${this.mainCardInformation(this.convertPlayerString(playerOriginal), cardImage, cardName)}
-            <div id="card-selected-general-information" data-card='undefined' data-origin="board" data-player="${playerOriginal}" data-card-id="${carSquare.id.slice(23)}" data-type="car">
+            ${this.generalCarCardInformation(
+                playerOriginal, 
+                carSquare.id.slice(23), 
+                `<span>${carSquare.dataset.health}</span> / <span>${carSquare.dataset.maxHealth}</span>`,
+                `<span>${carSquare.dataset.capacity}</span> / <span>${carSquare.dataset.maxCapacity}</span>`,
+                carSquare.dataset.attBuff,
+                [carSquare.dataset.nitroQuantity, carSquare.dataset.nitroDuration],
+                [carSquare.dataset.nitroResistance, carSquare.dataset.nitroAttack],
+                cardDescription,
+                "board"
+            )
+            }
+       `;
+    }
+
+    // Metodo general para el contenido general de la carta de carro (con esto se ahora bastantes lineas)
+    // Anoto que "health" y "capacity" pueden llegar a ser o un numero, o una string (para mostrar el maximo de capacidad o vida).
+    // Para, en mi vision, una mayor claridad, las estadisticas de nitro estaran divididas en 2 arrays, que son las siguientes
+    // nitroStats[0]: nitroQuantity
+    // nitroStats[1]: nitroDuration
+    // nitroBuffs[0]: nitroResistance
+    // nitroBuffs[1]: nitroAttack
+    static generalCarCardInformation(player, carId, health, capacity, attBuff, nitroStats, nitroBuffs, cardDescription, origin, data) {
+        console.log(player, carId, health, capacity, attBuff, nitroStats, nitroBuffs, cardDescription);
+        return `
+            <div id="card-selected-general-information" data-card='${data}' data-origin="${origin}" data-player="${player}" data-card-id="${carId}" data-type="car">
                 <p id="car-selected-health" class="card-selected-information">
-                    Vida: <span>${carSquare.dataset.health}</span> / <span>${carSquare.dataset.maxHealth}</span>
+                    Vida: ${health}
                 </p>
                 <p id="car-selected-capacity" class="card-selected-information">
-                    Capacidad <span>${carSquare.dataset.capacity}</span> / <span>${carSquare.dataset.maxCapacity}</span>
+                    Capacidad: ${capacity}
                 </p>
                 <p id="car-selected-attackbuff" class="card-selected-information">
-                    Aumento de ataque: <span>${carSquare.dataset.attBuff}</span>
+                    Aumento de ataque: ${attBuff}
                 </p>
                 <div id="car-selected-nitro">
                     <div id="car-selected-nitro-amount">
-                        <p id="nitro-quantity" class="card-selected-information">Capacidad de nitro: <span>${carSquare.dataset.nitroQuantity}</span></p>
-                        <p id="nitro-duration" class="card-selected-information">Duracion de nitro: <span>${carSquare.dataset.nitroDuration}</span></p>
+                        <p id="nitro-quantity" class="card-selected-information">Capacidad de nitro: <span>${nitroStats[0]}</span></p>
+                        <p id="nitro-duration" class="card-selected-information">Duracion de nitro: <span>${nitroStats[1]}</span></p>
                     </div>
                     <div id="car-selected-nitro-buff">
                         <p class="card-selected-information">Cuando nitro activo:</p>
                         <ul class="card-selected-lists">
-                            <li class="card-selected-information card-selected-list">Resistencia: ${carSquare.dataset.nitroResistance}</li>
-                            <li class="card-selected-information card-selected-list">Ataque: +${carSquare.dataset.nitroAttack}</li>
+                            <li class="card-selected-information card-selected-list">Resistencia: ${nitroBuffs[0]}</li>
+                            <li class="card-selected-information card-selected-list">Ataque: +${nitroBuffs[1]}</li>
                         </ul>
                     </div>
                 </div>
@@ -114,50 +130,59 @@ export class DisplayCardInformation {
     
     // Mostrar la informacion de una carta de weapon del deck
     static displayWeaponCardInformationDeck(divElement, card, [json, player], cardId) {
-        const weaponInformationFormat = `
-            ${this.mainCardInformation("Jugador 1", card.image, card.name)}
-            <div id="card-selected-general-information" data-card='${json}' data-origin="deck" data-player="${player}" data-card-id=""${cardId} data-type="weapon">
-                <div id="card-selected-attacks">
-                    <p class="card-selected-information">Ataques:</p>
-                    <div id="card-selected-attacks">
-                        ${WeaponListStatsDisplay.displayWeaponAttacks(card.attacks)}
-                    </div>
-                </div>
-                <p id="card-selected-energy" class="card-selected-information">Energia: <span>${card.energy}</span></p>
-                <div>
-                    <p id="card-selected-upgrade" class="card-selected-information">Materiales para mejorar:</p>
-                    <div id="card-selected-materials">
-                        ${WeaponListStatsDisplay.displayWeaponMaterials(card.materials)}
-                    </div>
-                </div>
-                ${this.descriptionCardInformation(card.description)}
-            </div>
-        `
-        divElement.innerHTML = weaponInformationFormat;
+        divElement.innerHTML = `
+            ${this.mainCardInformation(this.convertPlayerString(player), card.image, card.name)}
+            ${this.generalWeaponCardInformation(
+                this.convertPlayerString(player),
+                cardId,
+                card.attacks,
+                card.energy,
+                card.materials,
+                card.cardDescription,
+                "deck",
+                json
+            )}
+        `;
     }
 
     // Mostrar la informacion de una carta de arma del tablero
     static displayWeaponCardInformationBoard(divElement, weaponSquare, playerOriginal, cardImage, cardName, cardDescription) {
         // Muy probablemente, cuando ya tenga todo funcionando correctamente, puedo fusionar algunas funciones repetitivas
-        // Igualmente, al contrario de los displays de los carros, no cambia mucho este, entonces tal vez sea mas sencillo
         divElement.innerHTML = `
             ${this.mainCardInformation(this.convertPlayerString(playerOriginal), cardImage, cardName)}
-            <div id="card-selected-general-information" data-card='undefined' data-origin="deck" data-player="${playerOriginal}" data-card-id=""${weaponSquare.id.slice(23)}>
-                <div id="card-selected-attacks">
-                    <p class="card-selected-information">Ataques:</p>
+            ${this.generalWeaponCardInformation(
+                this.convertPlayerString(playerOriginal),
+                weaponSquare.id.slice(26),
+                JSON.parse(weaponSquare.dataset.attacks),
+                weaponSquare.dataset.energy,
+                JSON.parse(weaponSquare.dataset.materials),
+                cardDescription,
+                "board"
+            )}
+        `;
+    }
+
+    // Mostrar la informacion general de una carta de arma
+    // Toca tener en cuenta que las listas de ataques y materiales se pasan a JSON, entonces tener eso en cuenta.
+    static generalWeaponCardInformation(player, cardId, attacks, energy, materials, cardDescription, origin, data) {
+        console.log(player, cardId, attacks, energy, materials, cardDescription, origin, data);
+        return `
+                <div id="card-selected-general-information" data-card='${data}' data-origin="${origin}" data-player="${player}" data-card-id="${cardId}" data-type="weapon">
                     <div id="card-selected-attacks">
-                        ${WeaponListStatsDisplay.displayWeaponAttacks(JSON.parse(weaponSquare.dataset.attacks))}
+                        <p class="card-selected-information">Ataques:</p>
+                        <div id="card-selected-attacks">
+                            ${WeaponListStatsDisplay.displayWeaponAttacks(attacks)}
+                        </div>
                     </div>
-                </div>
-                <p id="card-selected-energy" class="card-selected-information">Energia: <span>${weaponSquare.dataset.energy}</span></p>
-                <div>
-                    <p id="card-selected-upgrade" class="card-selected-information">Materiales para mejorar:</p>
-                    <div id="card-selected-materials">
-                        ${WeaponListStatsDisplay.displayWeaponMaterials(JSON.parse(weaponSquare.dataset.materials))}
+                    <p id="card-selected-energy" class="card-selected-information">Energia: <span>${energy}</span></p>
+                    <div>
+                        <p id="card-selected-upgrade" class="card-selected-information">Materiales para mejorar:</p>
+                        <div id="card-selected-materials">
+                            ${WeaponListStatsDisplay.displayWeaponMaterials(materials)}
+                        </div>
                     </div>
+                    ${this.descriptionCardInformation(cardDescription)}
                 </div>
-                ${this.descriptionCardInformation(cardDescription)}
-            </div>
         `;
     }
 

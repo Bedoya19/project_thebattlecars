@@ -183,7 +183,6 @@ body {
 }
 
 .card-selected-information {
-    width: 60%;
     color: var(--texto-carta-seleccionada);
     padding-bottom: 10px;
     font-family: "Lexend", sans-serif;
