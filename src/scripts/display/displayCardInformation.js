@@ -131,7 +131,7 @@ export class DisplayCardInformation {
     // Mostrar la informacion de una carta de weapon del deck
     static displayWeaponCardInformationDeck(divElement, card, [json, player], cardId) {
         divElement.innerHTML = `
-            ${this.mainCardInformation(this.convertPlayerString, card.image, card.name)}
+            ${this.mainCardInformation(this.convertPlayerString(player), card.image, card.name)}
             ${this.generalWeaponCardInformation(
                 this.convertPlayerString(player),
                 cardId,
