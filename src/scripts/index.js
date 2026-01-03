@@ -23,6 +23,9 @@ import { GameStatsDisplay } from "./display/gameStatsDisplay.js";
 // Clase de las operaciones del juego
 import { MainGame } from "./game/mainGame.js";
 
+// Clase que muesta en pantalla la informacion general del juego
+import { GameInformationDisplay } from "./display/gameInformationDisplay.js";
+
 
 // Display del mazo
 const deckCards = document.getElementById("deck-cards");
@@ -70,6 +73,8 @@ deselectButton.addEventListener("click", () => { DisplayCardInformation.deselect
 GameStatsDisplay.restartTurnNotes();
 
 nextRoundButton.addEventListener("click", () => { MainGame.changePlayers()});
+
+GameInformationDisplay.updateAllInformation();
 
 //console.log(Player1.getCars());
 //console.log(Player1.deleteFromDeck("cars", 1));

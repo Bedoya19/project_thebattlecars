@@ -4,6 +4,19 @@ Hare que cada dato en especifico pueda ser cambiado en el momento, esto yo creo 
 ya si es una funcion que cambie todo al mismo tiempo, pues no creo que sea lo mas optimo.
 */
 
+import { StateGame } from "../game/stateGame.js";
+
 export class GameInformationDisplay {
-    
+    static updateAllInformation() {
+        const statePlayers = document.getElementById("state-players");
+        statePlayers.innerHTML = `
+            <h3 id="general-game-state-text" class="game-stat-text game-stat-subtitle-text">Estado del juego:</h3>
+            <div id="general-game-stat-content">
+                <p class="game-stat-text">Carros del jugador 1: <span id="value-cars-current-player1">${StateGame.getCarsPlayers1()}</span>/<span id="value-cars-max-player1">5</span></p>
+                <p class="game-stat-text">Carros del jugador 2: <span id="value-cars-current-player2">${StateGame.getCarsPlayers2()}</span>/<span id="value-cars-max-player2">5</span></p>
+                <p class="game-stat-text">Ronda <span id="value-current-round">${StateGame.getRound()}</span></p>
+                <p class="game-stat-text">Turno <span id="value-current-turn">${StateGame.getTurn()}</span></p>
+            </div>
+        `
+    }
 }
