@@ -14,7 +14,7 @@ export class StateGame {
     static #round = 1;
     static #turn = 1;
 
-    // Getters de la infromacion
+    // Getters de la informacion
     static getCarsPlayers1() {
         return this.#carsPlayer1;
     }
