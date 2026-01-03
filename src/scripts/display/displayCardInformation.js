@@ -177,6 +177,28 @@ export class DisplayCardInformation {
         `;
     }
 
+    // Mostrar la informacion general de una carta de arma
+    static generalWeaponCardInformation(player, cardId, attacks, energy, materials, origin, data) {
+        return `
+            <div id="card-selected-general-information" data-card='${data}' data-origin="${origin}" data-player="${player}" data-card-id=""${cardId} data-type="weapon">
+                    <div id="card-selected-attacks">
+                        <p class="card-selected-information">Ataques:</p>
+                        <div id="card-selected-attacks">
+                            ${WeaponListStatsDisplay.displayWeaponAttacks(attacks)}
+                        </div>
+                    </div>
+                    <p id="card-selected-energy" class="card-selected-information">Energia: <span>${energy}</span></p>
+                    <div>
+                        <p id="card-selected-upgrade" class="card-selected-information">Materiales para mejorar:</p>
+                        <div id="card-selected-materials">
+                            ${WeaponListStatsDisplay.displayWeaponMaterials(materials)}
+                        </div>
+                    </div>
+                    ${this.descriptionCardInformation(card.description)}
+                </div>
+        `
+    }
+
     // Mostrar la informacion de una carta de material del deck
     static displayMaterialCardInformationDeck(divElement, card) {
         // Es bastante sencillo, en teoria la descripcion dice lo que hace, pero tal vez cambie
