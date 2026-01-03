@@ -5,7 +5,7 @@
 // * El ciclo del juego. Es decir, que siga indefinidamente el cambio de turnos
 
 import { DisplayCardsInDeck } from "../display/deckDisplay.js";
-
+import { StateGame } from "./stateGame.js";
 
 // Como lo ha sido siempre en este proyecto, se va a crear una clase
 // En general ha sido asi en todo el proyecto para facilitar la importacion y exportacion de funciones hacia
