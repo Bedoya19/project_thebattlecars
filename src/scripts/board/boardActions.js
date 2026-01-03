@@ -84,7 +84,9 @@ export class BoardClick {
             // Si hubo un error, lo mas probable es que fuera que el JSON estuviera undefined, entonces esto se muestra
             // (Esto en algun momento tambien se tendra que mostrar al usuario)
             //console.log(e, "Ninguna carta seleccionada! Mostrar aqui que la casilla es del jugador X de la zona Y");
-            console.log(e);
+            //console.log(e);
+            BoardClick.removeValidCarSquare();
+            BoardClick.removeValidWeaponSquare();
             DisplayCardInformation.displayEmptyCarSquare(cardInformation, carSquare, squarePlayer);
         } 
     }
@@ -164,6 +166,8 @@ export class BoardClick {
             // Si hubo un error, una vez mas, es probable que fuera el JSON de la carta estuviera indefinida. 
             //console.log("Error", e);
             //console.log("hola");
+            BoardClick.removeValidCarSquare();
+            BoardClick.removeValidWeaponSquare();
             DisplayCardInformation.displayEmptyWeaponSquare(cardInformation, weaponSquare, squarePlayer);
         }
     }
