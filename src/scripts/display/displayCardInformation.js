@@ -130,44 +130,36 @@ export class DisplayCardInformation {
     
     // Mostrar la informacion de una carta de weapon del deck
     static displayWeaponCardInformationDeck(divElement, card, [json, player], cardId) {
-        const weaponInformationFormat = `
+        divElement.innerHTML = `
             ${this.mainCardInformation("Jugador 1", card.image, card.name)}
-            <div id="card-selected-general-information" data-card='${json}' data-origin="deck" data-player="${player}" data-card-id=""${cardId} data-type="weapon">
-                <div id="card-selected-attacks">
-                    <p class="card-selected-information">Ataques:</p>
-                    <div id="card-selected-attacks">
-                        ${WeaponListStatsDisplay.displayWeaponAttacks(card.attacks)}
-                    </div>
-                </div>
-                <p id="card-selected-energy" class="card-selected-information">Energia: <span>${card.energy}</span></p>
-                <div>
-                    <p id="card-selected-upgrade" class="card-selected-information">Materiales para mejorar:</p>
-                    <div id="card-selected-materials">
-                        ${WeaponListStatsDisplay.displayWeaponMaterials(card.materials)}
-                    </div>
-                </div>
-                ${this.descriptionCardInformation(card.description)}
-            </div>
-        `
-        divElement.innerHTML = weaponInformationFormat;
+            ${this.generalWeaponCardInformation(
+                this.convertPlayerString(player),
+                cardId,
+                card.attacks,
+                card.energy,
+                card.materials,
+                card.cardDescription,
+                "deck",
+                json
+            )}
+        `;
     }
 
     // Mostrar la informacion de una carta de arma del tablero
     static displayWeaponCardInformationBoard(divElement, weaponSquare, playerOriginal, cardImage, cardName, cardDescription) {
         // Muy probablemente, cuando ya tenga todo funcionando correctamente, puedo fusionar algunas funciones repetitivas
-        const element = `
+        divElement.innerHTML = `
             ${this.mainCardInformation(this.convertPlayerString(playerOriginal), cardImage, cardName)}
             ${this.generalWeaponCardInformation(
                 this.convertPlayerString(playerOriginal),
                 weaponSquare.id.slice(26),
-                weaponSquare.dataset.attacks,
+                JSON.parse(weaponSquare.dataset.attacks),
                 weaponSquare.dataset.energy,
-                weaponSquare.dataset.materials,
+                JSON.parse(weaponSquare.dataset.materials),
                 cardDescription,
                 "board"
             )}
         `;
-        divElement.innerHTML = element;
     }
 
     // Mostrar la informacion general de una carta de arma
@@ -179,14 +171,14 @@ export class DisplayCardInformation {
                     <div id="card-selected-attacks">
                         <p class="card-selected-information">Ataques:</p>
                         <div id="card-selected-attacks">
-                            ${WeaponListStatsDisplay.displayWeaponAttacks(JSON.parse(attacks))}
+                            ${WeaponListStatsDisplay.displayWeaponAttacks(attacks)}
                         </div>
                     </div>
                     <p id="card-selected-energy" class="card-selected-information">Energia: <span>${energy}</span></p>
                     <div>
                         <p id="card-selected-upgrade" class="card-selected-information">Materiales para mejorar:</p>
                         <div id="card-selected-materials">
-                            ${WeaponListStatsDisplay.displayWeaponMaterials(JSON.parse(materials))}
+                            ${WeaponListStatsDisplay.displayWeaponMaterials(materials)}
                         </div>
                     </div>
                     ${this.descriptionCardInformation(cardDescription)}
