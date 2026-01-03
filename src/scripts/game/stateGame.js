@@ -27,6 +27,16 @@ export class StateGame {
     static getTurn() {
         return this.#turn;
     }
+
+    // - Metodos -
+    // Reiniciar datos del juego (por si acaso)
+    static resetGame() {
+        this.#carsPlayer1 = 5;
+        this.#carsPlayer2 = 5;
+        this.#round = 1;
+        this.#turn = 1;
+    }
+
     // Avanzar a la siguiente ronda, tambien avanza al sigueinte turno si es el momento (ronda impar)
     // 1: Siguiente ronda
     // 2: Siguiente ronda y siguiente turno
