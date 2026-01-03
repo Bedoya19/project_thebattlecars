@@ -155,48 +155,43 @@ export class DisplayCardInformation {
     // Mostrar la informacion de una carta de arma del tablero
     static displayWeaponCardInformationBoard(divElement, weaponSquare, playerOriginal, cardImage, cardName, cardDescription) {
         // Muy probablemente, cuando ya tenga todo funcionando correctamente, puedo fusionar algunas funciones repetitivas
-        // Igualmente, al contrario de los displays de los carros, no cambia mucho este, entonces tal vez sea mas sencillo
-        divElement.innerHTML = `
+        const element = `
             ${this.mainCardInformation(this.convertPlayerString(playerOriginal), cardImage, cardName)}
-            <div id="card-selected-general-information" data-card='undefined' data-origin="deck" data-player="${playerOriginal}" data-card-id=""${weaponSquare.id.slice(23)}>
-                <div id="card-selected-attacks">
-                    <p class="card-selected-information">Ataques:</p>
-                    <div id="card-selected-attacks">
-                        ${WeaponListStatsDisplay.displayWeaponAttacks(JSON.parse(weaponSquare.dataset.attacks))}
-                    </div>
-                </div>
-                <p id="card-selected-energy" class="card-selected-information">Energia: <span>${weaponSquare.dataset.energy}</span></p>
-                <div>
-                    <p id="card-selected-upgrade" class="card-selected-information">Materiales para mejorar:</p>
-                    <div id="card-selected-materials">
-                        ${WeaponListStatsDisplay.displayWeaponMaterials(JSON.parse(weaponSquare.dataset.materials))}
-                    </div>
-                </div>
-                ${this.descriptionCardInformation(cardDescription)}
-            </div>
+            ${this.generalWeaponCardInformation(
+                this.convertPlayerString(playerOriginal),
+                weaponSquare.id.slice(26),
+                weaponSquare.dataset.attacks,
+                weaponSquare.dataset.energy,
+                weaponSquare.dataset.materials,
+                cardDescription,
+                "board"
+            )}
         `;
+        divElement.innerHTML = element;
     }
 
     // Mostrar la informacion general de una carta de arma
-    static generalWeaponCardInformation(player, cardId, attacks, energy, materials, origin, data) {
+    // Toca tener en cuenta que las listas de ataques y materiales se pasan a JSON, entonces tener eso en cuenta.
+    static generalWeaponCardInformation(player, cardId, attacks, energy, materials, cardDescription, origin, data) {
+        console.log(player, cardId, attacks, energy, materials, cardDescription, origin, data);
         return `
-            <div id="card-selected-general-information" data-card='${data}' data-origin="${origin}" data-player="${player}" data-card-id=""${cardId} data-type="weapon">
+                <div id="card-selected-general-information" data-card='${data}' data-origin="${origin}" data-player="${player}" data-card-id="${cardId}" data-type="weapon">
                     <div id="card-selected-attacks">
                         <p class="card-selected-information">Ataques:</p>
                         <div id="card-selected-attacks">
-                            ${WeaponListStatsDisplay.displayWeaponAttacks(attacks)}
+                            ${WeaponListStatsDisplay.displayWeaponAttacks(JSON.parse(attacks))}
                         </div>
                     </div>
                     <p id="card-selected-energy" class="card-selected-information">Energia: <span>${energy}</span></p>
                     <div>
                         <p id="card-selected-upgrade" class="card-selected-information">Materiales para mejorar:</p>
                         <div id="card-selected-materials">
-                            ${WeaponListStatsDisplay.displayWeaponMaterials(materials)}
+                            ${WeaponListStatsDisplay.displayWeaponMaterials(JSON.parse(materials))}
                         </div>
                     </div>
-                    ${this.descriptionCardInformation(card.description)}
+                    ${this.descriptionCardInformation(cardDescription)}
                 </div>
-        `
+        `;
     }
 
     // Mostrar la informacion de una carta de material del deck
