@@ -12,8 +12,9 @@ export class StateGame {
     static #carsPlayer2 = 5;
     // Rondas y turnos actuales en el juego
     static #round = 1;
-    static #turn = 0;
+    static #turn = 1;
 
+    // Getters de la infromacion
     static getCarsPlayers1() {
         return this.#carsPlayer1;
     }
@@ -25,5 +26,15 @@ export class StateGame {
     }
     static getTurn() {
         return this.#turn;
+    }
+    // Avanzar a la siguiente ronda, tambien avanza al sigueinte turno si es el momento (ronda impar)
+    static nextRound() {
+        ++this.#round;
+        if (this.#round % 2 !== 0) {
+            ++this.#turn;
+            return [1, "siguiente ronda, siguiente turno"];
+        } else {
+            return [2, "siguiente ronda"];
+        }
     }
 }
