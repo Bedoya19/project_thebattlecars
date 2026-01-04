@@ -72,7 +72,7 @@ for (const weaponSquare of weaponSquares) {
 deselectButton.addEventListener("click", () => { DisplayCardInformation.deselectCardInformation(cardInformation) })
 GameStatsDisplay.restartTurnNotes();
 
-nextRoundButton.addEventListener("click", () => { MainGame.changePlayers()});
+nextRoundButton.addEventListener("click", () => { MainGame.goToNextRound()});
 
 GameInformationDisplay.updateAllInformation();
 

@@ -5,6 +5,7 @@
 // * El ciclo del juego. Es decir, que siga indefinidamente el cambio de turnos
 
 import { DisplayCardsInDeck } from "../display/deckDisplay.js";
+import { GameInformationDisplay } from "../display/gameInformationDisplay.js";
 import { StateGame } from "./stateGame.js";
 
 // Como lo ha sido siempre en este proyecto, se va a crear una clase
@@ -27,5 +28,19 @@ export class MainGame {
         const cardInformation = document.getElementById("card-selected-information");
         deckCards.innerHTML = "";
         DisplayCardsInDeck.changeSpecificDeck(deckCards, deckIcon, cardInformation, newPlayer, "cars");
+    }
+
+    // Sigue para la siguiente ronda o turno
+    static goToNextRound() {
+        // Cambia de jugadores
+        this.changePlayers();
+        // Va a la siguiente ronda
+        const stateRound = StateGame.nextRound();
+        // Actualiza solo la ronda o el turno dependiendo de lo que devuelve stateRound
+        if (stateRound[0] === 1) {
+            GameInformationDisplay.updateCurrentRound();
+        } else {
+            GameInformationDisplay.updateCurrentRoundAndTurn();
+        }
     }
 }

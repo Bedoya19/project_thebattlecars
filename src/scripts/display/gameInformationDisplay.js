@@ -37,4 +37,11 @@ export class GameInformationDisplay {
     static updateCurrentTurn() {
         document.getElementById("value-current-turn").innerText= StateGame.getTurn();
     }
+
+    // Actualiza los dos valores, ronda y turno. Junta las anteriores dos funciones. 
+    // Esto es porque probablemente sea usado varias veces, y es posible que necesite las dos logicas individualmente
+    static updateCurrentRoundAndTurn() {
+        this.updateCurrentRound();
+        this.updateCurrentTurn();
+    }
 }
