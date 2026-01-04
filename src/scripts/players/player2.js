@@ -14,6 +14,7 @@ export class Player2 {
         "weapons": [weaponCard, weaponCard, weaponCard, weaponCard, weaponCard, weaponCard, weaponCard],
         "materials": [materialCard, materialCard, materialCard]
     }
+    static #nitro = 0;
     static #power = 1;
      
     // Getters de todo tipo
