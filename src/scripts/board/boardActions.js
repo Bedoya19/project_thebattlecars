@@ -3,7 +3,7 @@ import { Player2 } from "../players/player2.js";
 import { PlayerActions } from "../players/playerActions.js";
 import { DisplayCardsInDeck } from "../display/deckDisplay.js";
 import { DisplayCardInformation } from "../display/displayCardInformation.js";
-import { GameStatsDisplay } from "../display/gameStatsDisplay.js";
+import { GameNotesDisplay } from "../display/gameNotesDisplay.js";
 
 export class BoardClick {
     // Cuando se hace click en una casilla de carro
@@ -58,7 +58,7 @@ export class BoardClick {
                     cardObj.name, 
                     cardObj.description
                 );
-                GameStatsDisplay.carOnBoardTurnNotes(squarePlayer, carSquare.id.slice(23), cardObj.name);
+                GameNotesDisplay.carOnBoardTurnNotes(squarePlayer, carSquare.id.slice(23), cardObj.name);
             } else {
                 // Yo de pendejo, tengo que mostrar la informacion de la carta, sin importar de que jugador sea
                 // Igualmente toca revisar si esta vacio cuando esta en las cartas del otro jugador
@@ -148,7 +148,7 @@ export class BoardClick {
                     cardObj.description
                 );
 
-                GameStatsDisplay.weaponOnBoardTurnNotes(squarePlayer, carSquare.dataset.name, cardObj.name);
+                GameNotesDisplay.weaponOnBoardTurnNotes(squarePlayer, carSquare.dataset.name, cardObj.name);
             } else {
                 // Despues se muestra la informacion del arma aqui
                 

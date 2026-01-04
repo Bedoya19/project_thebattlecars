@@ -19,7 +19,7 @@ import { DisplayCardInformation } from "./display/displayCardInformation.js";
 import { BoardClick } from "./board/boardActions.js";
 //import { image } from "./../images/default_icons/default_cars.png";
 import { Player1 } from "./players/player1.js";
-import { GameStatsDisplay } from "./display/gameStatsDisplay.js";
+import { GameNotesDisplay } from "./display/gameNotesDisplay.js";
 // Clase de las operaciones del juego
 import { MainGame } from "./game/mainGame.js";
 
@@ -70,7 +70,7 @@ for (const weaponSquare of weaponSquares) {
 }
 
 deselectButton.addEventListener("click", () => { DisplayCardInformation.deselectCardInformation(cardInformation) })
-GameStatsDisplay.restartTurnNotes();
+GameNotesDisplay.restartTurnNotes();
 
 nextRoundButton.addEventListener("click", () => { MainGame.goToNextRound()});
 
