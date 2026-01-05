@@ -4,6 +4,8 @@ del juego
 Este script lo unico que va a hacer es actualizar el contenido de las notas del juego. Es decir las acciones que se hicieron durante el juego
 */
 import { DisplayCardInformation } from "./displayCardInformation.js";
+import { MainGame } from "../game/mainGame.js";
+import { StateGame } from "../game/stateGame.js";
 
 //export class GameStatsDisplay {
 export class GameNotesDisplay{
@@ -38,5 +40,9 @@ export class GameNotesDisplay{
         return pElement;
         // Genuinamente no se porque esto no funciona...
         //return document.createElement("p").classList.add("game-stat-text");
+    }
+
+    static newRoundNote() {
+        return `Empieza el Turno ${StateGame.getTurn()}`;
     }
 }
