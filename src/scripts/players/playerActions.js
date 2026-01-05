@@ -37,4 +37,13 @@ export class PlayerActions {
         (player === "player1") ? Player1.deleteFromDeck(deck, index) : Player2.deleteFromDeck(deck, index);
     }
 
+    // Devuelve el poder o nitro de un jugador en especifico
+    // Nitro
+    static getNitroFromPlayer(player) {
+        return (player === "player1") ? Player1.getNitro() : Player2.getNitro();
+    }
+    // Poder
+    static getPowerFromPlayer(player) {
+        return (player === "player1") ? Player1.getPower() : Player2.getPower();
+    }
 }
