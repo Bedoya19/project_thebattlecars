@@ -1,6 +1,7 @@
 {
     "gamemode": "normal",
     "game_players": "local",
+    "charge_method": "random",
     "weapon_upgrades_enabled": true,
     "max_turns": 9999,
     "nitro_per_turn": 3
