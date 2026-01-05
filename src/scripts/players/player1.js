@@ -69,7 +69,7 @@ export class Player1 {
                 this.#power = 1;
             } else if (data["gamemode"] === "powers") {
                 // Modo poderes, se da dependiendo del turno que se esta
-                this.#power = StateGame.getTurn();
+                this.#power += StateGame.getTurn();
             }
         } catch (e) {
             console.error(`Error: ${e}`);
