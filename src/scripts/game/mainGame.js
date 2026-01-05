@@ -57,6 +57,7 @@ export class MainGame {
             return false;
         } else {
             PlayerActions.consumePowerForActionInPlayer(player);
+            GameValuesDisplay.updatePowerValue();
             return true;
         }
     }

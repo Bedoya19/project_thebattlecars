@@ -5,6 +5,8 @@ import { DisplayCardsInDeck } from "../display/deckDisplay.js";
 import { DisplayCardInformation } from "../display/displayCardInformation.js";
 import { GameNotesDisplay } from "../display/gameNotesDisplay.js";
 
+import { MainGame } from "../game/mainGame.js";
+
 export class BoardClick {
     // Cuando se hace click en una casilla de carro
     static clickOnCarSquare(carSquare) {
@@ -28,6 +30,7 @@ export class BoardClick {
             //console.log("Zone " + carSquare.id.slice(23));
 
             // Revisa que se pueda poner la carta:
+            //const validPower = MainGame.calculatePowerForAction(currentPlayer);
             if (checkBoard.checkCarSquareAvailability(carBoardPlayer, currentPlayer, carSquare, cardGeneralInformation)[0]) {
 
                 // El resto de los datos
@@ -316,6 +319,10 @@ class checkBoard {
         }
         if (cardGeneralInformation.dataset.type !== "car") {
             return [false, "se va a poner otro tipo de carta en una casilla de carro"];
+        }
+        // Devuelve false si no puede poner la carta por falta de poder. Si se puede poner, ya gasto el poder necesario
+        if (!MainGame.calculatePowerForAction(currentPlayer)) {
+            return [false, "Ya no se tiene poder!"];
         }
         return [true, "La casilla esta disponible para colocar una carta de carro"];
     }
