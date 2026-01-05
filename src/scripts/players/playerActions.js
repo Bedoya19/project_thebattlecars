@@ -58,4 +58,9 @@ export class PlayerActions {
         await Player2.giveNitro();
         await Player2.givePower();
     }
+
+    // Dar el gasto del poder al respecito jugador
+    static consumePowerForActionInPlayer(player) {
+        (player === "player1") ? Player1.subtractPower(1) : Player2.subtractPower(1);
+    }
 }
