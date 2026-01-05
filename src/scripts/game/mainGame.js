@@ -6,6 +6,7 @@
 
 import { DisplayCardsInDeck } from "../display/deckDisplay.js";
 import { GameInformationDisplay } from "../display/gameInformationDisplay.js";
+import { GameNotesDisplay } from "../display/gameNotesDisplay.js";
 import { StateGame } from "./stateGame.js";
 import { PlayerActions } from "../players/playerActions.js";
 import { GameValuesDisplay } from "../display/gameValuesDisplay.js";
@@ -43,7 +44,9 @@ export class MainGame {
             GameInformationDisplay.updateCurrentRound();
         } else {
             await PlayerActions.giveNitroAndPowerToPlayers();
+            GameNotesDisplay.restartAllTurnNotes();
             GameInformationDisplay.updateCurrentRoundAndTurn();
+            await GameNotesDisplay.createCurrentTurnNotes();
         }
         GameValuesDisplay.updateAllValues(
             document.getElementById("deck").dataset.player

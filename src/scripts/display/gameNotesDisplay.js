@@ -6,6 +6,7 @@ Este script lo unico que va a hacer es actualizar el contenido de las notas del 
 import { DisplayCardInformation } from "./displayCardInformation.js";
 import { MainGame } from "../game/mainGame.js";
 import { StateGame } from "../game/stateGame.js";
+import { LoadConfig } from "../game/loadConfig.js";
 
 //export class GameStatsDisplay {
 export class GameNotesDisplay{
@@ -13,14 +14,30 @@ export class GameNotesDisplay{
     static restartTurnNotes() {
         document.getElementById("turn-notes-content").innerHTML = "";
     }
+    static restartCurrentTurnNotes() {
+        document.getElementById("current-turn").innerHTML = "";
+    }
+    static restartAllTurnNotes() {
+        this.restartTurnNotes();
+        this.restartCurrentTurnNotes();
+    }
 
     // Metodo generico para agregar una anotacion en las notas del turno
-    static addTurnNote(message) {
-        const turnContent = document.getElementById("turn-notes-content");
+    static addNote(message, selector) {
+        const turnContent = document.getElementById(selector);
         const text = this.createStatsText();
         console.log(text);
         text.innerHTML = message;
         turnContent.appendChild(text);
+    }
+
+    // Agrega notas al contenido de las notas
+    static addTurnNote(message) {
+        this.addNote(message, "turn-notes-content");
+    }
+    // Agrega notas a la informacion del turno actual
+    static addCurrentTurnNote(message) {
+        this.addNote(message, "current-notes");
     }
 
     // Agrega en las notas del turno la colocacion de una carta de carro
@@ -42,7 +59,22 @@ export class GameNotesDisplay{
         //return document.createElement("p").classList.add("game-stat-text");
     }
 
-    static newRoundNote() {
+    // Modifica las notas del turno actual
+    static async createCurrentTurnNotes() {
+        this.addNote(`
+            ${this.newTurnNote()}
+            ${await this.noteNitroAndPowerNormal()}
+            `, "current-turn");
+    }
+
+
+    // Nota sobre la nueva ronda
+    static newTurnNote() {
         return `Empieza el Turno ${StateGame.getTurn()}`;
+    }
+
+    // Nota sobre la cantidad de nitro y poder dado en modo normal
+    static async noteNitroAndPowerNormal() {
+        return `Se le otorga a cada jugador su respectivo poder y ${await LoadConfig.loadNitroPerTurn()} de nitro. Usenlos bien!`;
     }
 }
