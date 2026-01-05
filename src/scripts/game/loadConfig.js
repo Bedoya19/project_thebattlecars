@@ -13,4 +13,10 @@ export class LoadConfig {
             console.error(`Error: ${e}`);
         }
     }
+
+    // Devuelve el nitro dado por turn
+    static async loadNitroPerTurn() {
+        const data = await this.loadConfig();
+        return data["nitro_per_turn"];
+    }
 }
