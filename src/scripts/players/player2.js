@@ -37,4 +37,32 @@ export class Player2 {
     static deleteFromDeck(deck, index) {
         this.#decks[deck].splice(index, 1);
     }
+    
+    // Getters de nitro y poder
+    static getNitro() {
+        return this.#nitro;
+    }
+    static getPower() {
+        return this.#power;
+    }
+
+    // Metodos de modificacion de poder
+    // Este da poder. Esto depende del modo que esta en el json de la configuracion
+    static async givePower() {
+        const res = await fetch("src/configs/config.json");
+        if (!res.ok) throw new Error(`HTTP Error ${res.status}`);
+
+        const data = await res.json();
+        // Modo normal, solo 1 de poder por turno para cada jugador
+        if (data["gamemode"] === "normal") {
+            this.#power = 1;
+        // Modo poderes, se da dependiendo del turno que se esta
+        } else if (data["gamemode"] === "powers") {
+            this.#power = StateGame.getTurn();
+        }
+    }
+
+    static subtractPower(amountPower) {
+        this.#power = this.#power - amountPower;
+    }
 }
