@@ -186,17 +186,20 @@
                     <!-- Estado del juego, y otra informacion-->
                     <div id="game-stats">
                         <div id="state-players" class="game-stat-div">
+                            <!--
                             <h3 id="general-game-state-text" class="game-stat-text game-stat-subtitle-text">Estado del juego:</h3>
                             <div id="general-game-stat-content">
-                                <p class="game-stat-text">Carros del jugador 1: <span id="value-cars-player1">5</span>/5</p>
-                                <p class="game-stat-text">Carros del jugador 2: <span id="value-cars-player2">5</span>/5</p>
+                                <p class="game-stat-text">Carros del jugador 1: <span id="value-cars-current-player1">5</span>/<span id="value-cars-max-player1">5</span></p>
+                                <p class="game-stat-text">Carros del jugador 2: <span id="value-cars-current-player2">5</span>/<span id="value-cars-max-player2">5</span></p>
                                 <p class="game-stat-text">Ronda <span id="value-current-round">1</span></p>
                                 <p class="game-stat-text">Turno <span id="value-current-turn">1</span></p>
                             </div>
+                            -->
                         </div>
                         <div id="game-values" class="game-stat-div">
                             <!-- Carga, el ataque que va a hacer la arma -->
                             <h3 class="game-stat-text game-stat-subtitle-text">Valores:</h3>
+                            <h3 class="game-stat-text">Actual: <span id="value-locar-player">Jugador 1</span></h3>
                             <ul id="game-value-content">
                                 <p class="game-stat-text">Carga: <span id="value-local-charge">6</span>-6</p>
                                 <!-- Nitro: La cantidad de nitro que se puede usar. Se entrega 1 de nitro por turno. Tambien se consigue por carro destruido -->
@@ -209,10 +212,9 @@
                         <div id="turn-notes" class="game-stat-div">
                             <!-- Ejemplo para ver el diseño general -->
                             <div id="current-turn">
-                                <p class="game-stat-text">Turno 3:</p>
+                                <p class="game-stat-text">Comienza juego</p>
                             </div>
                             <div id="turn-notes-content">
-                                
                                 <p class="game-stat-text">Se le entrega a cada jugador su respecitvo nitro, mas 3 de poder. Usenlos bien!</p>
                                 <p class="game-stat-text">Jugador 1 usa (arma) en (carro1) para atacar (carro2), (carro) ahora queda con 6/10 de vida.</p>
                                 <p class="game-stat-text">Jugador 2 usa (poder): Ahora tiene mas de uno</p>

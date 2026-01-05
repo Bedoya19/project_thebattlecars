@@ -5,7 +5,11 @@
 // * El ciclo del juego. Es decir, que siga indefinidamente el cambio de turnos
 
 import { DisplayCardsInDeck } from "../display/deckDisplay.js";
-
+import { GameInformationDisplay } from "../display/gameInformationDisplay.js";
+import { GameNotesDisplay } from "../display/gameNotesDisplay.js";
+import { StateGame } from "./stateGame.js";
+import { PlayerActions } from "../players/playerActions.js";
+import { GameValuesDisplay } from "../display/gameValuesDisplay.js";
 
 // Como lo ha sido siempre en este proyecto, se va a crear una clase
 // En general ha sido asi en todo el proyecto para facilitar la importacion y exportacion de funciones hacia
@@ -27,5 +31,37 @@ export class MainGame {
         const cardInformation = document.getElementById("card-selected-information");
         deckCards.innerHTML = "";
         DisplayCardsInDeck.changeSpecificDeck(deckCards, deckIcon, cardInformation, newPlayer, "cars");
+    }
+
+    // Sigue para la siguiente ronda o turno
+    static async goToNextRound() {
+        // Cambia de jugadores
+        this.changePlayers();
+        // Va a la siguiente ronda
+        const stateRound = StateGame.nextRound();
+        // Actualiza solo la ronda o el turno dependiendo de lo que devuelve stateRound
+        if (stateRound[0] === 1) {
+            GameInformationDisplay.updateCurrentRound();
+        } else {
+            await PlayerActions.giveNitroAndPowerToPlayers();
+            GameNotesDisplay.restartAllTurnNotes();
+            GameInformationDisplay.updateCurrentRoundAndTurn();
+            await GameNotesDisplay.createCurrentTurnNotes();
+        }
+        GameValuesDisplay.updateAllValues(
+            document.getElementById("deck").dataset.player
+        );
+    }
+
+    // Hace los calculos con el poder con cada accion
+    // Devuelve true despues de restar poder. false si ya esta en 0
+    static calculatePowerForAction(player) {
+        if (PlayerActions.getPowerFromPlayer(player) <= 0) {
+            return false;
+        } else {
+            PlayerActions.consumePowerForActionInPlayer(player);
+            GameValuesDisplay.updatePowerValue();
+            return true;
+        }
     }
 }

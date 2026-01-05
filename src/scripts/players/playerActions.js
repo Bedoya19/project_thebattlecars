@@ -37,4 +37,30 @@ export class PlayerActions {
         (player === "player1") ? Player1.deleteFromDeck(deck, index) : Player2.deleteFromDeck(deck, index);
     }
 
+    // Devuelve el poder o nitro de un jugador en especifico
+    // Nitro
+    static getNitroFromPlayer(player) {
+        return (player === "player1") ? Player1.getNitro() : Player2.getNitro();
+    }
+    // Poder
+    static getPowerFromPlayer(player) {
+        return (player === "player1") ? Player1.getPower() : Player2.getPower();
+    }
+
+    // Da nitro y poder a cada jugador
+    // Este metodo (por lo general) se usa en lugares como el paso de un turno a otro
+    static async giveNitroAndPowerToPlayers() {
+        // Tal vez podria divivir la logica de cada en jugador en distintos metodos...? Aunque tocara ver
+        // Jugador 1
+        await Player1.giveNitro();
+        await Player1.givePower();
+        // Jugador 2
+        await Player2.giveNitro();
+        await Player2.givePower();
+    }
+
+    // Dar el gasto del poder al respecito jugador
+    static consumePowerForActionInPlayer(player) {
+        (player === "player1") ? Player1.subtractPower(1) : Player2.subtractPower(1);
+    }
 }

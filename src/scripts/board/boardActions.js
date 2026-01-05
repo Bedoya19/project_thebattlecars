@@ -3,7 +3,9 @@ import { Player2 } from "../players/player2.js";
 import { PlayerActions } from "../players/playerActions.js";
 import { DisplayCardsInDeck } from "../display/deckDisplay.js";
 import { DisplayCardInformation } from "../display/displayCardInformation.js";
-import { GameStatsDisplay } from "../display/gameStatsDisplay.js";
+import { GameNotesDisplay } from "../display/gameNotesDisplay.js";
+
+import { MainGame } from "../game/mainGame.js";
 
 export class BoardClick {
     // Cuando se hace click en una casilla de carro
@@ -28,6 +30,7 @@ export class BoardClick {
             //console.log("Zone " + carSquare.id.slice(23));
 
             // Revisa que se pueda poner la carta:
+            //const validPower = MainGame.calculatePowerForAction(currentPlayer);
             if (checkBoard.checkCarSquareAvailability(carBoardPlayer, currentPlayer, carSquare, cardGeneralInformation)[0]) {
 
                 // El resto de los datos
@@ -58,7 +61,7 @@ export class BoardClick {
                     cardObj.name, 
                     cardObj.description
                 );
-                GameStatsDisplay.carOnBoardTurnNotes(squarePlayer, carSquare.id.slice(23), cardObj.name);
+                GameNotesDisplay.carOnBoardTurnNotes(squarePlayer, carSquare.id.slice(23), cardObj.name);
             } else {
                 // Yo de pendejo, tengo que mostrar la informacion de la carta, sin importar de que jugador sea
                 // Igualmente toca revisar si esta vacio cuando esta en las cartas del otro jugador
@@ -148,7 +151,7 @@ export class BoardClick {
                     cardObj.description
                 );
 
-                GameStatsDisplay.weaponOnBoardTurnNotes(squarePlayer, carSquare.dataset.name, cardObj.name);
+                GameNotesDisplay.weaponOnBoardTurnNotes(squarePlayer, carSquare.dataset.name, cardObj.name);
             } else {
                 // Despues se muestra la informacion del arma aqui
                 
@@ -317,6 +320,10 @@ class checkBoard {
         if (cardGeneralInformation.dataset.type !== "car") {
             return [false, "se va a poner otro tipo de carta en una casilla de carro"];
         }
+        // Devuelve false si no puede poner la carta por falta de poder. Si se puede poner, ya gasto el poder necesario
+        if (!MainGame.calculatePowerForAction(currentPlayer)) {
+            return [false, "Ya no se tiene poder!"];
+        }
         return [true, "La casilla esta disponible para colocar una carta de carro"];
     }
 
@@ -414,6 +421,11 @@ class checkBoard {
         if (cardGeneralInformation.dataset.type !== "weapon") {
             return [false, "se va a poner otro tipo de carta en una casilla de arma"];
         }
+        // Devuelve false si no puede poner la carta por falta de poder. Si se puede poner, ya gasta el poder necesario en la funcion
+        if (!MainGame.calculatePowerForAction(currentPlayer)) {
+            return [false, "Ya no se tiene poder!"];
+        }
+
         // Si todo sale bien, la carta se puede colocar en la casilla
         return [true, "La casilla esta disponible para colocar una carta de arma"]
     }
