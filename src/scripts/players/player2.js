@@ -72,8 +72,9 @@ export class Player2 {
     }
     // Restar poder
     // Generalmente va a ser 1 por una accion normal, o mas si se usa un poder.
+    // TAL VEZ tenga algo mas de logica en un futuro.
     static subtractPower(amountPower) {
-        this.#power = this.#power - amountPower;
+        this.#power -= amountPower;
     }
     
     // Modificacion de nitro
