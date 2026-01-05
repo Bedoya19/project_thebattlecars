@@ -26,6 +26,7 @@ export class Player1 {
     };
     static #nitro = 0;
     static #power = 1;
+    static #charge = 1;
 
     // Getters de todo tipo
     static getDecks() {
@@ -54,6 +55,10 @@ export class Player1 {
     }
     static getPower() {
         return this.#power;
+    }
+    // Getter de carga
+    static getCharge() {
+        return this.#charge;
     }
 
     // Metodos de modificacion de poder
@@ -87,5 +92,10 @@ export class Player1 {
     // Se da nitro dependiendo de lo que esta marcado en la configuracion
     static async giveNitro() {
        this.#nitro += await LoadConfig.loadNitroPerTurn();
+    }
+
+    // Generar una carga de manera aleatoria:
+    static generateRandomCharge() {
+        this.#charge = Math.floor(Math.random() * (6 - 1) + 1);
     }
 }
