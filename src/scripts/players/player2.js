@@ -4,6 +4,7 @@ import { WeaponCard } from "../models/cards/WeaponCard.js";
 import { MaterialCard } from "../models/cards/MaterialCard.js";
 
 import { StateGame } from "../game/stateGame.js";
+import { LoadConfig } from "../game/loadConfig.js";
 
 const carCard = await CarCard.loadCarObjectFromJSON("category1", 0);
 const weaponCard = await WeaponCard.loadWeaponObjectFromJSON("category1", 0);
@@ -78,14 +79,6 @@ export class Player2 {
     // Modificacion de nitro
     // Se da nitro dependiendo de lo que esta marcado en la configuracion
     static async giveNitro() {
-        try {
-            const res = await fetch("src/configs/config.json");
-            if (!res.ok) throw new Error(`HTTP Error ${res.status}`);
-
-            const data = await res.json();
-            this.#nitro += data["nitro_per_turn"];
-        } catch (e) {
-            console.error(`Error: ${e}`);
-        }
+        this.#nitro += await LoadConfig.loadNitroPerTurn();
     }
 }
