@@ -421,6 +421,11 @@ class checkBoard {
         if (cardGeneralInformation.dataset.type !== "weapon") {
             return [false, "se va a poner otro tipo de carta en una casilla de arma"];
         }
+        // Devuelve false si no puede poner la carta por falta de poder. Si se puede poner, ya gasta el poder necesario en la funcion
+        if (!MainGame.calculatePowerForAction(currentPlayer)) {
+            return [false, "Ya no se tiene poder!"];
+        }
+
         // Si todo sale bien, la carta se puede colocar en la casilla
         return [true, "La casilla esta disponible para colocar una carta de arma"]
     }
