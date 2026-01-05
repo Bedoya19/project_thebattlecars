@@ -8,7 +8,8 @@ Existiran distintos modos de juego (los planeados):
     Poderes habilitados. Entre mas avanza el juego, mas acciones por ronda pueden hacer los jugadores, incluyendo usar poderes dependiendo de la cantidad que tengan.
     (se busca que este modo sea el default)
 
-"game_players": Quienes/quien estan jugando
+"game_players": 
+Quienes/quien estan jugando
 - 'local':
     Dos jugadores locales
 - 'bot':
@@ -25,10 +26,10 @@ Existiran distintos modos de juego (los planeados):
     Las cargas ya estan previstas de antemano de equivalencia para los dos jugadores. Los dos jugadores si ven el documento que esta previsto pueden saber cuales seran todas sus proximas cargas. 
 
 "weapon_upgrades_enabled": 
-    Si esta habilitado mejorar las armas. Si esta en false, las cartas de material quedan deshabilitadas y no se podra mejorar ningun arma bajo ningun medio. Puede ser activado o desactivado sin importar el modo de juego.
+Si esta habilitado mejorar las armas. Si esta en false, las cartas de material quedan deshabilitadas y no se podra mejorar ningun arma bajo ningun medio. Puede ser activado o desactivado sin importar el modo de juego.
 
 "max_turns":
-    La cantidad maxima de turnos que puede ir el juego. Si llega al maximo, se da el ganador al que le faltan mas carros. Si los dos jugadores tienen la misma cantidad de carros se da de empate.
+La cantidad maxima de turnos que puede ir el juego. Si llega al maximo, se da el ganador al que le faltan mas carros. Si los dos jugadores tienen la misma cantidad de carros se da de empate.
 
 "nitro_per_turn":
-    La cantidad de nitro que se le otorga a cada jugador por turno.
+La cantidad de nitro que se le otorga a cada jugador por turno.
