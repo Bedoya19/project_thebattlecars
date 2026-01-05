@@ -79,7 +79,7 @@ export class Player2 {
     // Se da nitro dependiendo de lo que esta marcado en la configuracion
     static async giveNitro() {
         try {
-            const res = await fetch("src/configs/config/json");
+            const res = await fetch("src/configs/config.json");
             if (!res.ok) throw new Error(`HTTP Error ${res.status}`);
 
             const data = await res.json();

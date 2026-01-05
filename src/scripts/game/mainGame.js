@@ -7,6 +7,8 @@
 import { DisplayCardsInDeck } from "../display/deckDisplay.js";
 import { GameInformationDisplay } from "../display/gameInformationDisplay.js";
 import { StateGame } from "./stateGame.js";
+import { PlayerActions } from "../players/playerActions.js";
+import { GameValuesDisplay } from "../display/gameValuesDisplay.js";
 
 // Como lo ha sido siempre en este proyecto, se va a crear una clase
 // En general ha sido asi en todo el proyecto para facilitar la importacion y exportacion de funciones hacia
@@ -31,7 +33,7 @@ export class MainGame {
     }
 
     // Sigue para la siguiente ronda o turno
-    static goToNextRound() {
+    static async goToNextRound() {
         // Cambia de jugadores
         this.changePlayers();
         // Va a la siguiente ronda
@@ -40,7 +42,11 @@ export class MainGame {
         if (stateRound[0] === 1) {
             GameInformationDisplay.updateCurrentRound();
         } else {
+            await PlayerActions.giveNitroAndPowerToPlayers();
             GameInformationDisplay.updateCurrentRoundAndTurn();
         }
+        GameValuesDisplay.updateAllValues(
+            document.getElementById("deck").dataset.player
+        );
     }
 }

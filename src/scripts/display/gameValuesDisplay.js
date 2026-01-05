@@ -2,11 +2,11 @@
     Esta clase cumplira una labor bastante similar a gameNotesDisplay y gameInformationDisplay, aqui simplemente se cambia el documento 
     dependiendo de la informacion personal de cada jugador.
 */
-import { Player1 } from "../players/player1";
-import { Player2 } from "../players/player2";
-import { PlayerActions } from "../players/playerActions";
+import { Player1 } from "../players/player1.js";
+import { Player2 } from "../players/player2.js";
+import { PlayerActions } from "../players/playerActions.js";
 
-export class gameValuesDisplay {
+export class GameValuesDisplay {
     // Funcion bastante parecida a updateAllInformation, en donde cambia en su totalidad todo el elemento de los valores locales
     static updateAllValues(player) {
         // Cuando se agrege la funcionalidad de los ataques, esto tendra que cambias

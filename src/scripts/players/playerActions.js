@@ -46,4 +46,16 @@ export class PlayerActions {
     static getPowerFromPlayer(player) {
         return (player === "player1") ? Player1.getPower() : Player2.getPower();
     }
+
+    // Da nitro y poder a cada jugador
+    // Este metodo (por lo general) se usa en lugares como el paso de un turno a otro
+    static async giveNitroAndPowerToPlayers() {
+        // Tal vez podria divivir la logica de cada en jugador en distintos metodos...? Aunque tocara ver
+        // Jugador 1
+        await Player1.giveNitro();
+        await Player1.givePower();
+        // Jugador 2
+        await Player2.giveNitro();
+        await Player2.givePower();
+    }
 }
