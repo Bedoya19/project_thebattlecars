@@ -14,7 +14,7 @@ export class GameValuesDisplay {
             <h3 class="game-stat-text game-stat-subtitle-text">Valores:</h3>
             <h3 class="game-stat-text">Actual: <span id="value-local-player">${player}</span></h3>
             <ul id="game-value-content">
-                <p class="game-stat-text">Carga: <span id="value-local-charge">6</span>-6</p>
+                <p class="game-stat-text">Carga: <span id="value-local-charge">${PlayerActions.getChargeFromPlayer(player)}</span>-6</p>
                 <p class="game-stat-text">Nitro: <span id="value-local-nitro">${PlayerActions.getNitroFromPlayer(player)}</span></p>
                 <p class="game-stat-text">Poder: <span id="value-local-power">${PlayerActions.getPowerFromPlayer(player)}</span></p>
             </ul>

@@ -76,7 +76,7 @@ GameNotesDisplay.restartTurnNotes();
 nextRoundButton.addEventListener("click", () => { MainGame.goToNextRound()});
 
 GameInformationDisplay.updateAllInformation();
-GameValuesDisplay.updateAllValues();
+GameValuesDisplay.updateAllValues("player1");
 
 //console.log(Player1.getCars());
 //console.log(Player1.deleteFromDeck("cars", 1));
