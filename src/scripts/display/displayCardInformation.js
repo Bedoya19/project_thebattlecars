@@ -165,8 +165,9 @@ export class DisplayCardInformation {
                 cardDescription,
                 "board"
             )}
-            ${Attack.createAttackButton(playerOriginal, zoneNumber, squareNumber)}
         `;
+        //${Attack.createAttackButton(playerOriginal, zoneNumber, squareNumber, weaponSquare)}
+        divElement.appendChild(Attack.createAttackButton(playerOriginal, zoneNumber, squareNumber, weaponSquare));
     }
 
     // Mostrar la informacion general de una carta de arma

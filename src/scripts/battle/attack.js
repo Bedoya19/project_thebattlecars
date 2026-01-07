@@ -3,21 +3,34 @@
     Se va a desarrollar la version funcional con la version que yo diseñe el juego desde un principio: 
     La carga es avisada desde un principio
 */
+import { PlayerActions } from "../players/playerActions.js";
+import { StandarizedDocCreation } from "../display/standardDoc/standarizedDocCreaction.js";
 
 export class Attack {
     // Agrgega el boton de ataque a la informacion si es del jugador indicado
-    static createAttackButton(player, zoneNumber, squareNumber) {
+    static createAttackButton(player, zoneNumber, squareNumber, weaponSquare) {
         const currentPlayer = document.getElementById("deck").dataset.player;
-        console.log(player, currentPlayer);
         if (currentPlayer === player) {
-            return `<button id="attack-${zoneNumber}-${squareNumber}">Atacar</button>`
+            //return `<button id="attack-${zoneNumber}-${squareNumber}">Atacar</button>`
+            const button = StandarizedDocCreation.customElementCreator(
+                {
+                    "element": "button",
+                    "id": `attack-${zoneNumber}-${squareNumber}`
+                }
+            );
+            button.innerText = "Atacar";
+            button.addEventListener("click", () => { this.prepareForAttack(weaponSquare, player) })
+            return button;
         } else {
             return "";
         }
     }
 
     // Prepara todo para atacar
-    static prepareForAttack() {
-        
+    static prepareForAttack(weaponSquare, player) {
+        const charge = PlayerActions.getChargeFromPlayer(player);
+        const attacks = JSON.parse(weaponSquare.dataset.attacks);
+        const attack = attacks[0][charge];
+        console.log("Prepare attack:", attack);
     }
 }
