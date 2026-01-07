@@ -2,6 +2,7 @@ import { DataConversor } from "../models/constants/enums.js";
 import { CarCard } from "../models/cards/CarCard.js";
 import { StandarizedDocCreation } from "./standardDoc/standarizedDocCreaction.js";
 import { BoardClick } from "../board/boardActions.js";
+import { Attack } from "../battle/attack.js";
 
 export class DisplayCardInformation {
     static displayInformationOnDeck(divElement, card, cardId) {
@@ -164,7 +165,7 @@ export class DisplayCardInformation {
                 cardDescription,
                 "board"
             )}
-            <button id="attack-${zoneNumber}-${squareNumber}">Atacar</button>
+            ${Attack.createAttackButton(playerOriginal, zoneNumber, squareNumber)}
         `;
     }
 
