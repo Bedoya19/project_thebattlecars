@@ -15,4 +15,9 @@ export class Attack {
             return "";
         }
     }
+
+    // Prepara todo para atacar
+    static prepareForAttack() {
+        
+    }
 }
