@@ -138,7 +138,7 @@ export class DisplayCardInformation {
                 card.attacks,
                 card.energy,
                 card.materials,
-                card.cardDescription,
+                card.description,
                 "deck",
                 json
             )}
@@ -147,6 +147,11 @@ export class DisplayCardInformation {
 
     // Mostrar la informacion de una carta de arma del tablero
     static displayWeaponCardInformationBoard(divElement, weaponSquare, playerOriginal, cardImage, cardName, cardDescription) {
+        //console.log("Casilla de arma: ", weaponSquare);
+        const parts = weaponSquare.id.split('-');
+        const zoneNumber = parts[1].slice(4); 
+        const squareNumber =  weaponSquare.id.at(-1);
+        console.log("Zona:", zoneNumber, "Casilla", squareNumber);
         // Muy probablemente, cuando ya tenga todo funcionando correctamente, puedo fusionar algunas funciones repetitivas
         divElement.innerHTML = `
             ${this.mainCardInformation(this.convertPlayerString(playerOriginal), cardImage, cardName)}
@@ -159,13 +164,14 @@ export class DisplayCardInformation {
                 cardDescription,
                 "board"
             )}
+            <button id="attack-${zoneNumber}-${squareNumber}">Atacar</button>
         `;
     }
 
     // Mostrar la informacion general de una carta de arma
     // Toca tener en cuenta que las listas de ataques y materiales se pasan a JSON, entonces tener eso en cuenta.
     static generalWeaponCardInformation(player, cardId, attacks, energy, materials, cardDescription, origin, data) {
-        console.log(player, cardId, attacks, energy, materials, cardDescription, origin, data);
+        console.log(cardDescription);
         return `
                 <div id="card-selected-general-information" data-card='${data}' data-origin="${origin}" data-player="${player}" data-card-id="${cardId}" data-type="weapon">
                     <div id="card-selected-attacks">
