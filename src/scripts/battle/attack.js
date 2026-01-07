@@ -30,7 +30,7 @@ export class Attack {
     static prepareForAttack(weaponSquare, player) {
         const charge = PlayerActions.getChargeFromPlayer(player);
         const attacks = JSON.parse(weaponSquare.dataset.attacks);
-        const attack = attacks[0][charge];
+        const attack = attacks[0][charge - 1];
         console.log("Prepare attack:", attack);
     }
 }
