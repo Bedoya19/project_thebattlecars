@@ -23,7 +23,7 @@ Quienes/quien estan jugando
 - 'informed_dual':
     El ataque es aleatorio, pero los jugadores saben de antemano cual es la carga. Las cargas se generan por turno y son los mismos para cada jugador.
 - 'scripted':
-    Las cargas ya estan previstas de antemano de equivalencia para los dos jugadores. Los dos jugadores si ven el documento que esta previsto pueden saber cuales seran todas sus proximas cargas. 
+    Las cargas ya estan previstas de antemano para los dos jugadores, y es identica para los dos. Si se contiene la informacion y se cuenta la cantidad de ataques hechos, cada jugador sabe exactamente cual va a ser su carga y la de su enemigo en todo el transcurso de la partida.
 
 "weapon_upgrades_enabled": 
 Si esta habilitado mejorar las armas. Si esta en false, las cartas de material quedan deshabilitadas y no se podra mejorar ningun arma bajo ningun medio. Puede ser activado o desactivado sin importar el modo de juego.
