@@ -4,6 +4,7 @@ import { PlayerActions } from "../players/playerActions.js";
 import { DisplayCardsInDeck } from "../display/deckDisplay.js";
 import { DisplayCardInformation } from "../display/displayCardInformation.js";
 import { GameNotesDisplay } from "../display/gameNotesDisplay.js";
+import { Attack } from "../battle/attack.js";
 import { AttackValues } from "../battle/attackValues.js";
 
 import { MainGame } from "../game/mainGame.js";
@@ -15,6 +16,7 @@ export class BoardClick {
         // la colocacion de una carta y/o la informacion de esta
         if ((AttackValues.getPrepareAttack() === true) && (carSquare.id.slice(0, 7) !== document.getElementById("deck").dataset.player)) {
             console.log("Se atacara!!!");
+            Attack.attack(carSquare);
         } else {
             this.createCarCard(carSquare);
         }
@@ -177,7 +179,7 @@ export class BoardClick {
         }
         catch (e) {
             // Si hubo un error, una vez mas, es probable que fuera el JSON de la carta estuviera indefinida. 
-            //console.log("Error", e);
+            console.log("Error", e);
             //console.log("hola");
             this.removeAllSelectors();
             DisplayCardInformation.displayEmptyWeaponSquare(cardInformation, weaponSquare, squarePlayer);

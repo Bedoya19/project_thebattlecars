@@ -24,14 +24,15 @@ export class Attack {
             button.addEventListener("click", () => { this.prepareForAttack(weaponSquare, player, zoneNumber, squareNumber) })
             return button;
         } else {
-            return "";
+            // Devuelve un simple div vacio
+            return document.createElement("div");
         }
     }
 
     static attack(carSquare) {
         carSquare.dataset.health -= AttackValues.getAttack();
         const currentPlayer = document.getElementById("deck").dataset.player;
-        --document.getElementById(`${currentPlayer}-zone${AttackValues.getZone}-card-weapon-${AttackValues.getSquareNumber()}`).dataset.energy;
+        --document.getElementById(`${currentPlayer}-zone${AttackValues.getZone()}-card-weapon-${AttackValues.getSquareNumber()}`).dataset.energy;
         BoardClick.removeAllSelectors();
     }
 
