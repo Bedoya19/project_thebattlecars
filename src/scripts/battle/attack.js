@@ -5,6 +5,7 @@
 */
 import { PlayerActions } from "../players/playerActions.js";
 import { StandarizedDocCreation } from "../display/standardDoc/standarizedDocCreaction.js";
+import { AttackValues } from "./attackValues.js";
 
 export class Attack {
     // Agrgega el boton de ataque a la informacion si es del jugador indicado
@@ -29,8 +30,10 @@ export class Attack {
     // Prepara todo para atacar
     static prepareForAttack(weaponSquare, player) {
         const charge = PlayerActions.getChargeFromPlayer(player);
-        const attacks = JSON.parse(weaponSquare.dataset.attacks);
-        const attack = attacks[0][charge - 1];
-        console.log("Prepare attack:", attack);
+        const attack = JSON.parse(weaponSquare.dataset.attacks)[0][charge - 1];
+        // Esto tendra que cambiar en algun momento (hablo de los niveles)
+        //const attack = attacks[0][charge - 1];
+        //console.log("Prepare attack:", attack);
+        AttackValues.setAttackValues(charge, attack);
     }
 }
