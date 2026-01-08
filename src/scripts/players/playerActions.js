@@ -67,4 +67,8 @@ export class PlayerActions {
     static getChargeFromPlayer(player) {
         return (player === "player1") ? Player1.getCharge() : Player2.getCharge();
     }
+
+    static generateChargeForPlayer(player) {
+        return (player === "player1") ? Player1.generateRandomCharge() : Player2.generateRandomCharge();
+    }
 }

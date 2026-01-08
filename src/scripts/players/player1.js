@@ -96,6 +96,7 @@ export class Player1 {
 
     // Generar una carga de manera aleatoria:
     static generateRandomCharge() {
-        this.#charge = Math.floor(Math.random() * (6 - 1) + 1);
+        console.log("generar carga");
+        this.#charge = Math.floor(Math.random() * (6 - 1 + 1)) + 1;
     }
 }

@@ -30,9 +30,12 @@ export class Attack {
     }
 
     static attack(carSquare) {
+        // Le baja la vida al carro que se le dio el ataque
         carSquare.dataset.health -= AttackValues.getAttack();
+        // Le baja energia a la arma que se uso para el ataque
         const currentPlayer = document.getElementById("deck").dataset.player;
         --document.getElementById(`${currentPlayer}-zone${AttackValues.getZone()}-card-weapon-${AttackValues.getSquareNumber()}`).dataset.energy;
+        // Remueve todos los selectores
         BoardClick.removeAllSelectors();
     }
 

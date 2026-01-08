@@ -26,6 +26,7 @@ import { MainGame } from "./game/mainGame.js";
 // Clase que muesta en pantalla la informacion general del juego
 import { GameInformationDisplay } from "./display/gameInformationDisplay.js";
 import { GameValuesDisplay } from "./display/gameValuesDisplay.js";
+import { PlayerActions } from "./players/playerActions.js";
 
 
 // Display del mazo
@@ -75,8 +76,10 @@ GameNotesDisplay.restartTurnNotes();
 
 nextRoundButton.addEventListener("click", () => { MainGame.goToNextRound()});
 
+PlayerActions.generateChargeForPlayer("player1");
 GameInformationDisplay.updateAllInformation();
 GameValuesDisplay.updateAllValues("player1");
+
 
 //console.log(Player1.getCars());
 //console.log(Player1.deleteFromDeck("cars", 1));
