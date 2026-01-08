@@ -34,6 +34,7 @@ export class Attack {
         carSquare.dataset.health -= AttackValues.getAttack();
         // Le baja energia a la arma que se uso para el ataque
         const currentPlayer = document.getElementById("deck").dataset.player;
+        PlayerActions.consumePowerForActionInPlayer(currentPlayer);
         --document.getElementById(`${currentPlayer}-zone${AttackValues.getZone()}-card-weapon-${AttackValues.getSquareNumber()}`).dataset.energy;
         // Remueve todos los selectores
         BoardClick.removeAllSelectors();
@@ -41,11 +42,13 @@ export class Attack {
 
     // Prepara todo para atacar
     static prepareForAttack(weaponSquare, player, zoneNumber, squareNumber) {
-        const charge = PlayerActions.getChargeFromPlayer(player);
-        const attack = JSON.parse(weaponSquare.dataset.attacks)[0][charge - 1];
-        // Esto tendra que cambiar en algun momento (hablo de los niveles)
-        //const attack = attacks[0][charge - 1];
-        //console.log("Prepare attack:", attack);
-        AttackValues.setAttackValues(charge, attack, zoneNumber, squareNumber);
+        if (PlayerActions.getPowerFromPlayer(player) <= 0) {
+            // Avisar al usuario despues
+            console.log("Sin poder requerido");
+        } else {
+            const charge = PlayerActions.getChargeFromPlayer(player);
+            const attack = JSON.parse(weaponSquare.dataset.attacks)[0][charge - 1];
+            AttackValues.setAttackValues(charge, attack, zoneNumber, squareNumber);
+        }
     }
 }
