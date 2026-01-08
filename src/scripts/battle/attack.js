@@ -6,6 +6,7 @@
 import { PlayerActions } from "../players/playerActions.js";
 import { StandarizedDocCreation } from "../display/standardDoc/standarizedDocCreaction.js";
 import { AttackValues } from "./attackValues.js";
+import { BoardClick } from "../board/boardActions.js";
 
 export class Attack {
     // Agrgega el boton de ataque a la informacion si es del jugador indicado
@@ -20,7 +21,7 @@ export class Attack {
                 }
             );
             button.innerText = "Atacar";
-            button.addEventListener("click", () => { this.prepareForAttack(weaponSquare, player) })
+            button.addEventListener("click", () => { this.prepareForAttack(weaponSquare, player, zoneNumber, squareNumber) })
             return button;
         } else {
             return "";
@@ -28,16 +29,19 @@ export class Attack {
     }
 
     static attack(carSquare) {
-        //carSquare.dataset.health -= AttackValues.getAttack();
+        carSquare.dataset.health -= AttackValues.getAttack();
+        const currentPlayer = document.getElementById("deck").dataset.player;
+        --document.getElementById(`${currentPlayer}-zone${AttackValues.getZone}-card-weapon-${AttackValues.getSquareNumber()}`).dataset.energy;
+        BoardClick.removeAllSelectors();
     }
 
     // Prepara todo para atacar
-    static prepareForAttack(weaponSquare, player) {
+    static prepareForAttack(weaponSquare, player, zoneNumber, squareNumber) {
         const charge = PlayerActions.getChargeFromPlayer(player);
         const attack = JSON.parse(weaponSquare.dataset.attacks)[0][charge - 1];
         // Esto tendra que cambiar en algun momento (hablo de los niveles)
         //const attack = attacks[0][charge - 1];
         //console.log("Prepare attack:", attack);
-        AttackValues.setAttackValues(charge, attack);
+        AttackValues.setAttackValues(charge, attack, zoneNumber, squareNumber);
     }
 }
