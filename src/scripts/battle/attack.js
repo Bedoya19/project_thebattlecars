@@ -27,6 +27,10 @@ export class Attack {
         }
     }
 
+    static attack(carSquare) {
+        //carSquare.dataset.health -= AttackValues.getAttack();
+    }
+
     // Prepara todo para atacar
     static prepareForAttack(weaponSquare, player) {
         const charge = PlayerActions.getChargeFromPlayer(player);

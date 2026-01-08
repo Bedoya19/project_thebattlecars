@@ -11,7 +11,14 @@ import { MainGame } from "../game/mainGame.js";
 export class BoardClick {
     // Cuando se hace click en una casilla de carro
     static clickOnCarSquare(carSquare) {
-        this.createCarCard(carSquare);
+        // Revisa si se va a atacar. Si es asi, hace la funcion de atacar, sino, sigue con el procedimeinto normal de revisar 
+        // la colocacion de una carta y/o la informacion de esta
+        if ((AttackValues.getPrepareAttack() === true) && (carSquare.id.slice(0, 7) !== document.getElementById("deck").dataset.player)) {
+            console.log("Se atacara!!!");
+        } else {
+            this.createCarCard(carSquare);
+        }
+        
     }
 
     static createCarCard(carSquare) {
