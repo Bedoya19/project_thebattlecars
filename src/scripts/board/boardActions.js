@@ -11,7 +11,10 @@ import { MainGame } from "../game/mainGame.js";
 export class BoardClick {
     // Cuando se hace click en una casilla de carro
     static clickOnCarSquare(carSquare) {
+        this.createCarCard(carSquare);
+    }
 
+    static createCarCard(carSquare) {
         // Saco de aqui mismo los datos necesarios
         const cardGeneralInformation = document.getElementById("card-selected-general-information");
         //const squarePlayer = this.createImgInBoard(carSquare);
@@ -91,7 +94,7 @@ export class BoardClick {
             //console.log(e);
             this.removeAllSelectors();
             DisplayCardInformation.displayEmptyCarSquare(cardInformation, carSquare, squarePlayer);
-        } 
+        }
     }
 
     // Cuando se hace click a una casilla de arma
