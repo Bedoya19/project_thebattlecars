@@ -7,6 +7,7 @@ import { PlayerActions } from "../players/playerActions.js";
 import { StandarizedDocCreation } from "../display/standardDoc/standarizedDocCreaction.js";
 import { AttackValues } from "./attackValues.js";
 import { BoardClick } from "../board/boardActions.js";
+import { GameValuesDisplay } from "../display/gameValuesDisplay.js";
 
 export class Attack {
     // Agrgega el boton de ataque a la informacion si es del jugador indicado
@@ -36,7 +37,11 @@ export class Attack {
         const currentPlayer = document.getElementById("deck").dataset.player;
         PlayerActions.consumePowerForActionInPlayer(currentPlayer);
         --document.getElementById(`${currentPlayer}-zone${AttackValues.getZone()}-card-weapon-${AttackValues.getSquareNumber()}`).dataset.energy;
-        // Remueve todos los selectores
+        // Remueve todos los selectores, actualiza el poder y carga
+        PlayerActions.generateChargeForPlayer(currentPlayer);
+        GameValuesDisplay.updateChargeValue();
+
+        GameValuesDisplay.updatePowerValue();
         BoardClick.removeAllSelectors();
     }
 

@@ -218,6 +218,19 @@ export class DisplayCardInformation {
         // Si algo, quita la estetica de casillas validas
         BoardClick.removeAllSelectors();
     }
+
+    // Avisa el ataque que se acaba de hacer
+    // carAttackedElement es la casilla del carro. 
+    // Va cambiar un poco cuando se pueda ya destruir un carro
+    static attackInformation(divElement, carAttackedElement, charge, attack) {
+        divElement.innerHTML = `
+        <div id="card-selected-information">
+            <h2>Se acaba de atacar!</h2>
+            <h2>${carAttacked.dataset.name} fue atacado por un ataque de carga ${charge}, que cause un daño de ${attack}</h2>
+            <h2>Le queda ${carAttackedElement.dataset.health} de vida</h2>
+        </div>
+        `
+    }
     // Mostrar una casilla vacia de carro
     static displayEmptyCarSquare(divElement, carSquare, squarePlayer) {
         divElement.innerHTML = `

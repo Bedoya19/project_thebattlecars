@@ -27,4 +27,11 @@ export class GameValuesDisplay {
             document.getElementById("deck").dataset.player
         );
     }
+
+    // Cambia el valor de la carga
+    static updateChargeValue() {
+        document.getElementById("value-local-charge").innerText = PlayerActions.getChargeFromPlayer(
+            document.getElementById("deck").dataset.player
+        );
+    }
 }
