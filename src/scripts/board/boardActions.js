@@ -211,24 +211,40 @@ export class BoardClick {
     // (!OJO!, esta funcion solo permite la version JSON de los datos del carro, NO un objeto de la clase)
     static putCarOnBoard(carSquare, carObj) {
         carSquare.appendChild(this.createImgInBoard(carObj));
+
+        // Data del carro
+        this.changeCarDataOnBoard(carSquare,
+            carObj.name,
+            carObj.health,
+            carObj.capacity,
+            carObj.nitro[0],
+            carObj.nitro[1],
+            carObj.nitroBuff[0],
+            carObj.nitroBuff[1],
+            carObj.attBuff,
+            carObj.description
+        )
+    }
+
+    static changeCarDataOnBoard(carSquare, name, health, capacity, nitroQuantity, nitroDuration, nitroResistance, nitroAttack, attackBuff, description) {
         // Lo peor es que esto fue una buena idea, si es necesario agregar un dato mas, aqui se agrega con minima 
         // interferencia de algo.
-        carSquare.dataset.name = carObj.name;
-        carSquare.dataset.health = carObj.health;
-        carSquare.dataset.maxHealth = carObj.health;
-        carSquare.dataset.capacity = carObj.capacity;
-        carSquare.dataset.maxCapacity = carObj.capacity;
+        carSquare.dataset.name = name;
+        carSquare.dataset.health = health;
+        carSquare.dataset.maxHealth = health;
+        carSquare.dataset.capacity = capacity;
+        carSquare.dataset.maxCapacity = capacity;
         /* 
         Este valor en especifico (data-nitro) es el que determina si el nitro esta activado o no.
         Si esta en 0, es que esta desactivado, si esta en otro numero, significa que esta activado y es cuantas rondas faltan para desactivarse
         */
         carSquare.dataset.nitro = 0;
-        carSquare.dataset.nitroQuantity = carObj.nitro[0];
-        carSquare.dataset.nitroDuration = carObj.nitro[1];
-        carSquare.dataset.nitroResistance = carObj.nitroBuff[0];
-        carSquare.dataset.nitroAttack = carObj.nitroBuff[1];
-        carSquare.dataset.attBuff = carObj.attBuff;
-        carSquare.dataset.description = carObj.description;
+        carSquare.dataset.nitroQuantity = nitroQuantity;
+        carSquare.dataset.nitroDuration = nitroDuration;
+        carSquare.dataset.nitroResistance = nitroResistance;
+        carSquare.dataset.nitroAttack = nitroAttack;
+        carSquare.dataset.attBuff = attackBuff;
+        carSquare.dataset.description = description;
         /*
             Esta funcion nisiquiera esta para ahorrar codigo, es solo para no ser tan muralla de codigo clickOnCarSquare(), que en acciones
             ni siquiera es una funcion complicada
