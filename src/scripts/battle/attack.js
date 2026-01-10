@@ -64,6 +64,9 @@ export class Attack {
         if (PlayerActions.getPowerFromPlayer(player) <= 0) {
             // Avisar al usuario despues
             console.log("Sin poder requerido");
+        } else if (weaponSquare.dataset.energy <= 0) {
+            // Tambien avisar al usuario despues
+            console.log("La arma no tiene la energia suficiente");
         } else {
             const charge = PlayerActions.getChargeFromPlayer(player);
             const attack = JSON.parse(weaponSquare.dataset.attacks)[0][charge - 1];
