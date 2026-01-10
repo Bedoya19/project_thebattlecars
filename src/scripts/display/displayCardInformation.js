@@ -235,11 +235,13 @@ export class DisplayCardInformation {
     // Lo que le pasa al carro despues del ataque
     static carAfterAttacked(carAttackedElement, carDestroyed, charge, attack) {
         if (carDestroyed) {
+            // Mensaje que devuelve el carro destruido
             return `
             <h2 class="card-selected-information">${carAttackedElement.dataset.name} fue atacado por un ataque de carga ${charge}, que lo destruyo!</h2>
             <h2 class="card-selected-information">Le quedarian al ${carAttackedElement.id.slice(0,7)} menos carros</h2>
             `;
         } else {
+            // Mensaje normal que devuelve el carro
             return `
             <h2 class="card-selected-information">${carAttackedElement.dataset.name} fue atacado por un ataque de carga ${charge}, que cause un daño de ${attack}</h2>
             <h2 class="card-selected-information">Le queda ${carAttackedElement.dataset.health} de vida</h2>
