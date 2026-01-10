@@ -111,11 +111,10 @@ export class BoardClick {
         //console.log("hola");
         const cardGeneralInformation = document.getElementById("card-selected-general-information");
 
-        const squarePlayer = weaponSquare.id.slice(0, 7);
-        const squareZone = weaponSquare.id.slice(12,13);
+        const squarePlayerAndZone = this.getPlayerAndZoneFromWeaponSquare(weaponSquare);
         const cardInformation = document.getElementById("card-selected-information");
 
-        console.log(`${squarePlayer}, zona ${squareZone}`);
+        console.log(`${squarePlayerAndZone["squarePlayer"]}, zona ${squarePlayerAndZone["squareZone"]}`);
 
         this.removeValidWeaponSquare();
         // Despues agregar lo de eliminar la estetica esta
@@ -137,18 +136,19 @@ export class BoardClick {
 
                 const deckIndex = cardGeneralInformation.dataset.cardId.slice(10);
                 //Player1.deleteFromDeck("weapons", deckIndex)
-                PlayerActions.removeCardInDeck(squarePlayer, "weapons", deckIndex);
+                PlayerActions.removeCardInDeck(squarePlayerAndZone["squarePlayer"], "weapons", deckIndex);
 
                 if (currentDeck.dataset.deck === "weapons") {
                     console.log("reiniciar mazo...");
                     deckCards.innerHTML = "";
 
-                    DisplayCardsInDeck.showDeckOfCards(deckCards, PlayerActions.getDeckFromPlayer(squarePlayer, "weapons"), cardInformation);
+                    DisplayCardsInDeck.showDeckOfCards(deckCards, PlayerActions.getDeckFromPlayer(squarePlayerAndZone["squarePlayer"], "weapons"), cardInformation);
                 }
 
                 // Edita carSquare para quitarle capacidad al carro
-                console.log(`${squarePlayer}-zone${squareZone}-card-car-${squareZone}`);
-                const carSquare = document.getElementById(`${squarePlayer}-zone${squareZone}-card-car-${squareZone}`);
+                //console.log(`${squarePlayer}-zone${squareZone}-card-car-${squareZone}`);
+                const carSquare = this.getCarSquareFromWeapon(squarePlayerAndZone["squarePlayer"], squarePlayerAndZone["squareZone"]);
+                //const carSquare = document.getElementById(`${squarePlayer}-zone${squareZone}-card-car-${squareZone}`);
                 console.log(carSquare);
                 carSquare.dataset.capacity = parseInt(carSquare.dataset.capacity) - 1;
 
@@ -157,20 +157,20 @@ export class BoardClick {
                 DisplayCardInformation.displayWeaponCardInformationBoard(
                     cardInformation,
                     weaponSquare,
-                    squarePlayer,
+                    squarePlayerAndZone["squarePlayer"],
                     cardObj.image,
                     cardObj.name,
                     cardObj.description
                 );
 
-                GameNotesDisplay.weaponOnBoardTurnNotes(squarePlayer, carSquare.dataset.name, cardObj.name);
+                GameNotesDisplay.weaponOnBoardTurnNotes(squarePlayerAndZone["squarePlayer"], carSquare.dataset.name, cardObj.name);
             } else {
                 // Despues se muestra la informacion del arma aqui
                 
                 DisplayCardInformation.displayWeaponCardInformationBoard(
                     cardInformation,
                     weaponSquare,
-                    squarePlayer,
+                    squarePlayerAndZone["squarePlayer"],
                     weaponSquare.firstElementChild.src,
                     weaponSquare.dataset.name,
                     weaponSquare.dataset.description
@@ -182,7 +182,7 @@ export class BoardClick {
             console.log("Error", e);
             //console.log("hola");
             this.removeAllSelectors();
-            DisplayCardInformation.displayEmptyWeaponSquare(cardInformation, weaponSquare, squarePlayer);
+            DisplayCardInformation.displayEmptyWeaponSquare(cardInformation, weaponSquare, squarePlayerAndZone["squarePlayer"]);
         }
     }
 
@@ -193,6 +193,9 @@ export class BoardClick {
             "squareZone": weaponSquare.id.slice(12,13)
         }
     };
+    static getCarSquareFromWeapon(squarePlayer, squareZone) {
+        return document.getElementById(`${squarePlayer}-zone${squareZone}-card-car-${squareZone}`);
+    }
 
     // Pone una imagen en una casilla
     // (tal vez poner en una futura clase de estandarizar elementos HTML)
