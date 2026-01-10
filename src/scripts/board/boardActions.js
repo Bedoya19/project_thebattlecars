@@ -225,7 +225,27 @@ export class BoardClick {
             carObj.description
         )
     }
+    
+    // Quitar una carta de carro del tablero
+    // Se va a usar cuando cuando la carta sea destruida
+    static removeCarOnBoard(carSquare) {
+        carSquare.innerHTML = "";
 
+        // La data se va volver undefined
+        this.changeCarDataOnBoard(carSquare,
+            "undefined",
+            "undefined",
+            "undefined",
+            "undefined",
+            "undefined",
+            "undefined",
+            "undefined",
+            "undefined",
+            "undefined"
+        );
+    }
+
+    // Cambiar la data del carro
     static changeCarDataOnBoard(carSquare, name, health, capacity, nitroQuantity, nitroDuration, nitroResistance, nitroAttack, attackBuff, description) {
         // Lo peor es que esto fue una buena idea, si es necesario agregar un dato mas, aqui se agrega con minima 
         // interferencia de algo.
