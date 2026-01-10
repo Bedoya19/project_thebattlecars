@@ -71,6 +71,10 @@ body {
     padding: 10px;
 }
 
+#card-selected-information {
+    width: 100%;
+}
+
 /* Diseño general del juego */
 .card-board-weapon-p-1 {
     grid-row: 1;
@@ -171,7 +175,7 @@ body {
 #card-selected-information {
     background-color: var(--fondo-carta-seleccionada);
     padding: 15px;
-    width: 60%;
+    /*width: 60%;*/
 }
 #card-selected-main-information {
     text-align: center;
@@ -286,7 +290,7 @@ body {
 
 @media (max-width: 1200px) {
     #card-selected-information {
-        width: 50%;
+        /*width: 50%;*/
         padding: 10px;
     }
     #card-selected-image {

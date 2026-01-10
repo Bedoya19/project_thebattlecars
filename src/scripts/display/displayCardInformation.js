@@ -225,9 +225,9 @@ export class DisplayCardInformation {
     static attackInformation(divElement, carAttackedElement, charge, attack) {
         divElement.innerHTML = `
         <div id="card-selected-information">
-            <h2>Se acaba de atacar!</h2>
-            <h2>${carAttacked.dataset.name} fue atacado por un ataque de carga ${charge}, que cause un daño de ${attack}</h2>
-            <h2>Le queda ${carAttackedElement.dataset.health} de vida</h2>
+            <h2 class="card-selected-information">Se acaba de atacar!</h2>
+            <h2 class="card-selected-information">${carAttackedElement.dataset.name} fue atacado por un ataque de carga ${charge}, que cause un daño de ${attack}</h2>
+            <h2 class="card-selected-information">Le queda ${carAttackedElement.dataset.health} de vida</h2>
         </div>
         `
     }

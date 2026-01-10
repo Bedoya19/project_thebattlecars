@@ -32,10 +32,16 @@ export class Attack {
     }
 
     static attack(carSquare) {
-        // Le baja la vida al carro que se le dio el ataque
-        carSquare.dataset.health -= AttackValues.getAttack();
-        // Le baja energia a la arma que se uso para el ataque
         const currentPlayer = document.getElementById("deck").dataset.player;
+
+        // Valores actuales de carga y ataque
+        const attackValue = AttackValues.getAttack();
+        const chargeValue = PlayerActions.getChargeFromPlayer(currentPlayer);
+
+        // Le baja la vida al carro que se le dio el ataque
+        carSquare.dataset.health -= attackValue;
+
+        // Le baja energia a la arma que se uso para el ataque
         PlayerActions.consumePowerForActionInPlayer(currentPlayer);
         --document.getElementById(`${currentPlayer}-zone${AttackValues.getZone()}-card-weapon-${AttackValues.getSquareNumber()}`).dataset.energy;
         // Actualiza la Carga
@@ -46,8 +52,10 @@ export class Attack {
         // Remueve todos los selectores
         BoardClick.removeAllSelectors();
         DisplayCardInformation.attackInformation(
-            document.getElementById("card-selected-information")
-            
+            document.getElementById("card-selected-information"),
+            carSquare,
+            chargeValue,
+            attackValue
         );
     }
 
