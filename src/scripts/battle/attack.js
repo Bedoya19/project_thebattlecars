@@ -33,6 +33,13 @@ export class Attack {
     }
 
     static attack(carSquare) {
+        // Banderas si:
+        // - El carro fue destruido
+        // - El arma ya no tiene energia
+        let carDestroyed = false;
+        let weaponDischarged = false;
+
+        // Jugador actual
         const currentPlayer = document.getElementById("deck").dataset.player;
 
         // Valores actuales de carga y ataque
@@ -41,6 +48,13 @@ export class Attack {
 
         // Le baja la vida al carro que se le dio el ataque
         carSquare.dataset.health -= attackValue;
+        // Revisa si el carro quedo destruid
+        if (carSquare.dataset.health <= 0) {
+            // Se va a quitar el carro del tablero en DisplayCardInformation. Esto es para tener la informacion de
+            // la data del carro sin incurrir a hacer mas variables
+            console.log("El carro quedo destruido!");
+            carDestroyed = true;
+        }
 
         // Le baja energia a la arma que se uso para el ataque
         PlayerActions.consumePowerForActionInPlayer(currentPlayer);
@@ -48,6 +62,8 @@ export class Attack {
         --weaponSquare.dataset.energy;
         // Quita la carta del tablero si ya llego a cero de energia
         if (weaponSquare.dataset.energy <= 0) {
+            console.log("El arma quedo descargada");
+            weaponDischarged = true;
             BoardClick.removeWeaponOnBoard(weaponSquare);
         }
 
