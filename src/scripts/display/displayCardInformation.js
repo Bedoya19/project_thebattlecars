@@ -3,6 +3,7 @@ import { CarCard } from "../models/cards/CarCard.js";
 import { StandarizedDocCreation } from "./standardDoc/standarizedDocCreaction.js";
 import { BoardClick } from "../board/boardActions.js";
 import { Attack } from "../battle/attack.js";
+import { PlayerActions } from "../players/playerActions.js";
 
 export class DisplayCardInformation {
     static displayInformationOnDeck(divElement, card, cardId) {
@@ -222,14 +223,37 @@ export class DisplayCardInformation {
     // Avisa el ataque que se acaba de hacer
     // carAttackedElement es la casilla del carro. 
     // Va cambiar un poco cuando se pueda ya destruir un carro
-    static attackInformation(divElement, carAttackedElement, charge, attack) {
+    static attackInformation(divElement, carAttackedElement, charge, attack, carDestroyed, weaponDischarged) {
         divElement.innerHTML = `
         <div id="card-selected-information">
             <h2 class="card-selected-information">Se acaba de atacar!</h2>
-            <h2 class="card-selected-information">${carAttackedElement.dataset.name} fue atacado por un ataque de carga ${charge}, que cause un daño de ${attack}</h2>
-            <h2 class="card-selected-information">Le queda ${carAttackedElement.dataset.health} de vida</h2>
+            ${this.carAfterAttacked(carAttackedElement, carDestroyed, charge, attack)}
+            ${this.weaponDischargedMessage(weaponDischarged)}
         </div>
         `
+    }
+    // Lo que le pasa al carro despues del ataque
+    static carAfterAttacked(carAttackedElement, carDestroyed, charge, attack) {
+        if (carDestroyed) {
+            return `
+            <h2 class="card-selected-information">${carAttackedElement.dataset.name} fue atacado por un ataque de carga ${charge}, que lo destruyo!</h2>
+            <h2 class="card-selected-information">Le quedarian al ${carAttackedElement.id.slice(0,7)} menos carros</h2>
+            `;
+        } else {
+            return `
+            <h2 class="card-selected-information">${carAttackedElement.dataset.name} fue atacado por un ataque de carga ${charge}, que cause un daño de ${attack}</h2>
+            <h2 class="card-selected-information">Le queda ${carAttackedElement.dataset.health} de vida</h2>
+            `;
+        }
+    }
+    // Lo que le pasa al arma despues del ataque
+    static weaponDischargedMessage(weaponDischarged) {
+        if (weaponDischarged) {
+            return `<h2 class="card-selected-information">El arma quedo descargada</h2>`
+        } else {
+            return "<h2></h2>";
+        }
+        
     }
     // Mostrar una casilla vacia de carro
     static displayEmptyCarSquare(divElement, carSquare, squarePlayer) {

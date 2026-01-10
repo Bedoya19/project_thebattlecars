@@ -79,7 +79,9 @@ export class Attack {
             document.getElementById("card-selected-information"),
             carSquare,
             chargeValue,
-            attackValue
+            attackValue,
+            carDestroyed,
+            weaponDischarged
         );
     }
 
