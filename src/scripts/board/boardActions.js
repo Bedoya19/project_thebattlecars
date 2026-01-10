@@ -186,6 +186,14 @@ export class BoardClick {
         }
     }
 
+    // Consigue el jugador y zona del id de una casilla de arma
+    static getPlayerAndZoneFromWeaponSquare(weaponSquare) {
+        return {
+            "squarePlayer": weaponSquare.id.slice(0, 7),
+            "squareZone": weaponSquare.id.slice(12,13)
+        }
+    };
+
     // Pone una imagen en una casilla
     // (tal vez poner en una futura clase de estandarizar elementos HTML)
     static createImgInBoard(carObj) {

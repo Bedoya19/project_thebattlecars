@@ -10,6 +10,7 @@ import { BoardClick } from "../board/boardActions.js";
 import { GameValuesDisplay } from "../display/gameValuesDisplay.js";
 import { DisplayCardInformation } from "../display/displayCardInformation.js";
 
+
 export class Attack {
     // Agrgega el boton de ataque a la informacion si es del jugador indicado
     static createAttackButton(player, zoneNumber, squareNumber, weaponSquare) {
@@ -43,7 +44,13 @@ export class Attack {
 
         // Le baja energia a la arma que se uso para el ataque
         PlayerActions.consumePowerForActionInPlayer(currentPlayer);
-        --document.getElementById(`${currentPlayer}-zone${AttackValues.getZone()}-card-weapon-${AttackValues.getSquareNumber()}`).dataset.energy;
+        const weaponSquare = document.getElementById(`${currentPlayer}-zone${AttackValues.getZone()}-card-weapon-${AttackValues.getSquareNumber()}`);
+        --weaponSquare.dataset.energy;
+        // Quita la carta del tablero si ya llego a cero de energia
+        if (weaponSquare.dataset.energy <= 0) {
+            BoardClick.removeWeaponOnBoard(weaponSquare);
+        }
+
         // Actualiza la Carga
         PlayerActions.generateChargeForPlayer(currentPlayer);
         GameValuesDisplay.updateChargeValue();
@@ -51,6 +58,7 @@ export class Attack {
         GameValuesDisplay.updatePowerValue();
         // Remueve todos los selectores
         BoardClick.removeAllSelectors();
+        // Muestra la accion que se acaba de hacer en pantalla
         DisplayCardInformation.attackInformation(
             document.getElementById("card-selected-information"),
             carSquare,
