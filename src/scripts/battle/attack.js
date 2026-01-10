@@ -46,7 +46,7 @@ export class Attack {
         // Remueve todos los selectores
         BoardClick.removeAllSelectors();
         DisplayCardInformation.attackInformation(
-            document.getElementById("card-selected-information"),
+            document.getElementById("card-selected-information")
             
         );
     }
