@@ -8,6 +8,7 @@ import { StandarizedDocCreation } from "../display/standardDoc/standarizedDocCre
 import { AttackValues } from "./attackValues.js";
 import { BoardClick } from "../board/boardActions.js";
 import { GameValuesDisplay } from "../display/gameValuesDisplay.js";
+import { DisplayCardInformation } from "../display/displayCardInformation.js";
 
 export class Attack {
     // Agrgega el boton de ataque a la informacion si es del jugador indicado
@@ -37,12 +38,17 @@ export class Attack {
         const currentPlayer = document.getElementById("deck").dataset.player;
         PlayerActions.consumePowerForActionInPlayer(currentPlayer);
         --document.getElementById(`${currentPlayer}-zone${AttackValues.getZone()}-card-weapon-${AttackValues.getSquareNumber()}`).dataset.energy;
-        // Remueve todos los selectores, actualiza el poder y carga
+        // Actualiza la Carga
         PlayerActions.generateChargeForPlayer(currentPlayer);
         GameValuesDisplay.updateChargeValue();
-
+        // Actualiza el Poder (el valor cambiado en pantalla)
         GameValuesDisplay.updatePowerValue();
+        // Remueve todos los selectores
         BoardClick.removeAllSelectors();
+        DisplayCardInformation.attackInformation(
+            document.getElementById("card-selected-information"),
+            
+        );
     }
 
     // Prepara todo para atacar
