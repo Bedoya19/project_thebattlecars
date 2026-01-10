@@ -231,14 +231,41 @@ export class BoardClick {
         // Agrega la imagen en el div
         weaponSquare.appendChild(this.createImgInBoard(weaponObj));
 
+        // Cambia la data del div para la respectiva arma
+        this.changeWeaponDataOnBoard(
+            weaponSquare,
+            weaponObj.name,
+            weaponObj.description,
+            weaponObj.energy,
+            JSON.stringify(weaponObj.attacks),
+            JSON.stringify(weaponObj.materials)
+        )
+    }
+
+    // Quita una carta de arma del tablero
+    static removeWeaponOnBoard(weaponSquare) {
+        weaponSquare.innerHTML = "";
+        // Deja toda la data del carro en "undefined"
+        this.changeWeaponDataOnBoard(
+            weaponSquare,
+            "undefined",
+            "undefined",
+            "undefined",
+            "undefined",
+            "undefined"
+        );
+    }
+
+    // Cambiar la data del div de arma
+    static changeWeaponDataOnBoard(weaponSquare, name, description, energy, attacks, materials) {
         // Datos de la carta
-        weaponSquare.dataset.name = weaponObj.name;
-        weaponSquare.dataset.description = weaponObj.description;
+        weaponSquare.dataset.name = name;
+        weaponSquare.dataset.description = description;
         // No existe maxEnergy porque tengo pensado que gracias a poderes pueda facilmente incrementar al valor original.
         // (Aunque me tocara probar como sera que me va con eso)
-        weaponSquare.dataset.energy = weaponObj.energy;
-        weaponSquare.dataset.attacks = JSON.stringify(weaponObj.attacks);
-        weaponSquare.dataset.materials = JSON.stringify(weaponObj.materials);
+        weaponSquare.dataset.energy = energy;
+        weaponSquare.dataset.attacks = attacks;
+        weaponSquare.dataset.materials = materials;
     }
 
     // Muestra las casillas validas de carro para el jugador
