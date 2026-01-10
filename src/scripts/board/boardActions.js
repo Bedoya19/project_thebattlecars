@@ -255,6 +255,7 @@ export class BoardClick {
 
     // Quita una carta de arma del tablero
     static removeWeaponOnBoard(weaponSquare) {
+        // Deja la casilla vacia
         weaponSquare.innerHTML = "";
         // Deja toda la data del carro en "undefined"
         this.changeWeaponDataOnBoard(
@@ -265,6 +266,10 @@ export class BoardClick {
             "undefined",
             "undefined"
         );
+        // Agrega capacidad al carro ya que ya se descarto un arma  
+        const weaponPlayerAndZone = this.getPlayerAndZoneFromWeaponSquare(weaponSquare);
+        const carSquare = this.getCarSquareFromWeapon(weaponPlayerAndZone["squarePlayer"], weaponPlayerAndZone["squareZone"]);
+        ++carSquare.dataset.capacity;
     }
 
     // Cambiar la data del div de arma
