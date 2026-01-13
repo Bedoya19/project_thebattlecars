@@ -50,7 +50,7 @@ export class Attack {
         carSquare.dataset.health -= attackValue;
         // Revisa si el carro quedo destruid
         if (carSquare.dataset.health <= 0) {
-            // Se va a quitar el carro del tablero en DisplayCardInformation. Esto es para tener la informacion de
+            // Se va a quitar el carro del tablero en otro lugar. Esto es para tener la informacion de
             // la data del carro sin incurrir a hacer mas variables
             console.log("El carro quedo destruido!");
             carDestroyed = true;
@@ -83,6 +83,11 @@ export class Attack {
             carDestroyed,
             weaponDischarged
         );
+
+        if (carDestroyed) {
+            // Ya quita de verdad el carro destruido en el tablero despues de usar la informacion para el metodo anterior
+            BoardClick.removeCarOnBoard(carSquare);
+        }
     }
 
     // Prepara todo para atacar

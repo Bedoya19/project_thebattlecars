@@ -236,8 +236,9 @@ export class DisplayCardInformation {
     static carAfterAttacked(carAttackedElement, carDestroyed, charge, attack) {
         if (carDestroyed) {
             // Mensaje que devuelve el carro destruido
+            // Despues se tendra que modificar para que muestre la cantidad de carros exactos en el jugador afectado
             return `
-            <h2 class="card-selected-information">${carAttackedElement.dataset.name} fue atacado por un ataque de carga ${charge}, que lo destruyo!</h2>
+            <h2 class="card-selected-information">${carAttackedElement.dataset.name} fue atacado por un ataque de carga ${charge}, que cause un daño de ${attack}. ¡Suficiente para destruirlo!</h2>
             <h2 class="card-selected-information">Le quedarian al ${carAttackedElement.id.slice(0,7)} menos carros</h2>
             `;
         } else {
