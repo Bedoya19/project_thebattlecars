@@ -5,6 +5,9 @@
 */
 
 // Clase que maneja la informacion del juego
+import { BoardClick } from "../board/boardActions.js";
+import { DisplayCardsInDeck } from "../display/deckDisplay.js";
+
 export class StateGame {
     // - Variables del estado del juego -
     // Carros que siguen teniendo cada jugador
@@ -67,5 +70,27 @@ export class StateGame {
     // Como lo he hecho en todo este proyecto, se juntan dos metodos dependiendo del jugador
     static removeCarFromPlayer(player) {
         (player === "player1") ? (this.removeCarFromPlayer1()) : (this.removeCarFromPlayer2());
+    }
+
+    // El juego se termina
+    static endGameRemoveListeners() {
+        // Consigue todas las casillas de carros y armas
+        // Vendran despues otras
+        const carSquares = document.getElementsByClassName("card-board-car");
+        const weaponSquares = document.getElementsByClassName("card-board-weapon");
+        // Icono del mazo
+        const deckIcon = document.getElementById("change-deck-icon-div");
+        const divDeck = document.getElementsByClassName("deck-cards");
+        // Estara intencionalmente vacio
+        DisplayCardsInDeck.displayCardOnDeck(divDeck, []);
+
+        // Le quita los event listener a todo lo posible
+        for (const carSquare of carSquares) {
+            carSquare.removeEventListener("click", () => { BoardClick.clickOnCarSquare(carSquare) });
+        }
+        for (const weaponSquare of weaponSquares) {
+            weaponSquare.removeEventListener("click", () => { BoardClick.clickOnWeaponSquare(weaponSquare)});
+        }
+        deckIcon.removeEventListener("click", () => DisplayCardsInDeck.changeDeckPlayer);
     }
 }
