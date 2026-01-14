@@ -8,6 +8,8 @@ import { StandarizedDocCreation } from "../display/standardDoc/standarizedDocCre
 import { AttackValues } from "./attackValues.js";
 import { BoardClick } from "../board/boardActions.js";
 import { GameValuesDisplay } from "../display/gameValuesDisplay.js";
+import { GameInformationDisplay } from "../display/gameInformationDisplay.js";
+import { StateGame } from "../game/stateGame.js";
 import { DisplayCardInformation } from "../display/displayCardInformation.js";
 
 
@@ -87,6 +89,10 @@ export class Attack {
         if (carDestroyed) {
             // Ya quita de verdad el carro destruido en el tablero despues de usar la informacion para el metodo anterior
             BoardClick.removeCarOnBoard(carSquare);
+            // Elimina el carro del jugador afectado, y actualiza el valor en la ventana de informacion
+            const affectedPlayer = carSquare.id.slice(0, 7);
+            StateGame.removeCarFromPlayer(affectedPlayer);
+            GameInformationDisplay.updateCurrentCarsPlayer(affectedPlayer);
         }
     }
 

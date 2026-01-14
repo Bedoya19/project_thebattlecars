@@ -53,4 +53,16 @@ export class StateGame {
             return [1, "siguiente ronda"];
         }
     }
+
+    // Quitar un carro de algun jugador
+    static removeCarFromPlayer1() {
+        --this.#carsPlayer1;
+    }
+    static removeCarFromPlayer2() {
+        --this.#carsPlayer2;
+    }
+    // Como lo he hecho en todo este proyecto, se juntan dos metodos dependiendo del jugador
+    static removeCarFromPlayer(player) {
+        (player === "player1") ? (this.removeCarFromPlayer1()) : (this.removeCarFromPlayer2());
+    }
 }
