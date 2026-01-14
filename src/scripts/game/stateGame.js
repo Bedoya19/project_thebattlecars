@@ -27,6 +27,9 @@ export class StateGame {
     static getTurn() {
         return this.#turn;
     }
+    static geCarsFromPlayer(player) {
+        return (player === "player1") ? (this.getCarsPlayers1()) : (this.getCarsPlayers2()); 
+    }
 
     // - Metodos -
     // Reiniciar datos del juego (por si acaso)

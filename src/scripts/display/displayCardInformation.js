@@ -4,6 +4,7 @@ import { StandarizedDocCreation } from "./standardDoc/standarizedDocCreaction.js
 import { BoardClick } from "../board/boardActions.js";
 import { Attack } from "../battle/attack.js";
 import { PlayerActions } from "../players/playerActions.js";
+import { StateGame } from "../game/stateGame.js";
 
 export class DisplayCardInformation {
     static displayInformationOnDeck(divElement, card, cardId) {
@@ -239,7 +240,7 @@ export class DisplayCardInformation {
             // Despues se tendra que modificar para que muestre la cantidad de carros exactos en el jugador afectado
             return `
             <h2 class="card-selected-information">${carAttackedElement.dataset.name} fue atacado por un ataque de carga ${charge}, que cause un daño de ${attack}. ¡Suficiente para destruirlo!</h2>
-            <h2 class="card-selected-information">Le quedarian al ${carAttackedElement.id.slice(0,7)} menos carros</h2>
+            <h2 class="card-selected-information">Le quedarian al ${this.convertPlayerString(carAttackedElement.id.slice(0,7))} ${StateGame.geCarsFromPlayer(carAttackedElement.id.slice(0,7)) - 1} carros restantes</h2>
             `;
         } else {
             // Mensaje normal que devuelve el carro
