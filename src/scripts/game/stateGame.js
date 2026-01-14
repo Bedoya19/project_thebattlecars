@@ -7,6 +7,7 @@
 // Clase que maneja la informacion del juego
 import { BoardClick } from "../board/boardActions.js";
 import { DisplayCardsInDeck } from "../display/deckDisplay.js";
+import { StandarizedDocCreation } from "../display/standardDoc/standarizedDocCreaction.js";
 
 export class StateGame {
     // - Variables del estado del juego -
@@ -61,18 +62,53 @@ export class StateGame {
     }
 
     // Quitar un carro de algun jugador
+    // El if statementCon esto es que me referia a funciones adicionales que podrian existir en un futuro
+    // Si cuando se quita un carro se detecta que ya no tiene carros el jugador contrincante, termina el
+    // juego y anuncia como ganador el otro jugador
     static removeCarFromPlayer1() {
         --this.#carsPlayer1;
+        if (this.#carsPlayer1 <= 0) {
+            this.endGame("Jugador 2");
+        }
     }
     static removeCarFromPlayer2() {
         --this.#carsPlayer2;
+        
+        if (this.#carsPlayer2 <= 0) {
+            this.endGame("Jugador 1");
+        }
     }
     // Como lo he hecho en todo este proyecto, se juntan dos metodos dependiendo del jugador
     static removeCarFromPlayer(player) {
         (player === "player1") ? (this.removeCarFromPlayer1()) : (this.removeCarFromPlayer2());
     }
 
-    // El juego se termina
+    // Termina el juego
+    static endGame(playerWinner) {
+        this.endGameRemoveListeners();
+        const statePlayers = document.getElementById("state-players");
+        const announceWinner = StandarizedDocCreation.customElementCreator(
+            {
+                "element": "h4",
+                "class": "game-stat-text",
+                "class": "game-stat-subtitle-text"
+            }
+        );
+        announceWinner.innerText = `El ${playerWinner} es el ganador!`;
+        statePlayers.appendChild(announceWinner);
+        // Me da pereza por ahora hacer una funcion que reinicie la pagina
+        // Tal vez despues
+        const resetGame = StandarizedDocCreation.customElementCreator(
+            {
+                "element": "p",
+                "class": "game-stat-text"
+            }
+        );
+        resetGame.innerText = "Reinicia la pagina para jugar de nuevo";
+        statePlayers.appendChild(resetGame);
+    }
+
+    // Quita los event listeners (actuales) del tablero
     static endGameRemoveListeners() {
         // Consigue todas las casillas de carros y armas
         // Vendran despues otras
@@ -82,7 +118,7 @@ export class StateGame {
         const deckIcon = document.getElementById("change-deck-icon-div");
         const divDeck = document.getElementsByClassName("deck-cards");
         // Estara intencionalmente vacio
-        DisplayCardsInDeck.displayCardOnDeck(divDeck, []);
+        DisplayCardsInDeck.showDeckOfCards(divDeck, []);
 
         // Le quita los event listener a todo lo posible
         for (const carSquare of carSquares) {
