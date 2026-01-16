@@ -11,14 +11,16 @@ import { MainGame } from "../game/mainGame.js";
 
 export class BoardClick {
     // Cuando se hace click en una casilla de carro
-    static clickOnCarSquare(carSquare) {
+    static clickOnCarSquare(event) {
+        const carSquare = event.currentTarget;
+
         // Revisa si se va a atacar. Si es asi, hace la funcion de atacar, sino, sigue con el procedimeinto normal de revisar 
         // la colocacion de una carta y/o la informacion de esta
         if ((AttackValues.getPrepareAttack() === true) && (carSquare.id.slice(0, 7) !== document.getElementById("deck").dataset.player)) {
             console.log("Se atacara!!!");
             Attack.attack(carSquare);
         } else {
-            this.createCarCard(carSquare);
+            BoardClick.createCarCard(carSquare);
         }
         
     }
@@ -107,16 +109,18 @@ export class BoardClick {
     }
 
     // Cuando se hace click a una casilla de arma
-    static clickOnWeaponSquare(weaponSquare) {
+    static clickOnWeaponSquare(event) {
         //console.log("hola");
+        const weaponSquare = event.currentTarget;
+
         const cardGeneralInformation = document.getElementById("card-selected-general-information");
 
-        const squarePlayerAndZone = this.getPlayerAndZoneFromWeaponSquare(weaponSquare);
+        const squarePlayerAndZone = BoardClick.getPlayerAndZoneFromWeaponSquare(weaponSquare);
         const cardInformation = document.getElementById("card-selected-information");
 
         console.log(`${squarePlayerAndZone["squarePlayer"]}, zona ${squarePlayerAndZone["squareZone"]}`);
 
-        this.removeValidWeaponSquare();
+        BoardClick.removeValidWeaponSquare();
         // Despues agregar lo de eliminar la estetica esta
         //console.log(checkBoard.checkForCarCapacity(squarePlayer, squareZone));
         try {
@@ -132,7 +136,7 @@ export class BoardClick {
                 const deckCards = document.getElementById("deck-cards");
                 const cardObj = JSON.parse(cardGeneralInformation.dataset.card);
 
-                this.putWeaponOnBoard(weaponSquare, cardObj);
+                BoardClick.putWeaponOnBoard(weaponSquare, cardObj);
 
                 const deckIndex = cardGeneralInformation.dataset.cardId.slice(10);
                 //Player1.deleteFromDeck("weapons", deckIndex)
@@ -147,7 +151,7 @@ export class BoardClick {
 
                 // Edita carSquare para quitarle capacidad al carro
                 //console.log(`${squarePlayer}-zone${squareZone}-card-car-${squareZone}`);
-                const carSquare = this.getCarSquareFromWeapon(squarePlayerAndZone["squarePlayer"], squarePlayerAndZone["squareZone"]);
+                const carSquare = BoardClick.getCarSquareFromWeapon(squarePlayerAndZone["squarePlayer"], squarePlayerAndZone["squareZone"]);
                 //const carSquare = document.getElementById(`${squarePlayer}-zone${squareZone}-card-car-${squareZone}`);
                 console.log(carSquare);
                 carSquare.dataset.capacity = parseInt(carSquare.dataset.capacity) - 1;
@@ -181,7 +185,7 @@ export class BoardClick {
             // Si hubo un error, una vez mas, es probable que fuera el JSON de la carta estuviera indefinida. 
             console.log("Error", e);
             //console.log("hola");
-            this.removeAllSelectors();
+            BoardClick.removeAllSelectors();
             DisplayCardInformation.displayEmptyWeaponSquare(cardInformation, weaponSquare, squarePlayerAndZone["squarePlayer"]);
         }
     }

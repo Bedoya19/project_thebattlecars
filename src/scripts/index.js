@@ -62,13 +62,14 @@ deckIcon.addEventListener("click", () => { DisplayCardsInDeck.changeDeckPlayer(d
 // Agrega funcionalidad a las casillas de carro
 for (const carSquare of carsSquares) {
     //console.log(carsSquare);
-    carSquare.addEventListener("click", () => { BoardClick.clickOnCarSquare(carSquare) });
+    //carSquare.addEventListener("click", () => { BoardClick.clickOnCarSquare(carSquare) });
+    carSquare.addEventListener("click", BoardClick.clickOnCarSquare);
 }
 
 // Agrega funcionalidad a casillas de arma
 for (const weaponSquare of weaponSquares) {
     //console.log(weaponSquare);
-    weaponSquare.addEventListener("click", () => { BoardClick.clickOnWeaponSquare(weaponSquare) });
+    weaponSquare.addEventListener("click", BoardClick.clickOnWeaponSquare);
 }
 
 deselectButton.addEventListener("click", () => { DisplayCardInformation.deselectCardInformation(cardInformation) })

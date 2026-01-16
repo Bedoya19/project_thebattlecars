@@ -12,8 +12,8 @@ import { StandarizedDocCreation } from "../display/standardDoc/standarizedDocCre
 export class StateGame {
     // - Variables del estado del juego -
     // Carros que siguen teniendo cada jugador
-    static #carsPlayer1 = 5;
-    static #carsPlayer2 = 5;
+    static #carsPlayer1 = 2;
+    static #carsPlayer2 = 2;
     // Rondas y turnos actuales en el juego
     static #round = 1;
     static #turn = 1;
@@ -115,18 +115,23 @@ export class StateGame {
         const carSquares = document.getElementsByClassName("card-board-car");
         const weaponSquares = document.getElementsByClassName("card-board-weapon");
         // Icono del mazo
-        const deckIcon = document.getElementById("change-deck-icon-div");
+        const deckIcon = document.getElementById("deck-icon-current");
         const divDeck = document.getElementsByClassName("deck-cards");
         // Estara intencionalmente vacio
         DisplayCardsInDeck.showDeckOfCards(divDeck, []);
 
         // Le quita los event listener a todo lo posible
         for (const carSquare of carSquares) {
-            carSquare.removeEventListener("click", () => { BoardClick.clickOnCarSquare(carSquare) });
+            carSquare.removeEventListener("click", BoardClick.clickOnCarSquare);
         }
         for (const weaponSquare of weaponSquares) {
-            weaponSquare.removeEventListener("click", () => { BoardClick.clickOnWeaponSquare(weaponSquare)});
+            weaponSquare.removeEventListener("click", BoardClick.clickOnWeaponSquare);
         }
-        deckIcon.removeEventListener("click", () => DisplayCardsInDeck.changeDeckPlayer);
+
+        // O con addEventListener (agrega uno nuevo que no hace nada):
+        deckIcon.addEventListener('click', function(e) {
+            e.stopImmediatePropagation();
+            e.preventDefault();
+        }, true);;
     }
 }
