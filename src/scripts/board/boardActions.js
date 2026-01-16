@@ -247,6 +247,9 @@ export class BoardClick {
             "undefined",
             "undefined"
         );
+
+        console.log("Jugador:", GetDataFromSquare.getIdFromSquare(carSquare));
+        console.log("Zona:", GetDataFromSquare.getZoneFromCarSquare(carSquare));
     }
 
     // Cambiar la data del carro
@@ -529,3 +532,22 @@ class checkBoard {
         return [true, "La casilla esta disponible para colocar una carta de arma"]
     }
 }
+
+// Clase que consigue algunos datos especificos de las casillas
+// Furiosa refractorizacion se aproxima, pero por ahora estare con esto
+class GetDataFromSquare {
+    // Consigue el jugador de cualquier casilla
+    static getIdFromSquare(square) {
+        // De la manera que desarrolle el HTML, es constante que los primeros 8 caracteres sean del jugador en cuestion
+        return square.id.slice(0, 7);
+    }
+
+    // Consigue la zona de una casilla de carro
+    static getZoneFromCarSquare(carSquare) {
+        // Esto devuelve el string completo (Ej: "zone2")
+        // Esto es porque es generalmente usado el string junto en vez de usar el numero
+        // en si
+        // (Puedo crear un metodo que consigue el numero tho, seria despues)
+        return carSquare.classList[3].slice(11);
+    }
+} 
