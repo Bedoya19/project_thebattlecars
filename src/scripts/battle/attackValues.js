@@ -6,6 +6,8 @@ export class AttackValues {
     static #attack = 0;
     static #zone = 0;
     static #squareNumber = 0;
+    static #attackCarIncrease = 0;
+    static #attackNitroIncrease = 0;
 
     // Getters
     static getCharge() {
@@ -22,6 +24,12 @@ export class AttackValues {
     }
     static getSquareNumber() {
         return this.#squareNumber;
+    }
+    static getAttackCarIncrease() {
+        return this.#attackCarIncrease;
+    }
+    static getAttackNitroIncrease() {
+        return this.#attackNitroIncrease;
     }
 
     // Define los valores de carga y ataque
