@@ -2,6 +2,9 @@ import { DataConversor } from "../models/constants/enums.js";
 import { CarCard } from "../models/cards/CarCard.js";
 import { StandarizedDocCreation } from "./standardDoc/standarizedDocCreaction.js";
 import { BoardClick } from "../board/boardActions.js";
+import { Attack } from "../battle/attack.js";
+import { PlayerActions } from "../players/playerActions.js";
+import { StateGame } from "../game/stateGame.js";
 
 export class DisplayCardInformation {
     static displayInformationOnDeck(divElement, card, cardId) {
@@ -138,7 +141,7 @@ export class DisplayCardInformation {
                 card.attacks,
                 card.energy,
                 card.materials,
-                card.cardDescription,
+                card.description,
                 "deck",
                 json
             )}
@@ -147,6 +150,11 @@ export class DisplayCardInformation {
 
     // Mostrar la informacion de una carta de arma del tablero
     static displayWeaponCardInformationBoard(divElement, weaponSquare, playerOriginal, cardImage, cardName, cardDescription) {
+        //console.log("Casilla de arma: ", weaponSquare);
+        const parts = weaponSquare.id.split('-');
+        const zoneNumber = parts[1].slice(4); 
+        const squareNumber =  weaponSquare.id.at(-1);
+        console.log("Zona:", zoneNumber, "Casilla", squareNumber);
         // Muy probablemente, cuando ya tenga todo funcionando correctamente, puedo fusionar algunas funciones repetitivas
         divElement.innerHTML = `
             ${this.mainCardInformation(this.convertPlayerString(playerOriginal), cardImage, cardName)}
@@ -160,12 +168,14 @@ export class DisplayCardInformation {
                 "board"
             )}
         `;
+        //${Attack.createAttackButton(playerOriginal, zoneNumber, squareNumber, weaponSquare)}
+        divElement.appendChild(Attack.createAttackButton(playerOriginal, zoneNumber, squareNumber, weaponSquare));
     }
 
     // Mostrar la informacion general de una carta de arma
     // Toca tener en cuenta que las listas de ataques y materiales se pasan a JSON, entonces tener eso en cuenta.
     static generalWeaponCardInformation(player, cardId, attacks, energy, materials, cardDescription, origin, data) {
-        console.log(player, cardId, attacks, energy, materials, cardDescription, origin, data);
+        console.log(cardDescription);
         return `
                 <div id="card-selected-general-information" data-card='${data}' data-origin="${origin}" data-player="${player}" data-card-id="${cardId}" data-type="weapon">
                     <div id="card-selected-attacks">
@@ -208,8 +218,46 @@ export class DisplayCardInformation {
         </div>
         `;
         // Si algo, quita la estetica de casillas validas
-        BoardClick.removeValidCarSquare();
-        BoardClick.removeValidWeaponSquare();
+        BoardClick.removeAllSelectors();
+    }
+
+    // Avisa el ataque que se acaba de hacer
+    // carAttackedElement es la casilla del carro. 
+    // Va cambiar un poco cuando se pueda ya destruir un carro
+    static attackInformation(divElement, carAttackedElement, charge, attack, carDestroyed, weaponDischarged) {
+        divElement.innerHTML = `
+        <div id="card-selected-information">
+            <h2 class="card-selected-information">Se acaba de atacar!</h2>
+            ${this.carAfterAttacked(carAttackedElement, carDestroyed, charge, attack)}
+            ${this.weaponDischargedMessage(weaponDischarged)}
+        </div>
+        `
+    }
+    // Lo que le pasa al carro despues del ataque
+    static carAfterAttacked(carAttackedElement, carDestroyed, charge, attack) {
+        if (carDestroyed) {
+            // Mensaje que devuelve el carro destruido
+            // Despues se tendra que modificar para que muestre la cantidad de carros exactos en el jugador afectado
+            return `
+            <h2 class="card-selected-information">${carAttackedElement.dataset.name} fue atacado por un ataque de carga ${charge}, que cause un daño de ${attack}. ¡Suficiente para destruirlo!</h2>
+            <h2 class="card-selected-information">Le quedarian al ${this.convertPlayerString(carAttackedElement.id.slice(0,7))} ${StateGame.geCarsFromPlayer(carAttackedElement.id.slice(0,7)) - 1} carros restantes</h2>
+            `;
+        } else {
+            // Mensaje normal que devuelve el carro
+            return `
+            <h2 class="card-selected-information">${carAttackedElement.dataset.name} fue atacado por un ataque de carga ${charge}, que cause un daño de ${attack}</h2>
+            <h2 class="card-selected-information">Le queda ${carAttackedElement.dataset.health} de vida</h2>
+            `;
+        }
+    }
+    // Lo que le pasa al arma despues del ataque
+    static weaponDischargedMessage(weaponDischarged) {
+        if (weaponDischarged) {
+            return `<h2 class="card-selected-information">El arma quedo descargada</h2>`
+        } else {
+            return "<h2></h2>";
+        }
+        
     }
     // Mostrar una casilla vacia de carro
     static displayEmptyCarSquare(divElement, carSquare, squarePlayer) {

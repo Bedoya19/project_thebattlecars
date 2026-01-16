@@ -26,6 +26,7 @@ import { MainGame } from "./game/mainGame.js";
 // Clase que muesta en pantalla la informacion general del juego
 import { GameInformationDisplay } from "./display/gameInformationDisplay.js";
 import { GameValuesDisplay } from "./display/gameValuesDisplay.js";
+import { PlayerActions } from "./players/playerActions.js";
 
 
 // Display del mazo
@@ -61,13 +62,14 @@ deckIcon.addEventListener("click", () => { DisplayCardsInDeck.changeDeckPlayer(d
 // Agrega funcionalidad a las casillas de carro
 for (const carSquare of carsSquares) {
     //console.log(carsSquare);
-    carSquare.addEventListener("click", () => { BoardClick.clickOnCarSquare(carSquare) });
+    //carSquare.addEventListener("click", () => { BoardClick.clickOnCarSquare(carSquare) });
+    carSquare.addEventListener("click", BoardClick.clickOnCarSquare);
 }
 
 // Agrega funcionalidad a casillas de arma
 for (const weaponSquare of weaponSquares) {
     //console.log(weaponSquare);
-    weaponSquare.addEventListener("click", () => { BoardClick.clickOnWeaponSquare(weaponSquare) });
+    weaponSquare.addEventListener("click", BoardClick.clickOnWeaponSquare);
 }
 
 deselectButton.addEventListener("click", () => { DisplayCardInformation.deselectCardInformation(cardInformation) })
@@ -75,8 +77,10 @@ GameNotesDisplay.restartTurnNotes();
 
 nextRoundButton.addEventListener("click", () => { MainGame.goToNextRound()});
 
+PlayerActions.generateChargeForPlayer("player1");
 GameInformationDisplay.updateAllInformation();
-GameValuesDisplay.updateAllValues();
+GameValuesDisplay.updateAllValues("player1");
+
 
 //console.log(Player1.getCars());
 //console.log(Player1.deleteFromDeck("cars", 1));

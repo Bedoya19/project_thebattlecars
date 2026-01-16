@@ -63,4 +63,12 @@ export class PlayerActions {
     static consumePowerForActionInPlayer(player) {
         (player === "player1") ? Player1.subtractPower(1) : Player2.subtractPower(1);
     }
+
+    static getChargeFromPlayer(player) {
+        return (player === "player1") ? Player1.getCharge() : Player2.getCharge();
+    }
+
+    static generateChargeForPlayer(player) {
+        return (player === "player1") ? Player1.generateRandomCharge() : Player2.generateRandomCharge();
+    }
 }

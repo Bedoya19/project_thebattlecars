@@ -10,6 +10,7 @@ import { GameNotesDisplay } from "../display/gameNotesDisplay.js";
 import { StateGame } from "./stateGame.js";
 import { PlayerActions } from "../players/playerActions.js";
 import { GameValuesDisplay } from "../display/gameValuesDisplay.js";
+import { Player1 } from "../players/player1.js";
 
 // Como lo ha sido siempre en este proyecto, se va a crear una clase
 // En general ha sido asi en todo el proyecto para facilitar la importacion y exportacion de funciones hacia
@@ -48,6 +49,8 @@ export class MainGame {
             GameInformationDisplay.updateCurrentRoundAndTurn();
             await GameNotesDisplay.createCurrentTurnNotes();
         }
+        // Genera inmediatamente una carga para el jugador, y actualiza los datos
+        PlayerActions.generateChargeForPlayer(document.getElementById("deck").dataset.player);
         GameValuesDisplay.updateAllValues(
             document.getElementById("deck").dataset.player
         );

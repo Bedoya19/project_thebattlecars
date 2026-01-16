@@ -5,6 +5,10 @@
 */
 
 // Clase que maneja la informacion del juego
+import { BoardClick } from "../board/boardActions.js";
+import { DisplayCardsInDeck } from "../display/deckDisplay.js";
+import { StandarizedDocCreation } from "../display/standardDoc/standarizedDocCreaction.js";
+
 export class StateGame {
     // - Variables del estado del juego -
     // Carros que siguen teniendo cada jugador
@@ -26,6 +30,9 @@ export class StateGame {
     }
     static getTurn() {
         return this.#turn;
+    }
+    static geCarsFromPlayer(player) {
+        return (player === "player1") ? (this.getCarsPlayers1()) : (this.getCarsPlayers2()); 
     }
 
     // - Metodos -
@@ -52,5 +59,94 @@ export class StateGame {
         } else {
             return [1, "siguiente ronda"];
         }
+    }
+
+    // Quitar un carro de algun jugador
+    // El if statementCon esto es que me referia a funciones adicionales que podrian existir en un futuro
+    // Si cuando se quita un carro se detecta que ya no tiene carros el jugador contrincante, termina el
+    // juego y anuncia como ganador el otro jugador
+    static removeCarFromPlayer1() {
+        --this.#carsPlayer1;
+        if (this.#carsPlayer1 <= 0) {
+            this.endGame("Jugador 2");
+        }
+    }
+    static removeCarFromPlayer2() {
+        --this.#carsPlayer2;
+        
+        if (this.#carsPlayer2 <= 0) {
+            this.endGame("Jugador 1");
+        }
+    }
+    // Como lo he hecho en todo este proyecto, se juntan dos metodos dependiendo del jugador
+    static removeCarFromPlayer(player) {
+        (player === "player1") ? (this.removeCarFromPlayer1()) : (this.removeCarFromPlayer2());
+    }
+
+    // Termina el juego
+    static endGame(playerWinner) {
+        this.endGameRemoveListeners();
+        const statePlayers = document.getElementById("state-players");
+        const announceWinner = StandarizedDocCreation.customElementCreator(
+            {
+                "element": "h4",
+                "class": "game-stat-text",
+                "class": "game-stat-subtitle-text"
+            }
+        );
+        announceWinner.innerText = `El ${playerWinner} es el ganador!`;
+        statePlayers.appendChild(announceWinner);
+        // Me da pereza por ahora hacer una funcion que reinicie la pagina
+        // Tal vez despues
+        const resetGame = StandarizedDocCreation.customElementCreator(
+            {
+                "element": "p",
+                "class": "game-stat-text"
+            }
+        );
+        resetGame.innerText = "Reinicia la pagina para jugar de nuevo";
+        statePlayers.appendChild(resetGame);
+    }
+
+    // Quita los event listeners (actuales) del tablero
+    static endGameRemoveListeners() {
+        // Consigue todas las casillas de carros y armas
+        // Vendran despues otras
+        const carSquares = document.getElementsByClassName("card-board-car");
+        const weaponSquares = document.getElementsByClassName("card-board-weapon");
+        // Icono del mazo
+        const deckIcon = document.getElementById("deck-icon-current");
+        const divDeck = document.getElementById("deck-cards");
+        
+        // Estara intencionalmente vacio
+        //DisplayCardsInDeck.showDeckOfCards(divDeck, []);
+
+        // Le quita los event listener a todo lo posible
+        // A las casillas del tablero
+        for (const carSquare of carSquares) {
+            carSquare.removeEventListener("click", BoardClick.clickOnCarSquare);
+        }
+        for (const weaponSquare of weaponSquares) {
+            weaponSquare.removeEventListener("click", BoardClick.clickOnWeaponSquare);
+        }
+
+        // Al icono de decks, tambien deja vacio el deck
+        deckIcon.addEventListener("click", function(e) {
+            e.stopImmediatePropagation();
+            e.preventDefault();
+        }, true);
+        divDeck.innerHTML = "";
+
+        // A los botones (temporales) de siguiente ronda y deseleccion de carta
+        const deselectButton = document.getElementById("deselect-button");
+        const nextRoundButton = document.getElementById("next-round-button");
+        deselectButton.addEventListener("click", function(e) {
+            e.stopImmediatePropagation();
+            e.preventDefault();
+        }, true);
+        nextRoundButton.addEventListener("click", function(e) {
+            e.stopImmediatePropagation();
+            e.preventDefault();
+        }, true);
     }
 }
