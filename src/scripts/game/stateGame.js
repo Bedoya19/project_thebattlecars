@@ -12,8 +12,8 @@ import { StandarizedDocCreation } from "../display/standardDoc/standarizedDocCre
 export class StateGame {
     // - Variables del estado del juego -
     // Carros que siguen teniendo cada jugador
-    static #carsPlayer1 = 1;
-    static #carsPlayer2 = 1;
+    static #carsPlayer1 = 5;
+    static #carsPlayer2 = 5;
     // Rondas y turnos actuales en el juego
     static #round = 1;
     static #turn = 1;
