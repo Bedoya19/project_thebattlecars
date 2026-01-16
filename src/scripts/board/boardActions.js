@@ -248,8 +248,15 @@ export class BoardClick {
             "undefined"
         );
 
-        console.log("Jugador:", GetDataFromSquare.getIdFromSquare(carSquare));
-        console.log("Zona:", GetDataFromSquare.getZoneFromCarSquare(carSquare));
+        
+        // Elimina todas las armas del tablero que estan adjuntas al carro
+        // (No se si despues devolverselas al jugador afectado)
+        const player = GetDataFromSquare.getIdFromSquare(carSquare);
+        const zone = GetDataFromSquare.getZoneFromCarSquare(carSquare);
+        const weaponSquares = document.getElementsByClassName(`card-board-weapon-${player}-${zone}`);
+        for (const weaponSquare of weaponSquares) {
+            this.removeWeaponOnBoard(weaponSquare);
+        }
     }
 
     // Cambiar la data del carro
