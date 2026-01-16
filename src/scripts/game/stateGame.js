@@ -117,10 +117,12 @@ export class StateGame {
         // Icono del mazo
         const deckIcon = document.getElementById("deck-icon-current");
         const divDeck = document.getElementsByClassName("deck-cards");
+        
         // Estara intencionalmente vacio
-        DisplayCardsInDeck.showDeckOfCards(divDeck, []);
+        //DisplayCardsInDeck.showDeckOfCards(divDeck, []);
 
         // Le quita los event listener a todo lo posible
+        // A las casillas del tablero
         for (const carSquare of carSquares) {
             carSquare.removeEventListener("click", BoardClick.clickOnCarSquare);
         }
@@ -128,10 +130,23 @@ export class StateGame {
             weaponSquare.removeEventListener("click", BoardClick.clickOnWeaponSquare);
         }
 
-        // O con addEventListener (agrega uno nuevo que no hace nada):
-        deckIcon.addEventListener('click', function(e) {
+        // Al icono de decks, tambien deja vacio el deck
+        deckIcon.addEventListener("click", function(e) {
             e.stopImmediatePropagation();
             e.preventDefault();
-        }, true);;
+        }, true);
+        divDeck.innerHTML = "";
+
+        // A los botones (temporales) de siguiente ronda y deseleccion de carta
+        const deselectButton = document.getElementById("deselect-button");
+        const nextRoundButton = document.getElementById("next-round-button");
+        deselectButton.addEventListener("click", function(e) {
+            e.stopImmediatePropagation();
+            e.preventDefault();
+        }, true);
+        nextRoundButton.addEventListener("click", function(e) {
+            e.stopImmediatePropagation();
+            e.preventDefault();
+        }, true);
     }
 }
