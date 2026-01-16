@@ -12,8 +12,8 @@ import { StandarizedDocCreation } from "../display/standardDoc/standarizedDocCre
 export class StateGame {
     // - Variables del estado del juego -
     // Carros que siguen teniendo cada jugador
-    static #carsPlayer1 = 2;
-    static #carsPlayer2 = 2;
+    static #carsPlayer1 = 1;
+    static #carsPlayer2 = 1;
     // Rondas y turnos actuales en el juego
     static #round = 1;
     static #turn = 1;
@@ -116,7 +116,7 @@ export class StateGame {
         const weaponSquares = document.getElementsByClassName("card-board-weapon");
         // Icono del mazo
         const deckIcon = document.getElementById("deck-icon-current");
-        const divDeck = document.getElementsByClassName("deck-cards");
+        const divDeck = document.getElementById("deck-cards");
         
         // Estara intencionalmente vacio
         //DisplayCardsInDeck.showDeckOfCards(divDeck, []);
