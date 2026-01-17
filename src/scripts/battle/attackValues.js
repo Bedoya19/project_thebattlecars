@@ -35,17 +35,19 @@ export class AttackValues {
     // Define los valores de carga y ataque
     static resetAttackValues() {
         this.#prepareAttack = false;
-        this.setValues(0, 0, 0, 0);
+        this.setValues(0, 0, 0, 0, 0, 0);
     }
-    static setAttackValues(charge, attack, zone, squareNumber) {
+    static setAttackValues(charge, attack, zone, squareNumber, attackCarIncrease, attackNitroIncrease) {
         this.#prepareAttack = true;
-        this.setValues(charge, attack, zone, squareNumber);
+        this.setValues(charge, attack, zone, squareNumber, attackCarIncrease, attackNitroIncrease);
     }
     // Para hacer esto un poco mas estandar
-    static setValues(charge, attack, zone, squareNumber) {
+    static setValues(charge, attack, zone, squareNumber, attackCarIncrease, attackNitroIncrease) {
         this.#charge = charge;
         this.#attack = attack;
         this.#zone = zone;
         this.#squareNumber = squareNumber;
+        this.#attackCarIncrease = attackCarIncrease;
+        this.#attackNitroIncrease = attackNitroIncrease;
     }
 }
