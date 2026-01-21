@@ -104,7 +104,9 @@ export class Attack {
         } else if (weaponSquare.dataset.energy <= 0) {
             // Tambien avisar al usuario despues
             console.log("La arma no tiene la energia suficiente");
+        // Ya prepara la pagina para atacar
         } else {
+            // Consigue la carga del jugador
             const charge = PlayerActions.getChargeFromPlayer(player);
             // Incremento de ataque del arma
             const attackBuff = BoardClick.getCarSquareFromWeaponSquare(weaponSquare).dataset.attBuff;

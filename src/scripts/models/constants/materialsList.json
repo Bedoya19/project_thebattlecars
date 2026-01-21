@@ -51,6 +51,7 @@
     { "name": "industrial welding kit", "rarity": 2 },
     { "name": "servomotor", "rarity": 2 },
     { "name": "artillery kit", "rarity": 3 },
-    { "name": "napalm", "rarity": 3 }
+    { "name": "napalm", "rarity": 3 },
+    { "name": "plutonium", "rarity": 4}
   ]
 }
