@@ -33,3 +33,6 @@ La cantidad maxima de turnos que puede ir el juego. Si llega al maximo, se da el
 
 "nitro_per_turn":
 La cantidad de nitro que se le otorga a cada jugador por turno.
+
+"nitro_per_car":
+La cantidad de nitro que se le otorga a cada jugador cada vez que destruya un carro.
