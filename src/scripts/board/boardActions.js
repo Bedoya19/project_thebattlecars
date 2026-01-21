@@ -200,6 +200,12 @@ export class BoardClick {
     static getCarSquareFromWeapon(squarePlayer, squareZone) {
         return document.getElementById(`${squarePlayer}-zone${squareZone}-card-car-${squareZone}`);
     }
+    // Fusiona los anteriores dos metodos. Consigue la casilla de carro de una casilla de arma
+    // (Tal vez refractorize algo despues)
+    static getCarSquareFromWeaponSquare(weaponSqure) {
+        weaponData = this.getPlayerAndZoneFromWeaponSquare(weaponSqure);
+        return this.getCarSquareFromWeapon(weaponData["squarePlayer"], weaponData["squareZone"]);
+    }
 
     // Pone una imagen en una casilla
     // (tal vez poner en una futura clase de estandarizar elementos HTML)
@@ -542,7 +548,7 @@ class checkBoard {
 
 // Clase que consigue algunos datos especificos de las casillas
 // Furiosa refractorizacion se aproxima, pero por ahora estare con esto
-class GetDataFromSquare {
+export class GetDataFromSquare {
     // Consigue el jugador de cualquier casilla
     static getIdFromSquare(square) {
         // De la manera que desarrolle el HTML, es constante que los primeros 8 caracteres sean del jugador en cuestion
