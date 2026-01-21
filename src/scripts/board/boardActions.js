@@ -203,7 +203,7 @@ export class BoardClick {
     // Fusiona los anteriores dos metodos. Consigue la casilla de carro de una casilla de arma
     // (Tal vez refractorize algo despues)
     static getCarSquareFromWeaponSquare(weaponSqure) {
-        weaponData = this.getPlayerAndZoneFromWeaponSquare(weaponSqure);
+        const weaponData = this.getPlayerAndZoneFromWeaponSquare(weaponSqure);
         return this.getCarSquareFromWeapon(weaponData["squarePlayer"], weaponData["squareZone"]);
     }
 

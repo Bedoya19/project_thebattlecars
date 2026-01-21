@@ -106,7 +106,13 @@ export class Attack {
             console.log("La arma no tiene la energia suficiente");
         } else {
             const charge = PlayerActions.getChargeFromPlayer(player);
-            const attack = JSON.parse(weaponSquare.dataset.attacks)[0][charge - 1];
+            // Incremento de ataque del arma
+            const attackBuff = BoardClick.getCarSquareFromWeaponSquare(weaponSquare).dataset.attBuff;
+            console.log("Aumento de ataque:", attackBuff);
+            // Momento JS esto...
+            let attack = parseInt(JSON.parse(weaponSquare.dataset.attacks)[0][charge - 1]) + parseInt((attackBuff));
+            // Si por el aumento de ataque queda en negativo el ataque, simplemente lo cambia a 0.
+            attack = (attack <= 0) ? (0) : attack;
             AttackValues.setAttackValues(charge, attack, zoneNumber, squareNumber);
         }
     }

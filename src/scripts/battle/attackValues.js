@@ -37,17 +37,15 @@ export class AttackValues {
         this.#prepareAttack = false;
         this.setValues(0, 0, 0, 0, 0, 0);
     }
-    static setAttackValues(charge, attack, zone, squareNumber, attackCarIncrease, attackNitroIncrease) {
+    static setAttackValues(charge, attack, zone, squareNumber) {
         this.#prepareAttack = true;
-        this.setValues(charge, attack, zone, squareNumber, attackCarIncrease, attackNitroIncrease);
+        this.setValues(charge, attack, zone, squareNumber);
     }
     // Para hacer esto un poco mas estandar
-    static setValues(charge, attack, zone, squareNumber, attackCarIncrease, attackNitroIncrease) {
+    static setValues(charge, attack, zone, squareNumber) {
         this.#charge = charge;
         this.#attack = attack;
         this.#zone = zone;
         this.#squareNumber = squareNumber;
-        this.#attackCarIncrease = attackCarIncrease;
-        this.#attackNitroIncrease = attackNitroIncrease;
     }
 }
