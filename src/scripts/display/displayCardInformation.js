@@ -237,18 +237,23 @@ export class DisplayCardInformation {
     static carAfterAttacked(carAttackedElement, carDestroyed, charge, attack) {
         if (carDestroyed) {
             // Mensaje que devuelve el carro destruido
-            // Despues se tendra que modificar para que muestre la cantidad de carros exactos en el jugador afectado
             return `
             <h2 class="card-selected-information">${carAttackedElement.dataset.name} fue atacado por un ataque de carga ${charge}, que cause un daño de ${attack}. ¡Suficiente para destruirlo!</h2>
             <h2 class="card-selected-information">Le quedarian al ${this.convertPlayerString(carAttackedElement.id.slice(0,7))} ${StateGame.geCarsFromPlayer(carAttackedElement.id.slice(0,7)) - 1} carros restantes</h2>
             `;
-        } else {
-            // Mensaje normal que devuelve el carro
+        }
+        // Muestra un mensaje especial si el ataque que se intento hacer es 0
+        if (attack === 0) {
             return `
-            <h2 class="card-selected-information">${carAttackedElement.dataset.name} fue atacado por un ataque de carga ${charge}, que cause un daño de ${attack}</h2>
-            <h2 class="card-selected-information">Le queda ${carAttackedElement.dataset.health} de vida</h2>
+            <h2 class="card-selected-information">Se intento atacar ${carAttackedElement.dataset.name}, pero la carga ${charge} no fue suficiente para que el ataque fuera mayor a 0!</h2>
+            <h2 class="card-selected-information">${carAttackedElement.dataset.name} queda intacto.</h2>
             `;
         }
+        // Mensaje normal que devuelve el carro
+        return `
+        <h2 class="card-selected-information">${carAttackedElement.dataset.name} fue atacado por un ataque de carga ${charge}, que cause un daño de ${attack}</h2>
+        <h2 class="card-selected-information">Le queda ${carAttackedElement.dataset.health} de vida</h2>
+        `;
     }
     // Lo que le pasa al arma despues del ataque
     static weaponDischargedMessage(weaponDischarged) {
