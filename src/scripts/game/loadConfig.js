@@ -19,4 +19,10 @@ export class LoadConfig {
         const data = await this.loadConfig();
         return data["nitro_per_turn"];
     }
+
+    // Devuelve el nitro dado por cada carro destrozado
+    static async loadNitroPerCar() {
+        const data = await this.loadConfig();
+        return data["nitro_per_car"];
+    }
 }
