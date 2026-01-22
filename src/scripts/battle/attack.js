@@ -93,11 +93,9 @@ export class Attack {
             const affectedPlayer = carSquare.id.slice(0, 7);
             StateGame.removeCarFromPlayer(affectedPlayer);
             GameInformationDisplay.updateCurrentCarsPlayer(affectedPlayer);
-            // Le da nitro de recompensa al jugador que destruyo el carro
+            // Le da nitro de recompensa al jugador que destruyo el carro. Actualiza el valor en la ventana de informacion
             await PlayerActions.giveNitroAfterDestroyedCar(currentPlayer);
-            console.log("Nitro:", PlayerActions.getNitroFromPlayer(currentPlayer));
             GameValuesDisplay.updateNitroValue();
-            
         }
     }
 
