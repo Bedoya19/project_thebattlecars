@@ -59,6 +59,11 @@ export class PlayerActions {
         await Player2.givePower();
     }
 
+    // Dar nitro al jugador a un valor en especifico
+    static async giveNitroAfterDestroyedCar(player) {
+        (player === "player1") ? await Player1.giveNitroForDestroyedCar() : await Player2.giveNitroForDestroyedCar();
+    }
+
     // Dar el gasto del poder al respecito jugador
     static consumePowerForActionInPlayer(player) {
         (player === "player1") ? Player1.subtractPower(1) : Player2.subtractPower(1);

@@ -34,7 +34,7 @@ export class Attack {
         }
     }
 
-    static attack(carSquare) {
+    static async attack(carSquare) {
         // Banderas si:
         // - El carro fue destruido
         // - El arma ya no tiene energia
