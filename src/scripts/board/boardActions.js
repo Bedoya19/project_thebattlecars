@@ -11,14 +11,14 @@ import { MainGame } from "../game/mainGame.js";
 
 export class BoardClick {
     // Cuando se hace click en una casilla de carro
-    static clickOnCarSquare(event) {
+    static async clickOnCarSquare(event) {
         const carSquare = event.currentTarget;
 
         // Revisa si se va a atacar. Si es asi, hace la funcion de atacar, sino, sigue con el procedimeinto normal de revisar 
         // la colocacion de una carta y/o la informacion de esta
         if ((AttackValues.getPrepareAttack() === true) && (carSquare.id.slice(0, 7) !== document.getElementById("deck").dataset.player)) {
             console.log("Se atacara!!!");
-            Attack.attack(carSquare);
+            await Attack.attack(carSquare);
         } else {
             BoardClick.createCarCard(carSquare);
         }

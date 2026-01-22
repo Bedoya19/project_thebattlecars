@@ -21,16 +21,23 @@ export class GameValuesDisplay {
         `;
     }
 
-    // Cambia el valor de poder en especifico
+    // Actualiza el valor de poder en especifico
     static updatePowerValue() {
         document.getElementById("value-local-power").innerText = PlayerActions.getPowerFromPlayer(
             document.getElementById("deck").dataset.player
         );
     }
 
-    // Cambia el valor de la carga
+    // Actualiza el valor de la carga
     static updateChargeValue() {
         document.getElementById("value-local-charge").innerText = PlayerActions.getChargeFromPlayer(
+            document.getElementById("deck").dataset.player
+        );
+    }
+
+    // Actualiza el valor de nitro
+    static updateNitroValue() {
+        document.getElementById("value-local-nitro").innerText = PlayerActions.getNitroFromPlayer(
             document.getElementById("deck").dataset.player
         );
     }

@@ -95,6 +95,9 @@ export class Attack {
             GameInformationDisplay.updateCurrentCarsPlayer(affectedPlayer);
             // Le da nitro de recompensa al jugador que destruyo el carro
             await PlayerActions.giveNitroAfterDestroyedCar(currentPlayer);
+            console.log("Nitro:", PlayerActions.getNitroFromPlayer(currentPlayer));
+            GameValuesDisplay.updateNitroValue();
+            
         }
     }
 

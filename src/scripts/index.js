@@ -63,7 +63,7 @@ deckIcon.addEventListener("click", () => { DisplayCardsInDeck.changeDeckPlayer(d
 for (const carSquare of carsSquares) {
     //console.log(carsSquare);
     //carSquare.addEventListener("click", () => { BoardClick.clickOnCarSquare(carSquare) });
-    carSquare.addEventListener("click", BoardClick.clickOnCarSquare);
+    carSquare.addEventListener("click", await BoardClick.clickOnCarSquare);
 }
 
 // Agrega funcionalidad a casillas de arma
