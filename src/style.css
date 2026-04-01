@@ -295,8 +295,10 @@ body {
 }
 
 .temporal-message-text {
+    position: absolute;
     color: #da2316;
     font-family: "Lexend", sans-serif;
+    z-index: 100;
 }
 
 @media (max-width: 1200px) {

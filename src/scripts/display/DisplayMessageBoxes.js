@@ -4,15 +4,22 @@
     Este script es generalmente de WarmUp, NO es fundamental para el funcionamiento de battle-phantasm. Pero si requiere algo de trabajo.
 */
 
-export class MessageBoxData {
+export class DisplayMessageBoxes {
     // Agrega un pequeño mensaje que no hay poder suficiente
     static lackOfPowerForWeapon(weaponSquare) {
         
         const weaponPosData = weaponSquare.getBoundingClientRect().toJSON();
         console.log(weaponPosData);
         const textElement = document.createElement("p");
+        // Estilos del elemento
         textElement.classList.add("temporal-message-text");
+        textElement.style.setProperty("top", weaponPosData.top);
+        textElement.style.setProperty("right", weaponPosData.top);
+        textElement.style.setProperty("bottom", weaponPosData.top);
+        textElement.style.setProperty("left", weaponPosData.top);
+        
         textElement.textContent = "No tienes poder para atacar!";
+        
 
         weaponSquare.appendChild(textElement);
 

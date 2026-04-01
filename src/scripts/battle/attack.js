@@ -11,6 +11,7 @@ import { GameValuesDisplay } from "../display/gameValuesDisplay.js";
 import { GameInformationDisplay } from "../display/gameInformationDisplay.js";
 import { StateGame } from "../game/stateGame.js";
 import { DisplayCardInformation } from "../display/displayCardInformation.js";
+import { DisplayMessageBoxes } from "../display/DisplayMessageBoxes.js";
 
 
 export class Attack {
@@ -104,8 +105,10 @@ export class Attack {
         if (PlayerActions.getPowerFromPlayer(player) <= 0) {
             // Avisar al usuario despues
             console.log("Sin poder requerido");
-            const weaponPosData = weaponSquare.getBoundingClientRect().toJSON();
-            console.log(weaponPosData);
+            //const weaponPosData = weaponSquare.getBoundingClientRect().toJSON();
+            //console.log(weaponPosData);
+            DisplayMessageBoxes.lackOfPowerForWeapon(weaponSquare);
+
         } else if (weaponSquare.dataset.energy <= 0) {
             // Tambien avisar al usuario despues
             console.log("La arma no tiene la energia suficiente");
