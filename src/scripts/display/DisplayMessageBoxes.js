@@ -13,7 +13,9 @@ export class DisplayMessageBoxes {
         const textElement = document.createElement("p");
         // Estilos del elemento
         textElement.classList.add("temporal-message-text");
-        textElement.style.setProperty("top", weaponPosData.top);
+        // Animaciones
+        textElement.classList.add("text-message-slide");
+        textElement.style.setProperty("top", (weaponPosData.top - 10));
         textElement.style.setProperty("right", weaponPosData.right);
         textElement.style.setProperty("bottom", weaponPosData.bottom);
         textElement.style.setProperty("left", weaponPosData.left);

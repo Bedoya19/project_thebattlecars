@@ -300,6 +300,20 @@ body {
     font-family: "Lexend", sans-serif;
     z-index: 100;
 }
+.text-message-slide {
+    animation: slideUp 3s ease-in;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(0);
+    opacity: 100%;
+  }
+  to {
+    transform: translateY(-50px);
+    opacity: 0%;
+  }
+}
 
 @media (max-width: 1200px) {
     #card-selected-information {
