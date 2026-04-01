@@ -22,26 +22,12 @@ export class DisplayMessageBoxes {
 
         return textElement
     }
-
-    // Agrega un pequeño mensaje que no hay poder suficiente
-    static lackOfPower(square) {
+    // Funcion de crear el elemento en el elemento respecitvo, y despues eliminarlo
+    // Esta funcion existe para dividir la funcion, y para poner este texto en literal todo lado posible
+    static createTemporalText(square, text) {
+        const posData = square.getBoundingClientRect().toJSON();
         
-        const weaponPosData = square.getBoundingClientRect().toJSON();
-        //console.log(weaponPosData);
-        /*
-        const textElement = document.createElement("p");
-        // Estilos del elemento
-        textElement.classList.add("temporal-message-text");
-        // Animaciones
-        textElement.classList.add("text-message-slide");
-        textElement.style.setProperty("top", (weaponPosData.top - 10));
-        textElement.style.setProperty("right", weaponPosData.right);
-        textElement.style.setProperty("bottom", weaponPosData.bottom);
-        textElement.style.setProperty("left", weaponPosData.left);
-
-        textElement.textContent = "No tienes poder para atacar!";
-        */
-        const textElement = this.temporalText("No tienes poder para atacar!", weaponPosData);
+        const textElement = this.temporalText(text, posData);
 
         square.appendChild(textElement);
 
@@ -50,4 +36,9 @@ export class DisplayMessageBoxes {
             textElement.remove();
         }, 3000)
     }
+    /*
+    static lackOfPower(square) {
+        this.createTemporalText(square, "No tienes poder para atacar!");
+    }
+    */
 }
