@@ -5,7 +5,19 @@
 */
 
 export class MessageBoxData {
+    // Agrega un pequeño mensaje que no hay poder suficiente
     static lackOfPowerForWeapon(weaponSquare) {
-        return undefined;
+        
+        const weaponPosData = weaponSquare.getBoundingClientRect().toJSON();
+        console.log(weaponPosData);
+        const textElement = document.createElement("p");
+        textElement.classList.add("temporal-message-text");
+        textElement.textContent = "No tienes poder para atacar!";
+
+        weaponSquare.appendChild(textElement);
+
+        setTimeout(() => {
+            textElement.remove();
+        }, 3000)
     }
 }

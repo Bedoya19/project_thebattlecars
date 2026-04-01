@@ -294,6 +294,10 @@ body {
     margin-right: 3px;
 }
 
+.temporal-message-text {
+    color: #da2316;
+    font-family: "Lexend", sans-serif;
+}
 
 @media (max-width: 1200px) {
     #card-selected-information {
