@@ -51,10 +51,10 @@ const carCard = await CarCard.loadCarObjectFromJSON("category1", 0);
 const weaponCard = await WeaponCard.loadWeaponObjectFromJSON("category1", 0);
 const materialCard = await MaterialCard.loadMaterialObjectFromJSON("category1", 0);
 //const cards = [carCard, weaponCard, materialCard];
-//const decks = Player1.getDecks();
 
-
-//DisplayCardsInDeck.showDeckOfCards(deckCards, decks["cars"], cardInformation);
+// Mostrar las cartas del deck actual al puro principio de todo
+const decks = Player1.getDecks();
+DisplayCardsInDeck.showDeckOfCards(deckCards, decks["cars"], cardInformation);
 
 //deckIcon.addEventListener("click", () => { DisplayCardsInDeck.changeDeck(deckIcon, deckDefaultIconsDir, decks, deckCards, cardInformation) });
 deckIcon.addEventListener("click", () => { DisplayCardsInDeck.changeDeckPlayer(deckIcon, deck.dataset.player, deckCards, cardInformation) });
