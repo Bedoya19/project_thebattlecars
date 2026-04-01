@@ -5,11 +5,30 @@
 */
 
 export class DisplayMessageBoxes {
+    // Mensaje temporal con solo texto
+    // posData se asume que es un JSON con top, right, bottom y left
+    static temporalText(text, posData) {
+        const textElement = document.createElement("p");
+        // Estilos del elemento
+        textElement.classList.add("temporal-message-text");
+        // Animaciones
+        textElement.classList.add("text-message-slide");
+        textElement.style.setProperty("top", (posData.top - 10));
+        textElement.style.setProperty("right", posData.right);
+        textElement.style.setProperty("bottom", posData.bottom);
+        textElement.style.setProperty("left", posData.left);
+
+        textElement.textContent = text;
+
+        return textElement
+    }
+
     // Agrega un pequeño mensaje que no hay poder suficiente
     static lackOfPower(square) {
         
         const weaponPosData = square.getBoundingClientRect().toJSON();
-        console.log(weaponPosData);
+        //console.log(weaponPosData);
+        /*
         const textElement = document.createElement("p");
         // Estilos del elemento
         textElement.classList.add("temporal-message-text");
@@ -21,7 +40,9 @@ export class DisplayMessageBoxes {
         textElement.style.setProperty("left", weaponPosData.left);
 
         textElement.textContent = "No tienes poder para atacar!";
-        
+        */
+        const textElement = this.temporalText("No tienes poder para atacar!", weaponPosData);
+
         square.appendChild(textElement);
 
         // Elimina el elemento poco tiempo despues
