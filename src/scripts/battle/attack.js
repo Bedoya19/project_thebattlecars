@@ -107,7 +107,7 @@ export class Attack {
             console.log("Sin poder requerido");
             //const weaponPosData = weaponSquare.getBoundingClientRect().toJSON();
             //console.log(weaponPosData);
-            DisplayMessageBoxes.lackOfPowerForWeapon(weaponSquare);
+            DisplayMessageBoxes.lackOfPower(weaponSquare);
 
         } else if (weaponSquare.dataset.energy <= 0) {
             // Tambien avisar al usuario despues
