@@ -242,6 +242,13 @@ body {
     font-style: normal;
     font-size: 80%;
 }
+.deck-additional-information {
+    font-family: "Lexend", sans-serif;
+    font-style: normal;
+    color: #303030;
+    padding-left: 10px;
+}
+
 #game-stats > hr {
     margin-top: 10px;
     margin-bottom: 10px;
