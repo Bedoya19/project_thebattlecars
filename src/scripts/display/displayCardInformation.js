@@ -1,6 +1,6 @@
 import { DataConversor } from "../models/constants/enums.js";
 import { CarCard } from "../models/cards/CarCard.js";
-import { StandarizedDocCreation } from "./standardDoc/standarizedDocCreaction.js";
+import { StandarizedDocCreation } from "./standardDoc/standarizedDocCreation.js";
 import { BoardClick } from "../board/boardActions.js";
 import { Attack } from "../battle/attack.js";
 import { PlayerActions } from "../players/playerActions.js";

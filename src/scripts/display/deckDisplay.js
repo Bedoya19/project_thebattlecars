@@ -1,5 +1,5 @@
 import { DisplayCardInformation } from "./displayCardInformation.js";
-import { StandarizedDocCreation } from "./standardDoc/standarizedDocCreaction.js";
+import { StandarizedDocCreation } from "./standardDoc/standarizedDocCreation.js";
 import { DeckDefaultIconsDir } from "../models/constants/deckDefaultIconsDir.js";
 import { CarCard } from "../models/cards/CarCard.js";
 import { BoardClick } from "../board/boardActions.js";

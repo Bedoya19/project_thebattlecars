@@ -7,7 +7,7 @@
 // Clase que maneja la informacion del juego
 import { BoardClick } from "../board/boardActions.js";
 import { DisplayCardsInDeck } from "../display/deckDisplay.js";
-import { StandarizedDocCreation } from "../display/standardDoc/standarizedDocCreaction.js";
+import { StandarizedDocCreation } from "../display/standardDoc/standarizedDocCreation.js";
 
 export class StateGame {
     // - Variables del estado del juego -

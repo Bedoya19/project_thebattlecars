@@ -4,7 +4,7 @@
     La carga es avisada desde un principio
 */
 import { PlayerActions } from "../players/playerActions.js";
-import { StandarizedDocCreation } from "../display/standardDoc/standarizedDocCreaction.js";
+import { StandarizedDocCreation } from "../display/standardDoc/standarizedDocCreation.js";
 import { AttackValues } from "./attackValues.js";
 import { BoardClick } from "../board/boardActions.js";
 import { GameValuesDisplay } from "../display/gameValuesDisplay.js";
