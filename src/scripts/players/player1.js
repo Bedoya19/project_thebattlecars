@@ -103,4 +103,12 @@ export class Player1 {
     static generateRandomCharge() {
         this.#charge = Math.floor(Math.random() * 6) + 1;
     }
+
+    // Agrega una carta de arma al jugador
+    // Preparar este codigo para la agregacion de cartas
+    // (Se asume que el objeto es un arma)
+    // (Tambien, si se van a agregar varias cartas, un for loop sale)
+    static addWeaponToDeck(weaponCard) {
+        this.#decks["weapons"].push(weaponCard);
+    }
 }
