@@ -98,4 +98,9 @@ export class Player2 {
     static generateRandomCharge() {
         this.#charge = Math.floor(Math.random() * (6 - 1 + 1)) + 1;
     }
+
+    // Agregar un arma al deck
+    static addWeaponToDeck(weaponCard) {
+        this.#decks["weapons"].push(weaponCard);
+    }
 }
