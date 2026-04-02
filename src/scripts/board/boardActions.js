@@ -85,11 +85,9 @@ export class BoardClick {
                 
                 // Condicion para mostrar el mensaje
                 // (Si lo hago en general, rompo algo)
-                if (checkCarValidation[2] === "lack_of_power" || checkCarValidation[2] === "occupied_space") {
+                if (checkCarValidation[2] === "lack_of_power") {
                     DisplayMessageBoxes.createTemporalText(carSquare, checkCarValidation[1]);
-                    if (checkCarValidation[2] === "lack_of_power") {
-                        this.removeValidCarSquare();
-                    }
+                    this.removeValidCarSquare();
                     //DisplayCardInformation.displayEmptyCarSquare(cardInformation, carSquare, squarePlayer);
                     // Este return evita errores raros (no entendi muy bien porque, pero lo evita)
                     return;
