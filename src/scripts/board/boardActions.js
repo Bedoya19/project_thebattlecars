@@ -32,7 +32,6 @@ export class BoardClick {
         //const squarePlayer = this.createImgInBoard(carSquare);
         const squarePlayer = carSquare.id.slice(0, 7);
         const cardInformation = document.getElementById("card-selected-information");
-        this.removeValidCarSquare();
         try {
             // Consigue un guevo de valores del Document para hacer los cambios respectivos en la pagina
             // (no supe hacer algo mejor, para bien y para mal).
@@ -79,11 +78,18 @@ export class BoardClick {
                     cardObj.description
                 );
                 GameNotesDisplay.carOnBoardTurnNotes(squarePlayer, carSquare.id.slice(23), cardObj.name);
+                this.removeValidCarSquare();
             } else {
                 console.log("Error en poner la carta");
                 console.log(checkCarValidation);
-                if (checkCarValidation[2] === "lack_of_power") {
+                
+                // Condicion para mostrar el mensaje
+                // (Si lo hago en general, rompo algo)
+                if (checkCarValidation[2] === "lack_of_power" || checkCarValidation[2] === "occupied_space") {
                     DisplayMessageBoxes.createTemporalText(carSquare, checkCarValidation[1]);
+                    if (checkCarValidation[2] === "lack_of_power") {
+                        this.removeValidCarSquare();
+                    }
                     //DisplayCardInformation.displayEmptyCarSquare(cardInformation, carSquare, squarePlayer);
                     // Este return evita errores raros (no entendi muy bien porque, pero lo evita)
                     return;
