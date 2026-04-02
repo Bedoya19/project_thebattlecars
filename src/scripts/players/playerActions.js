@@ -76,4 +76,8 @@ export class PlayerActions {
     static generateChargeForPlayer(player) {
         return (player === "player1") ? Player1.generateRandomCharge() : Player2.generateRandomCharge();
     }
+
+    static addWeaponToPlayerDeck(player, weaponCard) {
+        (player === "player1") ? Player1.addWeaponToDeck(weaponCard) : Player2.addWeaponToDeck(weaponCard);
+    }
 }
