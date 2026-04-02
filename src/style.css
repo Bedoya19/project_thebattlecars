@@ -298,6 +298,7 @@ body {
     position: absolute;
     color: #da2316;
     font-family: "Lexend", sans-serif;
+    font-size: 1.2em;
     z-index: 100;
 }
 .text-message-slide {
