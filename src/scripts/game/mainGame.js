@@ -11,6 +11,7 @@ import { StateGame } from "./stateGame.js";
 import { PlayerActions } from "../players/playerActions.js";
 import { GameValuesDisplay } from "../display/gameValuesDisplay.js";
 import { Player1 } from "../players/player1.js";
+import { DisplayCardInformation } from "../display/displayCardInformation.js";
 
 // Como lo ha sido siempre en este proyecto, se va a crear una clase
 // En general ha sido asi en todo el proyecto para facilitar la importacion y exportacion de funciones hacia
@@ -54,6 +55,7 @@ export class MainGame {
         GameValuesDisplay.updateAllValues(
             document.getElementById("deck").dataset.player
         );
+        DisplayCardInformation.deselectCardInformation(document.getElementById("card-selected-information"));
     }
 
     // Hace los calculos con el poder con cada accion
