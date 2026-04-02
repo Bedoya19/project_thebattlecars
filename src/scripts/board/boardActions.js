@@ -6,6 +6,7 @@ import { DisplayCardInformation } from "../display/displayCardInformation.js";
 import { GameNotesDisplay } from "../display/gameNotesDisplay.js";
 import { Attack } from "../battle/attack.js";
 import { AttackValues } from "../battle/attackValues.js";
+import { DisplayMessageBoxes } from "../display/DisplayMessageBoxes.js";
 
 import { MainGame } from "../game/mainGame.js";
 
@@ -46,7 +47,8 @@ export class BoardClick {
 
             // Revisa que se pueda poner la carta:
             //const validPower = MainGame.calculatePowerForAction(currentPlayer);
-            if (checkBoard.checkCarSquareAvailability(carBoardPlayer, currentPlayer, carSquare, cardGeneralInformation)[0]) {
+            const checkCarValidation = checkBoard.checkCarSquareAvailability(carBoardPlayer, currentPlayer, carSquare, cardGeneralInformation);
+            if (checkCarValidation[0]) {
 
                 // El resto de los datos
                 const currentDeck = document.getElementById("deck-icon-current");
@@ -78,6 +80,14 @@ export class BoardClick {
                 );
                 GameNotesDisplay.carOnBoardTurnNotes(squarePlayer, carSquare.id.slice(23), cardObj.name);
             } else {
+                console.log("Error en poner la carta");
+                console.log(checkCarValidation);
+                if (checkCarValidation[2] === "lack_of_power") {
+                    DisplayMessageBoxes.createTemporalText(carSquare, checkCarValidation[1]);
+                    //DisplayCardInformation.displayEmptyCarSquare(cardInformation, carSquare, squarePlayer);
+                    // Este return evita errores raros (no entendi muy bien porque, pero lo evita)
+                    return;
+                }
                 // Yo de pendejo, tengo que mostrar la informacion de la carta, sin importar de que jugador sea
                 // Igualmente toca revisar si esta vacio cuando esta en las cartas del otro jugador
                 if (carSquare.dataset.name !== "undefined") {
@@ -85,7 +95,7 @@ export class BoardClick {
                 }
                 //console.log(checkBoard.checkCarSquareAvailability(carBoardPlayer, currentPlayer, carSquare)[1]);
 
-                console.log(carSquare.firstElementChild.src);
+                //console.log(carSquare.firstElementChild.src);
                 // Muestra la informacion del carro que se hizo clic
                 // (Sorpresivamente funciona bien sin ninguna carta seleccionada)
                 DisplayCardInformation.displayCarCardInformationBoard(
@@ -104,6 +114,7 @@ export class BoardClick {
             //console.log(e, "Ninguna carta seleccionada! Mostrar aqui que la casilla es del jugador X de la zona Y");
             //console.log(e);
             this.removeAllSelectors();
+            //DisplayMessageBoxes.createTemporalText(carSquare, "Ninguna cara seleccionada!");
             DisplayCardInformation.displayEmptyCarSquare(cardInformation, carSquare, squarePlayer);
         }
     }
@@ -421,25 +432,35 @@ class checkBoard {
         if (carSquare.dataset.health === "undefined") {
             return true;
         }
+        //DisplayMessageBoxes.createTemporalText(carSquare, "El espacio esta ocupado por otro carro!");
+        console.log("Espacio ocupado");
         return false;
     }
     // Junta las dos anteriores, revisa si se puede poner una carta de carro en la casilla seleccionada del tablero
     // Devuelve el error exacto de lo que esta mal, si detecta que no puede colocar el carro
     static checkCarSquareAvailability(boardPlayer, currentPlayer, carSquare, cardGeneralInformation) {
         if (!this.checkPlayer(boardPlayer, currentPlayer)) {
-            return [false, "La casilla es del otro jugador!"];
+            console.log("Casilla de otro carro");
+            //DisplayMessageBoxes.createTemporalText(carSquare, "La casilla es del otro jugador!");
+            return [false, "La casilla es del otro jugador!", "other_player"];
         }
         if (!this.checkCarSpace(carSquare)) {
-            return [false, "La casilla ya esta ocupada por otro carro"];
+            console.log("Ocupada por otro carro");
+            //DisplayMessageBoxes.createTemporalText(carSquare, "El espacio esta ocupado por otro carro!");
+            return [false, "La casilla ya esta ocupada por otro carro", "occupied_space"];
         }
         if (cardGeneralInformation.dataset.type !== "car") {
-            return [false, "se va a poner otro tipo de carta en una casilla de carro"];
+            console.log("Otro tipo de carta");
+            //DisplayMessageBoxes.createTemporalText(carSquare, "Se va a poner otro tipo de carta en una casilla de carro!");
+            return [false, "se va a poner otro tipo de carta en una casilla de carro", "other_card_type"];
         }
         // Devuelve false si no puede poner la carta por falta de poder. Si se puede poner, ya gasto el poder necesario
         if (!MainGame.calculatePowerForAction(currentPlayer)) {
-            return [false, "Ya no se tiene poder!"];
+            //DisplayMessageBoxes.createTemporalText(carSquare, "Ya no se tiene poder suficiente para un carro!");
+            console.log("Falta de poder");
+            return [false, "Ya no se tiene poder!", "lack_of_power"];
         }
-        return [true, "La casilla esta disponible para colocar una carta de carro"];
+        return [true, "La casilla esta disponible para colocar una carta de carro", "available"];
     }
 
     // Revisa si la casilla de arma esta vacia

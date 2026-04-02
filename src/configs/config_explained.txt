@@ -20,6 +20,7 @@ Quienes/quien estan jugando
     La carga es generada aleatoriamente en el instante que se ataca, es decir, la carga se calcula aleatoriamente en el instante de atacar.
 - 'informed_individual':
     La carga es aleatoria, pero el jugador sabe de antemano cual es la carga que le toca antes de atacar.
+    (El modo por default)
 - 'informed_dual':
     El ataque es aleatorio, pero los jugadores saben de antemano cual es la carga. Las cargas se generan por turno y son los mismos para cada jugador.
 - 'scripted':

@@ -13,10 +13,10 @@ export class DisplayMessageBoxes {
         textElement.classList.add("temporal-message-text");
         // Animaciones
         textElement.classList.add("text-message-slide");
-        textElement.style.setProperty("top", (posData.top - 10));
-        textElement.style.setProperty("right", posData.right);
-        textElement.style.setProperty("bottom", posData.bottom);
-        textElement.style.setProperty("left", posData.left);
+        textElement.style.setProperty("top", `${posData.top}px`);
+        textElement.style.setProperty("right", `${posData.right}px`);
+        textElement.style.setProperty("bottom", `${posData.bottom}px`);
+        textElement.style.setProperty("left", `${posData.left}px`);
 
         textElement.textContent = text;
 
