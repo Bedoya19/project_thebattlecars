@@ -30,7 +30,7 @@ export class BoardClick {
         // Saco de aqui mismo los datos necesarios
         const cardGeneralInformation = document.getElementById("card-selected-general-information");
         //const squarePlayer = this.createImgInBoard(carSquare);
-        const squarePlayer = carSquare.id.slice(0, 7);
+        const squarePlayer = GetDataFromSquare.getPlayerFromSquare(carSquare);
         const cardInformation = document.getElementById("card-selected-information");
         try {
             // Consigue un guevo de valores del Document para hacer los cambios respectivos en la pagina
@@ -272,7 +272,7 @@ export class BoardClick {
         
         // Elimina todas las armas del tablero que estan adjuntas al carro
         // (No se si despues devolverselas al jugador afectado)
-        const player = GetDataFromSquare.getIdFromSquare(carSquare);
+        const player = GetDataFromSquare.getPlayerFromSquare(carSquare);
         const zone = GetDataFromSquare.getZoneFromCarSquare(carSquare);
         const weaponSquares = document.getElementsByClassName(`card-board-weapon-${player}-${zone}`);
         for (const weaponSquare of weaponSquares) {
@@ -575,7 +575,7 @@ class checkBoard {
 // Furiosa refractorizacion se aproxima, pero por ahora estare con esto
 export class GetDataFromSquare {
     // Consigue el jugador de cualquier casilla
-    static getIdFromSquare(square) {
+    static getPlayerFromSquare(square) {
         // De la manera que desarrolle el HTML, es constante que los primeros 8 caracteres sean del jugador en cuestion
         return square.id.slice(0, 7);
     }
