@@ -22,6 +22,7 @@ export class Player1 {
     static #decks = {
         "cars": [carCard, carCard, carCard, carCard, carCard],
         "weapons": [weaponCard, weaponCard, weaponCard, weaponCard, weaponCard, weaponCard, weaponCard],
+        "weapons_storage": [weaponCard, weaponCard, weaponCard, weaponCard, weaponCard, weaponCard, weaponCard],
         "materials": [materialCard, materialCard, materialCard]
     };
     static #nitro = 0;
