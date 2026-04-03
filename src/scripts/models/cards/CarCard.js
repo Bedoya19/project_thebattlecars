@@ -31,6 +31,7 @@ export class CarCard extends Card{
             this.image
         );
     }
+    // Funcion para cargar el JSON de todos los carros por igual
     static async loadCarsDataFromJSON() {
         const res = await fetch("src/scripts/cardsData/cars.json");
         if (!res.ok) throw new Error(`HTTP Error ${res.status}`);
@@ -38,14 +39,10 @@ export class CarCard extends Card{
     }
     static async loadCarDataFromJSON(category, index) {
         const data = await this.loadCarsDataFromJSON();
-        console.log(data["category1"]);
         const car = data?.[category]?.[index];
 
         if (!car) throw new Error(`No existe carro en categoria ${category} con index ${index} en la base de datos`);
         return car;
-    }
-    static async loadCarDataFromJSONName(category, name) {
-        return undefined;
     }
     static convertCarJSON(carData) {
         return new CarCard(
