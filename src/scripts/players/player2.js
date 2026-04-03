@@ -38,6 +38,9 @@ export class Player2 {
     static getMaterials() {
         return this.#decks["materials"];
     }
+    static getWeaponStorage() {
+        return this.#decks["weapons_storage"];
+    }
 
     static deleteFromDeck(deck, index) {
         this.#decks[deck].splice(index, 1);

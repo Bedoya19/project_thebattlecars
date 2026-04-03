@@ -273,23 +273,20 @@ export class BoardClick {
         
         // Elimina todas las armas del tablero que estan adjuntas al carro
         // (No se si despues devolverselas al jugador afectado)
-        const player = GetDataFromSquare.getPlayerFromSquare(carSquare);
-        const zone = GetDataFromSquare.getZoneFromCarSquare(carSquare);
-        const weaponSquares = document.getElementsByClassName(`card-board-weapon-${player}-${zone}`);
+        const weaponSquares = this.getWeaponSquaresFromPlayerAndZone(carSquare);
         //console.log(weaponSquares);
         for (const weaponSquare of weaponSquares) {
-            //console.log(weaponSquare.dataset.name);
-            //WeaponCard.convertWeaponFromJSON()
-            
             this.removeWeaponOnBoard(weaponSquare);
         }
     }
-    // Clase de prueba temporal que estara aqui por temas de prueba
-    /*
-    static weaponObjectFromName(weaponCategory, weaponName) {
-        const weapon
+    // Consigue todas las armas de una zona en especifico
+    // Esta funcion simplemente solo existe para simplicidad
+    static getWeaponSquaresFromCarSquare(carSquare) {
+        const player = GetDataFromSquare.getPlayerFromSquare(carSquare);
+        const zone = GetDataFromSquare.getZoneFromCarSquare(carSquare);
+        return document.getElementsByClassName(`card-board-weapon-${player}-${zone}`);
     }
-    */
+     
     // Cambiar la data del carro
     static changeCarDataOnBoard(carSquare, name, health, capacity, nitroQuantity, nitroDuration, nitroResistance, nitroAttack, attackBuff, description) {
         // Lo peor es que esto fue una buena idea, si es necesario agregar un dato mas, aqui se agrega con minima 

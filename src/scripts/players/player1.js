@@ -22,6 +22,7 @@ export class Player1 {
     static #decks = {
         "cars": [carCard, carCard, carCard, carCard, carCard],
         "weapons": [weaponCard, weaponCard, weaponCard, weaponCard, weaponCard, weaponCard, weaponCard],
+        // Este atributo de bodega esta hecho para ciertas comparaciones con las cartas para evitar perderlas al ponerlas en el tablero. Por ahora, solo es usado para devolverle algunas cartas necesarias al jugador
         "weapons_storage": [weaponCard, weaponCard, weaponCard, weaponCard, weaponCard, weaponCard, weaponCard],
         "materials": [materialCard, materialCard, materialCard]
     };
@@ -60,6 +61,10 @@ export class Player1 {
     // Getter de carga
     static getCharge() {
         return this.#charge;
+    }
+    // Getter para la bodega de armas
+    static getWeaponsStorage() {
+        return this.#decks["weapons_storage"];
     }
 
     // Metodos de modificacion de poder
@@ -111,5 +116,11 @@ export class Player1 {
     // (Tambien, si se van a agregar varias cartas, un for loop sale)
     static addWeaponToDeck(weaponCard) {
         this.#decks["weapons"].push(weaponCard);
+    }
+
+    // Saca la informacion de una carta de arma de la bodega sacandola del nombre
+    // Esta funcion es para regresarle el arma cuando el carro sea destruido
+    static getWeaponFromStorage(weaponName) {
+        console.log(this.getWeaponFromStorage());
     }
 }
