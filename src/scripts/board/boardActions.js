@@ -9,6 +9,7 @@ import { AttackValues } from "../battle/attackValues.js";
 import { DisplayMessageBoxes } from "../display/DisplayMessageBoxes.js";
 
 import { MainGame } from "../game/mainGame.js";
+import { WeaponCard } from "../models/cards/WeaponCard.js";
 
 export class BoardClick {
     // Cuando se hace click en una casilla de carro
@@ -277,11 +278,18 @@ export class BoardClick {
         const weaponSquares = document.getElementsByClassName(`card-board-weapon-${player}-${zone}`);
         //console.log(weaponSquares);
         for (const weaponSquare of weaponSquares) {
-            console.log(weaponSquare.dataset.name);
+            //console.log(weaponSquare.dataset.name);
+            //WeaponCard.convertWeaponFromJSON()
+            
             this.removeWeaponOnBoard(weaponSquare);
         }
     }
-
+    // Clase de prueba temporal que estara aqui por temas de prueba
+    /*
+    static weaponObjectFromName(weaponCategory, weaponName) {
+        const weapon
+    }
+    */
     // Cambiar la data del carro
     static changeCarDataOnBoard(carSquare, name, health, capacity, nitroQuantity, nitroDuration, nitroResistance, nitroAttack, attackBuff, description) {
         // Lo peor es que esto fue una buena idea, si es necesario agregar un dato mas, aqui se agrega con minima 

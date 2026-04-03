@@ -31,16 +31,21 @@ export class CarCard extends Card{
             this.image
         );
     }
-    static async loadCarDataFromJSON(category, index) {
+    static async loadCarsDataFromJSON() {
         const res = await fetch("src/scripts/cardsData/cars.json");
         if (!res.ok) throw new Error(`HTTP Error ${res.status}`);
-
-        const data = await res.json();
-        //console.log(data["category1"]);
+        return await res.json();
+    }
+    static async loadCarDataFromJSON(category, index) {
+        const data = await this.loadCarsDataFromJSON();
+        console.log(data["category1"]);
         const car = data?.[category]?.[index];
 
         if (!car) throw new Error(`No existe carro en categoria ${category} con index ${index} en la base de datos`);
         return car;
+    }
+    static async loadCarDataFromJSONName(category, name) {
+        return undefined;
     }
     static convertCarJSON(carData) {
         return new CarCard(
