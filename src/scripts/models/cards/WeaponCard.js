@@ -38,6 +38,15 @@ export class WeaponCard extends Card {
         if (!weapon) throw new Error(`No existe arma en categoria ${category} con index ${index} en la base de datos`);
         return weapon;
     }
+    // Carga un arma por nombre
+    static async loadWeaponFromName(category, name) {
+        const data = await LoadCardsJSON.loadWeaponsFromJSON();
+
+        const weapon = data?.[category]?.find(card => card.name === name);
+        if (!weapon) throw new Error(`No existe arma en categoria ${category} con nombre ${name} en la base de datos`);
+        return weapon
+    }
+
     static convertWeaponFromJSON(weaponData) {
         return new WeaponCard(
             DataConversor.stringToEnum("category", weaponData.category),
