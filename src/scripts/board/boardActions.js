@@ -275,7 +275,9 @@ export class BoardClick {
         const player = GetDataFromSquare.getPlayerFromSquare(carSquare);
         const zone = GetDataFromSquare.getZoneFromCarSquare(carSquare);
         const weaponSquares = document.getElementsByClassName(`card-board-weapon-${player}-${zone}`);
+        //console.log(weaponSquares);
         for (const weaponSquare of weaponSquares) {
+            console.log(weaponSquare.dataset.name);
             this.removeWeaponOnBoard(weaponSquare);
         }
     }
