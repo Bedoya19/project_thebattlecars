@@ -272,17 +272,18 @@ export class BoardClick {
 
         
         // Elimina todas las armas del tablero que estan adjuntas al carro
-        // (No se si despues devolverselas al jugador afectado)
         const weaponSquares = this.getWeaponSquaresFromCarSquare(carSquare);
         // Igualmente toca sacar el jugador por los siguientes temas
         const player = GetDataFromSquare.getPlayerFromSquare(carSquare);
         //console.log(weaponSquares);
+        let weaponsFromCarDestroyed = [];
         for (const weaponSquare of weaponSquares) {
             //console.log(weaponSquare.dataset.name);
-            console.log(PlayerActions.getWeaponFromStorageFromPlayer(player, weaponSquare.dataset.name));
+            weaponsFromCarDestroyed.push(PlayerActions.getWeaponFromStorageFromPlayer(player, weaponSquare.dataset.name));
             //Player2.getWeaponFromStorage(weaponSquare.dataset.name);
             this.removeWeaponOnBoard(weaponSquare);
         }
+        return weaponsFromCarDestroyed;
     }
     // Consigue todas las armas de una zona en especifico
     // Esta funcion simplemente solo existe para simplicidad
