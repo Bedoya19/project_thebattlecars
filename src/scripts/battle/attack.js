@@ -126,4 +126,8 @@ export class Attack {
             AttackValues.setAttackValues(charge, attack, zoneNumber, squareNumber);
         }
     }
+
+    static returnWeaponsToDeck(player, weapons) {
+        return undefined;
+    }
 }

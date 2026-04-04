@@ -279,8 +279,8 @@ export class BoardClick {
         //console.log(weaponSquares);
         for (const weaponSquare of weaponSquares) {
             //console.log(weaponSquare.dataset.name);
-            Player1.getWeaponFromStorage(weaponSquare.dataset.name);
-            Player2.getWeaponFromStorage(weaponSquare.dataset.name);
+            console.log(PlayerActions.getWeaponFromStorageFromPlayer(player, weaponSquare.dataset.name));
+            //Player2.getWeaponFromStorage(weaponSquare.dataset.name);
             this.removeWeaponOnBoard(weaponSquare);
         }
     }

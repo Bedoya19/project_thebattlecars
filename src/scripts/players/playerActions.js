@@ -80,4 +80,8 @@ export class PlayerActions {
     static addWeaponToPlayerDeck(player, weaponCard) {
         (player === "player1") ? Player1.addWeaponToDeck(weaponCard) : Player2.addWeaponToDeck(weaponCard);
     }
+
+    static getWeaponFromStorageFromPlayer(player, weaponName) {
+        return (player === "player1") ? Player1.getWeaponFromStorage(weaponName) : Player1.getWeaponFromStorage(weaponName);
+    }
 }

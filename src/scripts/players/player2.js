@@ -109,6 +109,6 @@ export class Player2 {
     }
 
     static getWeaponFromStorage(weaponName) {
-        console.log(this.getWeaponsStorage());
+        return this.getWeaponsStorage().find(weapon => weapon.name === weaponName);
     }
 }

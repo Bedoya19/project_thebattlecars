@@ -121,6 +121,6 @@ export class Player1 {
     // Saca la informacion de una carta de arma de la bodega sacandola del nombre
     // Esta funcion es para regresarle el arma cuando el carro sea destruido
     static getWeaponFromStorage(weaponName) {
-        console.log(this.getWeaponsStorage());
+        return this.getWeaponsStorage().find(weapon => weapon.name === weaponName);
     }
 }
