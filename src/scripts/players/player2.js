@@ -38,7 +38,7 @@ export class Player2 {
     static getMaterials() {
         return this.#decks["materials"];
     }
-    static getWeaponStorage() {
+    static getWeaponsStorage() {
         return this.#decks["weapons_storage"];
     }
 
@@ -106,5 +106,9 @@ export class Player2 {
     // Agregar un arma al deck
     static addWeaponToDeck(weaponCard) {
         this.#decks["weapons"].push(weaponCard);
+    }
+
+    static getWeaponFromStorage(weaponName) {
+        console.log(this.getWeaponsStorage());
     }
 }

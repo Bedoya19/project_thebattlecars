@@ -273,18 +273,33 @@ export class BoardClick {
         
         // Elimina todas las armas del tablero que estan adjuntas al carro
         // (No se si despues devolverselas al jugador afectado)
-        const weaponSquares = this.getWeaponSquaresFromPlayerAndZone(carSquare);
+        const weaponSquares = this.getWeaponSquaresFromCarSquare(carSquare);
+        // Igualmente toca sacar el jugador por los siguientes temas
+        const player = GetDataFromSquare.getPlayerFromSquare(carSquare);
         //console.log(weaponSquares);
         for (const weaponSquare of weaponSquares) {
+            //console.log(weaponSquare.dataset.name);
+            Player1.getWeaponFromStorage(weaponSquare.dataset.name);
+            Player2.getWeaponFromStorage(weaponSquare.dataset.name);
             this.removeWeaponOnBoard(weaponSquare);
         }
     }
     // Consigue todas las armas de una zona en especifico
     // Esta funcion simplemente solo existe para simplicidad
+    // Tambien, filtra las casillas vacias para no poner undefined casillas que ya estan undefined
     static getWeaponSquaresFromCarSquare(carSquare) {
         const player = GetDataFromSquare.getPlayerFromSquare(carSquare);
         const zone = GetDataFromSquare.getZoneFromCarSquare(carSquare);
-        return document.getElementsByClassName(`card-board-weapon-${player}-${zone}`);
+        // For loop que filta las casillas que no estan vacias, es decir, que tienen un arma
+        var nonEmptySquares = [];
+        const squares = document.getElementsByClassName(`card-board-weapon-${player}-${zone}`);
+        for (var i = 0; i < squares.length; i++) {
+            if (squares[i].dataset.name !== "undefined") {
+                console.log("Casilla no vacia");
+                nonEmptySquares.push(squares[i]);
+            }
+        }
+        return nonEmptySquares;
     }
      
     // Cambiar la data del carro
