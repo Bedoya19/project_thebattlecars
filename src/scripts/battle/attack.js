@@ -91,12 +91,13 @@ export class Attack {
             // Ya quita de verdad el carro destruido en el tablero despues de usar la informacion para el metodo anterior
             // Esta funcion devuelve las armas que estaban en el carro
             const weapons = BoardClick.removeCarOnBoard(carSquare);
+
             // Elimina el carro del jugador afectado, y actualiza el valor en la ventana de informacion
-            const affectedPlayer = carSquare.id.slice(0, 7);
+            const affectedPlayer = carSquare.id.slice(0, 7);            
             StateGame.removeCarFromPlayer(affectedPlayer);
             GameInformationDisplay.updateCurrentCarsPlayer(affectedPlayer);
             // Le devuelve las armas al jugador afectado
-            this.returnWeaponsToDeck(weapons);
+            this.returnWeaponsToDeck(affectedPlayer, weapons);
             // Le da nitro de recompensa al jugador que destruyo el carro. Actualiza el valor en la ventana de informacion
             await PlayerActions.giveNitroAfterDestroyedCar(currentPlayer);
             GameValuesDisplay.updateNitroValue();
