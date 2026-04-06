@@ -37,3 +37,6 @@ La cantidad de nitro que se le otorga a cada jugador por turno.
 
 "nitro_per_car":
 La cantidad de nitro que se le otorga a cada jugador cada vez que destruya un carro.
+
+"return_weapons":
+Si se le devuelve las armas al jugador cuando un carro suyo es destruido

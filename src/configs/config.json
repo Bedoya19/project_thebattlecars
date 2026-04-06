@@ -5,5 +5,6 @@
     "weapon_upgrades_enabled": true,
     "max_turns": 9999,
     "nitro_per_turn": 1,
-    "nitro_per_car": 3
+    "nitro_per_car": 3,
+    "return_weapons": true
 }
