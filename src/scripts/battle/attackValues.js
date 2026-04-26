@@ -6,7 +6,7 @@ export class AttackValues {
     static #attack = 0;
     static #zone = 0;
     static #squareNumber = 0;
-    static #attackCarIncrease = 0;
+    static #attackIncrease = 0;
     static #attackNitroIncrease = 0;
 
     // Getters
@@ -25,8 +25,9 @@ export class AttackValues {
     static getSquareNumber() {
         return this.#squareNumber;
     }
-    static getAttackCarIncrease() {
-        return this.#attackCarIncrease;
+    static getAttackIncrease() {
+        console.log(this.#attackIncrease);
+        return this.#attackIncrease;
     }
     static getAttackNitroIncrease() {
         return this.#attackNitroIncrease;
@@ -37,15 +38,16 @@ export class AttackValues {
         this.#prepareAttack = false;
         this.setValues(0, 0, 0, 0, 0, 0);
     }
-    static setAttackValues(charge, attack, zone, squareNumber) {
+    static setAttackValues(charge, attack, zone, squareNumber, attackIncrease) {
         this.#prepareAttack = true;
-        this.setValues(charge, attack, zone, squareNumber);
+        this.setValues(charge, attack, zone, squareNumber, attackIncrease);
     }
     // Para hacer esto un poco mas estandar
-    static setValues(charge, attack, zone, squareNumber) {
+    static setValues(charge, attack, zone, squareNumber, attackIncrease) {
         this.#charge = charge;
         this.#attack = attack;
         this.#zone = zone;
         this.#squareNumber = squareNumber;
+        this.#attackIncrease = attackIncrease;
     }
 }

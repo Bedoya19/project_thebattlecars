@@ -47,10 +47,15 @@ export class Attack {
 
         // Valores actuales de carga y ataque
         const attackValue = AttackValues.getAttack();
+        const attackIncrease = AttackValues.getAttackIncrease()
+        console.log(attackIncrease);
+        // Si por el aumento de ataque queda en negativo el ataque, simplemente lo cambia a 0.
+        const attack = ((attackValue + attackIncrease) >= 0) ? attackValue + attackIncrease : 0;
+        console.log(attack);
         const chargeValue = PlayerActions.getChargeFromPlayer(currentPlayer);
 
         // Le baja la vida al carro que se le dio el ataque
-        carSquare.dataset.health -= attackValue;
+        carSquare.dataset.health -= attack;
         // Revisa si el carro quedo destruid
         if (carSquare.dataset.health <= 0) {
             // Se va a quitar el carro del tablero en otro lugar. Esto es para tener la informacion de
@@ -82,7 +87,7 @@ export class Attack {
             document.getElementById("card-selected-information"),
             carSquare,
             chargeValue,
-            attackValue,
+            attack,
             carDestroyed,
             weaponDischarged
         );
@@ -114,20 +119,19 @@ export class Attack {
             DisplayMessageBoxes.createTemporalText(weaponSquare, "No hay poder suficiente para atacar!");
 
         } else if (weaponSquare.dataset.energy <= 0) {
-            // Tambien avisar al usuario despues
+            // Tambien avisar al usuario despues (aunque esto es dificil)
             console.log("La arma no tiene la energia suficiente");
         // Ya prepara la pagina para atacar
         } else {
             // Consigue la carga del jugador
             const charge = PlayerActions.getChargeFromPlayer(player);
             // Incremento de ataque del arma
-            const attackBuff = BoardClick.getCarSquareFromWeaponSquare(weaponSquare).dataset.attBuff;
-            console.log("Aumento de ataque:", attackBuff);
+            const attackBuff = Number(BoardClick.getCarSquareFromWeaponSquare(weaponSquare).dataset.attBuff);
+            
             // Momento JS esto...
-            let attack = parseInt(JSON.parse(weaponSquare.dataset.attacks)[0][charge - 1]) + parseInt((attackBuff));
-            // Si por el aumento de ataque queda en negativo el ataque, simplemente lo cambia a 0.
-            attack = (attack <= 0) ? (0) : attack;
-            AttackValues.setAttackValues(charge, attack, zoneNumber, squareNumber);
+            let attack = parseInt(JSON.parse(weaponSquare.dataset.attacks)[0][charge - 1]);
+            console.log("Aumento de ataque:", attackBuff);        
+            AttackValues.setAttackValues(charge, attack, zoneNumber, squareNumber, attackBuff);
         }
     }
     // Le regresa las cartas de arma a un jugador, usado cuando un carro es destruido
