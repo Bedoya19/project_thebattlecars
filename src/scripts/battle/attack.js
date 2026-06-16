@@ -11,7 +11,7 @@ import { GameValuesDisplay } from "../display/gameValuesDisplay.js";
 import { GameInformationDisplay } from "../display/gameInformationDisplay.js";
 import { StateGame } from "../game/stateGame.js";
 import { DisplayCardInformation } from "../display/displayCardInformation.js";
-import { DisplayMessageBoxes } from "../display/DisplayMessageBoxes.js";
+import { DisplayMessageBoxes } from "../display/displayMessageBoxes.js";
 
 
 export class Attack {
