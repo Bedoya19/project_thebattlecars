@@ -7,6 +7,7 @@ import { DisplayCardInformation } from "./displayCardInformation.js";
 import { MainGame } from "../game/mainGame.js";
 import { StateGame } from "../game/stateGame.js";
 import { LoadConfig } from "../game/loadConfig.js";
+import { AttackMessages } from "../log/attackMessages.js";
 
 //export class GameStatsDisplay {
 export class GameNotesDisplay{
@@ -76,5 +77,10 @@ export class GameNotesDisplay{
     // Nota sobre la cantidad de nitro y poder dado en modo normal
     static async noteNitroAndPowerNormal() {
         return `Se le otorga a cada jugador su respectivo poder y ${await LoadConfig.loadNitroPerTurn()} de nitro. Usenlos bien!`;
+    }
+
+    // Crea una nueva nota sobre un ataque
+    static addAttackAction(carAttackerSquare, carAttackedSquare, weaponSquare, charge) {
+        this.addTurnNote(AttackMessages(carAttacks(carAttackerSquare, carAttackedSquare, weaponSquare, charge)));
     }
 }
