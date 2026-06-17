@@ -80,7 +80,7 @@ export class GameNotesDisplay{
     }
 
     // Crea una nueva nota sobre un ataque
-    static addAttackAction(carAttackerSquare, carAttackedSquare, weaponSquare, charge) {
-        this.addTurnNote(AttackMessages(carAttacks(carAttackerSquare, carAttackedSquare, weaponSquare, charge)));
+    static addAttackActionNote(carAttackerSquare, carAttackedSquare, weaponSquare, charge) {
+        this.addTurnNote(AttackMessages.carAttacks(carAttackerSquare, carAttackedSquare, weaponSquare, charge));
     }
 }

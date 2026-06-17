@@ -12,7 +12,7 @@ import { GameInformationDisplay } from "../display/gameInformationDisplay.js";
 import { StateGame } from "../game/stateGame.js";
 import { DisplayCardInformation } from "../display/displayCardInformation.js";
 import { DisplayMessageBoxes } from "../display/displayMessageBoxes.js";
-
+import { GameNotesDisplay } from "../display/gameNotesDisplay.js";
 
 export class Attack {
     // Agrgega el boton de ataque a la informacion si es del jugador indicado
@@ -44,6 +44,11 @@ export class Attack {
 
         // Jugador actual
         const currentPlayer = document.getElementById("deck").dataset.player;
+        // Carro atacante
+        const carAttacker = document
+        // Jugador afectado (movido para usarse en otras funciones)
+        
+        const affectedPlayer = carSquare.id.slice(0, 7);
 
         // Valores actuales de carga y ataque
         const attackValue = AttackValues.getAttack();
@@ -67,6 +72,7 @@ export class Attack {
         // Le baja energia a la arma que se uso para el ataque
         PlayerActions.consumePowerForActionInPlayer(currentPlayer);
         const weaponSquare = document.getElementById(`${currentPlayer}-zone${AttackValues.getZone()}-card-weapon-${AttackValues.getSquareNumber()}`);
+        const attackingCarSquare = BoardClick.getCarSquareFromWeaponSquare(weaponSquare);
         --weaponSquare.dataset.energy;
         // Quita la carta del tablero si ya llego a cero de energia
         if (weaponSquare.dataset.energy <= 0) {
@@ -91,13 +97,15 @@ export class Attack {
             carDestroyed,
             weaponDischarged
         );
+        // Se muestra en las notas del juego
+        GameNotesDisplay.addAttackActionNote(attackingCarSquare, carSquare, weaponSquare, chargeValue);
 
         if (carDestroyed) {
             // Ya quita de verdad el carro destruido en el tablero despues de usar la informacion para el metodo anterior
             // Esta funcion devuelve las armas que estaban en el carro
             const weapons = BoardClick.removeCarOnBoard(carSquare);
             // Elimina el carro del jugador afectado, y actualiza el valor en la ventana de informacion 
-            const affectedPlayer = carSquare.id.slice(0, 7);            
+            //const affectedPlayer = carSquare.id.slice(0, 7);            
             StateGame.removeCarFromPlayer(affectedPlayer);
             GameInformationDisplay.updateCurrentCarsPlayer(affectedPlayer);
             // Le devuelve las armas al jugador afectado

@@ -1,12 +1,12 @@
 // Script para la generacion de mensajes de ataque 
 // No solo para tenerlos en un ambiente mas estandar y ser reutilizado en otros lugares. Quien sabe para que mas lo podria usar.
-import { DisplayCardInformation } from "../display/displayCardInformation"
+import { DisplayCardInformation } from "../display/displayCardInformation.js"
 
 
 export class AttackMessages {
     // Genera un mensaje corto sobre que X carro ataco a Y carro
     static carAttacks(carAttackerSquare, carAttackedSquare, weaponSquare, charge) {
-        return `El ${DisplayCardInformation.convertPlayerString(carAttackerSquare.id.slice(0, 7))} ataca a ${carAttackedSquare.dataset.name} usando su ${carAttacker.dataset.name} y el arma ${weaponSquare.dataset.name} teniendo un ${charge}/6 de carga`;
+        return `El ${DisplayCardInformation.convertPlayerString(carAttackerSquare.id.slice(0, 7))} ataca a ${carAttackedSquare.dataset.name} usando su ${carAttackerSquare.dataset.name} y el arma ${weaponSquare.dataset.name} teniendo un ${charge}/6 de carga`;
     }
 
     // Genera lo que le pasa al carro al ser destruido
