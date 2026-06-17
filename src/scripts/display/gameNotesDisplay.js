@@ -9,6 +9,10 @@ import { StateGame } from "../game/stateGame.js";
 import { LoadConfig } from "../game/loadConfig.js";
 import { AttackMessages } from "../log/attackMessages.js";
 
+// Importar las funciones del guardado de notas en un lugar establecido.
+import { addNote } from "../log/gameNotesLog.js";
+import { getNotes } from "../log/gameNotesLog.js";
+
 //export class GameStatsDisplay {
 export class GameNotesDisplay{
     // Reinicia el contenido de las notas de los turnos
@@ -34,6 +38,8 @@ export class GameNotesDisplay{
 
     // Agrega notas al contenido de las notas
     static addTurnNote(message) {
+        // Guarda la nota en lugar establecido.
+        addNote(message);
         this.addNote(message, "turn-notes-content");
     }
     // Agrega notas a la informacion del turno actual
