@@ -389,3 +389,19 @@ img.image-board {
 .turn-note {
     list-style-position: inside;
 }
+
+#see-notes-button {
+    width: 100%;
+    border: 2px solid #adadad;
+    background-color: #000000;
+    color: #d2d2d2;
+    margin-bottom: 5px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+#see-notes-button:hover {
+    background-color: #555555
+}
+#see-notes-button:active {
+    background-color: #b1b1b1;
+}
