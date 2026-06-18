@@ -405,3 +405,124 @@ img.image-board {
 #see-notes-button:active {
     background-color: #b1b1b1;
 }
+/* ========================================
+   DIALOG DE NOTAS DEL JUEGO
+   ======================================== */
+
+/* Contenedor principal del dialog */
+#dialog-gamenotes {
+    border: none;
+    padding: 0;
+    background-color: transparent;
+    max-width: 600px;
+    width: 90%;
+    max-height: 80vh;
+    
+    /* Animación de entrada */
+    animation: dialogAppear 0.25s ease-out;
+}
+
+/* Fondo oscuro nativo del dialog */
+#dialog-gamenotes::backdrop {
+    background-color: rgba(0, 0, 0, 0.75);
+    animation: backdropFade 0.25s ease-out;
+}
+
+/* Caja interna con el contenido */
+.dialog-gamenotes-content {
+    background-color: var(--fondo-juego-estadisticas);
+    color: var(--borde-juego-estadisticas);
+    border: 5px solid var(--borde-juego-estadisticas);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Cabecera del dialog */
+.dialog-gamenotes-header {
+    display: flex;
+    justify-content: flex-end;
+    padding: 8px 12px;
+    background-color: #000000;
+    border-bottom: 2px solid var(--color-baras-deck);
+}
+
+/* Botón de cerrar (×) */
+.dialog-gamenotes-header button {
+    background-color: transparent;
+    border: 2px solid var(--borde-juego-estadisticas);
+    color: var(--borde-juego-estadisticas);
+    font-size: 1.1rem;
+    width: 30px;
+    height: 30px;
+    border-radius: 4px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.dialog-gamenotes-header button:hover {
+    background-color: #555555;
+}
+
+.dialog-gamenotes-header button:active {
+    background-color: var(--borde-juego-estadisticas);
+    color: #000000;
+}
+
+/* Cuerpo del dialog */
+.dialog-gamenotes-body {
+    padding: 20px;
+    max-height: 60vh;
+    overflow-y: auto;
+    font-family: "Lexend", sans-serif;
+    color: var(--borde-juego-estadisticas);
+}
+
+.dialog-gamenotes-body h1 {
+    font-family: "BBH Hegarty", sans-serif;
+    font-weight: 400;
+    font-size: 1.4rem;
+    color: #d2d2d2;
+    margin: 0 0 15px 0;
+}
+
+/* Scrollbar personalizada para el body */
+.dialog-gamenotes-body::-webkit-scrollbar {
+    width: 8px;
+}
+
+.dialog-gamenotes-body::-webkit-scrollbar-track {
+    background: var(--fondo-deck);
+}
+
+.dialog-gamenotes-body::-webkit-scrollbar-thumb {
+    background: var(--color-baras-deck);
+    border-radius: 4px;
+}
+
+.dialog-gamenotes-body::-webkit-scrollbar-thumb:hover {
+    background: var(--borde-juego-estadisticas);
+}
+
+/* Animaciones */
+@keyframes dialogAppear {
+    from {
+        opacity: 0;
+        transform: translateY(-20px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes backdropFade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}

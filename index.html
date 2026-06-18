@@ -221,7 +221,7 @@
                             </div>
                             
                         </div>
-                        <button id="see-notes-button">Ver todas las acciones</button>
+                        <button id="see-notes-button" commandfor="dialog-gamenotes">Ver todas las acciones</button>
                             <!-- Este es un boton de prueba para hacer ciertas cosas -->
                         <div id="deselect-div">
                             <button id="deselect-button"class="game-stat-text">Deseleccionar carta</button>
@@ -245,5 +245,16 @@
                 </div>
             </div>
         </div>
+        <!-- Modal para mostrar ciertas cosas -->
+        <dialog id="dialog-gamenotes">
+            <div class="dialog-gamenotes-content">
+                <div class="dialog-gamenotes-header">
+                    <button>&times;</button>
+                </div>
+                <div class="dialog-gamenotes-body">
+                    <h1>Prueba de notas</h1>
+                </div>
+            </div>
+        </dialog>
     </body>
 </html>
