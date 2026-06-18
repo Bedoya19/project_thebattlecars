@@ -405,9 +405,7 @@ img.image-board {
 #see-notes-button:active {
     background-color: #b1b1b1;
 }
-/* ========================================
-   DIALOG DE NOTAS DEL JUEGO
-   ======================================== */
+
 
 /* Contenedor principal del dialog */
 #dialog-gamenotes {

@@ -59,8 +59,17 @@ DisplayCardsInDeck.showDeckOfCards(deckCards, decks["cars"], cardInformation);
 //deckIcon.addEventListener("click", () => { DisplayCardsInDeck.changeDeck(deckIcon, deckDefaultIconsDir, decks, deckCards, cardInformation) });
 deckIcon.addEventListener("click", () => { DisplayCardsInDeck.changeDeckPlayer(deckIcon, deck.dataset.player, deckCards, cardInformation) });
 
-// // Definir el dialog de las notas
-// const dialogButton = document.getElementById("dialog-gamenotes");
+// Definir el dialog de las notas
+// Ventana y botones
+const gameNotesWindows = document.getElementById("dialog-gamenotes");
+const gameNotesButton = document.getElementById("see-notes-button");
+const gameNotesCloseButton = document.getElementById("dialog-gamenotes-close");
+gameNotesButton.addEventListener("click", () => {
+    gameNotesWindows.showModal();
+});
+gameNotesCloseButton.addEventListener("click", () => {
+    gameNotesWindows.close();
+});
 
 // Agrega funcionalidad a las casillas de carro
 for (const carSquare of carsSquares) {
