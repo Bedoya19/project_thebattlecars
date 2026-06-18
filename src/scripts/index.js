@@ -67,9 +67,25 @@ const gameNotesCloseButton = document.getElementById("dialog-gamenotes-close");
 gameNotesButton.addEventListener("click", () => {
     gameNotesWindows.showModal();
 });
+/*
+// Funciones de animacion de cerrar la ventana
+function closeAnimationExecute() {
+    gameNotesWindows.classList.add("closing");
+}
+
 gameNotesCloseButton.addEventListener("click", () => {
-    gameNotesWindows.close();
+    closeAnimationExecute;
 });
+gameNotesWindows.addEventListener("cancel", (e) => {
+    e.preventDefault();
+    closeAnimationExecute();
+})
+gameNotesWindows.addEventListener("animationend", (e) => {
+    if (e.animationName === "dialogDissapear") {
+        gameNotesWindows.classList.remove("closing");
+        gameNotesWindows.close();
+    }
+})*/
 
 // Agrega funcionalidad a las casillas de carro
 for (const carSquare of carsSquares) {

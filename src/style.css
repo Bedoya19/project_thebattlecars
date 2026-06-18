@@ -406,8 +406,6 @@ img.image-board {
     background-color: #b1b1b1;
 }
 
-
-/* Contenedor principal del dialog */
 #dialog-gamenotes {
     border: none;
     padding: 0;
@@ -415,23 +413,18 @@ img.image-board {
     max-width: 600px;
     width: 90%;
     max-height: 80vh;
+    margin: auto;
     
-    /* Animación de entrada */
     animation: dialogAppear 0.25s ease-out;
 }
 
-/* Fondo oscuro nativo del dialog */
 #dialog-gamenotes::backdrop {
     background-color: rgba(0, 0, 0, 0.75);
     animation: backdropFade 0.25s ease-out;
 }
 
-/* Caja interna con el contenido */
 .dialog-gamenotes-content {
-    background-color: var(--fondo-juego-estadisticas);
-    color: var(--borde-juego-estadisticas);
-    border: 5px solid var(--borde-juego-estadisticas);
-    border-radius: 8px;
+    background-color: var(--borde-juego-estadisticas);
     overflow: hidden;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
     display: flex;
@@ -441,10 +434,15 @@ img.image-board {
 /* Cabecera del dialog */
 .dialog-gamenotes-header {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
     padding: 8px 12px;
-    background-color: #000000;
-    border-bottom: 2px solid var(--color-baras-deck);
+    background-color: #191919;
+    align-items: center;
+}
+
+.dialog-gamenotes-header > h1 {
+    font-family: "Lexend", sans-serif;
+    color: var(--borde-juego-estadisticas);
 }
 
 /* Botón de cerrar (×) */
@@ -455,13 +453,11 @@ img.image-board {
     font-size: 1.1rem;
     width: 30px;
     height: 30px;
-    border-radius: 4px;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
     line-height: 1;
-    transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .dialog-gamenotes-header button:hover {
@@ -479,15 +475,7 @@ img.image-board {
     max-height: 60vh;
     overflow-y: auto;
     font-family: "Lexend", sans-serif;
-    color: var(--borde-juego-estadisticas);
-}
-
-.dialog-gamenotes-body h1 {
-    font-family: "BBH Hegarty", sans-serif;
-    font-weight: 400;
-    font-size: 1.4rem;
-    color: #d2d2d2;
-    margin: 0 0 15px 0;
+    color: #242424
 }
 
 /* Scrollbar personalizada para el body */
@@ -512,7 +500,7 @@ img.image-board {
 @keyframes dialogAppear {
     from {
         opacity: 0;
-        transform: translateY(-20px) scale(0.95);
+        transform: translateY(-200px) scale(0.99);
     }
     to {
         opacity: 1;
