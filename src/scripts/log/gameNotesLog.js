@@ -20,10 +20,9 @@ export function addNote(note) {
         player: document.getElementById("deck").dataset.player,
         round: StateGame.getRound(),
         message: note
-    })
-    console.log(notesPerTurn);
+    });
 }
 
 export function getNotes() {
-    return notesPerTurn;
+    return notes;
 }
