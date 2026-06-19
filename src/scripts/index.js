@@ -28,6 +28,9 @@ import { GameInformationDisplay } from "./display/gameInformationDisplay.js";
 import { GameValuesDisplay } from "./display/gameValuesDisplay.js";
 import { PlayerActions } from "./players/playerActions.js";
 
+// Funcion sobre las notas del juego
+import { getNotes } from "./log/gameNotesLog.js";
+
 
 // Display del mazo
 const deckCards = document.getElementById("deck-cards");
@@ -59,12 +62,15 @@ DisplayCardsInDeck.showDeckOfCards(deckCards, decks["cars"], cardInformation);
 //deckIcon.addEventListener("click", () => { DisplayCardsInDeck.changeDeck(deckIcon, deckDefaultIconsDir, decks, deckCards, cardInformation) });
 deckIcon.addEventListener("click", () => { DisplayCardsInDeck.changeDeckPlayer(deckIcon, deck.dataset.player, deckCards, cardInformation) });
 
-// Definir el dialog de las notas
+// Montar funcionalidad a la ventana propia de las notas
 // Ventana y botones
 const gameNotesWindows = document.getElementById("dialog-gamenotes");
+const gameNotesContent = document.getElementsByClassName("dialog-gamenotes-body");
 const gameNotesButton = document.getElementById("see-notes-button");
 const gameNotesCloseButton = document.getElementById("dialog-gamenotes-close");
 gameNotesButton.addEventListener("click", () => {
+    console.log(getNotes());
+    gameNotesContent.innerText = getNotes();
     gameNotesWindows.showModal();
 });
 

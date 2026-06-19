@@ -6,6 +6,8 @@
 import { StateGame } from "../game/stateGame.js";
 
 const notes = [];
+const gameNotesWindow = document.getElementById("dialog-gamenotes");
+const gameNotesContent = document.getElementsByClassName("dialog-gamenotes-body");
 
 export function addNote(note) {
     notes.push({
