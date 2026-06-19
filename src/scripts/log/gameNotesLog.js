@@ -24,16 +24,22 @@ export function addNote(note) {
 }
 
 export function getNotes() {
-    console.log(processTurnNote(1));
-    return notes;
+    //console.log(processTurnNote(1));
+    //return notes;
+    const messages = processTurnNote(1);
+    console.log(messages);
+    return messages;
 }
 
 // Se procesa y crea un mensaje por turno en HTML
 // Esta funcion NO se exporta, porque cual es la razon ?
 function processTurnNote(turn) {
-    let message = `Turno ${turn}:\n`;
-    for (const round of notes[turn]) {
-        message += `${round.player}: ${round.message}\n`;
+    if (notes[turn]) {
+        let message = `Turno ${turn}:\n`;
+        for (const round of notes[turn]) {
+            message += `${round.player}: ${round.message}\n`;
+        }
+        return message;
     }
-    return message;
+    return "";
 }
