@@ -5,19 +5,25 @@
 
 import { StateGame } from "../game/stateGame.js";
 
-const notes = [];
+
+const notes = {
+
+}
 const gameNotesWindow = document.getElementById("dialog-gamenotes");
 const gameNotesContent = document.getElementsByClassName("dialog-gamenotes-body");
 
 export function addNote(note) {
-    notes.push({
-        roud: StateGame.getRound(),
-        turn: StateGame.getTurn(),
+    //console.log(notes1[StateGame.getTurn()]);
+    const turn = StateGame.getTurn();
+    notes[turn] = notes[turn] ?? [];
+    notes[turn].push({
+        player: document.getElementById("deck").dataset.player,
+        round: StateGame.getRound(),
         message: note
     })
+    console.log(notesPerTurn);
 }
 
 export function getNotes() {
-    return notes
+    return notesPerTurn;
 }
-
