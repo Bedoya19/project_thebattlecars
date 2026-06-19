@@ -26,8 +26,7 @@ export function addNote(note) {
 export function getNotes() {
     //console.log(processTurnNote(1));
     //return notes;
-    const messages = processTurnNote(1);
-    console.log(messages);
+    const messages = processNotes();
     return messages;
 }
 
@@ -42,4 +41,13 @@ function processTurnNote(turn) {
         return message;
     }
     return "";
+}
+
+// Funcion que ya procesa todos los turnos
+function processNotes() {
+    let text = "";
+    for (const turn of Object.keys(notes)) {
+        text += processTurnNote(turn);
+    }
+    return text;
 }

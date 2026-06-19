@@ -65,17 +65,11 @@ deckIcon.addEventListener("click", () => { DisplayCardsInDeck.changeDeckPlayer(d
 // Montar funcionalidad a la ventana propia de las notas
 // Ventana y botones
 const gameNotesWindows = document.getElementById("dialog-gamenotes");
-//const gameNotesBody = document.querySelector("dialog-gamenotes-body");
 const gameNotesButton = document.getElementById("see-notes-button");
 const gameNotesCloseButton = document.getElementById("dialog-gamenotes-close");
 gameNotesButton.addEventListener("click", () => {
     const gameNotesBody = document.querySelector(".dialog-gamenotes-body");
-    
-    if (!gameNotesBody) {
-        console.error("¡No se encontró .dialog-gamenotes-body!");
-        return;
-    }
-    
+
     const notas = getNotes();
     console.log(notas);
     gameNotesBody.innerHTML = notas;
