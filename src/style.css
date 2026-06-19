@@ -512,3 +512,21 @@ img.image-board {
     from { opacity: 0; }
     to { opacity: 1; }
 }
+
+#dialog-gamenotes.closing .dialog-gamenotes-content {
+    animation: dialogDisappear 0.2s ease-in forwards;
+}
+
+#dialog-gamenotes.closing::backdrop {
+    animation: backdropFadeOut 0.2s ease-in forwards;
+}
+
+@keyframes dialogDisappear {
+    from { opacity: 1; transform: translateY(0) scale(1); }
+    to { opacity: 0; transform: translateY(200px) scale(0.99); }
+}
+
+@keyframes backdropFadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
+}
