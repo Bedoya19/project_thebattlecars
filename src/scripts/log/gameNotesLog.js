@@ -34,11 +34,12 @@ export function getNotes() {
 // Esta funcion NO se exporta, porque cual es la razon ?
 function processTurnNote(turn) {
     if (notes[turn]) {
-        let message = `Turno ${turn}:\n`;
+        let message = `<div>
+        <h4>Turno ${turn}:</h4>`;
         for (const round of notes[turn]) {
-            message += `${round.player}: ${round.message}\n`;
+            message += `<p>${round.player}: ${round.message}</p>`;
         }
-        return message;
+        return message + "</div>";
     }
     return "";
 }
