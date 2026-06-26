@@ -5,8 +5,8 @@ import { DisplayCardInformation } from "../display/displayCardInformation.js"
 
 export class AttackMessages {
     // Genera un mensaje corto sobre que X carro ataco a Y carro
-    static carAttacks(carAttackerSquare, carAttackedSquare, weaponSquare, charge) {
-        return `El ${DisplayCardInformation.convertPlayerString(carAttackerSquare.id.slice(0, 7))} ataca a ${carAttackedSquare.dataset.name} usando su ${carAttackerSquare.dataset.name} y el arma ${weaponSquare.dataset.name} teniendo un ${charge}/6 de carga`;
+    static carAttacks(carAttackerSquare, carAttackedSquare, weaponSquare, charge, attack, previousCarHealth, afterCarHealth) {
+        return `${DisplayCardInformation.convertPlayerString(carAttackerSquare.id.slice(0, 7))} ataca a "${carAttackedSquare.dataset.name}" usando su "${carAttackerSquare.dataset.name}" y el arma "${weaponSquare.dataset.name}" teniendo un ${charge}/6 de carga. El ataque es de ${attack}: (${previousCarHealth} > ${afterCarHealth})`;
     }
 
     // Genera lo que le pasa al carro al ser destruido

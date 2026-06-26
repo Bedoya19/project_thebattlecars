@@ -60,7 +60,9 @@ export class Attack {
         const chargeValue = PlayerActions.getChargeFromPlayer(currentPlayer);
 
         // Le baja la vida al carro que se le dio el ataque
+        const currentCarHealth = carSquare.dataset.health;
         carSquare.dataset.health -= attack;
+        const afterAttackCarHealth = carSquare.dataset.health;
         // Revisa si el carro quedo destruid
         if (carSquare.dataset.health <= 0) {
             // Se va a quitar el carro del tablero en otro lugar. Esto es para tener la informacion de
@@ -98,7 +100,8 @@ export class Attack {
             weaponDischarged
         );
         // Se muestra en las notas del juego
-        GameNotesDisplay.addAttackActionNote(attackingCarSquare, carSquare, weaponSquare, chargeValue);
+        console.log("Ataque: " + attack);
+        GameNotesDisplay.addAttackActionNote(attackingCarSquare, carSquare, weaponSquare, chargeValue, attack, currentCarHealth, afterAttackCarHealth);
 
         if (carDestroyed) {
             // Ya quita de verdad el carro destruido en el tablero despues de usar la informacion para el metodo anterior
