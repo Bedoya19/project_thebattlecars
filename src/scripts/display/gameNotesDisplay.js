@@ -87,6 +87,10 @@ export class GameNotesDisplay{
 
     // Crea una nueva nota sobre un ataque
     static addAttackActionNote(carAttackerSquare, carAttackedSquare, weaponSquare, charge, attack, previousCarHealth, afterCarHealth) {
-        this.addTurnNote(AttackMessages.carAttacks(carAttackerSquare, carAttackedSquare, weaponSquare, charge, attack, previousCarHealth, afterCarHealth));
+        if (afterCarHealth <= 0) {
+            this.addTurnNote(AttackMessages.carDestroyedMessage(carAttackedSquare, charge, attack));
+        } else {
+            this.addTurnNote(AttackMessages.carAttacks(carAttackerSquare, carAttackedSquare, weaponSquare, charge, attack, previousCarHealth, afterCarHealth));
+        }
     }
 }
