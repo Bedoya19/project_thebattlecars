@@ -23,7 +23,8 @@ export class Attack {
             const button = StandarizedDocCreation.customElementCreator(
                 {
                     "element": "button",
-                    "id": `attack-${zoneNumber}-${squareNumber}`
+                    "id": `attack-${zoneNumber}-${squareNumber}`,
+                    "class": "attack-button"
                 }
             );
             button.innerText = "Atacar";

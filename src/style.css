@@ -496,6 +496,26 @@ img.image-board {
     background: var(--borde-juego-estadisticas);
 }
 
+.attack-button {
+    background-color: var(--fondo-juego-estadisticas);
+    border: 2px solid var(--texto-carta-seleccionada);
+    color: var(--texto-carta-seleccionada);
+    padding: 1px 5px;
+    cursor: pointer;
+}
+.attack-button:hover {
+    background-color: var(--texto-carta-seleccionada);
+    color: var(--fondo-juego-estadisticas);
+
+    /*box-shadow: 0 0 8px var(--texto-carta-seleccionada);*/
+}
+.attack-button:active {
+    background-color: #e73f3f;
+    color: #000000;
+    border: 2px solid #e73f3f;
+    box-shadow: 0 0 12px #e73f3f;
+}
+
 /* Animaciones */
 @keyframes dialogAppear {
     from {
