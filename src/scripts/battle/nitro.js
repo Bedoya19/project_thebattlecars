@@ -49,10 +49,12 @@ export class Nitro {
             carSquare.dataset.nitro = parseInt(carSquare.dataset.nitroDuration) + 1;
             PlayerActions.consumePowerForActionInPlayer(player);
             console.log("El nitro sera activado por " + carSquare.dataset.nitroDuration + " turnos");
+            // Le quita el nitro al jugador que acaba de activar el nitro
             PlayerActions.removeNitroFromCar(player, carSquare);
-            // Actualiza los valores
+            // Actualiza los valores en pantalla
             GameValuesDisplay.updateNitroValue();
             GameValuesDisplay.updatePowerValue();
+            // Agrega la clase de estilo de nitro
             carSquare.classList.add("car-nitro-activated");
             //console.log(carSquare.dataset.nitro);
         } else {

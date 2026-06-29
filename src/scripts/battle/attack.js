@@ -45,10 +45,12 @@ export class Attack {
 
         // Jugador actual
         const currentPlayer = document.getElementById("deck").dataset.player;
-        // Carro atacante
-        const carAttacker = document
+    
+        // Carro atacante (movido para usarse antes)
+        const weaponSquare = document.getElementById(`${currentPlayer}-zone${AttackValues.getZone()}-card-weapon-${AttackValues.getSquareNumber()}`);
+        const attackingCarSquare = BoardClick.getCarSquareFromWeaponSquare(weaponSquare);
+
         // Jugador afectado (movido para usarse en otras funciones)
-        
         const affectedPlayer = carSquare.id.slice(0, 7);
 
         // Valores actuales de carga y ataque
@@ -74,8 +76,8 @@ export class Attack {
 
         // Le baja energia a la arma que se uso para el ataque
         PlayerActions.consumePowerForActionInPlayer(currentPlayer);
-        const weaponSquare = document.getElementById(`${currentPlayer}-zone${AttackValues.getZone()}-card-weapon-${AttackValues.getSquareNumber()}`);
-        const attackingCarSquare = BoardClick.getCarSquareFromWeaponSquare(weaponSquare);
+        
+        
         --weaponSquare.dataset.energy;
         // Quita la carta del tablero si ya llego a cero de energia
         if (weaponSquare.dataset.energy <= 0) {
