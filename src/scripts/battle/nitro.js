@@ -5,6 +5,7 @@
 */
 import { StandarizedDocCreation } from "../display/standardDoc/standarizedDocCreation.js";
 import { PlayerActions } from "../players/playerActions.js";
+import { GameValuesDisplay } from "../display/gameValuesDisplay.js";
 
 export class Nitro {
     // Agrega el boton de activar nitro
@@ -38,6 +39,8 @@ export class Nitro {
             console.log("Se va a activar el nitro...");
             carSquare.dataset.nitro = parseInt(carSquare.dataset.nitroDuration) + 1;
             console.log("El nitro sera activado por " + carSquare.dataset.nitroDuration + " turnos");
+            PlayerActions.removeNitroFromCar(player, carSquare);
+            GameValuesDisplay.updateNitroValue();
             //console.log(carSquare.dataset.nitro);
         } else {
             console.log("No se puede activar el nitro...");

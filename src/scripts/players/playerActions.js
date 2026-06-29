@@ -84,4 +84,13 @@ export class PlayerActions {
     static getWeaponFromStorageFromPlayer(player, weaponName) {
         return (player === "player1") ? Player1.getWeaponFromStorage(weaponName) : Player1.getWeaponFromStorage(weaponName);
     }
+
+    static removeNitroFromCar(player, carSquare) {
+        // Si no es el carSquare, manda error inmediatamente para evitar que cosas raras sucedan.
+        if (!(carSquare instanceof HTMLElement) || !carSquare.dataset.nitroQuantity) {
+            throw new Error("carSquare inválido o sin dataset de nitro");
+        }
+        const nitroToRemove = carSquare.dataset.nitroQuantity;
+        (player === "player1") ? Player1.removeNitro(nitroToRemove) : Player2.removeNitro(nitroToRemove);
+    }
 }

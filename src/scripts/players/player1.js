@@ -105,6 +105,11 @@ export class Player1 {
         this.#nitro += await LoadConfig.loadNitroPerCar();
     }
 
+    // Quitar nitro
+    static removeNitro(quantity) {
+        this.#nitro -= quantity;
+    }
+
     // Generar una carga de manera aleatoria:
     static generateRandomCharge() {
         this.#charge = Math.floor(Math.random() * 6) + 1;
