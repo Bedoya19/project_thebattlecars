@@ -27,6 +27,13 @@ export class Nitro {
             });
             // Desactiva de primerazo el boton si no se tiene suficiente nitro
             !this.isNitroActivate(player, carSquare) ? button.disabled = true : button.disabled = false;
+            /*
+                Aqui se hace una anotacion importante para el futuro.
+                Ahora mismo, sin este pequeño if (por eso lo tengo separado del otro), se puede reactivar el nitro, y reincia la duracion del nitro
+                Es una mecanica interesante, especialmente cuando se implemente los poderes. Pero no es intencional, entonces se desactiva el boton si
+                el carro sigue teniendo el nitro activado.
+            */
+            //carSquare.dataset.nitro !== 0 ? button.disabled = true : button.disabled = false;
             return button;
         } else {
             return document.createElement("div");
@@ -35,12 +42,17 @@ export class Nitro {
 
     static activateNitro(player, carSquare) {
         console.log(carSquare);
-        if (this.isNitroActivate(player, carSquare)) {
+        if (this.isNitroActivate(player, carSquare) && PlayerActions.getPowerFromPlayer(player) >= 1) {
             console.log("Se va a activar el nitro...");
+            // Cambia el valor de nitro dentro del DOM, y gasta poder
             carSquare.dataset.nitro = parseInt(carSquare.dataset.nitroDuration) + 1;
+            PlayerActions.consumePowerForActionInPlayer(player);
             console.log("El nitro sera activado por " + carSquare.dataset.nitroDuration + " turnos");
             PlayerActions.removeNitroFromCar(player, carSquare);
+            // Actualiza los valores
             GameValuesDisplay.updateNitroValue();
+            GameValuesDisplay.updatePowerValue();
+            carSquare.classList.add("car-nitro-activated");
             //console.log(carSquare.dataset.nitro);
         } else {
             console.log("No se puede activar el nitro...");

@@ -539,6 +539,16 @@ img.image-board {
     pointer-events: none; 
     box-shadow: none;
 }
+.car-nitro-activated {
+    position: relative;
+    z-index: 10;
+    animation: nitro-pulse 1s ease-in-out infinite;
+}
+
+@keyframes nitro-pulse {
+    0%, 100% { box-shadow: 0 0 10px 5px #1584d3; }
+    50% { box-shadow: 0 0 20px 5px #1584d3; }
+}
 
 /* Animaciones */
 @keyframes dialogAppear {
