@@ -25,4 +25,8 @@ export class Nitro {
             return document.createElement("div");
         }
     }
+
+    static activateNitro(carSquare) {
+        console.log("Se va a activar el nitro...");
+    }
 }
