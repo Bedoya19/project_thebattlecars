@@ -82,7 +82,6 @@ export class DisplayCardInformation {
         const zoneNumber = parts[1].slice(4); 
         const squareNumber =  carSquare.id.at(-1);
         console.log("Zona:", zoneNumber, "Casilla", squareNumber);
-        console.log(parts);
 
         divElement.innerHTML = `
             ${this.mainCardInformation(this.convertPlayerString(playerOriginal), cardImage, cardName)}
