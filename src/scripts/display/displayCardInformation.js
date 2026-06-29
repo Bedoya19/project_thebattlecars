@@ -76,8 +76,6 @@ export class DisplayCardInformation {
     }
     // Mostrar la informacion de una carta de carro del tablero
     static displayCarCardInformationBoard(divElement, carSquare, playerOriginal, cardImage, cardName, cardDescription) {
-        // Es bastante parecido al anterior salvo que es lo que exactamente dicen los valores.
-        //console.log("Hola como vas");
         const parts = carSquare.id.split('-');
         const zoneNumber = parts[1].slice(4); 
         const squareNumber =  carSquare.id.at(-1);
