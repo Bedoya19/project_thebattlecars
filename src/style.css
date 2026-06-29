@@ -469,7 +469,6 @@ img.image-board {
     color: #000000;
 }
 
-/* Cuerpo del dialog */
 .dialog-gamenotes-body {
     padding: 20px;
     max-height: 60vh;
@@ -478,7 +477,6 @@ img.image-board {
     color: #242424
 }
 
-/* Scrollbar personalizada para el body */
 .dialog-gamenotes-body::-webkit-scrollbar {
     width: 8px;
 }
@@ -514,6 +512,24 @@ img.image-board {
     color: #000000;
     border: 2px solid #e73f3f;
     box-shadow: 0 0 12px #e73f3f;
+}
+.nitro-button {
+    background-color: #082d46;
+    border: 3px solid #6d96c6;
+    color: #c5c5c5;
+    padding: 2px 8px;
+    cursor: pointer;
+    font-family: "Lexend", sans-serif;
+    display: block;
+    margin: auto;
+}
+.nitro-button:hover {
+    background-color: #254d68;
+}
+.nitro-button:active {
+    background-color: #1584d3;
+    border: 3px solid #0f64a0;
+    box-shadow: 0 0 15px #1584d3;
 }
 
 /* Animaciones */
