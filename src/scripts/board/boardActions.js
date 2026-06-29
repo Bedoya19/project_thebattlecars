@@ -117,7 +117,7 @@ export class BoardClick {
             // Si hubo un error, lo mas probable es que fuera que el JSON estuviera undefined, entonces esto se muestra
             // (Esto en algun momento tambien se tendra que mostrar al usuario)
             //console.log(e, "Ninguna carta seleccionada! Mostrar aqui que la casilla es del jugador X de la zona Y");
-            //console.log(e);
+            console.log(e);
             this.removeAllSelectors();
             //DisplayMessageBoxes.createTemporalText(carSquare, "Ninguna cara seleccionada!");
             DisplayCardInformation.displayEmptyCarSquare(cardInformation, carSquare, squarePlayer);

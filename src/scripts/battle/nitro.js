@@ -18,7 +18,11 @@ export class Nitro {
                     "id": `nitro-${zoneNumber}-${squareNumber}`,
                     "class": "nitro-button"
                 }
-            )
+            );
+            button.innerText = "Activar Nitro";
+            return button;
+        } else {
+            return document.createElement("div");
         }
     }
 }

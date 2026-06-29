@@ -5,6 +5,7 @@ import { BoardClick } from "../board/boardActions.js";
 import { Attack } from "../battle/attack.js";
 import { PlayerActions } from "../players/playerActions.js";
 import { StateGame } from "../game/stateGame.js";
+import { Nitro } from "../battle/nitro.js";
 
 export class DisplayCardInformation {
     static displayInformationOnDeck(divElement, card, cardId) {
@@ -76,6 +77,13 @@ export class DisplayCardInformation {
     // Mostrar la informacion de una carta de carro del tablero
     static displayCarCardInformationBoard(divElement, carSquare, playerOriginal, cardImage, cardName, cardDescription) {
         // Es bastante parecido al anterior salvo que es lo que exactamente dicen los valores.
+        //console.log("Hola como vas");
+        const parts = carSquare.id.split('-');
+        const zoneNumber = parts[1].slice(4); 
+        const squareNumber =  carSquare.id.at(-1);
+        console.log("Zona:", zoneNumber, "Casilla", squareNumber);
+        console.log(parts);
+
         divElement.innerHTML = `
             ${this.mainCardInformation(this.convertPlayerString(playerOriginal), cardImage, cardName)}
             ${this.generalCarCardInformation(
@@ -91,6 +99,7 @@ export class DisplayCardInformation {
             )
             }
        `;
+        divElement.appendChild(Nitro.createNitroButton(playerOriginal, zoneNumber, carSquare));
     }
 
     // Metodo general para el contenido general de la carta de carro (con esto se ahora bastantes lineas)
