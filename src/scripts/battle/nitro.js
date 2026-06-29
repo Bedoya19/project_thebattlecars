@@ -25,15 +25,16 @@ export class Nitro {
             button.addEventListener("click", () => {
                 this.activateNitro(player, carSquare)
             });
-            // Desactiva de primerazo el boton si no se tiene suficiente nitro
-            !this.isNitroActivate(player, carSquare) ? button.disabled = true : button.disabled = false;
             /*
                 Aqui se hace una anotacion importante para el futuro.
-                Ahora mismo, sin este pequeño if (por eso lo tengo separado del otro), se puede reactivar el nitro, y reincia la duracion del nitro
+                Ahora mismo, sin ese otro condicional del nitro, se puede reactivar el nitro, y reincia la duracion del nitro
                 Es una mecanica interesante, especialmente cuando se implemente los poderes. Pero no es intencional, entonces se desactiva el boton si
                 el carro sigue teniendo el nitro activado.
+                Puede ser un modo extra interesante, pero no es la prioridad en este preciso momento.
             */
-            //carSquare.dataset.nitro !== 0 ? button.disabled = true : button.disabled = false;
+            if (!this.isNitroActivate(player, carSquare) || carSquare.dataset.nitro !== "0") {
+                button.disabled = true;
+            }
             return button;
         } else {
             return document.createElement("div");
