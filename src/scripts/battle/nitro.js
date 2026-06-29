@@ -4,6 +4,7 @@
     Esto incluye la activacion del nitro, revisar los activados, todo eso.
 */
 import { StandarizedDocCreation } from "../display/standardDoc/standarizedDocCreation.js";
+import { PlayerActions } from "../players/playerActions.js";
 
 export class Nitro {
     // Agrega el boton de activar nitro
@@ -20,13 +21,21 @@ export class Nitro {
                 }
             );
             button.innerText = "Activar Nitro";
+            button.addEventListener("click", () => {
+                this.activateNitro(player, carSquare)
+            });
             return button;
         } else {
             return document.createElement("div");
         }
     }
 
-    static activateNitro(carSquare) {
-        console.log("Se va a activar el nitro...");
+    static activateNitro(player, carSquare) {
+        console.log(carSquare);
+        if (PlayerActions.getNitroFromPlayer(player) >= carSquare.dataset.nitroQuantity) {
+            console.log("Se va a activar el nitro...");
+        } else {
+            console.log("No se puede activar el nitro...");
+        }
     }
 }
