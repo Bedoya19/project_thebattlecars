@@ -24,6 +24,7 @@ export class Nitro {
             button.addEventListener("click", () => {
                 this.activateNitro(player, carSquare)
             });
+            // Desactiva de primerazo el boton si no se tiene suficiente nitro
             !this.isNitroActivate(player, carSquare) ? button.disabled = true : button.disabled = false;
             return button;
         } else {
@@ -35,6 +36,9 @@ export class Nitro {
         console.log(carSquare);
         if (this.isNitroActivate(player, carSquare)) {
             console.log("Se va a activar el nitro...");
+            carSquare.dataset.nitro = parseInt(carSquare.dataset.nitroDuration) + 1;
+            console.log("El nitro sera activado por " + carSquare.dataset.nitroDuration + " turnos");
+            //console.log(carSquare.dataset.nitro);
         } else {
             console.log("No se puede activar el nitro...");
         }
