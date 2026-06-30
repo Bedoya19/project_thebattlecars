@@ -70,6 +70,20 @@ export class Nitro {
         return PlayerActions.getNitroFromPlayer(player) >= carSquare.dataset.nitroQuantity;
     }
 
+    // Reduce el nitro para todos los carros activados de un jugador
+    static reduceNitroFromCarsFromPlayer(player) {
+        const carSquaresNitro = this.getCarSquaresWithNitroFromPlayer(player);
+
+        carSquaresNitro.forEach(carSquare => {
+            const currentNitro = parseInt(carSquare.dataset.nitro);
+            carSquare.dataset.nitro = currentNitro - 1;
+
+            if (carSquare.dataset.nitro === "0") {
+                carSquare.classList.remove("car-nitro-activated");
+            }
+        });
+    }
+
     // Consigue todas las casillas con nitro activado.
     // Se va a hacer con la clase car-nitro-activated
     static getAllCarSquaresWithNitro() {
