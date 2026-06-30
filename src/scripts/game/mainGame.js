@@ -38,6 +38,9 @@ export class MainGame {
 
     // Sigue para la siguiente ronda o turno
     static async goToNextRound() {
+        // Anterior jugador, esto es para el nitro
+        const oldPlayer = document.getElementById("deck").dataset.player;
+        Nitro.reduceNitroFromCarsFromPlayer(oldPlayer);
         // Cambia de jugadores
         this.changePlayers();
         // Va a la siguiente ronda
@@ -59,7 +62,7 @@ export class MainGame {
         );
         DisplayCardInformation.deselectCardInformation(document.getElementById("card-selected-information"));
         // Le quita duracion a los carros con nitro del jugador
-        Nitro.reduceNitroFromCarsFromPlayer(newPlayer);
+        //Nitro.reduceNitroFromCarsFromPlayer(newPlayer);
     }
 
     // Hace los calculos con el poder con cada accion
