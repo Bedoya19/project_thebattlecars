@@ -75,4 +75,8 @@ export class Nitro {
     static getAllCarSquaresWithNitro() {
         return document.querySelectorAll(".car-nitro-activated");
     }
+    // Consigue las casillas de un jugador en especifico
+    static getCarSquaresWithNitroFromPlayer(player) {
+        return document.querySelectorAll(`.card-board-${player} .car-nitro-activated`);
+    }
 }
