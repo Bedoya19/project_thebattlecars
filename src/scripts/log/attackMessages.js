@@ -6,7 +6,10 @@ import { StateGame } from "../game/stateGame.js";
 export class AttackMessages {
     // Genera un mensaje corto sobre que X carro ataco a Y carro
     static carAttacks(carAttackerSquare, carAttackedSquare, weaponSquare, charge, attack, previousCarHealth, afterCarHealth) {
-        return `${DisplayCardInformation.convertPlayerString(carAttackerSquare.id.slice(0, 7))} ataca a "${carAttackedSquare.dataset.name}" usando su "${carAttackerSquare.dataset.name}" y el arma "${weaponSquare.dataset.name}" teniendo un ${charge}/6 de carga. El ataque es de ${attack}: (${previousCarHealth} > ${afterCarHealth})`;
+        if (attack !== 0) {
+            return `${DisplayCardInformation.convertPlayerString(carAttackerSquare.id.slice(0, 7))} ataca a "${carAttackedSquare.dataset.name}" usando su "${carAttackerSquare.dataset.name}" y el arma "${weaponSquare.dataset.name}" teniendo un ${charge}/6 de carga. El ataque es de ${attack}: (${previousCarHealth} > ${afterCarHealth})`;
+        }
+        return `${DisplayCardInformation.convertPlayerString(carAttackerSquare.id.slice(0, 7))} intento atacar a "${carAttackedSquare.dataset.name}" usando su "${carAttackerSquare.dataset.name}" y el arma "${weaponSquare.dataset.name}" teniendo un ${charge}/6 de carga. ¡Pero el ataque no le dio! ${carAttackedSquare.dataset.name} queda intacto`;
     }
 
     // Genera lo que le pasa al carro al ser destruido
