@@ -12,6 +12,7 @@ import { PlayerActions } from "../players/playerActions.js";
 import { GameValuesDisplay } from "../display/gameValuesDisplay.js";
 import { Player1 } from "../players/player1.js";
 import { DisplayCardInformation } from "../display/displayCardInformation.js";
+import { Nitro } from "../battle/nitro.js";
 
 // Como lo ha sido siempre en este proyecto, se va a crear una clase
 // En general ha sido asi en todo el proyecto para facilitar la importacion y exportacion de funciones hacia
@@ -51,11 +52,14 @@ export class MainGame {
             await GameNotesDisplay.createCurrentTurnNotes();
         }
         // Genera inmediatamente una carga para el jugador, y actualiza los datos
-        PlayerActions.generateChargeForPlayer(document.getElementById("deck").dataset.player);
+        const newPlayer = document.getElementById("deck").dataset.player;
+        PlayerActions.generateChargeForPlayer(newPlayer);
         GameValuesDisplay.updateAllValues(
-            document.getElementById("deck").dataset.player
+            newPlayer
         );
         DisplayCardInformation.deselectCardInformation(document.getElementById("card-selected-information"));
+        // Le quita duracion a los carros con nitro del jugador
+        Nitro.reduceNitroFromCarsFromPlayer(newPlayer);
     }
 
     // Hace los calculos con el poder con cada accion

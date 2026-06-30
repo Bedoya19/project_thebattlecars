@@ -73,6 +73,7 @@ export class Nitro {
     // Reduce el nitro para todos los carros activados de un jugador
     static reduceNitroFromCarsFromPlayer(player) {
         const carSquaresNitro = this.getCarSquaresWithNitroFromPlayer(player);
+        console.log(carSquaresNitro);
 
         carSquaresNitro.forEach(carSquare => {
             const currentNitro = parseInt(carSquare.dataset.nitro);
@@ -91,6 +92,6 @@ export class Nitro {
     }
     // Consigue las casillas de un jugador en especifico
     static getCarSquaresWithNitroFromPlayer(player) {
-        return document.querySelectorAll(`.card-board-${player} .car-nitro-activated`);
+        return document.querySelectorAll(`.card-board-${player}.car-nitro-activated`);
     }
 }
