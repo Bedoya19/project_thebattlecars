@@ -130,6 +130,8 @@ export class Attack {
             // Le da nitro de recompensa al jugador que destruyo el carro. Actualiza el valor en la ventana de informacion
             await PlayerActions.giveNitroAfterDestroyedCar(currentPlayer);
             GameValuesDisplay.updateNitroValue();
+            // Le quita la estetica a la casilla
+            carSquare.classList.remove("car-nitro-activated");
         }
     }
 

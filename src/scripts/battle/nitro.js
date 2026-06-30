@@ -47,7 +47,7 @@ export class Nitro {
         if (this.isNitroActivate(player, carSquare) && PlayerActions.getPowerFromPlayer(player) >= 1) {
             console.log("Se va a activar el nitro...");
             // Cambia el valor de nitro dentro del DOM, y gasta poder
-            carSquare.dataset.nitro = parseInt(carSquare.dataset.nitroDuration) + 1;
+            carSquare.dataset.nitro = parseInt(carSquare.dataset.nitroDuration);
             PlayerActions.consumePowerForActionInPlayer(player);
             console.log("El nitro sera activado por " + carSquare.dataset.nitroDuration + " turnos");
             // Le quita el nitro al jugador que acaba de activar el nitro
