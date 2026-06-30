@@ -69,4 +69,10 @@ export class Nitro {
     static isNitroActivate(player, carSquare) {
         return PlayerActions.getNitroFromPlayer(player) >= carSquare.dataset.nitroQuantity;
     }
+
+    // Consigue todas las casillas con nitro activado.
+    // Se va a hacer con la clase car-nitro-activated
+    static getAllCarSquaresWithNitro() {
+        return document.querySelectorAll(".car-nitro-activated");
+    }
 }
