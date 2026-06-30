@@ -56,9 +56,14 @@ export class Attack {
         // Valores actuales de carga y ataque
         const attackValue = AttackValues.getAttack();
         const attackIncrease = AttackValues.getAttackIncrease()
-        console.log(attackIncrease);
+        // Valor de aumento de ataque del nitro (no se si se puede hacer de forma mas elegante)
+        const attackNitroIncrease = parseInt(attackingCarSquare.dataset.nitro) !== 0 ? parseInt(attackingCarSquare.dataset.nitroAttack) : 0;
+        console.log(`Nitro activado: ${parseInt(attackingCarSquare.dataset.nitro) !== 0}
+        Aumento de ataque: ${attackNitroIncrease}`); // Prueba rapida
         // Si por el aumento de ataque queda en negativo el ataque, simplemente lo cambia a 0.
-        const attack = ((attackValue + attackIncrease) >= 0) ? attackValue + attackIncrease : 0;
+        // Se pone una variable si vienen otros factores extra
+        const attackPreliminaryValue = attackValue + attackIncrease + attackNitroIncrease;
+        const attack = (attackPreliminaryValue >= 0) ? attackPreliminaryValue : 0;
         console.log(attack);
         const chargeValue = PlayerActions.getChargeFromPlayer(currentPlayer);
 
