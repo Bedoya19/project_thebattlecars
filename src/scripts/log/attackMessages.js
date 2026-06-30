@@ -9,6 +9,7 @@ export class AttackMessages {
         if (attack !== 0) {
             return `${DisplayCardInformation.convertPlayerString(carAttackerSquare.id.slice(0, 7))} ataca a "${carAttackedSquare.dataset.name}" usando su "${carAttackerSquare.dataset.name}" y el arma "${weaponSquare.dataset.name}" teniendo un ${charge}/6 de carga. El ataque es de ${attack}: (${previousCarHealth} > ${afterCarHealth})`;
         }
+        // Si el ataque no logra ser mayor a 0
         return `${DisplayCardInformation.convertPlayerString(carAttackerSquare.id.slice(0, 7))} intento atacar a "${carAttackedSquare.dataset.name}" usando su "${carAttackerSquare.dataset.name}" y el arma "${weaponSquare.dataset.name}" teniendo un ${charge}/6 de carga. ¡Pero el ataque no le dio! ${carAttackedSquare.dataset.name} queda intacto`;
     }
 
