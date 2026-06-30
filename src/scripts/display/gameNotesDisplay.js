@@ -8,6 +8,7 @@ import { MainGame } from "../game/mainGame.js";
 import { StateGame } from "../game/stateGame.js";
 import { LoadConfig } from "../game/loadConfig.js";
 import { AttackMessages } from "../log/attackMessages.js";
+import { NitroMessages } from "../log/nitroMessages.js";
 
 // Importar las funciones del guardado de notas en un lugar establecido.
 import { addNote } from "../log/gameNotesLog.js";
@@ -92,5 +93,10 @@ export class GameNotesDisplay{
         } else {
             this.addTurnNote(AttackMessages.carAttacks(carAttackerSquare, carAttackedSquare, weaponSquare, charge, attack, previousCarHealth, afterCarHealth));
         }
+    }
+
+    // Crea una nota sobre la activacion del nitro
+    static addNitroNote(player, carSquare) {
+        this.addTurnNote(NitroMessages.nitroActivated(player, carSquare));
     }
 }

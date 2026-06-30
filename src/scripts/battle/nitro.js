@@ -6,6 +6,7 @@
 import { StandarizedDocCreation } from "../display/standardDoc/standarizedDocCreation.js";
 import { PlayerActions } from "../players/playerActions.js";
 import { GameValuesDisplay } from "../display/gameValuesDisplay.js";
+import { GameNotesDisplay } from "../display/gameNotesDisplay.js";
 
 export class Nitro {
     // Agrega el boton de activar nitro
@@ -54,6 +55,8 @@ export class Nitro {
             // Actualiza los valores en pantalla
             GameValuesDisplay.updateNitroValue();
             GameValuesDisplay.updatePowerValue();
+            // Agrega lo que acaba de pasar en las notas
+            GameNotesDisplay.addNitroNote(player, carSquare);
             // Agrega la clase de estilo de nitro
             carSquare.classList.add("car-nitro-activated");
             //console.log(carSquare.dataset.nitro);

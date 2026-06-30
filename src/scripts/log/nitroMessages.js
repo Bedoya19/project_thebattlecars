@@ -4,6 +4,6 @@ import { DisplayCardInformation } from "../display/displayCardInformation.js";
 
 export class NitroMessages {
     static nitroActivated(player, carSquare) {
-        return `${DisplayCardInformation.convertPlayerString(player)} activó el nitro de "${carSquare.dataset.name}"! Ahora tiene +${carSquare.dataset.nitroAttack} de ataque y reduce en ${carSquare.dataset.nitroResistance} el daño que reciba en cualquier ataque. Mucho ojo!`;
+        return `${DisplayCardInformation.convertPlayerString(player)} activó el nitro de "${carSquare.dataset.name}"! Ahora tiene +${carSquare.dataset.nitroAttack} de ataque y reduce ${carSquare.dataset.nitroResistance} de daño que reciba en cualquier ataque. Mucho ojo!`;
     }
 }
