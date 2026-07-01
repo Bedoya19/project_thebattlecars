@@ -11,6 +11,7 @@ import { Player2 } from "./player2.js";
 
 import { DisplayCardsInDeck } from "../display/deckDisplay.js";
 import { GameValuesDisplay } from "../display/gameValuesDisplay.js";
+import { GameNotesDisplay } from "../display/gameNotesDisplay.js";
 
 // Clase que va a hacer todo
 export class PlayerActions {
@@ -112,6 +113,7 @@ export class PlayerActions {
                     this.addWeaponToPlayerDeck(player, weaponRandomCard);
                     this.consumePowerForActionInPlayer(player);
                     GameValuesDisplay.updatePowerValue();
+                    GameNotesDisplay.addDrawWeaponCard(player);
 
                     // Actualiza el deck
                     const currentDeck = document.getElementById("deck-icon-current").dataset.deck;

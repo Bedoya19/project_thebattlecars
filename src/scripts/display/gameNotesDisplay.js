@@ -99,4 +99,9 @@ export class GameNotesDisplay{
     static addNitroNote(player, carSquare) {
         this.addTurnNote(NitroMessages.nitroActivated(player, carSquare));
     }
+
+    // Nota sobre carta de arma sacada
+    static addDrawWeaponCard(player) {
+        this.addTurnNote(`${DisplayCardInformation.convertPlayerString(player)} saco una carta de arma de su pila`);
+    }
 }
