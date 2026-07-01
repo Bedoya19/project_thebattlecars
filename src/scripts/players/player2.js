@@ -16,7 +16,8 @@ export class Player2 {
         "cars": [carCard, carCard, carCard, carCard, carCard],
         "weapons": [weaponCard, weaponCard, weaponCard, weaponCard, weaponCard, weaponCard, weaponCard],
         "weapons_storage": [weaponCard, weaponCard, weaponCard, weaponCard, weaponCard, weaponCard, weaponCard],
-        "materials": [materialCard, materialCard, materialCard]
+        "materials": [materialCard, materialCard, materialCard],
+        "materials_storage": [materialCard, materialCard, materialCard]
     }
     static #nitro = 0;
     static #power = 1;
