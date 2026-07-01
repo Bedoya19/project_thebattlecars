@@ -11,6 +11,8 @@ import { CarCard } from "../models/cards/CarCard.js";
 import { WeaponCard } from "../models/cards/WeaponCard.js";
 import { MaterialCard } from "../models/cards/MaterialCard.js";
 
+import { DisplayCardsInDeck } from "../display/deckDisplay.js";
+
 import { StateGame } from "../game/stateGame.js";
 import { LoadConfig } from "../game/loadConfig.js";
 
@@ -21,7 +23,8 @@ const materialCard = await MaterialCard.loadMaterialObjectFromJSON("category1", 
 export class Player1 {
     static #decks = {
         "cars": [carCard, carCard, carCard, carCard, carCard],
-        "weapons": [weaponCard, weaponCard, weaponCard, weaponCard, weaponCard, weaponCard, weaponCard],
+        //"weapons": [weaponCard, weaponCard, weaponCard, weaponCard, weaponCard, weaponCard, weaponCard],
+        "weapons": [],
         // Este atributo de bodega esta hecho para ciertas comparaciones con las cartas para evitar perderlas al ponerlas en el tablero. Por ahora, solo es usado para devolverle algunas cartas necesarias al jugador
         "weapons_pile": [weaponCard, weaponCard, weaponCard, weaponCard, weaponCard, weaponCard, weaponCard],
         "weapons_storage": [weaponCard, weaponCard, weaponCard, weaponCard, weaponCard, weaponCard, weaponCard],
@@ -125,6 +128,7 @@ export class Player1 {
     // Preparar este codigo para la agregacion de cartas
     // (Se asume que el objeto es un arma)
     // (Tambien, si se van a agregar varias cartas, un for loop sale)
+    // ((Aunque podria devolverselo a la pila, por ahora se devuelve al deck como tal))
     static addWeaponToDeck(weaponCard) {
         this.#decks["weapons"].push(weaponCard);
     }
@@ -135,10 +139,30 @@ export class Player1 {
         return this.getWeaponsStorage().find(weapon => weapon.name === weaponName);
     }
 
-    // Saca una arma aleatoria de la pila del mazo
+    // Saca una arma aleatoria de la pila del mazo, y se agrega al deck en pantalla
     static getRandomWeaponFromPile() {
-        const weaponsPile = this.getWeaponsPile();
-        const randomWeapon = weaponsPile[Math.floor(Math.random() * weaponsPile.length)];
-        return randomWeapon;
+        try {
+            const weaponsPile = this.#decks["weapons_pile"];
+            const weaponsPileIndex = Math.floor(Math.random() * weaponsPile.length);
+            const randomWeapon = weaponsPile[weaponsPileIndex];
+            // Elimina la carta de la pila. Se espera
+            this.#decks["weapons_pile"].splice(weaponsPileIndex, 1);
+            this.addWeaponToDeck(randomWeapon);
+
+            // Actualiza el deck
+            const currentDeck = document.getElementById("deck-icon-current").dataset.deck;
+            if (currentDeck === "weapons") {
+                const deckCards = document.getElementById("deck-cards");
+                const cardInformation = document.getElementById("card-selected-information");
+                deckCards.innerHTML = "";
+                DisplayCardsInDeck.showDeckOfCards(deckCards, this.#decks["weapons"], cardInformation);
+            }
+            
+            //return randomWeapon;
+        } catch (e) {
+            // Muy probablemente se acabaron las cartas en la pila.
+            console.log("Se acabaron las cartas de arma!");
+        }
+        
     }
 }
