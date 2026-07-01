@@ -38,7 +38,7 @@ export class MainGame {
 
     // Sigue para la siguiente ronda o turno
     static async goToNextRound() {
-        // Anterior jugador, esto es para el nitro
+        // Anterior jugador, esto es para el nitro (un cambio de balanceo)
         const oldPlayer = document.getElementById("deck").dataset.player;
         Nitro.reduceNitroFromCarsFromPlayer(oldPlayer);
         // Cambia de jugadores
