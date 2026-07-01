@@ -101,22 +101,25 @@ export class PlayerActions {
     }
 
     static getRandomWeaponFromPlayerPile(player) {
-        const currentDeck = document.getElementById("deck-icon-current").dataset.deck;
-        if (currentDeck === "weapons") {
-            //return (player === "player1") ? Player1.getRandomWeaponFromPile() : Player2.getRandomWeaponFromPile();
-            const weaponRandomCard = (player === "player1") ? Player1.getRandomWeaponFromPile() : Player2.getRandomWeaponFromPile();
-
-            //console.log(weaponRandomCard);
-            this.addWeaponToPlayerDeck(player, weaponRandomCard);
-
-            // Actualiza el deck
+        try {
             const currentDeck = document.getElementById("deck-icon-current").dataset.deck;
             if (currentDeck === "weapons") {
-                const deckCards = document.getElementById("deck-cards");
-                const cardInformation = document.getElementById("card-selected-information");
-                deckCards.innerHTML = "";
-                DisplayCardsInDeck.showDeckOfCards(deckCards, this.getWeaponsFromPlayer(player), cardInformation);
+                //return (player === "player1") ? Player1.getRandomWeaponFromPile() : Player2.getRandomWeaponFromPile();
+                const weaponRandomCard = (player === "player1") ? Player1.getRandomWeaponFromPile() : Player2.getRandomWeaponFromPile();
+                //console.log(weaponRandomCard);
+                this.addWeaponToPlayerDeck(player, weaponRandomCard);
+
+                // Actualiza el deck
+                const currentDeck = document.getElementById("deck-icon-current").dataset.deck;
+                if (currentDeck === "weapons") {
+                    const deckCards = document.getElementById("deck-cards");
+                    const cardInformation = document.getElementById("card-selected-information");
+                    deckCards.innerHTML = "";
+                    DisplayCardsInDeck.showDeckOfCards(deckCards, this.getWeaponsFromPlayer(player), cardInformation);
+                }
             }
+        } catch (e) {
+            console.log("Ya no hay cartas disponibles!");
         }
     }
 }

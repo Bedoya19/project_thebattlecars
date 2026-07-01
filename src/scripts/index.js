@@ -121,8 +121,7 @@ GameValuesDisplay.updateAllValues("player1");
 function getWeaponFromPile() {
     const player = document.getElementById("deck").dataset.player;
 
-    const card = PlayerActions.getRandomWeaponFromPlayerPile(player);
-    console.log(card);
+    PlayerActions.getRandomWeaponFromPlayerPile(player);
 }
 addCardButton.addEventListener("click", () => {
     getWeaponFromPile();

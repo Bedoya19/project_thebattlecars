@@ -16,6 +16,7 @@ export class Player2 {
         "cars": [carCard, carCard, carCard, carCard, carCard],
         //"weapons": [weaponCard, weaponCard, weaponCard, weaponCard, weaponCard, weaponCard, weaponCard],
         "weapons": [],
+        "weapons_pile": [weaponCard, weaponCard, weaponCard, weaponCard, weaponCard, weaponCard, weaponCard],
         "weapons_storage": [weaponCard, weaponCard, weaponCard, weaponCard, weaponCard, weaponCard, weaponCard],
         "materials": [materialCard, materialCard, materialCard],
         "materials_storage": [materialCard, materialCard, materialCard]
@@ -124,31 +125,7 @@ export class Player2 {
     }
 
     // Saca una arma aleatoria de la pila del mazo, y se agrega al deck en pantalla
-    // Saca una arma aleatoria de la pila del mazo, y se agrega al deck en pantalla
     static getRandomWeaponFromPile() {
-        /* try {
-            const weaponsPile = this.#decks["weapons_pile"];
-            const weaponsPileIndex = Math.floor(Math.random() * weaponsPile.length);
-            const randomWeapon = weaponsPile[weaponsPileIndex];
-            // Elimina la carta de la pila. Se espera
-            this.#decks["weapons_pile"].splice(weaponsPileIndex, 1);
-            this.addWeaponToDeck(randomWeapon);
-
-            // Actualiza el deck
-            const currentDeck = document.getElementById("deck-icon-current").dataset.deck;
-            if (currentDeck === "weapons") {
-                const deckCards = document.getElementById("deck-cards");
-                const cardInformation = document.getElementById("card-selected-information");
-                deckCards.innerHTML = "";
-                DisplayCardsInDeck.showDeckOfCards(deckCards, this.#decks["weapons"], cardInformation);
-            }
-            
-            //return randomWeapon;
-        } catch (e) {
-            // Muy probablemente se acabaron las cartas en la pila.
-            console.log("Se acabaron las cartas de arma!");
-        }
-     */
         const weaponsPile = this.#decks["weapons_pile"];
         const weaponsPileIndex = Math.floor(Math.random() * weaponsPile.length);
         const randomWeapon = weaponsPile[weaponsPileIndex];
