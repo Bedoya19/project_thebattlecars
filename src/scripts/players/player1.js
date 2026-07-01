@@ -23,8 +23,10 @@ export class Player1 {
         "cars": [carCard, carCard, carCard, carCard, carCard],
         "weapons": [weaponCard, weaponCard, weaponCard, weaponCard, weaponCard, weaponCard, weaponCard],
         // Este atributo de bodega esta hecho para ciertas comparaciones con las cartas para evitar perderlas al ponerlas en el tablero. Por ahora, solo es usado para devolverle algunas cartas necesarias al jugador
+        // No se si agregar una variable mas con como el inventario de las cartas de arma...
         "weapons_storage": [weaponCard, weaponCard, weaponCard, weaponCard, weaponCard, weaponCard, weaponCard],
-        "materials": [materialCard, materialCard, materialCard]
+        "materials": [materialCard, materialCard, materialCard],
+        "materials_storage": [materialCard, materialCard, materialCard]
     };
     static #nitro = 0;
     static #power = 1;
