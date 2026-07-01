@@ -9,6 +9,8 @@ mazo
 import { Player1 } from "./player1.js";
 import { Player2 } from "./player2.js";
 
+import { DisplayCardsInDeck } from "../display/deckDisplay.js";
+
 // Clase que va a hacer todo
 export class PlayerActions {
     // Consigue un deck en especifico dependiendo del jugador
@@ -94,7 +96,27 @@ export class PlayerActions {
         (player === "player1") ? Player1.removeNitro(nitroToRemove) : Player2.removeNitro(nitroToRemove);
     }
 
+    static getWeaponsFromPlayer(player) {
+        return (player === "player1") ? Player1.getWeapons() : Player2.getWeapons();
+    }
+
     static getRandomWeaponFromPlayerPile(player) {
-        return (player === "player1") ? Player1.getRandomWeaponFromPile() : Player2.getRandomWeaponFromPile();
+        const currentDeck = document.getElementById("deck-icon-current").dataset.deck;
+        if (currentDeck === "weapons") {
+            //return (player === "player1") ? Player1.getRandomWeaponFromPile() : Player2.getRandomWeaponFromPile();
+            const weaponRandomCard = (player === "player1") ? Player1.getRandomWeaponFromPile() : Player2.getRandomWeaponFromPile();
+
+            //console.log(weaponRandomCard);
+            this.addWeaponToPlayerDeck(player, weaponRandomCard);
+
+            // Actualiza el deck
+            const currentDeck = document.getElementById("deck-icon-current").dataset.deck;
+            if (currentDeck === "weapons") {
+                const deckCards = document.getElementById("deck-cards");
+                const cardInformation = document.getElementById("card-selected-information");
+                deckCards.innerHTML = "";
+                DisplayCardsInDeck.showDeckOfCards(deckCards, this.getWeaponsFromPlayer(player), cardInformation);
+            }
+        }
     }
 }

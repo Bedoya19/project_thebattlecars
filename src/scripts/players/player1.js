@@ -141,7 +141,7 @@ export class Player1 {
 
     // Saca una arma aleatoria de la pila del mazo, y se agrega al deck en pantalla
     static getRandomWeaponFromPile() {
-        try {
+        /* try {
             const weaponsPile = this.#decks["weapons_pile"];
             const weaponsPileIndex = Math.floor(Math.random() * weaponsPile.length);
             const randomWeapon = weaponsPile[weaponsPileIndex];
@@ -163,6 +163,13 @@ export class Player1 {
             // Muy probablemente se acabaron las cartas en la pila.
             console.log("Se acabaron las cartas de arma!");
         }
-        
+     */
+        const weaponsPile = this.#decks["weapons_pile"];
+        const weaponsPileIndex = Math.floor(Math.random() * weaponsPile.length);
+        const randomWeapon = weaponsPile[weaponsPileIndex];
+        // Elimina la carta de la pila. Se espera
+        this.#decks["weapons_pile"].splice(weaponsPileIndex, 1);
+        //this.addWeaponToDeck(randomWeapon);
+        return randomWeapon;
     }
 }
