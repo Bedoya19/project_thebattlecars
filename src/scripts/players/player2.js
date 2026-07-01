@@ -124,14 +124,20 @@ export class Player2 {
         return this.getWeaponsStorage().find(weapon => weapon.name === weaponName);
     }
 
+    // Saca una carta de manera aletoria de la pila
+    // ESTAS FUNCIONES LA ELIMINAN DE LA PILA
+    static getRandomCardFromPile(deck) {
+        const pile = this.#decks[deck];
+        const pileIndex = Math.floor(Math.random() * pile.length);
+        const randomCard = pile[pileIndex];
+        // Elimina la carta de la pila. Se espera que se agregue a algun otro lado despues
+        this.#decks[deck].splice(pileIndex, 1);
+        //this.addWeaponToDeck(randomWeapon);
+        return randomCard;
+    }
+
     // Saca una arma aleatoria de la pila del mazo, y se agrega al deck en pantalla
     static getRandomWeaponFromPile() {
-        const weaponsPile = this.#decks["weapons_pile"];
-        const weaponsPileIndex = Math.floor(Math.random() * weaponsPile.length);
-        const randomWeapon = weaponsPile[weaponsPileIndex];
-        // Elimina la carta de la pila. Se espera
-        this.#decks["weapons_pile"].splice(weaponsPileIndex, 1);
-        //this.addWeaponToDeck(randomWeapon);
-        return randomWeapon;
+        return this.getRandomCardFromPile("weapons_pile");
     }
 }
