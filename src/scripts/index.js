@@ -44,6 +44,7 @@ const weaponSquares = document.getElementsByClassName("card-board-weapon");
 // Botones del juego
 const deselectButton = document.getElementById("deselect-button");
 const nextRoundButton = document.getElementById("next-round-button");
+const addCardButton = document.getElementById("button-add-card-to-deck");
 console.log(cardInformation);
 
 // Imagenes default del deck
@@ -117,6 +118,15 @@ PlayerActions.generateChargeForPlayer("player1");
 GameInformationDisplay.updateAllInformation();
 GameValuesDisplay.updateAllValues("player1");
 
+function getWeaponFromPile() {
+    const player = document.getElementById("deck").dataset.player;
+
+    const card = PlayerActions.getRandomWeaponFromPlayerPile(player);
+    console.log(card);
+}
+addCardButton.addEventListener("click", () => {
+    getWeaponFromPile();
+})
 
 //console.log(Player1.getCars());
 //console.log(Player1.deleteFromDeck("cars", 1));

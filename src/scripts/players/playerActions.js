@@ -93,4 +93,8 @@ export class PlayerActions {
         const nitroToRemove = carSquare.dataset.nitroQuantity;
         (player === "player1") ? Player1.removeNitro(nitroToRemove) : Player2.removeNitro(nitroToRemove);
     }
+
+    static getRandomWeaponFromPlayerPile(player) {
+        return (player === "player1") ? Player1.getRandomWeaponFromPile() : Player2.getRandomWeaponFromPile();
+    }
 }

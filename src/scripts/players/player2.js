@@ -43,6 +43,10 @@ export class Player2 {
         return this.#decks["weapons_storage"];
     }
 
+    static getWeaponsPile() {
+        return this.#decks["weapons_pile"]
+    }
+
     static deleteFromDeck(deck, index) {
         this.#decks[deck].splice(index, 1);
     }
@@ -116,5 +120,11 @@ export class Player2 {
 
     static getWeaponFromStorage(weaponName) {
         return this.getWeaponsStorage().find(weapon => weapon.name === weaponName);
+    }
+
+    // Saca una arma aleatoria de la pila del mazo
+    static getRandomWeaponFromPile(weaponName) {
+        const weaponsPile = this.getRandomWeaponFromPile();
+        return weaponsPile[Math.random() * (weaponsPile.length - 0) + 0];
     }
 }

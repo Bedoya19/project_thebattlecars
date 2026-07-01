@@ -23,7 +23,7 @@ export class Player1 {
         "cars": [carCard, carCard, carCard, carCard, carCard],
         "weapons": [weaponCard, weaponCard, weaponCard, weaponCard, weaponCard, weaponCard, weaponCard],
         // Este atributo de bodega esta hecho para ciertas comparaciones con las cartas para evitar perderlas al ponerlas en el tablero. Por ahora, solo es usado para devolverle algunas cartas necesarias al jugador
-        // No se si agregar una variable mas con como el inventario de las cartas de arma...
+        "weapons_pile": [weaponCard, weaponCard, weaponCard, weaponCard, weaponCard, weaponCard, weaponCard],
         "weapons_storage": [weaponCard, weaponCard, weaponCard, weaponCard, weaponCard, weaponCard, weaponCard],
         "materials": [materialCard, materialCard, materialCard],
         "materials_storage": [materialCard, materialCard, materialCard]
@@ -67,6 +67,10 @@ export class Player1 {
     // Getter para la bodega de armas
     static getWeaponsStorage() {
         return this.#decks["weapons_storage"];
+    }
+
+    static getWeaponsPile() {
+        return this.#decks["weapons_pile"]
     }
 
     // Metodos de modificacion de poder
@@ -129,5 +133,12 @@ export class Player1 {
     // Esta funcion es para regresarle el arma cuando el carro sea destruido
     static getWeaponFromStorage(weaponName) {
         return this.getWeaponsStorage().find(weapon => weapon.name === weaponName);
+    }
+
+    // Saca una arma aleatoria de la pila del mazo
+    static getRandomWeaponFromPile() {
+        const weaponsPile = this.getWeaponsPile();
+        const randomWeapon = weaponsPile[Math.floor(Math.random() * weaponsPile.length)];
+        return randomWeapon;
     }
 }
