@@ -10,6 +10,7 @@ import { Player1 } from "./player1.js";
 import { Player2 } from "./player2.js";
 
 import { DisplayCardsInDeck } from "../display/deckDisplay.js";
+import { GameValuesDisplay } from "../display/gameValuesDisplay.js";
 
 // Clase que va a hacer todo
 export class PlayerActions {
@@ -101,25 +102,32 @@ export class PlayerActions {
     }
 
     static getRandomWeaponFromPlayerPile(player) {
-        try {
-            const currentDeck = document.getElementById("deck-icon-current").dataset.deck;
-            if (currentDeck === "weapons") {
-                //return (player === "player1") ? Player1.getRandomWeaponFromPile() : Player2.getRandomWeaponFromPile();
-                const weaponRandomCard = (player === "player1") ? Player1.getRandomWeaponFromPile() : Player2.getRandomWeaponFromPile();
-                //console.log(weaponRandomCard);
-                this.addWeaponToPlayerDeck(player, weaponRandomCard);
-
-                // Actualiza el deck
+        if (this.getPowerFromPlayer(player) > 0) {
+            try {
                 const currentDeck = document.getElementById("deck-icon-current").dataset.deck;
                 if (currentDeck === "weapons") {
-                    const deckCards = document.getElementById("deck-cards");
-                    const cardInformation = document.getElementById("card-selected-information");
-                    deckCards.innerHTML = "";
-                    DisplayCardsInDeck.showDeckOfCards(deckCards, this.getWeaponsFromPlayer(player), cardInformation);
+                    //return (player === "player1") ? Player1.getRandomWeaponFromPile() : Player2.getRandomWeaponFromPile();
+                    const weaponRandomCard = (player === "player1") ? Player1.getRandomWeaponFromPile() : Player2.getRandomWeaponFromPile();
+                    //console.log(weaponRandomCard);
+                    this.addWeaponToPlayerDeck(player, weaponRandomCard);
+                    this.consumePowerForActionInPlayer(player);
+                    GameValuesDisplay.updatePowerValue();
+
+                    // Actualiza el deck
+                    const currentDeck = document.getElementById("deck-icon-current").dataset.deck;
+                    if (currentDeck === "weapons") {
+                        const deckCards = document.getElementById("deck-cards");
+                        const cardInformation = document.getElementById("card-selected-information");
+                        deckCards.innerHTML = "";
+                        DisplayCardsInDeck.showDeckOfCards(deckCards, this.getWeaponsFromPlayer(player), cardInformation);
+                    }
                 }
+            } catch (e) {
+                console.log("Ya no hay cartas disponibles!");
             }
-        } catch (e) {
-            console.log("Ya no hay cartas disponibles!");
+        } else {
+            console.log("Ya no hay poder suficiente para el poder!");
         }
+        
     }
 }
