@@ -544,6 +544,19 @@ img.image-board {
     z-index: 10;
     animation: nitro-pulse 1s ease-in-out infinite;
 }
+#button-add-card-to-deck {
+    height: var(--tamaño-cartas-deck);
+    margin-left: 3px;
+    padding-left: 5px;
+    padding-right: 5px;
+
+    border-radius: 4px;
+    border: 2.6px solid rgb(83, 83, 83);
+    background-color: rgb(36, 36, 36);
+    color: rgb(173, 173, 173);
+    font-family: "Lexend", sans-serif;
+    font-size: 1.2em;
+}
 
 @keyframes nitro-pulse {
     0%, 100% { box-shadow: 0 0 10px 5px #1584d3; }
