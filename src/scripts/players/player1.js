@@ -133,6 +133,9 @@ export class Player1 {
     static addWeaponToDeck(weaponCard) {
         this.#decks["weapons"].push(weaponCard);
     }
+    static addMaterialToDeck(materialCard) {
+        this.#decks["materials"].push(materialCard);
+    }
 
     // Saca la informacion de una carta de arma de la bodega sacandola del nombre
     // Esta funcion es para regresarle el arma cuando el carro sea destruido
@@ -152,8 +155,12 @@ export class Player1 {
         return randomCard;
     }
 
-    // Saca una arma aleatoria de la pila del mazo, y se agrega al deck en pantalla
     static getRandomWeaponFromPile() {
         return this.getRandomCardFromPile("weapons_pile");
+    }
+
+    // Saca una carta de material de la pila
+    static getRandomMaterialFromPile() {
+        return this.getRandomCardFromPile("materials_pile");
     }
 }

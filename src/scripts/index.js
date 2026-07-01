@@ -118,13 +118,8 @@ PlayerActions.generateChargeForPlayer("player1");
 GameInformationDisplay.updateAllInformation();
 GameValuesDisplay.updateAllValues("player1");
 
-function getWeaponFromPile() {
-    const player = document.getElementById("deck").dataset.player;
-
-    PlayerActions.getRandomWeaponFromPlayerPile(player);
-}
 addCardButton.addEventListener("click", () => {
-    getWeaponFromPile();
+    PlayerActions.getCardFromPile();
 })
 
 //console.log(Player1.getCars());

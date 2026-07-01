@@ -85,6 +85,10 @@ export class PlayerActions {
         (player === "player1") ? Player1.addWeaponToDeck(weaponCard) : Player2.addWeaponToDeck(weaponCard);
     }
 
+    static addMaterialToPlayerDeck(player, materialCard) {
+        (player === "player1") ? Player1.addMaterialToDeck(materialCard) : Player2.addMaterialToDeck(materialCard);
+    }
+
     static getWeaponFromStorageFromPlayer(player, weaponName) {
         return (player === "player1") ? Player1.getWeaponFromStorage(weaponName) : Player1.getWeaponFromStorage(weaponName);
     }
@@ -102,34 +106,66 @@ export class PlayerActions {
         return (player === "player1") ? Player1.getWeapons() : Player2.getWeapons();
     }
 
-    static getRandomWeaponFromPlayerPile(player) {
+    // Agrega una carta a un deck en especifico
+    static addCardToPlayerDeck(player, cardType, card) {
+        // Se puede agregar otros decks
+        switch (cardType) {
+            case "weapons":
+                this.addWeaponToPlayerDeck(player, card);
+                break;
+            case "materials":
+                console.log("Materiales");
+                console.log(card);
+                this.addMaterialToPlayerDeck(player, card);
+                break;
+        }
+    }
+
+    static getRandomCardFromPlayerPile(player, cardType) {
         if (this.getPowerFromPlayer(player) > 0) {
             try {
                 const currentDeck = document.getElementById("deck-icon-current").dataset.deck;
-                if (currentDeck === "weapons") {
-                    //return (player === "player1") ? Player1.getRandomWeaponFromPile() : Player2.getRandomWeaponFromPile();
-                    const weaponRandomCard = (player === "player1") ? Player1.getRandomWeaponFromPile() : Player2.getRandomWeaponFromPile();
-                    //console.log(weaponRandomCard);
-                    this.addWeaponToPlayerDeck(player, weaponRandomCard);
+                if (currentDeck === cardType) {
+                    console.log(cardType);
+                    const randomCard = (player === "player1") 
+                        ? Player1.getRandomCardFromPile(`${cardType}_pile`) 
+                        : Player2.getRandomCardFromPile(`${cardType}_pile`);
+                    //console.log(randomCard);
+                    
+                    this.addCardToPlayerDeck(player, cardType, randomCard);
                     this.consumePowerForActionInPlayer(player);
                     GameValuesDisplay.updatePowerValue();
-                    GameNotesDisplay.addDrawWeaponCard(player);
+                    GameNotesDisplay.addDrawCard(player, cardType);
 
-                    // Actualiza el deck
-                    const currentDeck = document.getElementById("deck-icon-current").dataset.deck;
-                    if (currentDeck === "weapons") {
-                        const deckCards = document.getElementById("deck-cards");
-                        const cardInformation = document.getElementById("card-selected-information");
-                        deckCards.innerHTML = "";
-                        DisplayCardsInDeck.showDeckOfCards(deckCards, this.getWeaponsFromPlayer(player), cardInformation);
-                    }
+                    const deckCards = document.getElementById("deck-cards");
+                    const cardInformation = document.getElementById("card-selected-information");
+                    deckCards.innerHTML = "";
+                    DisplayCardsInDeck.showDeckOfCards(deckCards, this.getDeckFromPlayer(player, cardType), cardInformation);
                 }
             } catch (e) {
-                console.log("Ya no hay cartas disponibles!");
+                console.log(e);
+                console.log(`Ya no hay cartas de ${cardType} disponibles!`);
             }
         } else {
-            console.log("Ya no hay poder suficiente para el poder!");
+            console.log("No hay poder suficiente!");
         }
-        
+    }
+
+    // Funcionalidad al boton de agregar cartas al deck en pantalla
+    static getCardFromPile() {
+        const player = document.getElementById("deck").dataset.player;
+        const currentDeck = document.getElementById("deck-icon-current").dataset.deck;
+
+        switch (currentDeck) {
+            case "weapons":
+                PlayerActions.getRandomCardFromPlayerPile(player, "weapons");
+                break;
+            case "materials":
+                PlayerActions.getRandomCardFromPlayerPile(player, "materials");
+            default:
+                console.log("No se puede sacar cartas de este mazo!");
+
+        }
+        //PlayerActions.getRandomWeaponFromPlayerPile(player);
     }
 }

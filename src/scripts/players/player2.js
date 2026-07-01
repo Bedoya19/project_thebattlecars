@@ -18,7 +18,8 @@ export class Player2 {
         "weapons": [],
         "weapons_pile": [weaponCard, weaponCard, weaponCard, weaponCard, weaponCard, weaponCard, weaponCard],
         "weapons_storage": [weaponCard, weaponCard, weaponCard, weaponCard, weaponCard, weaponCard, weaponCard],
-        "materials": [materialCard, materialCard, materialCard],
+        "materials": [],
+        "materials_pile": [materialCard, materialCard, materialCard], 
         "materials_storage": [materialCard, materialCard, materialCard]
     }
     static #nitro = 0;
@@ -119,6 +120,10 @@ export class Player2 {
     static addWeaponToDeck(weaponCard) {
         this.#decks["weapons"].push(weaponCard);
     }
+    
+    static addMaterialToDeck(materialCard) {
+        this.#decks["materials"].push(materialCard);
+    }
 
     static getWeaponFromStorage(weaponName) {
         return this.getWeaponsStorage().find(weapon => weapon.name === weaponName);
@@ -130,14 +135,19 @@ export class Player2 {
         const pile = this.#decks[deck];
         const pileIndex = Math.floor(Math.random() * pile.length);
         const randomCard = pile[pileIndex];
+        console.log(randomCard);
         // Elimina la carta de la pila. Se espera que se agregue a algun otro lado despues
         this.#decks[deck].splice(pileIndex, 1);
         //this.addWeaponToDeck(randomWeapon);
         return randomCard;
     }
 
-    // Saca una arma aleatoria de la pila del mazo, y se agrega al deck en pantalla
     static getRandomWeaponFromPile() {
         return this.getRandomCardFromPile("weapons_pile");
+    }
+
+    // Saca una carta de material de la pila
+    static getRandomMaterialFromPile() {
+        return this.getRandomCardFromPile("materials_pile");
     }
 }

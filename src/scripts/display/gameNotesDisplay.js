@@ -101,7 +101,8 @@ export class GameNotesDisplay{
     }
 
     // Nota sobre carta de arma sacada
-    static addDrawWeaponCard(player) {
-        this.addTurnNote(`${DisplayCardInformation.convertPlayerString(player)} saco una carta de arma de su pila`);
+    static addDrawCard(player, cardType) {
+        // Me da pereza por ahora traducir al español weapons y materials...
+        this.addTurnNote(`${DisplayCardInformation.convertPlayerString(player)} saco una carta de ${cardType} de su pila`);
     }
 }
