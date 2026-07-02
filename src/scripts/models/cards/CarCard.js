@@ -2,6 +2,7 @@ import { Category } from "../constants/enums.js";
 import { TypeCard } from "../constants/enums.js";
 import { Card } from "./Card.js";
 import { DataConversor } from "../constants/enums.js";
+import { LoadCardsJSON } from "./loadCardsJSON.js";
 
 export class CarCard extends Card{
     static #nextId = 1;
@@ -31,12 +32,15 @@ export class CarCard extends Card{
             this.image
         );
     }
-    static async loadCarDataFromJSON(category, index) {
+    // Funcion para cargar el JSON de todos los carros por igual
+    /*
+    static async loadCarsDataFromJSON() {
         const res = await fetch("src/scripts/cardsData/cars.json");
         if (!res.ok) throw new Error(`HTTP Error ${res.status}`);
-
-        const data = await res.json();
-        //console.log(data["category1"]);
+        return await res.json();
+    }*/
+    static async loadCarDataFromJSON(category, index) {
+        const data = await LoadCardsJSON.loadCarsFromJSON();
         const car = data?.[category]?.[index];
 
         if (!car) throw new Error(`No existe carro en categoria ${category} con index ${index} en la base de datos`);

@@ -242,6 +242,13 @@ body {
     font-style: normal;
     font-size: 80%;
 }
+.deck-additional-information {
+    font-family: "Lexend", sans-serif;
+    font-style: normal;
+    color: #303030;
+    padding-left: 10px;
+}
+
 #game-stats > hr {
     margin-top: 10px;
     margin-bottom: 10px;
@@ -287,6 +294,27 @@ body {
     margin-right: 3px;
 }
 
+.temporal-message-text {
+    position: absolute;
+    color: #da2316;
+    font-family: "Lexend", sans-serif;
+    font-size: 1.2em;
+    z-index: 100;
+}
+.text-message-slide {
+    animation: slideUp 3s ease-in;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(0);
+    opacity: 100%;
+  }
+  to {
+    transform: translateY(-50px);
+    opacity: 0%;
+  }
+}
 
 @media (max-width: 1200px) {
     #card-selected-information {
@@ -360,4 +388,212 @@ img.image-board {
 }
 .turn-note {
     list-style-position: inside;
+}
+
+#see-notes-button {
+    width: 100%;
+    border: 2px solid #adadad;
+    background-color: #000000;
+    color: #d2d2d2;
+    margin-bottom: 5px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+#see-notes-button:hover {
+    background-color: #555555
+}
+#see-notes-button:active {
+    background-color: #b1b1b1;
+}
+
+#dialog-gamenotes {
+    border: none;
+    padding: 0;
+    background-color: transparent;
+    max-width: 600px;
+    width: 90%;
+    max-height: 80vh;
+    margin: auto;
+    
+    animation: dialogAppear 0.25s ease-out;
+}
+
+#dialog-gamenotes::backdrop {
+    background-color: rgba(0, 0, 0, 0.75);
+    animation: backdropFade 0.25s ease-out;
+}
+
+.dialog-gamenotes-content {
+    background-color: var(--borde-juego-estadisticas);
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Cabecera del dialog */
+.dialog-gamenotes-header {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 12px;
+    background-color: #191919;
+    align-items: center;
+}
+
+.dialog-gamenotes-header > h1 {
+    font-family: "Lexend", sans-serif;
+    color: var(--borde-juego-estadisticas);
+}
+
+/* Botón de cerrar (×) */
+.dialog-gamenotes-header button {
+    background-color: transparent;
+    border: 2px solid var(--borde-juego-estadisticas);
+    color: var(--borde-juego-estadisticas);
+    font-size: 1.1rem;
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+}
+
+.dialog-gamenotes-header button:hover {
+    background-color: #555555;
+}
+
+.dialog-gamenotes-header button:active {
+    background-color: var(--borde-juego-estadisticas);
+    color: #000000;
+}
+
+.dialog-gamenotes-body {
+    padding: 20px;
+    max-height: 60vh;
+    overflow-y: auto;
+    font-family: "Lexend", sans-serif;
+    color: #242424
+}
+
+.dialog-gamenotes-body::-webkit-scrollbar {
+    width: 8px;
+}
+
+.dialog-gamenotes-body::-webkit-scrollbar-track {
+    background: var(--fondo-deck);
+}
+
+.dialog-gamenotes-body::-webkit-scrollbar-thumb {
+    background: var(--color-baras-deck);
+    border-radius: 4px;
+}
+
+.dialog-gamenotes-body::-webkit-scrollbar-thumb:hover {
+    background: var(--borde-juego-estadisticas);
+}
+
+.attack-button {
+    background-color: var(--fondo-juego-estadisticas);
+    border: 2px solid var(--texto-carta-seleccionada);
+    color: var(--texto-carta-seleccionada);
+    padding: 1px 5px;
+    cursor: pointer;
+}
+.attack-button:hover {
+    background-color: var(--texto-carta-seleccionada);
+    color: var(--fondo-juego-estadisticas);
+
+    /*box-shadow: 0 0 8px var(--texto-carta-seleccionada);*/
+}
+.attack-button:active {
+    background-color: #e73f3f;
+    color: #000000;
+    border: 2px solid #e73f3f;
+    box-shadow: 0 0 12px #e73f3f;
+}
+.nitro-button {
+    background-color: #082d46;
+    border: 3px solid #6d96c6;
+    color: #c5c5c5;
+    padding: 2px 8px;
+    cursor: pointer;
+    font-family: "Lexend", sans-serif;
+    display: block;
+    margin: auto;
+}
+.nitro-button:hover {
+    background-color: #254d68;
+}
+.nitro-button:active {
+    background-color: #1584d3;
+    border: 3px solid #0f64a0;
+    box-shadow: 0 0 15px #1584d3;
+}
+.nitro-button:disabled {
+    background-color: #000000;
+    border: 3px solid #464646;
+    color: #464646;
+    cursor: not-allowed;
+    pointer-events: none; 
+    box-shadow: none;
+}
+.car-nitro-activated {
+    position: relative;
+    z-index: 10;
+    animation: nitro-pulse 1s ease-in-out infinite;
+}
+#button-add-card-to-deck {
+    height: var(--tamaño-cartas-deck);
+    margin-left: 3px;
+    padding-left: 5px;
+    padding-right: 5px;
+
+    border-radius: 4px;
+    border: 2.6px solid rgb(83, 83, 83);
+    background-color: rgb(36, 36, 36);
+    color: rgb(173, 173, 173);
+    font-family: "Lexend", sans-serif;
+    font-size: 1.2em;
+}
+
+@keyframes nitro-pulse {
+    0%, 100% { box-shadow: 0 0 10px 5px #1584d3; }
+    50% { box-shadow: 0 0 20px 5px #1584d3; }
+}
+
+/* Animaciones */
+@keyframes dialogAppear {
+    from {
+        opacity: 0;
+        transform: translateY(-200px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes backdropFade {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+#dialog-gamenotes.closing .dialog-gamenotes-content {
+    animation: dialogDisappear 0.2s ease-in forwards;
+}
+
+#dialog-gamenotes.closing::backdrop {
+    animation: backdropFadeOut 0.2s ease-in forwards;
+}
+
+@keyframes dialogDisappear {
+    from { opacity: 1; transform: translateY(0); }
+    to { opacity: 0; transform: translateY(200px); }
+}
+
+@keyframes backdropFadeOut {
+    from { opacity: 1; }
+    to { opacity: 0; }
 }

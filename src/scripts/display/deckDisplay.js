@@ -1,5 +1,5 @@
 import { DisplayCardInformation } from "./displayCardInformation.js";
-import { StandarizedDocCreation } from "./standardDoc/standarizedDocCreaction.js";
+import { StandarizedDocCreation } from "./standardDoc/standarizedDocCreation.js";
 import { DeckDefaultIconsDir } from "../models/constants/deckDefaultIconsDir.js";
 import { CarCard } from "../models/cards/CarCard.js";
 import { BoardClick } from "../board/boardActions.js";
@@ -53,7 +53,17 @@ export class DisplayCardsInDeck {
         } else {
             // Esto tendra que avisarle al usuario en pantalla, pero eso vendra despues
             console.log("No existen cartas en este mazo!");
+            this.showNonExistenCardsInDeck(divDeck);
         }
+    }
+
+    // Aviso al usuario que no existen cartas en un mazo establecido
+    static showNonExistenCardsInDeck(divDeck) {
+        divDeck.innerHTML = `
+        <div>
+            <h2 class="deck-additional-information">No existen cartas para este mazo!</h2>
+        </div>
+        `
     }
 
     static changeDeck(deckIconImage, decksDefaultIcons, decks, divDeck, cardInformation) {

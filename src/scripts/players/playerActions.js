@@ -9,6 +9,10 @@ mazo
 import { Player1 } from "./player1.js";
 import { Player2 } from "./player2.js";
 
+import { DisplayCardsInDeck } from "../display/deckDisplay.js";
+import { GameValuesDisplay } from "../display/gameValuesDisplay.js";
+import { GameNotesDisplay } from "../display/gameNotesDisplay.js";
+
 // Clase que va a hacer todo
 export class PlayerActions {
     // Consigue un deck en especifico dependiendo del jugador
@@ -59,6 +63,11 @@ export class PlayerActions {
         await Player2.givePower();
     }
 
+    // Dar nitro al jugador a un valor en especifico
+    static async giveNitroAfterDestroyedCar(player) {
+        (player === "player1") ? await Player1.giveNitroForDestroyedCar() : await Player2.giveNitroForDestroyedCar();
+    }
+
     // Dar el gasto del poder al respecito jugador
     static consumePowerForActionInPlayer(player) {
         (player === "player1") ? Player1.subtractPower(1) : Player2.subtractPower(1);
@@ -70,5 +79,93 @@ export class PlayerActions {
 
     static generateChargeForPlayer(player) {
         return (player === "player1") ? Player1.generateRandomCharge() : Player2.generateRandomCharge();
+    }
+
+    static addWeaponToPlayerDeck(player, weaponCard) {
+        (player === "player1") ? Player1.addWeaponToDeck(weaponCard) : Player2.addWeaponToDeck(weaponCard);
+    }
+
+    static addMaterialToPlayerDeck(player, materialCard) {
+        (player === "player1") ? Player1.addMaterialToDeck(materialCard) : Player2.addMaterialToDeck(materialCard);
+    }
+
+    static getWeaponFromStorageFromPlayer(player, weaponName) {
+        return (player === "player1") ? Player1.getWeaponFromStorage(weaponName) : Player1.getWeaponFromStorage(weaponName);
+    }
+
+    static removeNitroFromCar(player, carSquare) {
+        // Si no es el carSquare, manda error inmediatamente para evitar que cosas raras sucedan.
+        if (!(carSquare instanceof HTMLElement) || !carSquare.dataset.nitroQuantity) {
+            throw new Error("carSquare inválido o sin dataset de nitro");
+        }
+        const nitroToRemove = carSquare.dataset.nitroQuantity;
+        (player === "player1") ? Player1.removeNitro(nitroToRemove) : Player2.removeNitro(nitroToRemove);
+    }
+
+    static getWeaponsFromPlayer(player) {
+        return (player === "player1") ? Player1.getWeapons() : Player2.getWeapons();
+    }
+
+    // Agrega una carta a un deck en especifico
+    static addCardToPlayerDeck(player, cardType, card) {
+        // Se puede agregar otros decks
+        switch (cardType) {
+            case "weapons":
+                this.addWeaponToPlayerDeck(player, card);
+                break;
+            case "materials":
+                console.log("Materiales");
+                console.log(card);
+                this.addMaterialToPlayerDeck(player, card);
+                break;
+        }
+    }
+
+    static getRandomCardFromPlayerPile(player, cardType) {
+        if (this.getPowerFromPlayer(player) > 0) {
+            try {
+                const currentDeck = document.getElementById("deck-icon-current").dataset.deck;
+                if (currentDeck === cardType) {
+                    console.log(cardType);
+                    const randomCard = (player === "player1") 
+                        ? Player1.getRandomCardFromPile(`${cardType}_pile`) 
+                        : Player2.getRandomCardFromPile(`${cardType}_pile`);
+                    //console.log(randomCard);
+                    
+                    this.addCardToPlayerDeck(player, cardType, randomCard);
+                    this.consumePowerForActionInPlayer(player);
+                    GameValuesDisplay.updatePowerValue();
+                    GameNotesDisplay.addDrawCard(player, cardType);
+
+                    const deckCards = document.getElementById("deck-cards");
+                    const cardInformation = document.getElementById("card-selected-information");
+                    deckCards.innerHTML = "";
+                    DisplayCardsInDeck.showDeckOfCards(deckCards, this.getDeckFromPlayer(player, cardType), cardInformation);
+                }
+            } catch (e) {
+                console.log(e);
+                console.log(`Ya no hay cartas de ${cardType} disponibles!`);
+            }
+        } else {
+            console.log("No hay poder suficiente!");
+        }
+    }
+
+    // Funcionalidad al boton de agregar cartas al deck en pantalla
+    static getCardFromPile() {
+        const player = document.getElementById("deck").dataset.player;
+        const currentDeck = document.getElementById("deck-icon-current").dataset.deck;
+
+        switch (currentDeck) {
+            case "weapons":
+                PlayerActions.getRandomCardFromPlayerPile(player, "weapons");
+                break;
+            case "materials":
+                PlayerActions.getRandomCardFromPlayerPile(player, "materials");
+            default:
+                console.log("No se puede sacar cartas de este mazo!");
+
+        }
+        //PlayerActions.getRandomWeaponFromPlayerPile(player);
     }
 }

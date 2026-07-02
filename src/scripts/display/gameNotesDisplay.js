@@ -7,6 +7,12 @@ import { DisplayCardInformation } from "./displayCardInformation.js";
 import { MainGame } from "../game/mainGame.js";
 import { StateGame } from "../game/stateGame.js";
 import { LoadConfig } from "../game/loadConfig.js";
+import { AttackMessages } from "../log/attackMessages.js";
+import { NitroMessages } from "../log/nitroMessages.js";
+
+// Importar las funciones del guardado de notas en un lugar establecido.
+import { addNote } from "../log/gameNotesLog.js";
+import { getNotes } from "../log/gameNotesLog.js";
 
 //export class GameStatsDisplay {
 export class GameNotesDisplay{
@@ -33,6 +39,8 @@ export class GameNotesDisplay{
 
     // Agrega notas al contenido de las notas
     static addTurnNote(message) {
+        // Guarda la nota en lugar establecido.
+        addNote(message);
         this.addNote(message, "turn-notes-content");
     }
     // Agrega notas a la informacion del turno actual
@@ -76,5 +84,25 @@ export class GameNotesDisplay{
     // Nota sobre la cantidad de nitro y poder dado en modo normal
     static async noteNitroAndPowerNormal() {
         return `Se le otorga a cada jugador su respectivo poder y ${await LoadConfig.loadNitroPerTurn()} de nitro. Usenlos bien!`;
+    }
+
+    // Crea una nueva nota sobre un ataque
+    static addAttackActionNote(carAttackerSquare, carAttackedSquare, weaponSquare, charge, attack, previousCarHealth, afterCarHealth) {
+        if (afterCarHealth <= 0) {
+            this.addTurnNote(AttackMessages.carDestroyedMessage(carAttackedSquare, charge, attack));
+        } else {
+            this.addTurnNote(AttackMessages.carAttacks(carAttackerSquare, carAttackedSquare, weaponSquare, charge, attack, previousCarHealth, afterCarHealth));
+        }
+    }
+
+    // Crea una nota sobre la activacion del nitro
+    static addNitroNote(player, carSquare) {
+        this.addTurnNote(NitroMessages.nitroActivated(player, carSquare));
+    }
+
+    // Nota sobre carta de arma sacada
+    static addDrawCard(player, cardType) {
+        // Me da pereza por ahora traducir al español weapons y materials...
+        this.addTurnNote(`${DisplayCardInformation.convertPlayerString(player)} saco una carta de ${cardType} de su pila`);
     }
 }

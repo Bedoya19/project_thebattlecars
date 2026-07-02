@@ -5,6 +5,7 @@
 import { Player1 } from "../players/player1.js";
 import { Player2 } from "../players/player2.js";
 import { PlayerActions } from "../players/playerActions.js";
+import { DisplayCardInformation } from "./displayCardInformation.js";
 
 export class GameValuesDisplay {
     // Funcion bastante parecida a updateAllInformation, en donde cambia en su totalidad todo el elemento de los valores locales
@@ -12,7 +13,7 @@ export class GameValuesDisplay {
         // Cuando se agrege la funcionalidad de los ataques, esto tendra que cambias
         document.getElementById("game-values").innerHTML = `
             <h3 class="game-stat-text game-stat-subtitle-text">Valores:</h3>
-            <h3 class="game-stat-text">Actual: <span id="value-local-player">${player}</span></h3>
+            <h3 class="game-stat-text">Actual: <span id="value-local-player">${DisplayCardInformation.convertPlayerString(player)}</span></h3>
             <ul id="game-value-content">
                 <p class="game-stat-text">Carga: <span id="value-local-charge">${PlayerActions.getChargeFromPlayer(player)}</span>-6</p>
                 <p class="game-stat-text">Nitro: <span id="value-local-nitro">${PlayerActions.getNitroFromPlayer(player)}</span></p>
@@ -21,16 +22,23 @@ export class GameValuesDisplay {
         `;
     }
 
-    // Cambia el valor de poder en especifico
+    // Actualiza el valor de poder en especifico
     static updatePowerValue() {
         document.getElementById("value-local-power").innerText = PlayerActions.getPowerFromPlayer(
             document.getElementById("deck").dataset.player
         );
     }
 
-    // Cambia el valor de la carga
+    // Actualiza el valor de la carga
     static updateChargeValue() {
         document.getElementById("value-local-charge").innerText = PlayerActions.getChargeFromPlayer(
+            document.getElementById("deck").dataset.player
+        );
+    }
+
+    // Actualiza el valor de nitro
+    static updateNitroValue() {
+        document.getElementById("value-local-nitro").innerText = PlayerActions.getNitroFromPlayer(
             document.getElementById("deck").dataset.player
         );
     }

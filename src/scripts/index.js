@@ -28,6 +28,9 @@ import { GameInformationDisplay } from "./display/gameInformationDisplay.js";
 import { GameValuesDisplay } from "./display/gameValuesDisplay.js";
 import { PlayerActions } from "./players/playerActions.js";
 
+// Funcion sobre las notas del juego
+import { getNotes } from "./log/gameNotesLog.js";
+
 
 // Display del mazo
 const deckCards = document.getElementById("deck-cards");
@@ -41,6 +44,7 @@ const weaponSquares = document.getElementsByClassName("card-board-weapon");
 // Botones del juego
 const deselectButton = document.getElementById("deselect-button");
 const nextRoundButton = document.getElementById("next-round-button");
+const addCardButton = document.getElementById("button-add-card-to-deck");
 console.log(cardInformation);
 
 // Imagenes default del deck
@@ -51,19 +55,52 @@ const carCard = await CarCard.loadCarObjectFromJSON("category1", 0);
 const weaponCard = await WeaponCard.loadWeaponObjectFromJSON("category1", 0);
 const materialCard = await MaterialCard.loadMaterialObjectFromJSON("category1", 0);
 //const cards = [carCard, weaponCard, materialCard];
-//const decks = Player1.getDecks();
 
-
-//DisplayCardsInDeck.showDeckOfCards(deckCards, decks["cars"], cardInformation);
+// Mostrar las cartas del deck actual al puro principio de todo
+const decks = Player1.getDecks();
+DisplayCardsInDeck.showDeckOfCards(deckCards, decks["cars"], cardInformation);
 
 //deckIcon.addEventListener("click", () => { DisplayCardsInDeck.changeDeck(deckIcon, deckDefaultIconsDir, decks, deckCards, cardInformation) });
 deckIcon.addEventListener("click", () => { DisplayCardsInDeck.changeDeckPlayer(deckIcon, deck.dataset.player, deckCards, cardInformation) });
+
+// Montar funcionalidad a la ventana propia de las notas
+// Ventana y botones
+const gameNotesWindows = document.getElementById("dialog-gamenotes");
+const gameNotesButton = document.getElementById("see-notes-button");
+const gameNotesCloseButton = document.getElementById("dialog-gamenotes-close");
+gameNotesButton.addEventListener("click", () => {
+    const gameNotesBody = document.querySelector(".dialog-gamenotes-body");
+
+    const notas = getNotes();
+    console.log(notas);
+    gameNotesBody.innerHTML = notas;
+    gameNotesWindows.showModal();
+});
+
+// Funciones de animacion de cerrar la ventana
+function closeAnimationExecute() {
+    gameNotesWindows.classList.add("closing");
+}
+
+gameNotesCloseButton.addEventListener("click", () => {
+    closeAnimationExecute();
+});
+gameNotesWindows.addEventListener("cancel", (e) => {
+    e.preventDefault();
+    closeAnimationExecute();
+})
+gameNotesWindows.addEventListener("animationend", (e) => {
+    if (e.animationName === "dialogDisappear") {
+        gameNotesWindows.classList.remove("closing");
+        gameNotesWindows.close();
+    }
+})
 
 // Agrega funcionalidad a las casillas de carro
 for (const carSquare of carsSquares) {
     //console.log(carsSquare);
     //carSquare.addEventListener("click", () => { BoardClick.clickOnCarSquare(carSquare) });
-    carSquare.addEventListener("click", BoardClick.clickOnCarSquare);
+    carSquare.addEventListener("click", await BoardClick.clickOnCarSquare);
 }
 
 // Agrega funcionalidad a casillas de arma
@@ -81,6 +118,9 @@ PlayerActions.generateChargeForPlayer("player1");
 GameInformationDisplay.updateAllInformation();
 GameValuesDisplay.updateAllValues("player1");
 
+addCardButton.addEventListener("click", () => {
+    PlayerActions.getCardFromPile();
+})
 
 //console.log(Player1.getCars());
 //console.log(Player1.deleteFromDeck("cars", 1));

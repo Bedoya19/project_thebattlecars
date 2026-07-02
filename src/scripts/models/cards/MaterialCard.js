@@ -2,6 +2,7 @@ import { Category } from "../constants/enums.js";
 import { TypeCard } from "../constants/enums.js";
 import { Card } from "../cards/Card.js";
 import { DataConversor } from "../constants/enums.js";
+import { LoadCardsJSON } from "./loadCardsJSON.js";
 
 export class MaterialCard extends Card {
     static #nextId = 1;
@@ -15,10 +16,7 @@ export class MaterialCard extends Card {
     }
 
     static async loadMaterialFromJSON(category, index) {
-        const res = await fetch("src/scripts/cardsData/materials.json");
-        if (!res.ok) throw new Error(`HTTP Error ${res.status}`);
-
-        const data = await res.json();
+        const data = await LoadCardsJSON.loadMaterialsFromJSON();
         const material = data?.[category]?.[index];
 
         if (!material) throw new Error(`No existe material en ${category} con index ${index}`);
