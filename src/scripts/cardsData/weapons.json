@@ -15,11 +15,47 @@
             ],
             "energy": 4,
             "materials": [
-                ["cardboard", 4],
-                ["rubberband", 2],
-                ["gunpowder", 1]
+                ["cardboard", 4]
             ],
             "image": "./src/images/cohete_carton.png"
+        },
+        {
+            "id": "weapon-cardboxlauncher",
+            "category": "category 1",
+            "type": "weapon",
+            "name": "Lanzacajas",
+            "description": "¿Una catapulta de cajas? ¿Como hace daño en un primer lugar, ¿y porque hace tanto daño en sus cargas altas?",
+            "longDescription": "Una catapulta de cajas no tiene pinta de ser medianamente fuerte, pero para que veas, si puede hacer daño, y considerable. Aunque en sus cargas bajas no hace ni conquillas, en cargas altas puede ser una arma de daño bastante considerable, entonces usala sin pensarlo cuando veas una carga alta. Mejorarla exagera todavia mas su daño en las cargas altas, pero requiere de mucho carton para ello, entonces necesitaras de un mazo que tenga suficiente carton si quieres sacarle todo el jugo.",
+            "attacks": [
+                [0, 0, 1, 2, 6, 8],
+                [0, 0, 2, 3, 7, 10],
+                [0, 1, 3, 4, 8, 12]
+            ],
+            "energy": 3,
+            "materials": [
+                ["cardboard", 10],
+                ["rubberband", 2]
+            ],
+            "image": ""
+        },
+        {
+            "id": "weapon-slingshot",
+            "category": "category 1",
+            "type": "weapon",
+            "name": "Resortera",
+            "description": "Esta resortera te puede sacar de un aprieto, no le des la vista gorda",
+            "longDescription": "Esta arma es bastante consistente, actua como deberia. Esta resortera tiene ataques bastante parejos entre sus cargas, eso significa que en un momento tenso te sacas una carga baja, esta arma te puede salvar el momento con su daño medianamente bueno para una carga bajo. Tambien te acompañara en todo momento, ya que con su mucha energia, y poco material para mejorarla, esta arma podra estar por toda la partida. Aunque, mucho cuidado, que en ciertas reglas se puede volver un pie en el zapato, entonces piensalo si prefieres reducir riezgos o necesitas algo mas emocionante.",
+            "attacks": [
+                [3, 3, 3, 3, 3, 3],
+                [3, 3, 3, 4, 4, 4],
+                [4, 4, 4, 4, 4, 4]
+            ],
+            "energy": 8,
+            "materials": [
+                ["cardboard", 2],
+                ["rubberkit", 1]
+            ],
+            "image": ""
         }
     ],
     "category2": [],
