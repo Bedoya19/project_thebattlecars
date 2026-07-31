@@ -155,4 +155,10 @@ export class Player {
     static getRandomMaterialFromPile() {
         return this.getRandomCardFromPile("materials_pile");
     }
+
+    // Esta funcion esta mayormente hecha para materiales, pero puede ser tambien implementado para armas y carros. Voy viendo como se hace eso.
+    static getDeckSummary() {
+        // Sabes que podemos hacer esto mas estandar...
+        const currentDeck = document.getElementById("deck-icon-current");
+    }
 }
