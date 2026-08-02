@@ -190,7 +190,7 @@ body {
     color: var(--texto-carta-seleccionada);
     padding-bottom: 10px;
     font-family: "Lexend", sans-serif;
-    width: 50%;
+    /*width: 50%;*/
     font-size: 90%;
 }
 #card-selected-description {

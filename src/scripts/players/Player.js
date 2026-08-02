@@ -140,11 +140,20 @@ export class Player {
     // Saca una carta de manera aleatoria de la pila
     // ESTAS FUNCIONES LA ELIMINAN DE LA PILA
     static getRandomCardFromPile(deck) {
+        console.log(deck);
         const pile = this._decks[deck];
+
+        console.log("Deck completo: " + this._decks[deck]);
+        console.log("Pila: " + pile);
+        console.log("Longitud: " + pile.length);
+
         const pileIndex = Math.floor(Math.random() * pile.length);
         const randomCard = pile[pileIndex];
         // Elimina la carta de la pila. Se espera que se agregue a algun otro lado despues
         this._decks[deck].splice(pileIndex, 1);
+
+        
+
         return randomCard;
     }
 

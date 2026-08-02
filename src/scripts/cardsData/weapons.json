@@ -17,7 +17,7 @@
             "materials": [
                 ["cardboard", 4]
             ],
-            "image": "./src/images/cohete_carton.png"
+            "image": "./src/images/weapons/cohete_carton2.png"
         },
         {
             "id": "weapon-cardboxlauncher",
@@ -36,7 +36,7 @@
                 ["cardboard", 10],
                 ["rubberband", 2]
             ],
-            "image": ""
+            "image": "./src/images/weapons/lanza_cajas.png"
         },
         {
             "id": "weapon-slingshot",
@@ -55,7 +55,7 @@
                 ["cardboard", 2],
                 ["rubberkit", 1]
             ],
-            "image": ""
+            "image": "./src/images/weapons/resortera.png"
         }
     ],
     "category2": [],

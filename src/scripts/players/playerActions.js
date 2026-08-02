@@ -121,16 +121,48 @@ export class PlayerActions {
         }
     }
 
+    static getRandomIndividualCardFromPile(player, cardType) {
+        return (player === "player1") ? Player1.getRandomCardFromPile(`${cardType}_pile`) : Player2.getRandomCardFromPile(`${cardType}_pile`);
+    }
+
+    // Funcion exclusiva para sacar varias cartas de material.
+    static getMultipleMaterialCards(player, quantity) {
+        if (this.getPowerFromPlayer(player) > 0) {
+            try {
+                this.consumePowerForActionInPlayer(player);
+                GameValuesDisplay.updatePowerValue();
+                GameNotesDisplay.addDrawCards(player, "materials", 5);
+                for (let i = 0; i < quantity; i++) {
+                    const randomCard = this.getRandomIndividualCardFromPile(player, "materials");
+                    this.addCardToPlayerDeck(player, "materials", randomCard);
+
+                    // Llevar a una funcion despues
+                    const deckCards = document.getElementById("deck-cards");
+                    const cardInformation = document.getElementById("card-selected-information");
+                    deckCards.innerHTML = "";
+                    DisplayCardsInDeck.showDeckOfCards(deckCards, this.getDeckFromPlayer(player, "materials"), cardInformation);
+                    // Todo esto de arriba...
+                }
+            } catch (e) {
+                console.log(e);
+                console.log("Probablemente se acabaron las cartas ?")
+            }
+        } else {
+            console.log("No hay poder suficiente!");
+        }
+    }
+
     static getRandomCardFromPlayerPile(player, cardType) {
         if (this.getPowerFromPlayer(player) > 0) {
             try {
                 const currentDeck = document.getElementById("deck-icon-current").dataset.deck;
                 if (currentDeck === cardType) {
                     console.log(cardType);
-                    const randomCard = (player === "player1") 
+                    /* const randomCard = (player === "player1") 
                         ? Player1.getRandomCardFromPile(`${cardType}_pile`) 
-                        : Player2.getRandomCardFromPile(`${cardType}_pile`);
+                        : Player2.getRandomCardFromPile(`${cardType}_pile`); */
                     //console.log(randomCard);
+                    const randomCard = this.getRandomIndividualCardFromPile(player, cardType);
                     
                     this.addCardToPlayerDeck(player, cardType, randomCard);
                     this.consumePowerForActionInPlayer(player);
@@ -161,7 +193,8 @@ export class PlayerActions {
                 PlayerActions.getRandomCardFromPlayerPile(player, "weapons");
                 break;
             case "materials":
-                PlayerActions.getRandomCardFromPlayerPile(player, "materials");
+                //PlayerActions.getRandomCardFromPlayerPile(player, "materials");
+                PlayerActions.getMultipleMaterialCards(player, 5);
             default:
                 console.log("No se puede sacar cartas de este mazo!");
 

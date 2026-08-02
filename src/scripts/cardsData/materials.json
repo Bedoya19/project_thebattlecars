@@ -22,7 +22,7 @@
             "materialInQuestion": "rubberband",
             "quantity": 1,
             "rarity": 2,
-            "image": ""
+            "image": "./src/images/materials/caucho_x1.png"
         },
         {
             "id": "material-rubberkit_x1",
@@ -33,7 +33,7 @@
             "materialInQuestion": "rubberkit",
             "quantity": 1,
             "rarity": 2,
-            "image": ""
+            "image": "./src/images/materials/kitgoma_x1.png"
         },
         {
             "id": "material-glue_x1",
@@ -45,7 +45,7 @@
             "materialInQuestion": "glue",
             "quantity": 1,
             "rarity": 2,
-            "image": ""
+            "image": "./src/images/materials/pegante_x1.png"
         },
         {
             "id": "material-foamsheet_x1",
@@ -57,7 +57,7 @@
             "materialInQuestion": "foamsheet",
             "quantity": 1,
             "rarity": 2,
-            "image": ""
+            "image": "./src/images/materials/fomi_x1.png"
         },
         {
             "id": "material-gunpodwer_x1",
@@ -69,7 +69,7 @@
             "materialInQuestion": "gunpodwer",
             "quantity": 1,
             "rarity": 3,
-            "image": ""
+            "image": "./src/images/materials/polvora_x1.png"
         },
         {
             "id": "material-vegetableoil_x1",
@@ -77,11 +77,11 @@
             "type": "material",
             "name": "Vegetable Oil x1",
             "description": "¿Que se supone que hago con un aceite domestico exactamente...?",
-            "longDescription": "Aunque una botella de aceite de cocina no es que se vea muy atractiva que digamos, aqui es usado para tener proyectiles inflamables, y asi le puedes prender fuego a los carros enemigos! No te emociones, que no es cosa de todos los dias encontrarte con esta carta para usarla en tu mazo, entonces tendras que ser mas estrategico de lo usual para tener armas de fuego y mejorarlas al punto de que sean un genuino peligro para tus enemigos.",
+            "longDescription": "Aunque una botella de aceite de cocina no es que se vea muy util que digamos, aqui es usado para tener proyectiles inflamables, y asi le puedes prender fuego a los carros enemigos! No te emociones, que no es cosa de todos los dias encontrarte con esta carta para usarla en tu mazo, entonces tendras que ser mas estrategico de lo usual para tener armas de fuego y mejorarlas al punto de que sean un genuino peligro.",
             "materialInQuestion": "vegetableoil",
             "quantity": 1,
             "rarity": 3,
-            "image": ""
+            "image": "./src/images/materials/aceite_x1.png"
         }
     ],
     "category2": [],
