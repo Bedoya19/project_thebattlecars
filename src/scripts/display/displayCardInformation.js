@@ -318,8 +318,11 @@ export class DisplayCardInformation {
 
         switch (currentDeck) {
             case "cars":
-                console.log("carros");
                 cardInformation.innerHTML = ProcessDeckInformation.processCarDeck(deckCards, player);
+                break;
+            case "weapons":
+                console.log("Armas");
+                cardInformation.innerHTML = ProcessDeckInformation.processWeaponDeck(deckCards, player);
         }
     }
 }
@@ -381,6 +384,11 @@ class WeaponListStatsDisplay {
 // Procesamiento de la informacion del deck
 // (separado porque poco a nada tiene que ver con el resto de las demas funciones)
 class ProcessDeckInformation {
+    // Las funciones de procesamiento de carro, arma y material son bastante similares
+    // Se puede hacer el intento, despues de garantizar que funcionen, en fusionarlas para una mayor mantenibilidad
+
+    // Procesa y devuelve un resumen de los carros en el deck
+    // Tambien muestra la cantidad de carros en el tablero y que ya fueron destruidos
     static processCarDeck(deck, player) {
         return `
         <h2 id="deck-general-informatio-title" class="card-selected-information">Carros</h2>
@@ -391,16 +399,40 @@ class ProcessDeckInformation {
         `;
     }
 
+    // Procesa y devuelve un resumen de las armas en el deck
+    static processWeaponDeck(deck, player) {
+        const weaponCount = PlayerActions.countCardsInDeck(deck);
+
+        //console.log(weaponCount);
+        return `
+        <h2 id="deck-general-informatio-title" class="card-selected-information">Armas</h2>
+        <h3 class="card-selected-information">Armas actuales en el mazo:</h3>
+        ${this.getObjectCardsToList(weaponCount)}
+        `;
+    }
+
+    // Podria traer estas cosas mas bien al StandarizedDocCreation.js, ya que las dos funciones son parecidas.
+    // Me toca ver, primero confirmar que esto funcione.
     static getDeckCardsToList(deck, ordered = false) {
-        const listHTML = ordered ? "<ol>" : "<ul>";
-        let list = listHTML;
+        let list = ordered ? "<ol>" : "<ul>";
         //console.log(deck);
         for (const card of deck) {
             list += `<li class="card-selected-information">${card.name}</li>`
             //console.log(card);
             //console.log(card.name);
         }
-        list += listHTML;
-        return list;
+        return list += ordered ? "</ol>" : "</ul>";
+    }
+    // No se si fusionar lo anterior con esto... Podria preguntarselo a Claude despues
+    // Con "object cards" me refiero a que esta en unos objetos la informacion del conteo de la cartas.
+    static getObjectCardsToList(objectCards, ordered = false) {
+        const listHTML = ordered ? "<ol>" : "<ul>";
+        let list = listHTML;
+
+        for (const [card, count] of Object.entries(objectCards)) {
+            //console.log(card, count);
+            list += `<li class="card-selected-information">${card}: ${count}</li>`
+        }
+        return list += ordered ? "</ol>" : "</ul>";
     }
 }
