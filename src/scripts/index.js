@@ -45,6 +45,7 @@ const weaponSquares = document.getElementsByClassName("card-board-weapon");
 const deselectButton = document.getElementById("deselect-button");
 const nextRoundButton = document.getElementById("next-round-button");
 const addCardButton = document.getElementById("button-add-card-to-deck");
+const deckInformationButton = document.getElementById("button-deck-info");
 console.log(cardInformation);
 
 // Imagenes default del deck
@@ -120,6 +121,10 @@ GameValuesDisplay.updateAllValues("player1");
 
 addCardButton.addEventListener("click", () => {
     PlayerActions.getCardFromPile();
+})
+
+deckInformationButton.addEventListener("click", () => {
+    DisplayCardInformation.getCurrentDeckInformation();
 })
 
 //console.log(Player1.getCars());

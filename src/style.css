@@ -562,6 +562,13 @@ img.image-board {
     font-family: "Lexend", sans-serif;
     font-size: 1.2em;
 }
+ul, ol {
+    list-style-position: inside;
+}
+#deck-general-informatio-title {
+    text-align: center;
+    font-size: 1.5em;
+}
 /*
 #button-add-card-to-deck {
     height: var(--tamaño-cartas-deck);

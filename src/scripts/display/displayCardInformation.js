@@ -305,6 +305,23 @@ export class DisplayCardInformation {
             return undefined;
         }
     }
+
+    // Mostrar la informacion del deck actual
+    static getCurrentDeckInformation() {
+        const cardInformation = document.getElementById("card-selected-information");
+
+        const player = document.getElementById("deck").dataset.player;
+        const currentDeck = document.getElementById("deck-icon-current").dataset.deck;
+
+        const deckCards = PlayerActions.getDeckFromPlayer(player, currentDeck);
+        //console.log(deck);
+
+        switch (currentDeck) {
+            case "cars":
+                console.log("carros");
+                cardInformation.innerHTML = ProcessDeckInformation.processCarDeck(deckCards, player);
+        }
+    }
 }
 
 // Clase de las funciones de mostrar los ataques y los materiales de cada arma respectiva en un formato de lista, ya preparado para adjuntarlo a cualquier HTML
@@ -361,4 +378,29 @@ class WeaponListStatsDisplay {
     }
 }
 
-// Estandarizar la agregacion de elementos HTML (todo)
+// Procesamiento de la informacion del deck
+// (separado porque poco a nada tiene que ver con el resto de las demas funciones)
+class ProcessDeckInformation {
+    static processCarDeck(deck, player) {
+        return `
+        <h2 id="deck-general-informatio-title" class="card-selected-information">Carros</h2>
+        <h3 class="card-selected-information">Carros actuales en el mazo:</h3>
+        ${this.getDeckCardsToList(deck)}
+        <p class="card-selected-information">Carros en el tablero: ${(5 - deck.length) - (5 - StateGame.geCarsFromPlayer(player))}</p>
+        <p class="card-selected-information">Carros destruidos: ${5 - StateGame.getCarsPlayers1(player)}</p>
+        `;
+    }
+
+    static getDeckCardsToList(deck, ordered = false) {
+        const listHTML = ordered ? "<ol>" : "<ul>";
+        let list = listHTML;
+        //console.log(deck);
+        for (const card of deck) {
+            list += `<li class="card-selected-information">${card.name}</li>`
+            //console.log(card);
+            //console.log(card.name);
+        }
+        list += listHTML;
+        return list;
+    }
+}
