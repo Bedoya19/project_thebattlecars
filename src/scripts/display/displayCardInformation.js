@@ -321,8 +321,10 @@ export class DisplayCardInformation {
                 cardInformation.innerHTML = ProcessDeckInformation.processCarDeck(deckCards, player);
                 break;
             case "weapons":
-                console.log("Armas");
                 cardInformation.innerHTML = ProcessDeckInformation.processWeaponDeck(deckCards, player);
+                break;
+            case "materials":
+                cardInformation.innerHTML = ProcessDeckInformation.processMaterialDeck(deckCards, player);
         }
     }
 }
@@ -408,6 +410,16 @@ class ProcessDeckInformation {
         <h2 id="deck-general-informatio-title" class="card-selected-information">Armas</h2>
         <h3 class="card-selected-information">Armas actuales en el mazo:</h3>
         ${this.getObjectCardsToList(weaponCount)}
+        `;
+    }
+
+    static processMaterialDeck(deck, player) {
+        const materialCount = PlayerActions.countMaterialsInDeck(deck);
+
+        return `
+        <h2 id="deck-general-informatio-title" class="card-selected-information">Materiales</h2>
+        <h3 class="card-selected-information">Materiales actuales en el mazo:</h3>
+        ${this.getObjectCardsToList(materialCount)}
         `;
     }
 

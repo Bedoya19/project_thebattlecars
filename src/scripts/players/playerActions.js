@@ -202,7 +202,6 @@ export class PlayerActions {
         //PlayerActions.getRandomWeaponFromPlayerPile(player);
     }
 
-    // Funcion importante para la implementacion de las mejoras de las armas
     // Ahora, tocara modificarla un poco cuando lleguen los materiales con multiples conteos, pero por ahora asi va a ser la cosa
     static countCardsInDeck(deck) {
         const countCards = {}
@@ -215,5 +214,19 @@ export class PlayerActions {
             }
         }
         return countCards
+    }
+    // Funcion del conteo de materiales
+    // (Todavia no esta hecha para materiales infinitos, eso vendra despues)
+    static countMaterialsInDeck(materialDeck) {
+        const countCards = {};
+
+        for (const card of materialDeck) {
+            if (card.materialInQuestion in countCards) {
+                countCards[card.materialInQuestion] += (1 * card.quantity);
+            } else {
+                countCards[card.materialInQuestion] = (1 * card.quantity);
+            }
+        }
+        return countCards;
     }
 }
