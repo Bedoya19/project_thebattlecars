@@ -155,7 +155,7 @@ export class Attack {
             const attackBuff = Number(BoardClick.getCarSquareFromWeaponSquare(weaponSquare).dataset.attBuff);
             
             // Momento JS esto...
-            let attack = parseInt(JSON.parse(weaponSquare.dataset.attacks)[0][charge - 1]);
+            let attack = parseInt(JSON.parse(weaponSquare.dataset.attacks)[weaponSquare.dataset.level][charge - 1]);
             console.log("Aumento de ataque:", attackBuff);        
             AttackValues.setAttackValues(charge, attack, zoneNumber, squareNumber, attackBuff);
         }

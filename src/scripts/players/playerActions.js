@@ -216,6 +216,7 @@ export class PlayerActions {
         return countCards
     }
     // Funcion del conteo de materiales
+    // OJO! Que esto usa el deck de materiales
     // (Todavia no esta hecha para materiales infinitos, eso vendra despues)
     static countMaterialsInDeck(materialDeck) {
         const countCards = {};

@@ -325,6 +325,9 @@ export class DisplayCardInformation {
                 break;
             case "materials":
                 cardInformation.innerHTML = ProcessDeckInformation.processMaterialDeck(deckCards, player);
+                break;
+            default:
+                console.log("Los poderes vendran proximamente!");
         }
     }
 }
