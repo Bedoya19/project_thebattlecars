@@ -6,6 +6,7 @@ import { Attack } from "../battle/attack.js";
 import { PlayerActions } from "../players/playerActions.js";
 import { StateGame } from "../game/stateGame.js";
 import { Nitro } from "../battle/nitro.js";
+import { WeaponUpgrade } from "../battle/weaponUpgrade.js";
 
 export class DisplayCardInformation {
     static displayInformationOnDeck(divElement, card, cardId) {
@@ -176,6 +177,7 @@ export class DisplayCardInformation {
         `;
         //${Attack.createAttackButton(playerOriginal, zoneNumber, squareNumber, weaponSquare)}
         divElement.appendChild(Attack.createAttackButton(playerOriginal, zoneNumber, squareNumber, weaponSquare));
+        divElement.appendChild(WeaponUpgrade.createUpgradeButton(playerOriginal, zoneNumber, squareNumber, weaponSquare));
     }
 
     // Mostrar la informacion general de una carta de arma
