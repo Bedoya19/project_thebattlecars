@@ -1,6 +1,7 @@
 import { StandarizedDocCreation } from "../display/standardDoc/standarizedDocCreation.js";
 import { Player } from "../players/Player.js";
 import { PlayerActions } from "../players/playerActions.js";
+import { CheckWeaponUpgrades } from "./checkWeaponUpgrades.js";
 
 /*
     Esta clase se dedicara a trabajarle a los temas de la mejora de las armas
@@ -33,6 +34,7 @@ export class WeaponUpgrade {
         const materialDeck = PlayerActions.getDeckFromPlayer(player, "materials");
         const materialCount = PlayerActions.countMaterialsInDeck(materialDeck);
 
+        console.log(CheckWeaponUpgrades.convertMaterialArrayToObject(weaponSquare.dataset.materials));
         console.log(materialCount);
     }
 }
