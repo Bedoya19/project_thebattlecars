@@ -34,7 +34,7 @@ const materialCard7 = await MaterialCard.loadMaterialObjectFromJSON("category1",
 export class Player1 extends Player {
     static _decks = {
         "cars": [carCard, carCard, carCard, carCard, carCard],
-        "weapons": [],
+        "weapons": [weaponCard1, weaponCard2, weaponCard3],
         "weapons_pile": [
             weaponCard1, weaponCard1, weaponCard1, weaponCard1, weaponCard1, weaponCard1, weaponCard1, weaponCard1, weaponCard1, weaponCard1,
             weaponCard1, weaponCard1, weaponCard1, weaponCard1, weaponCard1,
@@ -49,11 +49,11 @@ export class Player1 extends Player {
         ],
         "materials": [],
         "materials_pile": [
-            materialCard1, materialCard1, materialCard1, materialCard1, materialCard1, materialCard1, materialCard1, materialCard1, materialCard1, materialCard1, materialCard1, materialCard1, materialCard1, materialCard1, materialCard1,
-            materialCard2, materialCard2, materialCard2, materialCard2, materialCard2, materialCard2, materialCard2, materialCard2, materialCard2, materialCard2, materialCard2,
-            materialCard3, materialCard3, materialCard3, materialCard3, materialCard3, materialCard3, materialCard3, materialCard3, materialCard3, materialCard3, materialCard3,
-            materialCard4, materialCard4, materialCard4, materialCard4, materialCard4, materialCard4, materialCard4, materialCard4, materialCard4, materialCard4, materialCard4,
-            materialCard5, materialCard5, materialCard5, materialCard5, materialCard5, materialCard5, materialCard5, materialCard5, materialCard5, materialCard5, materialCard5,
+            materialCard1, materialCard1, materialCard1, materialCard1, materialCard1, materialCard1, materialCard1, materialCard1, materialCard1, materialCard1, materialCard1, materialCard1, materialCard1, materialCard1, materialCard1, materialCard1, materialCard1, materialCard1, materialCard1,
+            materialCard2, materialCard2, materialCard2, materialCard2, materialCard2, materialCard2, materialCard2, materialCard2, materialCard2, materialCard2,
+            materialCard3, materialCard3, materialCard3, materialCard3, materialCard3, materialCard3, materialCard3, materialCard3, materialCard3, materialCard3,
+            materialCard4, materialCard4, materialCard4, materialCard4, materialCard4, materialCard4, materialCard4, materialCard4, materialCard4, materialCard4,
+            materialCard5, materialCard5, materialCard5, materialCard5, materialCard5, materialCard5, materialCard5, materialCard5, materialCard5, materialCard5,
             materialCard7
         ],
         "materials_storage": [

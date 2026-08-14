@@ -34,7 +34,13 @@ export class WeaponUpgrade {
         const materialDeck = PlayerActions.getDeckFromPlayer(player, "materials");
         const materialCount = PlayerActions.countMaterialsInDeck(materialDeck);
 
-        console.log(CheckWeaponUpgrades.convertMaterialArrayToObject(weaponSquare.dataset.materials));
+        const necesaryMaterials = CheckWeaponUpgrades.convertMaterialArrayToObject(weaponSquare.dataset.materials);
+        console.log(necesaryMaterials);
         console.log(materialCount);
+
+        const canUpgrade = CheckWeaponUpgrades.checkIfEnoughMaterials(materialCount, necesaryMaterials);
+        if (canUpgrade) {
+            console.log("Se puede mejorar!");
+        }
     }
 }
