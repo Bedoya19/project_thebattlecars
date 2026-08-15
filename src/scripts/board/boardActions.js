@@ -376,7 +376,7 @@ export class BoardClick {
         weaponSquare.dataset.energy = energy;
         weaponSquare.dataset.attacks = attacks;
         // El valor del nivel del arma
-        weaponSquare.dataset.level = 1;
+        weaponSquare.dataset.level = 0;
         weaponSquare.dataset.materials = materials;
     }
 

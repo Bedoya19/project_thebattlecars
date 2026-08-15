@@ -31,16 +31,29 @@ export class WeaponUpgrade {
 
     // Mejora el arma (si se puede)
     static upgradeWeapon(weaponSquare, player) {
-        const materialDeck = PlayerActions.getDeckFromPlayer(player, "materials");
-        const materialCount = PlayerActions.countMaterialsInDeck(materialDeck);
+        if (PlayerActions.getPowerFromPlayer(player) <= 0) {
+            const materialDeck = PlayerActions.getDeckFromPlayer(player, "materials");
+            const materialCount = PlayerActions.countMaterialsInDeck(materialDeck);
 
-        const necesaryMaterials = CheckWeaponUpgrades.convertMaterialArrayToObject(weaponSquare.dataset.materials);
-        console.log(necesaryMaterials);
-        console.log(materialCount);
+            const necesaryMaterials = CheckWeaponUpgrades.convertMaterialArrayToObject(weaponSquare.dataset.materials);
+            console.log(necesaryMaterials);
+            console.log(materialCount);
 
-        const canUpgrade = CheckWeaponUpgrades.checkIfEnoughMaterials(materialCount, necesaryMaterials);
-        if (canUpgrade) {
-            console.log("Se puede mejorar!");
+            const canUpgrade = CheckWeaponUpgrades.checkIfEnoughMaterials(materialCount, necesaryMaterials);
+            if (canUpgrade) {
+                console.log("Se puede mejorar!");
+                const attacksLevels = JSON.parse(weaponSquare.dataset.attacks).length;
+                // Convertimos explícitamente a número para evitar coerciones raras en la comparación
+                const currentLevel = Number(weaponSquare.dataset.level);
+                
+                if (currentLevel < attacksLevels) {
+                    // Asignamos el nuevo valor a la propiedad, JS lo convierte a string automáticamente
+                    weaponSquare.dataset.level = currentLevel + 1;
+                    PlayerActions.consumePowerForActionInPlayer(player);
+                }
+            }
+        } else {
+            console.log("No hay poder suficiente!");
         }
     }
 }
