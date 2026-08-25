@@ -1,4 +1,5 @@
 import { StandarizedDocCreation } from "../display/standardDoc/standarizedDocCreation.js";
+import { DeckUtils } from "../players/DeckUtils.js";
 import { Player } from "../players/Player.js";
 import { PlayerActions } from "../players/playerActions.js";
 import { CheckWeaponUpgrades } from "./checkWeaponUpgrades.js";
@@ -33,7 +34,7 @@ export class WeaponUpgrade {
     static upgradeWeapon(weaponSquare, player) {
         if (PlayerActions.getPowerFromPlayer(player) <= 0) {
             const materialDeck = PlayerActions.getDeckFromPlayer(player, "materials");
-            const materialCount = PlayerActions.countMaterialsInDeck(materialDeck);
+            const materialCount = DeckUtils.countMaterialsInDeck(materialDeck);
 
             const necesaryMaterials = CheckWeaponUpgrades.convertMaterialArrayToObject(weaponSquare.dataset.materials);
             console.log(necesaryMaterials);

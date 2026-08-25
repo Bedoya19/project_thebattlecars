@@ -7,6 +7,7 @@ import { PlayerActions } from "../players/playerActions.js";
 import { StateGame } from "../game/stateGame.js";
 import { Nitro } from "../battle/nitro.js";
 import { WeaponUpgrade } from "../battle/weaponUpgrade.js";
+import { DeckUtils } from "../players/DeckUtils.js";
 
 export class DisplayCardInformation {
     static displayInformationOnDeck(divElement, card, cardId) {
@@ -408,7 +409,7 @@ class ProcessDeckInformation {
 
     // Procesa y devuelve un resumen de las armas en el deck
     static processWeaponDeck(deck, player) {
-        const weaponCount = PlayerActions.countCardsInDeck(deck);
+        const weaponCount = DeckUtils.countCardsInDeck(deck);
 
         //console.log(weaponCount);
         return `
@@ -419,7 +420,7 @@ class ProcessDeckInformation {
     }
 
     static processMaterialDeck(deck, player) {
-        const materialCount = PlayerActions.countMaterialsInDeck(deck);
+        const materialCount = DeckUtils.countMaterialsInDeck(deck);
 
         return `
         <h2 id="deck-general-informatio-title" class="card-selected-information">Materiales</h2>
