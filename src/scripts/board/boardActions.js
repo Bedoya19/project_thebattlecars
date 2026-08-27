@@ -6,10 +6,10 @@ import { DisplayCardInformation } from "../display/displayCardInformation.js";
 import { GameNotesDisplay } from "../display/gameNotesDisplay.js";
 import { Attack } from "../battle/attack.js";
 import { AttackValues } from "../battle/attackValues.js";
-import { DisplayMessageBoxes } from "../display/DisplayMessageBoxes.js";
 
 import { MainGame } from "../game/mainGame.js";
 import { WeaponCard } from "../models/cards/WeaponCard.js";
+import { DisplayMessageBoxes } from "../display/displayMessageBoxes.js";
 
 export class BoardClick {
     // Cuando se hace click en una casilla de carro
