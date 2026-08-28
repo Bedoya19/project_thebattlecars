@@ -11,6 +11,7 @@ import { DeckUtils } from "../players/DeckUtils.js";
 
 export class DisplayCardInformation {
     static displayInformationOnDeck(divElement, card, cardId) {
+        console.log(card);
         const player = document.getElementById("deck").dataset.player;
         switch (DataConversor.enumToString(card.type)) {
             case "car":

@@ -45,6 +45,7 @@ export class DataConversor {
         return objectEnum;
     }
     static enumToString(enumObj) {
+        console.log(enumObj);
         return Symbol.keyFor(enumObj);
     } 
 }

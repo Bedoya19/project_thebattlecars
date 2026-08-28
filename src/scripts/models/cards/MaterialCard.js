@@ -35,6 +35,8 @@ export class MaterialCard extends Card {
     }
     static async loadMaterialObjectFromJSON(category, index) {
         const materialData = await MaterialCard.loadMaterialFromJSON(category, index);
-        return MaterialCard.convertMaterialFromJSON(materialData);
+        const materialObj = MaterialCard.convertMaterialFromJSON(materialData);
+        console.log(materialObj);
+        return materialObj;
     }
 }

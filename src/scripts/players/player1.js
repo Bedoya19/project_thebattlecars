@@ -26,8 +26,10 @@ const materialCard2 = await MaterialCard.loadMaterialObjectFromJSON("category1",
 const materialCard3 = await MaterialCard.loadMaterialObjectFromJSON("category1", 2);
 const materialCard4 = await MaterialCard.loadMaterialObjectFromJSON("category1", 3);
 const materialCard5 = await MaterialCard.loadMaterialObjectFromJSON("category1", 4);
-const materialCard6 = await MaterialCard.loadMaterialObjectFromJSON("category1", 5);
+//const materialCard6 = await MaterialCard.loadMaterialObjectFromJSON("category1", 5);
 const materialCard7 = await MaterialCard.loadMaterialObjectFromJSON("category1", 6);
+
+const materialCard1_3 = await MaterialCard.loadMaterialObjectFromJSON("category1", 7);
 
 
 // Tal vez en un futuro fusionar con Player1? Pero esta es mi unica solucion
@@ -49,7 +51,7 @@ export class Player1 extends Player {
         ],
         "materials": [],
         "materials_pile": [
-            materialCard1, materialCard1, materialCard1, materialCard1, materialCard1, materialCard1, materialCard1, materialCard1, materialCard1, materialCard1, materialCard1, materialCard1, materialCard1, materialCard1, materialCard1, materialCard1, materialCard1, materialCard1, materialCard1,
+            materialCard1, materialCard1, materialCard1, materialCard1, materialCard1, materialCard1, materialCard1, materialCard1, materialCard1, materialCard1, materialCard1_3, materialCard1_3, materialCard1_3, materialCard1_3, materialCard1_3, materialCard1_3, materialCard1_3, materialCard1_3, materialCard1_3,
             materialCard2, materialCard2, materialCard2, materialCard2, materialCard2, materialCard2, materialCard2, materialCard2, materialCard2, materialCard2,
             materialCard3, materialCard3, materialCard3, materialCard3, materialCard3, materialCard3, materialCard3, materialCard3, materialCard3, materialCard3,
             materialCard4, materialCard4, materialCard4, materialCard4, materialCard4, materialCard4, materialCard4, materialCard4, materialCard4, materialCard4,

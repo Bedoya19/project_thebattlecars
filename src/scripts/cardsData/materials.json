@@ -10,7 +10,7 @@
             "materialInQuestion": "cardboard",
             "quantity": 1,
             "rarity": 1,
-            "image": "./src/images/materials/carton_x1.png"
+            "image": "./src/images/materials/category1/carton_x1.png"
         },
         {
             "id": "material-rubbedband_x1",
@@ -22,7 +22,7 @@
             "materialInQuestion": "rubberband",
             "quantity": 1,
             "rarity": 2,
-            "image": "./src/images/materials/caucho_x1.png"
+            "image": "./src/images/materials/category1/caucho_x1.png"
         },
         {
             "id": "material-rubberkit_x1",
@@ -33,7 +33,7 @@
             "materialInQuestion": "rubberkit",
             "quantity": 1,
             "rarity": 2,
-            "image": "./src/images/materials/kitgoma_x1.png"
+            "image": "./src/images/materials/category1/kitgoma_x1.png"
         },
         {
             "id": "material-glue_x1",
@@ -45,7 +45,7 @@
             "materialInQuestion": "glue",
             "quantity": 1,
             "rarity": 2,
-            "image": "./src/images/materials/pegante_x1.png"
+            "image": "./src/images/materials/category1/pegante_x1.png"
         },
         {
             "id": "material-foamsheet_x1",
@@ -57,7 +57,7 @@
             "materialInQuestion": "foamsheet",
             "quantity": 1,
             "rarity": 2,
-            "image": "./src/images/materials/fomi_x1.png"
+            "image": "./src/images/materials/category1/fomi_x1.png"
         },
         {
             "id": "material-gunpodwer_x1",
@@ -69,7 +69,7 @@
             "materialInQuestion": "gunpodwer",
             "quantity": 1,
             "rarity": 3,
-            "image": "./src/images/materials/polvora_x1.png"
+            "image": "./src/images/materials/category1/polvora_x1.png"
         },
         {
             "id": "material-vegetableoil_x1",
@@ -81,7 +81,7 @@
             "materialInQuestion": "vegetable_oil",
             "quantity": 1,
             "rarity": 3,
-            "image": "./src/images/materials/aceite_x1.png"
+            "image": "./src/images/materials/category1/aceite_x1.png"
         },
         {
             "id": "material-cardboard_x3",
@@ -93,161 +93,7 @@
             "materialInQuestion": "cardboard",
             "quantity": 3,
             "rarity": 1,
-            "image": "./src/images/materials/carton_x1.png"
-        },
-        {
-            "id": "material-rubbedband_x3",
-            "category": "category 1",
-            "type": "material",
-            "name": "Rubbedband x3",
-            "description": "Este pedazo de caucho te permitira mejorar las armas que necesiten caucho para mejorarse. No todas las armas de la categoria contienen caucho, pero si una buena cantidad, entonces la mayoria de los casos no es mala idea tenerlo.",
-            "longDescription": "Por mas bobo que se vea tener un pedazo individual de caucho, te permitira mejorar una gran seriede armas. Este material esta en una serie de materiales mas raro que el carton, pero mas comun que otros materiales que encontraras. Eso no necesariamente significa que las armas que tengan caucho sean mejores o peores. La mejor estrategia es que si vas a usar muchas armas que contengan caucho, es buena idea traer la correcta cantidad de caucho.",
-            "materialInQuestion": "rubberband",
-            "quantity": 3,
-            "rarity": 2,
-            "image": "./src/images/materials/caucho_x1.png"
-        },
-        {
-            "id": "material-rubberkit_x3",
-            "category": "category 1",
-            "type": "Rubber Kit x3",
-            "description": "Este kit de goma contiene una serie de moldes de figuras hechos de goma, como pueden ser cilindros, cubos, esferas y muchas otras mas, que te permiten mejorar armas que necesitan goma para su contruccion, o incluso, ¡como proyectil!",
-            "longDescription": "Este material es mas abstracto, pero es una caja que contiene figuras geometricas hechas en goma que algunas armas usan como material de construccion, o como proyectil. No te deberias de preocupar con un proyectil de goma, puede hacer daño considerable. Es un poco mas raro que el carton, pero sigue siendo comun para lo que es. Es buena idea traer la suficiente goma para tus armas que requieran goma.",
-            "materialInQuestion": "rubberkit",
-            "quantity": 3,
-            "rarity": 2,
-            "image": "./src/images/materials/kitgoma_x1.png"
-        },
-        {
-            "id": "material-glue_x3",
-            "category": "category 1",
-            "type": "material",
-            "name": "Glue x3",
-            "description": "Este pegante es muy versatil y es usado en muchas armas. Un material que tiene su espacio en casi todos los mazos.",
-            "longDescription": "El pegante es uno de los materiales mas usados en la categoria, y por razones obvias. Para construir las armas de carton, es requerido unir los pedazos de alguna forma, ¿no? Aunque algunas armas no necesiten pegante, tener una buena cantidad de pegante en el mazo casi nunca es una mala idea.",
-            "materialInQuestion": "glue",
-            "quantity": 3,
-            "rarity": 2,
-            "image": "./src/images/materials/pegante_x1.png"
-        },
-        {
-            "id": "material-foamsheet_x3",
-            "category": "category 1",
-            "type": "material",
-            "name": "Foamsheet x3",
-            "description": "Este pedazo de fomi es crucial para la construccion de algunas armas. Reforzar este fomi es crucial para mejorar las propiedades de las armas",
-            "longDescription": "El fomi es un material bastante util y versatil de muchas armas. Es crucial en las fundaciones de las armas que lo necesitan. Como es siempre con los materiales, si vas a usar muchas armas que necesiten fomi, es necesario traer los suficientes fomis.",
-            "materialInQuestion": "foamsheet",
-            "quantity": 3,
-            "rarity": 2,
-            "image": "./src/images/materials/fomi_x1.png"
-        },
-        {
-            "id": "material-gunpodwer_x3",
-            "category": "category 1",
-            "type": "material",
-            "name": "Gunpodwer x3",
-            "description": "¿Polvora para armas caseras hechas de carton? ¡Eso va a explotar!",
-            "longDescription": "Creelo o no, usar polvora en estas armas de carton es, efectivamente, una buena idea. Este material es bastante raro de obtener, entonces probablemente no tengas muchas muchas cartas de polvora para usar. Piensa bien que armas de polvora traer, y cuantas cartas de polvora vas a traer. Si valdra la pena si te organizas bien. ¡Todas las armas de polvora tienen ataques explosivos! Entonces tendras una gran ventaja estrategica si lo logras",
-            "materialInQuestion": "gunpodwer",
-            "quantity": 3,
-            "rarity": 3,
-            "image": "./src/images/materials/polvora_x1.png"
-        },
-        {
-            "id": "material-vegetableoil_x3",
-            "category": "category 1",
-            "type": "material",
-            "name": "Vegetable Oil x3",
-            "description": "¿Que se supone que hago con un aceite domestico exactamente...? ...prender fuego sera...",
-            "longDescription": "Aunque una botella de aceite de cocina no es que se vea muy util que digamos, aqui es usado para tener proyectiles inflamables, y asi le puedes prender fuego a los carros enemigos! No te emociones, que no es cosa de todos los dias encontrarte con esta carta para usarla en tu mazo, entonces tendras que ser mas estrategico de lo usual para tener armas de fuego y mejorarlas al punto de que sean un genuino peligro.",
-            "materialInQuestion": "vegetable_oil",
-            "quantity": 3,
-            "rarity": 3,
-            "image": "./src/images/materials/aceite_x1.png"
-        },
-        {
-            "id": "material-cardboard_x5",
-            "category": "category 1",
-            "type": "material",
-            "name": "Cardboard x5",
-            "description": "Este simple individual pedazo de carton te puede ayudar a mejorar todas las armas de la categoria 1 a un nivel mayor, mejorando sus habilidades y rellenando su energia en el proceso.",
-            "longDescription": "¡El material mas sencillo y coumn de la categoria! Aunque no es mucho un simple pedazo de carton, puede contribuir a la mejora de las armas, ya que todas las armas de esta categoria requerien por lo minimo un pedazo de carton, entonces tener esta carta nunca hace falta en un mazo de la Categoria 1. Mejorar armas es una excelente opcion ya que mejora las habilidades de la arma, y ademas rellena el poder. ¡Aprovecha a mejorar un arma cuando tengas la opcion!",
-            "materialInQuestion": "cardboard",
-            "quantity": 5,
-            "rarity": 1,
-            "image": "./src/images/materials/carton_x1.png"
-        },
-        {
-            "id": "material-rubbedband_x5",
-            "category": "category 1",
-            "type": "material",
-            "name": "Rubbedband x5",
-            "description": "Este pedazo de caucho te permitira mejorar las armas que necesiten caucho para mejorarse. No todas las armas de la categoria contienen caucho, pero si una buena cantidad, entonces la mayoria de los casos no es mala idea tenerlo.",
-            "longDescription": "Por mas bobo que se vea tener un pedazo individual de caucho, te permitira mejorar una gran seriede armas. Este material esta en una serie de materiales mas raro que el carton, pero mas comun que otros materiales que encontraras. Eso no necesariamente significa que las armas que tengan caucho sean mejores o peores. La mejor estrategia es que si vas a usar muchas armas que contengan caucho, es buena idea traer la correcta cantidad de caucho.",
-            "materialInQuestion": "rubberband",
-            "quantity": 5,
-            "rarity": 2,
-            "image": "./src/images/materials/caucho_x1.png"
-        },
-        {
-            "id": "material-rubberkit_x5",
-            "category": "category 1",
-            "type": "Rubber Kit x5",
-            "description": "Este kit de goma contiene una serie de moldes de figuras hechos de goma, como pueden ser cilindros, cubos, esferas y muchas otras mas, que te permiten mejorar armas que necesitan goma para su contruccion, o incluso, ¡como proyectil!",
-            "longDescription": "Este material es mas abstracto, pero es una caja que contiene figuras geometricas hechas en goma que algunas armas usan como material de construccion, o como proyectil. No te deberias de preocupar con un proyectil de goma, puede hacer daño considerable. Es un poco mas raro que el carton, pero sigue siendo comun para lo que es. Es buena idea traer la suficiente goma para tus armas que requieran goma.",
-            "materialInQuestion": "rubberkit",
-            "quantity": 5,
-            "rarity": 2,
-            "image": "./src/images/materials/kitgoma_x1.png"
-        },
-        {
-            "id": "material-glue_x5",
-            "category": "category 1",
-            "type": "material",
-            "name": "Glue x5",
-            "description": "Este pegante es muy versatil y es usado en muchas armas. Un material que tiene su espacio en casi todos los mazos.",
-            "longDescription": "El pegante es uno de los materiales mas usados en la categoria, y por razones obvias. Para construir las armas de carton, es requerido unir los pedazos de alguna forma, ¿no? Aunque algunas armas no necesiten pegante, tener una buena cantidad de pegante en el mazo casi nunca es una mala idea.",
-            "materialInQuestion": "glue",
-            "quantity": 5,
-            "rarity": 2,
-            "image": "./src/images/materials/pegante_x1.png"
-        },
-        {
-            "id": "material-foamsheet_x5",
-            "category": "category 1",
-            "type": "material",
-            "name": "Foamsheet x5",
-            "description": "Este pedazo de fomi es crucial para la construccion de algunas armas. Reforzar este fomi es crucial para mejorar las propiedades de las armas",
-            "longDescription": "El fomi es un material bastante util y versatil de muchas armas. Es crucial en las fundaciones de las armas que lo necesitan. Como es siempre con los materiales, si vas a usar muchas armas que necesiten fomi, es necesario traer los suficientes fomis.",
-            "materialInQuestion": "foamsheet",
-            "quantity": 5,
-            "rarity": 2,
-            "image": "./src/images/materials/fomi_x1.png"
-        },
-        {
-            "id": "material-gunpodwer_x5",
-            "category": "category 1",
-            "type": "material",
-            "name": "Gunpodwer x5",
-            "description": "¿Polvora para armas caseras hechas de carton? ¡Eso va a explotar!",
-            "longDescription": "Creelo o no, usar polvora en estas armas de carton es, efectivamente, una buena idea. Este material es bastante raro de obtener, entonces probablemente no tengas muchas muchas cartas de polvora para usar. Piensa bien que armas de polvora traer, y cuantas cartas de polvora vas a traer. Si valdra la pena si te organizas bien. ¡Todas las armas de polvora tienen ataques explosivos! Entonces tendras una gran ventaja estrategica si lo logras",
-            "materialInQuestion": "gunpodwer",
-            "quantity": 5,
-            "rarity": 3,
-            "image": "./src/images/materials/polvora_x1.png"
-        },
-        {
-            "id": "material-vegetableoil_x5",
-            "category": "category 1",
-            "type": "material",
-            "name": "Vegetable Oil x5",
-            "description": "¿Que se supone que hago con un aceite domestico exactamente...? ...prender fuego sera...",
-            "longDescription": "Aunque una botella de aceite de cocina no es que se vea muy util que digamos, aqui es usado para tener proyectiles inflamables, y asi le puedes prender fuego a los carros enemigos! No te emociones, que no es cosa de todos los dias encontrarte con esta carta para usarla en tu mazo, entonces tendras que ser mas estrategico de lo usual para tener armas de fuego y mejorarlas al punto de que sean un genuino peligro.",
-            "materialInQuestion": "vegetable_oil",
-            "quantity": 5,
-            "rarity": 3,
-            "image": "./src/images/materials/aceite_x1.png"
+            "image": "./src/images/materials/category1/carton_x1.png"
         }
     ],
     "category2": [],
