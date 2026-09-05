@@ -94,19 +94,19 @@
             "materialInQuestion": "cardboard",
             "quantity": 3,
             "rarity": 1,
-            "image": "./src/images/materials/category1/carton_x3.png"
+            "image": "./src/images/materials/category1/x3/carton_x3.png"
         },
         {
             "id": "material-rubberband_x3",
             "category": "category 1",
             "type": "material",
-            "name": "Cardboard x3",
+            "name": "Rubberband x3",
             "description": "Con tres cauchos, se te permite con mucha mayor facilidad mejorar armas que contengan mucho caucho en su requerimientos.",
             "longDescription": "Con tres cauchos en una carta, mejorar armas con caucho se hace mucho mas facil. Menos veces tienes que sacar de tus cartas de materiales para poder mejorar tus armas. ¡Ten cuidado! Las cartas no se fraccionan: si usas esta carta para mejorar un arma que solo necesita 1 de caucho, se pierde toda la carta. El caucho restante no se convierte en una carta nueva ni se te devuelve. Cuenta bien cuánto caucho tienes antes de gastarlo, para no perder material donde no se justifica.",
             "materialInQuestion": "cardboard",
             "quantity": 3,
             "rarity": 1,
-            "image": "./src/images/materials/category1/carton_x3.png"
+            "image": "./src/images/materials/category1/x3/caucho_x3.png"
         },
         {
             "id": "material-rubberkit_x3",
@@ -117,7 +117,7 @@
             "materialInQuestion": "rubberkit",
             "quantity": 3,
             "rarity": 2,
-            "image": "./src/images/materials/category1/kitgoma_x3.png"
+            "image": "./src/images/materials/category1/x3/kitgoma_x3.png"
         },
         {
             "id": "material-glue_x3",
@@ -129,7 +129,7 @@
             "materialInQuestion": "glue",
             "quantity": 3,
             "rarity": 2,
-            "image": "./src/images/materials/category1/pegante_x3.png"
+            "image": "./src/images/materials/category1/x3/pegante_x3.png"
         },
         {
             "id": "material-foamsheet_x3",
@@ -141,7 +141,7 @@
             "materialInQuestion": "foamsheet",
             "quantity": 3,
             "rarity": 2,
-            "image": "./src/images/materials/category1/fomi_x3.png"
+            "image": "./src/images/materials/category1/x3/fomi_x3.png"
         }
     ],
     "category2": [],

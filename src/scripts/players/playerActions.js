@@ -12,6 +12,7 @@ import { Player2 } from "./player2.js";
 import { DisplayCardsInDeck } from "../display/deckDisplay.js";
 import { GameValuesDisplay } from "../display/gameValuesDisplay.js";
 import { GameNotesDisplay } from "../display/gameNotesDisplay.js";
+import { DeckUtils } from "./DeckUtils.js";
 
 // Clase que va a hacer todo
 export class PlayerActions {
@@ -200,5 +201,21 @@ export class PlayerActions {
 
         }
         //PlayerActions.getRandomWeaponFromPlayerPile(player);
+    }
+
+    static removeMaterialsForUpgrade(player, deck, material, needed) {
+        console.log(material, needed);
+        const indices = DeckUtils
+            .selectMaterialCardsToRemove(deck, material, needed)
+            .sort((a, b) => b - a);
+
+        console.log(indices);
+
+        indices.forEach(index => this.removeCardInDeck(player, "materials", index));
+        // Llevar a una funcion despues
+        const deckCards = document.getElementById("deck-cards");
+        const cardInformation = document.getElementById("card-selected-information");
+        deckCards.innerHTML = "";
+        DisplayCardsInDeck.showDeckOfCards(deckCards, this.getDeckFromPlayer(player, "materials"), cardInformation);
     }
 }

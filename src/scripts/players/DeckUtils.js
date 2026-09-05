@@ -32,4 +32,28 @@ export class DeckUtils {
         }
         return countCards;
     }
+
+    // Devuelve un array de las cartas de material ordenadas por cantidad
+    static orderMaterialsByQuantity(materialDeck) {
+        const highestToLowestCards = materialDeck.toSorted((card1, card2) =>  card2.quantity - card1.quantity);
+        return highestToLowestCards;
+    }
+
+    static selectMaterialCardsToRemove(deck, material, needed) {
+        const candidates = deck
+        .map((card, index) => ({ card, index }))
+        .filter(({ card }) => card.materialInQuestion === material)
+        .sort((a, b) => b.card.quantity - a.card.quantity);
+
+        const indicesToRemove = [];
+        let accumulated = 0;
+
+        for (const { card, index } of candidates) {
+            if (accumulated >= needed) break;
+            indicesToRemove.push(index);
+            accumulated += card.quantity;
+        }
+
+        return indicesToRemove;
+    }
 }

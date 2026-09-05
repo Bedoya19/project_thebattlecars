@@ -64,6 +64,7 @@ export class Player {
     // Modificacion de decks
 
     static deleteFromDeck(deck, index) {
+        //console.log(deck);
         this._decks[deck].splice(index, 1);
     }
 
