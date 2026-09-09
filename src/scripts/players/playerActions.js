@@ -212,10 +212,14 @@ export class PlayerActions {
         console.log(indices);
 
         indices.forEach(index => this.removeCardInDeck(player, "materials", index));
+
         // Llevar a una funcion despues
-        const deckCards = document.getElementById("deck-cards");
-        const cardInformation = document.getElementById("card-selected-information");
-        deckCards.innerHTML = "";
-        DisplayCardsInDeck.showDeckOfCards(deckCards, this.getDeckFromPlayer(player, "materials"), cardInformation);
+        const currentDeck = document.getElementById("deck-icon-current").dataset.deck;
+        if (currentDeck === "materials") {
+            const deckCards = document.getElementById("deck-cards");
+            const cardInformation = document.getElementById("card-selected-information");
+            deckCards.innerHTML = "";
+            DisplayCardsInDeck.showDeckOfCards(deckCards, this.getDeckFromPlayer(player, "materials"), cardInformation);
+        }
     }
 }
