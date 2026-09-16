@@ -371,9 +371,9 @@ export class BoardClick {
         // Datos de la carta
         weaponSquare.dataset.name = name;
         weaponSquare.dataset.description = description;
-        // No existe maxEnergy porque tengo pensado que gracias a poderes pueda facilmente incrementar al valor original.
-        // (Aunque me tocara probar como sera que me va con eso)
+        // Me toco crear maxEnergy para la mejora de las armas
         weaponSquare.dataset.energy = energy;
+        weaponSquare.dataset.maxEnergy = energy;
         weaponSquare.dataset.attacks = attacks;
         // El valor del nivel del arma
         weaponSquare.dataset.level = 0;

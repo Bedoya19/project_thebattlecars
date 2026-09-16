@@ -51,8 +51,13 @@ export class WeaponUpgrade {
                 const currentLevel = Number(weaponSquare.dataset.level);
                 
                 if (currentLevel < attacksLevels) {
+                    console.log("Se va a mejorar!");
                     // Asignamos el nuevo valor a la propiedad, JS lo convierte a string automáticamente
                     weaponSquare.dataset.level = currentLevel + 1;
+                    // Se recarga de energia el arma en el proceso
+                    if (weaponSquare.dataset.energy < weaponSquare.dataset.maxEnergy) {
+                        weaponSquare.dataset.energy = weaponSquare.dataset.energy;
+                    }
                     // - Esto tambien puede ser convertido en una funcion
                     PlayerActions.consumePowerForActionInPlayer(player);
                     GameValuesDisplay.updatePowerValue();
