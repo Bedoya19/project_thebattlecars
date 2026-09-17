@@ -1,3 +1,4 @@
+import { DisplayCardInformation } from "../display/displayCardInformation.js";
 import { GameValuesDisplay } from "../display/gameValuesDisplay.js";
 import { StandarizedDocCreation } from "../display/standardDoc/standarizedDocCreation.js";
 import { DeckUtils } from "../players/DeckUtils.js";
@@ -55,8 +56,11 @@ export class WeaponUpgrade {
                     // Asignamos el nuevo valor a la propiedad, JS lo convierte a string automáticamente
                     weaponSquare.dataset.level = currentLevel + 1;
                     // Se recarga de energia el arma en el proceso
-                    if (weaponSquare.dataset.energy < weaponSquare.dataset.maxEnergy) {
-                        weaponSquare.dataset.energy = weaponSquare.dataset.energy;
+                    if (weaponSquare.dataset.energy <= weaponSquare.dataset.maxEnergy) {
+                        console.log("Recargar energia...");
+                        const cardInformation = document.getElementById("card-selected-information");
+                        weaponSquare.dataset.energy = weaponSquare.dataset.maxEnergy;
+                        DisplayCardInformation.displayWeaponCardInformationBoard(cardInformation, weaponSquare, player);
                     }
                     // - Esto tambien puede ser convertido en una funcion
                     PlayerActions.consumePowerForActionInPlayer(player);
