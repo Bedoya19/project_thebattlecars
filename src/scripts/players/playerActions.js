@@ -6,8 +6,7 @@ Por ahora lo unico que tendra es que revisa si es del jugador 1 o jugador 2, y s
 mazo
 */
 // Importar jugadores
-import { Player1 } from "./player1.js";
-import { Player2 } from "./player2.js";
+import { players } from "./Players.js";
 
 import { DisplayCardsInDeck } from "../display/deckDisplay.js";
 import { GameValuesDisplay } from "../display/gameValuesDisplay.js";
@@ -23,33 +22,35 @@ export class PlayerActions {
     static getDeckFromPlayer(player, deck) {
         switch (deck) {
             case "cars":
-                return (player === "player1") ? Player1.getCars() : Player2.getCars();
+                return players[player].getCars();
             case "weapons":
-                return (player === "player1") ? Player1.getWeapons() : Player2.getWeapons();
+                return players[player].getWeapons();
             case "materials":
-                return (player === "player1") ? Player1.getMaterials() : Player2.getMaterials();
+                return players[player].getMaterials();
+            case "powers":
+                return "Todavia no se ha implementado los poderes al juego"
             default:
-                return "Todavia no se ha implementado los poderes al juego";
+                return "Tipo de carta no existente";
         }
     }
 
     static getAllDecksFromPlayer(player) {
-        return (player === "player1") ? Player1.getDecks() : Player2.getDecks();
+        return players[player].getDecks();
     }
 
     // Remueve una carta del deck
     static removeCardInDeck(player, deck, index) {
-        (player === "player1") ? Player1.deleteFromDeck(deck, index) : Player2.deleteFromDeck(deck, index);
+        players[player].deleteFromDeck(deck, index);
     }
 
     // Devuelve el poder o nitro de un jugador en especifico
     // Nitro
     static getNitroFromPlayer(player) {
-        return (player === "player1") ? Player1.getNitro() : Player2.getNitro();
+        return players[player].getNitro();
     }
     // Poder
     static getPowerFromPlayer(player) {
-        return (player === "player1") ? Player1.getPower() : Player2.getPower();
+        return players[player].getPower();
     }
 
     // Da nitro y poder a cada jugador
@@ -57,41 +58,41 @@ export class PlayerActions {
     static async giveNitroAndPowerToPlayers() {
         // Tal vez podria divivir la logica de cada en jugador en distintos metodos...? Aunque tocara ver
         // Jugador 1
-        await Player1.giveNitro();
-        await Player1.givePower();
+        await players.player1.giveNitro();
+        await players.player1.givePower();
         // Jugador 2
-        await Player2.giveNitro();
-        await Player2.givePower();
+        await players.player2.giveNitro();
+        await players.player2.givePower();
     }
 
     // Dar nitro al jugador a un valor en especifico
     static async giveNitroAfterDestroyedCar(player) {
-        (player === "player1") ? await Player1.giveNitroForDestroyedCar() : await Player2.giveNitroForDestroyedCar();
+        await players[player].giveNitroForDestroyedCar();
     }
 
     // Dar el gasto del poder al respecito jugador
     static consumePowerForActionInPlayer(player) {
-        (player === "player1") ? Player1.subtractPower(1) : Player2.subtractPower(1);
+        players[player].subtractPower(1);
     }
 
     static getChargeFromPlayer(player) {
-        return (player === "player1") ? Player1.getCharge() : Player2.getCharge();
+        return players[player].getCharge();
     }
 
     static generateChargeForPlayer(player) {
-        return (player === "player1") ? Player1.generateRandomCharge() : Player2.generateRandomCharge();
+        return players[player].generateRandomCharge();
     }
 
     static addWeaponToPlayerDeck(player, weaponCard) {
-        (player === "player1") ? Player1.addWeaponToDeck(weaponCard) : Player2.addWeaponToDeck(weaponCard);
+        players[player].addWeaponToDeck(weaponCard);
     }
 
     static addMaterialToPlayerDeck(player, materialCard) {
-        (player === "player1") ? Player1.addMaterialToDeck(materialCard) : Player2.addMaterialToDeck(materialCard);
+        players[player].addMaterialToDeck(materialCard);
     }
 
     static getWeaponFromStorageFromPlayer(player, weaponName) {
-        return (player === "player1") ? Player1.getWeaponFromStorage(weaponName) : Player2.getWeaponFromStorage(weaponName);
+        return players[player].getWeaponFromStorage(weaponName);
     }
 
     static removeNitroFromCar(player, carSquare) {
@@ -100,11 +101,11 @@ export class PlayerActions {
             throw new Error("carSquare inválido o sin dataset de nitro");
         }
         const nitroToRemove = carSquare.dataset.nitroQuantity;
-        (player === "player1") ? Player1.removeNitro(nitroToRemove) : Player2.removeNitro(nitroToRemove);
+        players[player].removeNitro(nitroToRemove);
     }
 
     static getWeaponsFromPlayer(player) {
-        return (player === "player1") ? Player1.getWeapons() : Player2.getWeapons();
+        return players[player].getWeapons();
     }
 
     // Agrega una carta a un deck en especifico
@@ -123,7 +124,7 @@ export class PlayerActions {
     }
 
     static getRandomIndividualCardFromPile(player, cardType) {
-        return (player === "player1") ? Player1.getRandomCardFromPile(`${cardType}_pile`) : Player2.getRandomCardFromPile(`${cardType}_pile`);
+        return players[player].getRandomCardFromPile(`${cardType}_pile`);
     }
 
     // Funcion exclusiva para sacar varias cartas de material.

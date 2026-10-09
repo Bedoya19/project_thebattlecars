@@ -18,7 +18,7 @@ import { DisplayCardInformation } from "./display/displayCardInformation.js";
 // Clase de acciones del tablero 
 import { BoardClick } from "./board/boardActions.js";
 //import { image } from "./../images/default_icons/default_cars.png";
-import { Player1 } from "./players/player1.js";
+
 import { GameNotesDisplay } from "./display/gameNotesDisplay.js";
 // Clase de las operaciones del juego
 import { MainGame } from "./game/mainGame.js";
@@ -58,8 +58,7 @@ const materialCard = await MaterialCard.loadMaterialObjectFromJSON("category1", 
 //const cards = [carCard, weaponCard, materialCard];
 
 // Mostrar las cartas del deck actual al puro principio de todo
-const decks = Player1.getDecks();
-DisplayCardsInDeck.showDeckOfCards(deckCards, decks["cars"], cardInformation);
+DisplayCardsInDeck.showDeckOfCards(deckCards, PlayerActions.getDeckFromPlayer("player1", "cars"), cardInformation);
 
 //deckIcon.addEventListener("click", () => { DisplayCardsInDeck.changeDeck(deckIcon, deckDefaultIconsDir, decks, deckCards, cardInformation) });
 deckIcon.addEventListener("click", () => { DisplayCardsInDeck.changeDeckPlayer(deckIcon, deck.dataset.player, deckCards, cardInformation) });
