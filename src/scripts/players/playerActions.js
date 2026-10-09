@@ -91,7 +91,7 @@ export class PlayerActions {
     }
 
     static getWeaponFromStorageFromPlayer(player, weaponName) {
-        return (player === "player1") ? Player1.getWeaponFromStorage(weaponName) : Player1.getWeaponFromStorage(weaponName);
+        return (player === "player1") ? Player1.getWeaponFromStorage(weaponName) : Player2.getWeaponFromStorage(weaponName);
     }
 
     static removeNitroFromCar(player, carSquare) {
@@ -196,6 +196,7 @@ export class PlayerActions {
             case "materials":
                 //PlayerActions.getRandomCardFromPlayerPile(player, "materials");
                 PlayerActions.getMultipleMaterialCards(player, 5);
+                break;
             default:
                 console.log("No se puede sacar cartas de este mazo!");
 

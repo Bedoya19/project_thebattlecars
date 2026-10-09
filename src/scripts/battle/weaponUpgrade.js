@@ -51,7 +51,7 @@ export class WeaponUpgrade {
                 // Convertimos explícitamente a número para evitar coerciones raras en la comparación
                 const currentLevel = Number(weaponSquare.dataset.level);
                 
-                if (currentLevel < attacksLevels) {
+                if (currentLevel < attacksLevels - 1) {
                     console.log("Se va a mejorar!");
                     // Asignamos el nuevo valor a la propiedad, JS lo convierte a string automáticamente
                     weaponSquare.dataset.level = currentLevel + 1;
