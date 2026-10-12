@@ -75,6 +75,14 @@ export class PlayerActions {
         players[player].subtractPower(1);
     }
 
+    static spendPower(player, n = 1) {
+        if (!players[player].trySpendPower(n)) return false;
+        GameValuesDisplay.updatePowerValue();
+        return true;
+    }
+
+    
+
     static getChargeFromPlayer(player) {
         return players[player].getCharge();
     }
@@ -129,10 +137,8 @@ export class PlayerActions {
 
     // Funcion exclusiva para sacar varias cartas de material.
     static getMultipleMaterialCards(player, quantity) {
-        if (this.getPowerFromPlayer(player) > 0) {
+        if (this.spendPower(player)) {
             try {
-                this.consumePowerForActionInPlayer(player);
-                GameValuesDisplay.updatePowerValue();
                 GameNotesDisplay.addDrawCards(player, "materials", 5);
                 for (let i = 0; i < quantity; i++) {
                     const randomCard = this.getRandomIndividualCardFromPile(player, "materials");
@@ -155,7 +161,7 @@ export class PlayerActions {
     }
 
     static getRandomCardFromPlayerPile(player, cardType) {
-        if (this.getPowerFromPlayer(player) > 0) {
+        if (this.spendPower(player)) {
             try {
                 const currentDeck = document.getElementById("deck-icon-current").dataset.deck;
                 if (currentDeck === cardType) {
@@ -167,7 +173,6 @@ export class PlayerActions {
                     const randomCard = this.getRandomIndividualCardFromPile(player, cardType);
                     
                     this.addCardToPlayerDeck(player, cardType, randomCard);
-                    this.consumePowerForActionInPlayer(player);
                     GameValuesDisplay.updatePowerValue();
                     GameNotesDisplay.addDrawCard(player, cardType);
 

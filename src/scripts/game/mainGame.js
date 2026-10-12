@@ -68,12 +68,7 @@ export class MainGame {
     // Hace los calculos con el poder con cada accion
     // Devuelve true despues de restar poder. false si ya esta en 0
     static calculatePowerForAction(player) {
-        if (PlayerActions.getPowerFromPlayer(player) <= 0) {
-            return false;
-        } else {
-            PlayerActions.consumePowerForActionInPlayer(player);
-            GameValuesDisplay.updatePowerValue();
-            return true;
-        }
+        return PlayerActions.spendPower(player);
     }
+
 }

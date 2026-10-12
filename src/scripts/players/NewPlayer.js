@@ -165,4 +165,14 @@ export class Player {
         // Sabes que podemos hacer esto mas estandar...
         const currentDeck = document.getElementById("deck-icon-current");
     }
+
+    // Gasta poder
+    trySpendPower(power) {
+        if (this.power < power) {
+            return false;
+        } else {
+            this.subtractPower(power);
+            return true;
+        }
+    }
 }

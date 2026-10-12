@@ -45,6 +45,9 @@ export class Attack {
 
         // Jugador actual
         const currentPlayer = document.getElementById("deck").dataset.player;
+
+        // Gasta el poder del ataque. Si no hay, no se hace nada
+        if (!PlayerActions.spendPower(currentPlayer)) return;
     
         // Carro atacante (movido para usarse antes)
         const weaponSquare = document.getElementById(`${currentPlayer}-zone${AttackValues.getZone()}-card-weapon-${AttackValues.getSquareNumber()}`);
@@ -85,7 +88,7 @@ export class Attack {
         }
 
         // Le baja energia a la arma que se uso para el ataque
-        PlayerActions.consumePowerForActionInPlayer(currentPlayer);
+        //PlayerActions.consumePowerForActionInPlayer(currentPlayer);
         
         
         --weaponSquare.dataset.energy;
