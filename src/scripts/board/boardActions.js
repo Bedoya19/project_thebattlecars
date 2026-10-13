@@ -86,6 +86,10 @@ export class BoardClick {
                 GameNotesDisplay.carOnBoardTurnNotes(squarePlayer, carSquare.id.slice(23), cardObj.name);
                 this.removeValidCarSquare();
             } else {
+                if (carSquare.dataset.name === "undefined") {
+                    DisplayCardInformation.displayEmptyCarSquare(cardInformation, carSquare, squarePlayer);
+                    return;
+                }
                 console.log("Error en poner la carta");
                 console.log(checkCarValidation);
                 
@@ -108,6 +112,7 @@ export class BoardClick {
                 //console.log(carSquare.firstElementChild.src);
                 // Muestra la informacion del carro que se hizo clic
                 // (Sorpresivamente funciona bien sin ninguna carta seleccionada)
+                
                 DisplayCardInformation.displayCarCardInformationBoard(
                     cardInformation, 
                     carSquare, 
