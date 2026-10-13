@@ -10,6 +10,8 @@ import { AttackValues } from "../battle/attackValues.js";
 import { MainGame } from "../game/mainGame.js";
 import { WeaponCard } from "../models/cards/WeaponCard.js";
 import { DisplayMessageBoxes } from "../display/displayMessageBoxes.js";
+import { StateGame } from "../game/stateGame.js";
+import { Reason } from "../models/constants/enums.js";
 
 export class BoardClick {
     // Cuando se hace click en una casilla de carro
@@ -18,7 +20,7 @@ export class BoardClick {
 
         // Revisa si se va a atacar. Si es asi, hace la funcion de atacar, sino, sigue con el procedimeinto normal de revisar 
         // la colocacion de una carta y/o la informacion de esta
-        if ((AttackValues.getPrepareAttack() === true) && (carSquare.id.slice(0, 7) !== document.getElementById("deck").dataset.player)) {
+        if ((AttackValues.getPrepareAttack() === true) && (carSquare.id.slice(0, 7) !== StateGame.getCurrentPlayer())) {
             console.log("Se atacara!!!");
             await Attack.attack(carSquare);
         } else {
@@ -37,7 +39,7 @@ export class BoardClick {
             // Consigue un guevo de valores del Document para hacer los cambios respectivos en la pagina
             // (no supe hacer algo mejor, para bien y para mal).
             // Primero se consigue los datos necesarios para revisar la disponiblidad de la casilla
-            const currentPlayer = document.getElementById("deck").dataset.player;
+            const currentPlayer = StateGame.getCurrentPlayer();
             
             console.log(squarePlayer);
             const carBoardPlayer = carSquare.classList[2];
@@ -48,9 +50,12 @@ export class BoardClick {
             // Revisa que se pueda poner la carta:
             //const validPower = MainGame.calculatePowerForAction(currentPlayer);
             const checkCarValidation = checkBoard.checkCarSquareAvailability(carBoardPlayer, currentPlayer, carSquare, cardGeneralInformation);
-            if (checkCarValidation[0]) {
+            if (checkCarValidation.ok) {
+                if (!PlayerActions.spendPower(currentPlayer)) return;
 
                 // El resto de los datos
+
+                
                 const currentDeck = document.getElementById("deck-icon-current");
                 const deckCards = document.getElementById("deck-cards")
                 const cardObj = JSON.parse(cardGeneralInformation.dataset.card);
@@ -86,7 +91,7 @@ export class BoardClick {
                 
                 // Condicion para mostrar el mensaje
                 // (Si lo hago en general, rompo algo)
-                if (checkCarValidation[2] === "lack_of_power") {
+                if (checkCarValidation.reason === Reason.NO_POWER) {
                     DisplayMessageBoxes.createTemporalText(carSquare, checkCarValidation[1]);
                     this.removeValidCarSquare();
                     //DisplayCardInformation.displayEmptyCarSquare(cardInformation, carSquare, squarePlayer);
@@ -140,7 +145,7 @@ export class BoardClick {
         // Despues agregar lo de eliminar la estetica esta
         //console.log(checkBoard.checkForCarCapacity(squarePlayer, squareZone));
         try {
-            const currentPlayer = document.getElementById("deck").dataset.player;
+            const currentPlayer = StateGame.getCurrentPlayer();
             //const weaponBoardPlayer = weaponSquare.classList[0];
             if (checkBoard.checkWeaponSquareAvailability(weaponSquare, weaponSquare.id, currentPlayer, cardGeneralInformation)[0]) {
                 
@@ -468,28 +473,15 @@ class checkBoard {
     // Junta las dos anteriores, revisa si se puede poner una carta de carro en la casilla seleccionada del tablero
     // Devuelve el error exacto de lo que esta mal, si detecta que no puede colocar el carro
     static checkCarSquareAvailability(boardPlayer, currentPlayer, carSquare, cardGeneralInformation) {
-        if (!this.checkPlayer(boardPlayer, currentPlayer)) {
-            console.log("Casilla de otro carro");
-            //DisplayMessageBoxes.createTemporalText(carSquare, "La casilla es del otro jugador!");
-            return [false, "La casilla es del otro jugador!", "other_player"];
-        }
-        if (!this.checkCarSpace(carSquare)) {
-            console.log("Ocupada por otro carro");
-            //DisplayMessageBoxes.createTemporalText(carSquare, "El espacio esta ocupado por otro carro!");
-            return [false, "La casilla ya esta ocupada por otro carro", "occupied_space"];
-        }
-        if (cardGeneralInformation.dataset.type !== "car") {
-            console.log("Otro tipo de carta");
-            //DisplayMessageBoxes.createTemporalText(carSquare, "Se va a poner otro tipo de carta en una casilla de carro!");
-            return [false, "se va a poner otro tipo de carta en una casilla de carro", "other_card_type"];
-        }
-        // Devuelve false si no puede poner la carta por falta de poder. Si se puede poner, ya gasto el poder necesario
-        if (!MainGame.calculatePowerForAction(currentPlayer)) {
-            //DisplayMessageBoxes.createTemporalText(carSquare, "Ya no se tiene poder suficiente para un carro!");
-            console.log("Falta de poder");
-            return [false, "Ya no se tiene poder!", "lack_of_power"];
-        }
-        return [true, "La casilla esta disponible para colocar una carta de carro", "available"];
+       if (!this.checkPlayer(boardPlayer, currentPlayer))
+            return { ok: false, reason: Reason.OTHER_PLAYER, msg: "La casilla es del otro jugador!" };
+        if (!this.checkCarSpace(carSquare))
+            return { ok: false, reason: Reason.OCCUPIED, msg: "La casilla ya esta ocupada por otro carro" };
+        if (cardGeneralInformation.dataset.type !== "car")
+            return { ok: false, reason: Reason.WRONG_TYPE, msg: "..." };
+        if (PlayerActions.getPowerFromPlayer(currentPlayer) < 1)   // solo lee, ya no gasta
+            return { ok: false, reason: Reason.NO_POWER, msg: "Ya no se tiene poder!" };
+        return { ok: true, reason: Reason.OK, msg: "..." };
     }
 
     // Revisa si la casilla de arma esta vacia

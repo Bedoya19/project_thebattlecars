@@ -21,9 +21,10 @@ export class MainGame {
     // Cambia de jugadores
     static changePlayers() {
         // Cambia el data del deck para que sea del otro jugador
-        const currentPlayer = document.getElementById("deck").dataset.player;
-        const newPlayer = (currentPlayer === "player1") ? "player2" : "player1";
-        document.getElementById("deck").dataset.player = newPlayer;
+        //const currentPlayer = StateGame.getCurrentPlayer();
+        //const newPlayer = (currentPlayer === "player1") ? "player2" : "player1";
+        //document.getElementById("deck").dataset.player = newPlayer;
+        StateGame.switchPlayer();
         
         // Reinicia el deck en su totalidad
         // Toca conseguir primero los ementos del documento necesario para
@@ -33,13 +34,14 @@ export class MainGame {
         const deckCards = document.getElementById("deck-cards");
         const cardInformation = document.getElementById("card-selected-information");
         deckCards.innerHTML = "";
+        const newPlayer = StateGame.getCurrentPlayer();
         DisplayCardsInDeck.changeSpecificDeck(deckCards, deckIcon, cardInformation, newPlayer, "cars");
     }
 
     // Sigue para la siguiente ronda o turno
     static async goToNextRound() {
         // Anterior jugador, esto es para el nitro (un cambio de balanceo)
-        const oldPlayer = document.getElementById("deck").dataset.player;
+        const oldPlayer = StateGame.getCurrentPlayer();
         Nitro.reduceNitroFromCarsFromPlayer(oldPlayer);
         // Cambia de jugadores
         this.changePlayers();
@@ -55,7 +57,7 @@ export class MainGame {
             await GameNotesDisplay.createCurrentTurnNotes();
         }
         // Genera inmediatamente una carga para el jugador, y actualiza los datos
-        const newPlayer = document.getElementById("deck").dataset.player;
+        const newPlayer = StateGame.getCurrentPlayer();
         PlayerActions.generateChargeForPlayer(newPlayer);
         GameValuesDisplay.updateAllValues(
             newPlayer

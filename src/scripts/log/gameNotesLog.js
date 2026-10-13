@@ -5,7 +5,6 @@
 
 import { StateGame } from "../game/stateGame.js";
 
-
 const notes = {
 
 }
@@ -17,7 +16,7 @@ export function addNote(note) {
     const turn = StateGame.getTurn();
     notes[turn] = notes[turn] ?? [];
     notes[turn].push({
-        player: document.getElementById("deck").dataset.player,
+        player: StateGame.getCurrentPlayer(),
         round: StateGame.getRound(),
         message: note
     });

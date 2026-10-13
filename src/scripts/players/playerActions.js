@@ -192,7 +192,7 @@ export class PlayerActions {
 
     // Funcionalidad al boton de agregar cartas al deck en pantalla
     static getCardFromPile() {
-        const player = document.getElementById("deck").dataset.player;
+        const player = StateGame.getCurrentPlayer();
         const currentDeck = document.getElementById("deck-icon-current").dataset.deck;
 
         switch (currentDeck) {

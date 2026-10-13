@@ -1,6 +1,7 @@
 import { DisplayCardInformation } from "../display/displayCardInformation.js";
 import { GameValuesDisplay } from "../display/gameValuesDisplay.js";
 import { StandarizedDocCreation } from "../display/standardDoc/standarizedDocCreation.js";
+import { StateGame } from "../game/stateGame.js";
 import { DeckUtils } from "../players/DeckUtils.js";
 import { Player } from "../players/Player.js";
 import { PlayerActions } from "../players/playerActions.js";
@@ -14,7 +15,7 @@ export class WeaponUpgrade {
     // Crea el boton para mejorar el arma
     // Es similar al de crear el boton de ataque... Podemos pensar despues fusionar las dos
     static createUpgradeButton(player, zoneNumber, squareNumber, weaponSquare) {
-        const currentPlayer = document.getElementById("deck").dataset.player;
+        const currentPlayer = StateGame.getCurrentPlayer();
         if (currentPlayer === player) {
             const button = StandarizedDocCreation.customElementCreator(
                 {

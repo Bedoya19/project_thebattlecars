@@ -7,13 +7,14 @@ import { StandarizedDocCreation } from "../display/standardDoc/standarizedDocCre
 import { PlayerActions } from "../players/playerActions.js";
 import { GameValuesDisplay } from "../display/gameValuesDisplay.js";
 import { GameNotesDisplay } from "../display/gameNotesDisplay.js";
+import { StateGame } from "../game/stateGame.js";
 
 export class Nitro {
     // Agrega el boton de activar nitro
     // Ahora que lo pienso... Es bastante similar al otro de ataque... Hmmmm...
     static createNitroButton(player, zoneNumber, squareNumber, carSquare) {
         // Toca estandarizar esto del jugador
-        const currentPlayer = document.getElementById("deck").dataset.player;
+        const currentPlayer = StateGame.getCurrentPlayer();
         if (currentPlayer === player) {
             const button = StandarizedDocCreation.customElementCreator(
                 {

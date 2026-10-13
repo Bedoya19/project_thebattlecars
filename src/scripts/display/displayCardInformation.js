@@ -12,7 +12,7 @@ import { DeckUtils } from "../players/DeckUtils.js";
 export class DisplayCardInformation {
     static displayInformationOnDeck(divElement, card, cardId) {
         console.log(card);
-        const player = document.getElementById("deck").dataset.player;
+        const player = StateGame.getCurrentPlayer();
         switch (DataConversor.enumToString(card.type)) {
             case "car":
                 const carJSON = card.convertCarCardToJSON();
@@ -316,7 +316,7 @@ export class DisplayCardInformation {
     static getCurrentDeckInformation() {
         const cardInformation = document.getElementById("card-selected-information");
 
-        const player = document.getElementById("deck").dataset.player;
+        const player = StateGame.getCurrentPlayer();
         const currentDeck = document.getElementById("deck-icon-current").dataset.deck;
 
         const deckCards = PlayerActions.getDeckFromPlayer(player, currentDeck);

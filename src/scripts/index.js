@@ -30,6 +30,7 @@ import { PlayerActions } from "./players/playerActions.js";
 
 // Funcion sobre las notas del juego
 import { getNotes } from "./log/gameNotesLog.js";
+import { StateGame } from "./game/stateGame.js";
 
 
 // Display del mazo
@@ -61,7 +62,7 @@ const materialCard = await MaterialCard.loadMaterialObjectFromJSON("category1", 
 DisplayCardsInDeck.showDeckOfCards(deckCards, PlayerActions.getDeckFromPlayer("player1", "cars"), cardInformation);
 
 //deckIcon.addEventListener("click", () => { DisplayCardsInDeck.changeDeck(deckIcon, deckDefaultIconsDir, decks, deckCards, cardInformation) });
-deckIcon.addEventListener("click", () => { DisplayCardsInDeck.changeDeckPlayer(deckIcon, deck.dataset.player, deckCards, cardInformation) });
+deckIcon.addEventListener("click", () => { DisplayCardsInDeck.changeDeckPlayer(deckIcon, StateGame.getCurrentPlayer(), deckCards, cardInformation) });
 
 // Montar funcionalidad a la ventana propia de las notas
 // Ventana y botones

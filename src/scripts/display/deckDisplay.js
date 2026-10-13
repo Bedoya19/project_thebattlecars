@@ -4,6 +4,7 @@ import { DeckDefaultIconsDir } from "../models/constants/deckDefaultIconsDir.js"
 import { CarCard } from "../models/cards/CarCard.js";
 import { BoardClick } from "../board/boardActions.js";
 import { PlayerActions } from "../players/playerActions.js";
+import { StateGame } from "../game/stateGame.js";
 
 // Script de mostrar las cartas en el deck.
 
@@ -122,6 +123,7 @@ export class DisplayCardsInDeck {
     // Cambia el deck a uno en especifico, no necesariamente al siguiente
     // (igualmente yo creeria que se puede juntar con el final de lo anterior)
     static changeSpecificDeck(divDeck, deckIcon, cardInformation, player, deck) {
+        if (player !== StateGame.getCurrentPlayer()) console.trace("Mazo de otro jugador:", player);
         this.showDeckOfCards(divDeck, PlayerActions.getDeckFromPlayer(player, deck), cardInformation);
         deckIcon.dataset.deck = deck;
         deckIcon.setAttribute("src", DeckDefaultIconsDir.getDeckIcons()[deck]);

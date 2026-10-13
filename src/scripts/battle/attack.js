@@ -17,7 +17,7 @@ import { GameNotesDisplay } from "../display/gameNotesDisplay.js";
 export class Attack {
     // Agrgega el boton de ataque a la informacion si es del jugador indicado
     static createAttackButton(player, zoneNumber, squareNumber, weaponSquare) {
-        const currentPlayer = document.getElementById("deck").dataset.player;
+        const currentPlayer = StateGame.getCurrentPlayer();
         if (currentPlayer === player) {
             //return `<button id="attack-${zoneNumber}-${squareNumber}">Atacar</button>`
             const button = StandarizedDocCreation.customElementCreator(
@@ -44,7 +44,7 @@ export class Attack {
         let weaponDischarged = false;
 
         // Jugador actual
-        const currentPlayer = document.getElementById("deck").dataset.player;
+        const currentPlayer = StateGame.getCurrentPlayer();
 
         // Gasta el poder del ataque. Si no hay, no se hace nada
         if (!PlayerActions.spendPower(currentPlayer)) return;
