@@ -25,6 +25,16 @@ export class ValidateEnums {
     }
 }
 
+// Clase de posibles "razones", mayormente incluidos en la validacion de colocar cartas y temas similares
+export const Reason = Object.freeze({
+    OK: "ok",
+    OTHER_PLAYER: "other_player",
+    OCCUPIED: "occupied",
+    WRONG_TYPE: "wrong_type",
+    NO_POWER: "no_power",
+    NO_CAPACITY: "no_capacity"
+});
+
 // Clase de convertir strings a enums, y enums a strings.
 export class DataConversor {
     static stringToEnum(enumObj, string) {
@@ -45,6 +55,7 @@ export class DataConversor {
         return objectEnum;
     }
     static enumToString(enumObj) {
+        console.log(enumObj);
         return Symbol.keyFor(enumObj);
     } 
 }

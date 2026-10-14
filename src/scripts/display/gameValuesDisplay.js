@@ -6,6 +6,7 @@ import { Player1 } from "../players/player1.js";
 import { Player2 } from "../players/player2.js";
 import { PlayerActions } from "../players/playerActions.js";
 import { DisplayCardInformation } from "./displayCardInformation.js";
+import { StateGame } from "../game/stateGame.js";
 
 export class GameValuesDisplay {
     // Funcion bastante parecida a updateAllInformation, en donde cambia en su totalidad todo el elemento de los valores locales
@@ -25,21 +26,21 @@ export class GameValuesDisplay {
     // Actualiza el valor de poder en especifico
     static updatePowerValue() {
         document.getElementById("value-local-power").innerText = PlayerActions.getPowerFromPlayer(
-            document.getElementById("deck").dataset.player
+            StateGame.getCurrentPlayer()
         );
     }
 
     // Actualiza el valor de la carga
     static updateChargeValue() {
         document.getElementById("value-local-charge").innerText = PlayerActions.getChargeFromPlayer(
-            document.getElementById("deck").dataset.player
+            StateGame.getCurrentPlayer()
         );
     }
 
     // Actualiza el valor de nitro
     static updateNitroValue() {
         document.getElementById("value-local-nitro").innerText = PlayerActions.getNitroFromPlayer(
-            document.getElementById("deck").dataset.player
+            StateGame.getCurrentPlayer()
         );
     }
 }

@@ -17,7 +17,7 @@ import { GameNotesDisplay } from "../display/gameNotesDisplay.js";
 export class Attack {
     // Agrgega el boton de ataque a la informacion si es del jugador indicado
     static createAttackButton(player, zoneNumber, squareNumber, weaponSquare) {
-        const currentPlayer = document.getElementById("deck").dataset.player;
+        const currentPlayer = StateGame.getCurrentPlayer();
         if (currentPlayer === player) {
             //return `<button id="attack-${zoneNumber}-${squareNumber}">Atacar</button>`
             const button = StandarizedDocCreation.customElementCreator(
@@ -44,7 +44,10 @@ export class Attack {
         let weaponDischarged = false;
 
         // Jugador actual
-        const currentPlayer = document.getElementById("deck").dataset.player;
+        const currentPlayer = StateGame.getCurrentPlayer();
+
+        // Gasta el poder del ataque. Si no hay, no se hace nada
+        if (!PlayerActions.spendPower(currentPlayer)) return;
     
         // Carro atacante (movido para usarse antes)
         const weaponSquare = document.getElementById(`${currentPlayer}-zone${AttackValues.getZone()}-card-weapon-${AttackValues.getSquareNumber()}`);
@@ -85,7 +88,7 @@ export class Attack {
         }
 
         // Le baja energia a la arma que se uso para el ataque
-        PlayerActions.consumePowerForActionInPlayer(currentPlayer);
+        //PlayerActions.consumePowerForActionInPlayer(currentPlayer);
         
         
         --weaponSquare.dataset.energy;
@@ -155,7 +158,7 @@ export class Attack {
             const attackBuff = Number(BoardClick.getCarSquareFromWeaponSquare(weaponSquare).dataset.attBuff);
             
             // Momento JS esto...
-            let attack = parseInt(JSON.parse(weaponSquare.dataset.attacks)[0][charge - 1]);
+            let attack = parseInt(JSON.parse(weaponSquare.dataset.attacks)[weaponSquare.dataset.level][charge - 1]);
             console.log("Aumento de ataque:", attackBuff);        
             AttackValues.setAttackValues(charge, attack, zoneNumber, squareNumber, attackBuff);
         }

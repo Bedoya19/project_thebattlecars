@@ -15,11 +15,87 @@
             ],
             "energy": 4,
             "materials": [
-                ["cardboard", 4],
-                ["rubberband", 2],
-                ["gunpowder", 1]
+                ["cardboard", 3]
             ],
-            "image": "./src/images/cohete_carton.png"
+            "image": "./src/images/weapons/cohete_carton2.png"
+        },
+        {
+            "id": "weapon-cardboxlauncher",
+            "category": "category 1",
+            "type": "weapon",
+            "name": "Lanzacajas",
+            "description": "¿Una catapulta de cajas? ¿Como hace daño en un primer lugar, ¿y porque hace tanto daño en sus cargas altas?",
+            "longDescription": "Una catapulta de cajas no tiene pinta de ser medianamente fuerte, pero para que veas, si puede hacer daño, y considerable. Aunque en sus cargas bajas no hace ni conquillas, en cargas altas puede ser una arma de daño bastante considerable, entonces usala sin pensarlo cuando veas una carga alta. Mejorarla exagera todavia mas su daño en las cargas altas, pero requiere de mucho carton para ello, entonces necesitaras de un mazo que tenga lo que pide esta arma si quieres sacarle todo el jugo.",
+            "attacks": [
+                [0, 0, 1, 2, 6, 8],
+                [0, 0, 2, 3, 7, 10],
+                [0, 1, 3, 4, 8, 12]
+            ],
+            "energy": 3,
+            "materials": [
+                ["cardboard", 10],
+                ["rubberband", 2]
+            ],
+            "image": "./src/images/weapons/lanza_cajas.png"
+        },
+        {
+            "id": "weapon-slingshot",
+            "category": "category 1",
+            "type": "weapon",
+            "name": "Resortera",
+            "description": "Esta resortera te puede sacar de un aprieto, no le des la vista gorda",
+            "longDescription": "Esta arma es bastante consistente, actua como deberia. Esta resortera tiene ataques bastante parejos entre sus cargas, eso significa que en un momento tenso te sacas una carga baja, esta arma te puede salvar el momento con su daño medianamente bueno para una carga bajo. Tambien te acompañara en todo momento, ya que con su mucha energia, y poco material para mejorarla, esta arma podra estar por toda la partida. Aunque, mucho cuidado, que en ciertas reglas se puede volver un pie en el zapato, entonces piensalo si prefieres reducir riezgos o necesitas algo mas emocionante.",
+            "attacks": [
+                [3, 3, 3, 3, 3, 3],
+                [3, 3, 3, 4, 4, 4],
+                [4, 4, 4, 4, 4, 4]
+            ],
+            "energy": 8,
+            "materials": [
+                ["cardboard", 2],
+                ["rubberkit", 1]
+            ],
+            "image": "./src/images/weapons/resortera.png"
+        },
+        {
+            "id": "weapon-cardboard-crossbow",
+            "category": "category 1",
+            "type": "weapon",
+            "name": "Ballesta de Carton",
+            "description": "Una arma bastante interesante, pero que esta calibrada de una forma en especifico que obliga a golpear de formas en especifico. Y ese calibrado es delicado, cambia entre cada mejora. Ten cuidado.",
+            "longDescription": "La ballesta no tiene ataques lineales. Esta construida con un calibrado bastante especifico y delicado que hace que la sexta carga no necesariamente sea la mas poderosa. Esto tiene la ventaja de que si la carga esta en su carga en especifico, pues va a golpear, pero sino, no sera un ataque increible. Para hacer el intento de calibrarla, es necesario un poco de pegante para mejorar la punteria. Cuando llegue al cuarto nivel, ya estara perfectamente calibrada, pero antes de eso, tendras que tener cuidado, especialmente con su tercer nivel, y mas que no tienes mucha energia para usarla.",
+            "attacks": [
+                [1, 2, 1, 3, 6, 0],
+                [1, 2, 3, 6, 5, 4],
+                [1, 7, 0, 0, 0, 1],
+                [6, 6, 6, 6, 6, 6]
+            ],
+            "energy": 2,
+            "materials": [
+                ["cardboard", 4],
+                ["glue", 3]
+            ],
+            "image": "./src/images/weapons/.png"
+        },
+        {
+            "id": "weapon-foam-cannon",
+            "category": "category 1",
+            "type": "weapon",
+            "name": "Cañon de fomi",
+            "description": "El cañon requiere una carga de 4 para poder atacar de forma exitosa. Ten en cuenta eso y pon ojo cuando toque atacar.",
+            "longDescription": "El cañon de fomi esta hecho especificamente para que su ataque mas fuerte sea el la cuarta carga, no la ultima. Si puedes saber cual es tu carga antes de atacar, no dudes en usarla cuando veas el chance. No es el arma mas barata de mejorar que digamos, pero si logras mejorarla a su ultimo nivel, tendras un golpazo fuerte que puede destruir de un golpe mas carros de lo que tu enemigo le gustaria.",
+            "attacks": [
+                [1, 2, 3, 6, 3, 2],
+                [2, 3, 4, 8, 4, 3],
+                [3, 4, 5, 10, 5, 4],
+                [4, 5, 6, 15, 6, 5]
+            ],
+            "energy": 2,
+            "materials": [
+                ["cardboard", 5],
+                ["foamsheet", 6]
+            ],
+            "image": "./src/images/weapons/.png"
         }
     ],
     "category2": [],

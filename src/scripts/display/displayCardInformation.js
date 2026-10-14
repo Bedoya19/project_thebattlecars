@@ -6,10 +6,13 @@ import { Attack } from "../battle/attack.js";
 import { PlayerActions } from "../players/playerActions.js";
 import { StateGame } from "../game/stateGame.js";
 import { Nitro } from "../battle/nitro.js";
+import { WeaponUpgrade } from "../battle/weaponUpgrade.js";
+import { DeckUtils } from "../players/DeckUtils.js";
 
 export class DisplayCardInformation {
     static displayInformationOnDeck(divElement, card, cardId) {
-        const player = document.getElementById("deck").dataset.player;
+        console.log(card);
+        const player = StateGame.getCurrentPlayer();
         switch (DataConversor.enumToString(card.type)) {
             case "car":
                 const carJSON = card.convertCarCardToJSON();
@@ -156,38 +159,47 @@ export class DisplayCardInformation {
 
     // Mostrar la informacion de una carta de arma del tablero
     static displayWeaponCardInformationBoard(divElement, weaponSquare, playerOriginal, cardImage, cardName, cardDescription) {
-        //console.log("Casilla de arma: ", weaponSquare);
+        console.log("Casilla de arma: ", weaponSquare);
         const parts = weaponSquare.id.split('-');
         const zoneNumber = parts[1].slice(4); 
         const squareNumber =  weaponSquare.id.at(-1);
+        const charge = (playerOriginal === StateGame.getCurrentPlayer())
+            ? PlayerActions.getChargeFromPlayer(playerOriginal)
+            : null;
         console.log("Zona:", zoneNumber, "Casilla", squareNumber);
         // Muy probablemente, cuando ya tenga todo funcionando correctamente, puedo fusionar algunas funciones repetitivas
         divElement.innerHTML = `
-            ${this.mainCardInformation(this.convertPlayerString(playerOriginal), cardImage, cardName)}
+            ${this.mainCardInformation(this.convertPlayerString(playerOriginal), weaponSquare.firstElementChild.src, weaponSquare.dataset.name)}
             ${this.generalWeaponCardInformation(
                 this.convertPlayerString(playerOriginal),
                 weaponSquare.id.slice(26),
                 JSON.parse(weaponSquare.dataset.attacks),
                 weaponSquare.dataset.energy,
                 JSON.parse(weaponSquare.dataset.materials),
-                cardDescription,
-                "board"
+                weaponSquare.dataset.description,
+                "board",
+                undefined,
+                weaponSquare.dataset.level,
+                charge
             )}
         `;
         //${Attack.createAttackButton(playerOriginal, zoneNumber, squareNumber, weaponSquare)}
         divElement.appendChild(Attack.createAttackButton(playerOriginal, zoneNumber, squareNumber, weaponSquare));
-    }
+        divElement.appendChild(WeaponUpgrade.createUpgradeButton(playerOriginal, zoneNumber, squareNumber, weaponSquare));
+    }    
+
+    // Esta funcion lo que hace es que SOLO RECIBE la dataset
 
     // Mostrar la informacion general de una carta de arma
     // Toca tener en cuenta que las listas de ataques y materiales se pasan a JSON, entonces tener eso en cuenta.
-    static generalWeaponCardInformation(player, cardId, attacks, energy, materials, cardDescription, origin, data) {
+    static generalWeaponCardInformation(player, cardId, attacks, energy, materials, cardDescription, origin, data, level, charge) {
         console.log(cardDescription);
         return `
                 <div id="card-selected-general-information" data-card='${data}' data-origin="${origin}" data-player="${player}" data-card-id="${cardId}" data-type="weapon">
                     <div id="card-selected-attacks">
                         <p class="card-selected-information">Ataques:</p>
                         <div id="card-selected-attacks">
-                            ${WeaponListStatsDisplay.displayWeaponAttacks(attacks)}
+                            ${WeaponListStatsDisplay.displayWeaponAttacks(attacks, origin, level, charge)}
                         </div>
                     </div>
                     <p id="card-selected-energy" class="card-selected-information">Energia: <span>${energy}</span></p>
@@ -305,6 +317,31 @@ export class DisplayCardInformation {
             return undefined;
         }
     }
+
+    // Mostrar la informacion del deck actual
+    static getCurrentDeckInformation() {
+        const cardInformation = document.getElementById("card-selected-information");
+
+        const player = StateGame.getCurrentPlayer();
+        const currentDeck = document.getElementById("deck-icon-current").dataset.deck;
+
+        const deckCards = PlayerActions.getDeckFromPlayer(player, currentDeck);
+        //console.log(deck);
+
+        switch (currentDeck) {
+            case "cars":
+                cardInformation.innerHTML = ProcessDeckInformation.processCarDeck(deckCards, player);
+                break;
+            case "weapons":
+                cardInformation.innerHTML = ProcessDeckInformation.processWeaponDeck(deckCards, player);
+                break;
+            case "materials":
+                cardInformation.innerHTML = ProcessDeckInformation.processMaterialDeck(deckCards, player);
+                break;
+            default:
+                console.log("Los poderes vendran proximamente!");
+        }
+    }
 }
 
 // Clase de las funciones de mostrar los ataques y los materiales de cada arma respectiva en un formato de lista, ya preparado para adjuntarlo a cualquier HTML
@@ -312,16 +349,30 @@ export class DisplayCardInformation {
 class WeaponListStatsDisplay {
     // Devolver los ataques de una arma en formato HTML
     // Ahora, en vez de la carta, se recibe solamente la lista de ataques
-    static displayWeaponAttacks(weaponAttacks) {
+    static displayWeaponAttacks(weaponAttacks, origin, level, charge) {
         const attackList = this.createUlElementForWeapon("attacks");
 
+        console.log(origin, level);
+
         for (let i = 0; i < weaponAttacks.length ; i++) {
-            // Crea una string bonita de cada elemento de attackValues
-            const attackValues = weaponAttacks[i].join(", ");
-        
+             
+            // Crea una string bonita de cada elemento de attackValues, tambien agrega un resaltado en el ataque respectivo
+            const attackValues = weaponAttacks[i]
+            .map((value, j) => (origin === "board" && parseInt(level) === i && j === charge - 1)
+                ? `<mark>${value}</mark>`
+                : value)
+            .join(", ");
+            
             // Creacion de cada elemento de la lista
             const attackListLi = this.createListElementInWeapon("card-selected-attack");
-            attackListLi.innerHTML = `Nivel ${i + 1}: (${attackValues})`;
+            const levelText = `Nivel ${i + 1}: (${attackValues})`;
+            if (origin === "board" && (parseInt(level) === i)) {
+                console.log("Resaltar nivel", (level + 1));
+                attackListLi.innerHTML = `<b>${levelText}</b>`;
+            } else {
+                attackListLi.innerHTML = `${levelText}`;
+            }
+            //attackListLi.innerHTML = `Nivel ${i + 1}: (${attackValues})`;
             attackList.appendChild(attackListLi);
         }
         return attackList.outerHTML;
@@ -361,4 +412,68 @@ class WeaponListStatsDisplay {
     }
 }
 
-// Estandarizar la agregacion de elementos HTML (todo)
+// Procesamiento de la informacion del deck
+// (separado porque poco a nada tiene que ver con el resto de las demas funciones)
+class ProcessDeckInformation {
+    // Las funciones de procesamiento de carro, arma y material son bastante similares
+    // Se puede hacer el intento, despues de garantizar que funcionen, en fusionarlas para una mayor mantenibilidad
+
+    // Procesa y devuelve un resumen de los carros en el deck
+    // Tambien muestra la cantidad de carros en el tablero y que ya fueron destruidos
+    static processCarDeck(deck, player) {
+        return `
+        <h2 id="deck-general-informatio-title" class="card-selected-information">Carros</h2>
+        <h3 class="card-selected-information">Carros actuales en el mazo:</h3>
+        ${this.getDeckCardsToList(deck)}
+        <p class="card-selected-information">Carros en el tablero: ${(5 - deck.length) - (5 - StateGame.geCarsFromPlayer(player))}</p>
+        <p class="card-selected-information">Carros destruidos: ${5 - StateGame.getCarsPlayers1(player)}</p>
+        `;
+    }
+
+    // Procesa y devuelve un resumen de las armas en el deck
+    static processWeaponDeck(deck, player) {
+        const weaponCount = DeckUtils.countCardsInDeck(deck);
+
+        //console.log(weaponCount);
+        return `
+        <h2 id="deck-general-informatio-title" class="card-selected-information">Armas</h2>
+        <h3 class="card-selected-information">Armas actuales en el mazo:</h3>
+        ${this.getObjectCardsToList(weaponCount)}
+        `;
+    }
+
+    static processMaterialDeck(deck, player) {
+        const materialCount = DeckUtils.countMaterialsInDeck(deck);
+
+        return `
+        <h2 id="deck-general-informatio-title" class="card-selected-information">Materiales</h2>
+        <h3 class="card-selected-information">Materiales actuales en el mazo:</h3>
+        ${this.getObjectCardsToList(materialCount)}
+        `;
+    }
+
+    // Podria traer estas cosas mas bien al StandarizedDocCreation.js, ya que las dos funciones son parecidas.
+    // Me toca ver, primero confirmar que esto funcione.
+    static getDeckCardsToList(deck, ordered = false) {
+        let list = ordered ? "<ol>" : "<ul>";
+        //console.log(deck);
+        for (const card of deck) {
+            list += `<li class="card-selected-information">${card.name}</li>`
+            //console.log(card);
+            //console.log(card.name);
+        }
+        return list += ordered ? "</ol>" : "</ul>";
+    }
+    // No se si fusionar lo anterior con esto... Podria preguntarselo a Claude despues
+    // Con "object cards" me refiero a que esta en unos objetos la informacion del conteo de la cartas.
+    static getObjectCardsToList(objectCards, ordered = false) {
+        const listHTML = ordered ? "<ol>" : "<ul>";
+        let list = listHTML;
+
+        for (const [card, count] of Object.entries(objectCards)) {
+            //console.log(card, count);
+            list += `<li class="card-selected-information">${card}: ${count}</li>`
+        }
+        return list += ordered ? "</ol>" : "</ul>";
+    }
+}

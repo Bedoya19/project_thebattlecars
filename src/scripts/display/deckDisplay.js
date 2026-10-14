@@ -4,6 +4,7 @@ import { DeckDefaultIconsDir } from "../models/constants/deckDefaultIconsDir.js"
 import { CarCard } from "../models/cards/CarCard.js";
 import { BoardClick } from "../board/boardActions.js";
 import { PlayerActions } from "../players/playerActions.js";
+import { StateGame } from "../game/stateGame.js";
 
 // Script de mostrar las cartas en el deck.
 
@@ -116,12 +117,13 @@ export class DisplayCardsInDeck {
         // Resulta que con el anterior recibia el deck en si. Aqui solo se recibe el jugador,
         // y aqui mismo se consigue el deck que se quiere conseguir
         const newDeck = decksTypeList[deckTypeIndex];
-       this.changeSpecificDeck(divDeck, deckIconImage, cardInformation, player, newDeck);
+        this.changeSpecificDeck(divDeck, deckIconImage, cardInformation, player, newDeck);
     }
 
     // Cambia el deck a uno en especifico, no necesariamente al siguiente
     // (igualmente yo creeria que se puede juntar con el final de lo anterior)
     static changeSpecificDeck(divDeck, deckIcon, cardInformation, player, deck) {
+        if (player !== StateGame.getCurrentPlayer()) console.trace("Mazo de otro jugador:", player);
         this.showDeckOfCards(divDeck, PlayerActions.getDeckFromPlayer(player, deck), cardInformation);
         deckIcon.dataset.deck = deck;
         deckIcon.setAttribute("src", DeckDefaultIconsDir.getDeckIcons()[deck]);
