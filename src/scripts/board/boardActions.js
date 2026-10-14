@@ -51,14 +51,14 @@ export class BoardClick {
             //const validPower = MainGame.calculatePowerForAction(currentPlayer);
             const checkCarValidation = checkBoard.checkCarSquareAvailability(carBoardPlayer, currentPlayer, carSquare, cardGeneralInformation);
             if (checkCarValidation.ok) {
-                if (!PlayerActions.spendPower(currentPlayer)) return;
-
                 // El resto de los datos
 
                 
                 const currentDeck = document.getElementById("deck-icon-current");
                 const deckCards = document.getElementById("deck-cards")
                 const cardObj = JSON.parse(cardGeneralInformation.dataset.card);
+
+                if (!PlayerActions.spendPower(currentPlayer)) return;
 
                 // Agrega la carta al tablero
                 this.putCarOnBoard(carSquare, cardObj);
@@ -152,7 +152,7 @@ export class BoardClick {
         try {
             const currentPlayer = StateGame.getCurrentPlayer();
             //const weaponBoardPlayer = weaponSquare.classList[0];
-            if (checkBoard.checkWeaponSquareAvailability(weaponSquare, weaponSquare.id, currentPlayer, cardGeneralInformation)[0]) {
+            if (checkBoard.checkWeaponSquareAvailability(weaponSquare, weaponSquare.id, currentPlayer, cardGeneralInformation).ok) {
                 
                 // Datos generales
                 // (Tal vez fusionar en algun momento con la otra funcion de arriba...?)
@@ -161,6 +161,8 @@ export class BoardClick {
                 const currentDeck = document.getElementById("deck-icon-current");
                 const deckCards = document.getElementById("deck-cards");
                 const cardObj = JSON.parse(cardGeneralInformation.dataset.card);
+
+                if (!PlayerActions.spendPower(currentPlayer)) return;
 
                 BoardClick.putWeaponOnBoard(weaponSquare, cardObj);
 
@@ -478,7 +480,7 @@ class checkBoard {
     // Junta las dos anteriores, revisa si se puede poner una carta de carro en la casilla seleccionada del tablero
     // Devuelve el error exacto de lo que esta mal, si detecta que no puede colocar el carro
     static checkCarSquareAvailability(boardPlayer, currentPlayer, carSquare, cardGeneralInformation) {
-       if (!this.checkPlayer(boardPlayer, currentPlayer))
+        if (!this.checkPlayer(boardPlayer, currentPlayer))
             return { ok: false, reason: Reason.OTHER_PLAYER, msg: "La casilla es del otro jugador!" };
         if (!this.checkCarSpace(carSquare))
             return { ok: false, reason: Reason.OCCUPIED, msg: "La casilla ya esta ocupada por otro carro" };
@@ -570,29 +572,20 @@ class checkBoard {
 
     // Revisa que si se pueda poner una carta de arma en el tablero en una casilla en especifico
     static checkWeaponSquareAvailability(weaponSquare, boardPlayer, currentPlayer, cardGeneralInformation) {
-        if (!this.checkPlayer(boardPlayer, currentPlayer)) {
-            return [false, 'La casilla es del otro jugador'];
-        }
-        if (!this.checkWeaponSpace(weaponSquare)) {
-            return [false, "La casilla ya esta ocupada por otro carro"];
-        }
-        // weaponSquare.id.slice(12, 13) = numero de la zona
-        if (!this.checkForCarCapacity(currentPlayer, weaponSquare.id.slice(12, 13))) {
-            return [false, "El carro no tiene suficiente capacidad para otra arma"];
-        }
-        if (cardGeneralInformation.dataset.type !== "weapon") {
-            return [false, "se va a poner otro tipo de carta en una casilla de arma"];
-        }
-        // Devuelve false si no puede poner la carta por falta de poder. Si se puede poner, ya gasta el poder necesario en la funcion
-        if (!MainGame.calculatePowerForAction(currentPlayer)) {
-            return [false, "Ya no se tiene poder!"];
-        }
-
+        if (!this.checkPlayer(boardPlayer, currentPlayer))
+            return { ok: false, reason: Reason.OTHER_PLAYER, msg: "La casilla es del otro jugador!" };
+        if (!this.checkWeaponSpace(weaponSquare))
+            return { ok: false, reason: Reason.OCCUPIED, msg: "La casilla ya esta ocupada por otro carro" };
+        if (cardGeneralInformation.dataset.type !== "weapon")
+            return { ok: false, reason: Reason.WRONG_TYPE, msg: "La casilla es la incorrecta!" };
+        if (PlayerActions.getPowerFromPlayer(currentPlayer) < 1)   // solo lee, ya no gasta
+            return { ok: false, reason: Reason.NO_POWER, msg: "Ya no se tiene poder!" };
+        if (!this.checkForCarCapacity(currentPlayer, weaponSquare.id.slice(12, 13)))
+            return { ok: false, reason: Reason.NO_CAPACITY, msg: "El carro no tiene suficiente capacidad para otra arma" };
         // Si todo sale bien, la carta se puede colocar en la casilla
-        return [true, "La casilla esta disponible para colocar una carta de arma"]
+        return { ok: true, reason: Reason.OK, msg: "..." };
     }
 }
-
 // Clase que consigue algunos datos especificos de las casillas
 // Furiosa refractorizacion se aproxima, pero por ahora estare con esto
 export class GetDataFromSquare {
