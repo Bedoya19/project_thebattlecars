@@ -163,6 +163,9 @@ export class DisplayCardInformation {
         const parts = weaponSquare.id.split('-');
         const zoneNumber = parts[1].slice(4); 
         const squareNumber =  weaponSquare.id.at(-1);
+        const charge = (playerOriginal === StateGame.getCurrentPlayer())
+            ? PlayerActions.getChargeFromPlayer(playerOriginal)
+            : null;
         console.log("Zona:", zoneNumber, "Casilla", squareNumber);
         // Muy probablemente, cuando ya tenga todo funcionando correctamente, puedo fusionar algunas funciones repetitivas
         divElement.innerHTML = `
@@ -176,7 +179,8 @@ export class DisplayCardInformation {
                 weaponSquare.dataset.description,
                 "board",
                 undefined,
-                weaponSquare.dataset.level
+                weaponSquare.dataset.level,
+                charge
             )}
         `;
         //${Attack.createAttackButton(playerOriginal, zoneNumber, squareNumber, weaponSquare)}
@@ -188,14 +192,14 @@ export class DisplayCardInformation {
 
     // Mostrar la informacion general de una carta de arma
     // Toca tener en cuenta que las listas de ataques y materiales se pasan a JSON, entonces tener eso en cuenta.
-    static generalWeaponCardInformation(player, cardId, attacks, energy, materials, cardDescription, origin, data, level) {
+    static generalWeaponCardInformation(player, cardId, attacks, energy, materials, cardDescription, origin, data, level, charge) {
         console.log(cardDescription);
         return `
                 <div id="card-selected-general-information" data-card='${data}' data-origin="${origin}" data-player="${player}" data-card-id="${cardId}" data-type="weapon">
                     <div id="card-selected-attacks">
                         <p class="card-selected-information">Ataques:</p>
                         <div id="card-selected-attacks">
-                            ${WeaponListStatsDisplay.displayWeaponAttacks(attacks, origin, level)}
+                            ${WeaponListStatsDisplay.displayWeaponAttacks(attacks, origin, level, charge)}
                         </div>
                     </div>
                     <p id="card-selected-energy" class="card-selected-information">Energia: <span>${energy}</span></p>
@@ -345,15 +349,19 @@ export class DisplayCardInformation {
 class WeaponListStatsDisplay {
     // Devolver los ataques de una arma en formato HTML
     // Ahora, en vez de la carta, se recibe solamente la lista de ataques
-    static displayWeaponAttacks(weaponAttacks, origin, level) {
+    static displayWeaponAttacks(weaponAttacks, origin, level, charge) {
         const attackList = this.createUlElementForWeapon("attacks");
 
         console.log(origin, level);
 
         for (let i = 0; i < weaponAttacks.length ; i++) {
              
-            // Crea una string bonita de cada elemento de attackValues
-            const attackValues = weaponAttacks[i].join(", ");
+            // Crea una string bonita de cada elemento de attackValues, tambien agrega un resaltado en el ataque respectivo
+            const attackValues = weaponAttacks[i]
+            .map((value, j) => (origin === "board" && parseInt(level) === i && j === charge - 1)
+                ? `<mark>${value}</mark>`
+                : value)
+            .join(", ");
             
             // Creacion de cada elemento de la lista
             const attackListLi = this.createListElementInWeapon("card-selected-attack");
