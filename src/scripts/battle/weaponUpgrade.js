@@ -1,4 +1,6 @@
+import { BoardClick } from "../board/boardActions.js";
 import { DisplayCardInformation } from "../display/displayCardInformation.js";
+import { GameNotesDisplay } from "../display/gameNotesDisplay.js";
 import { GameValuesDisplay } from "../display/gameValuesDisplay.js";
 import { StandarizedDocCreation } from "../display/standardDoc/standarizedDocCreation.js";
 import { StateGame } from "../game/stateGame.js";
@@ -58,6 +60,17 @@ export class WeaponUpgrade {
                 console.log("Se va a mejorar!");
                 // Asignamos el nuevo valor a la propiedad, JS lo convierte a string automáticamente
                 weaponSquare.dataset.level = currentLevel + 1;
+
+                // Genera la nota de que se mejoro la arma
+                // Que la mejora de las armas es un trabajo relativamente sencillo, esta funcion tienen que sacar muchas cosas
+                // de otros lugares, entonces lo voy a poner en varios enters para una mayor facilidad
+                GameNotesDisplay.addWeaponUpgrade(
+                    player, 
+                    weaponSquare.dataset.name, 
+                    (parseInt(weaponSquare.dataset.level) + 1),
+                    BoardClick.getCarSquareFromWeaponSquare(weaponSquare).dataset.name
+                );
+
                 // Se recarga de energia el arma en el proceso
                 if (weaponSquare.dataset.energy <= weaponSquare.dataset.maxEnergy) {
                     console.log("Recargar energia...");
