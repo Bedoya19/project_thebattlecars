@@ -31,7 +31,7 @@ export class Player2 extends Player {
             weaponCard2, weaponCard2, weaponCard2, weaponCard2, weaponCard2, weaponCard2, weaponCard2, weaponCard2, weaponCard2, weaponCard2, 
             weaponCard3, weaponCard3, weaponCard3, weaponCard3, weaponCard3, weaponCard3, weaponCard3, weaponCard3, weaponCard3, weaponCard3
         ],
-        "weapons_pile": [
+        "weapons_storage": [
             weaponCard1, weaponCard1, weaponCard1, weaponCard1, weaponCard1, weaponCard1, weaponCard1, weaponCard1, weaponCard1, weaponCard1,
             weaponCard1, weaponCard1, weaponCard1, weaponCard1, weaponCard1,
             weaponCard2, weaponCard2, weaponCard2, weaponCard2, weaponCard2, weaponCard2, weaponCard2, weaponCard2, weaponCard2, weaponCard2, 

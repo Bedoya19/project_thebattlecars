@@ -7,13 +7,14 @@ import { StandarizedDocCreation } from "../display/standardDoc/standarizedDocCre
 import { PlayerActions } from "../players/playerActions.js";
 import { GameValuesDisplay } from "../display/gameValuesDisplay.js";
 import { GameNotesDisplay } from "../display/gameNotesDisplay.js";
+import { StateGame } from "../game/stateGame.js";
 
 export class Nitro {
     // Agrega el boton de activar nitro
     // Ahora que lo pienso... Es bastante similar al otro de ataque... Hmmmm...
     static createNitroButton(player, zoneNumber, squareNumber, carSquare) {
         // Toca estandarizar esto del jugador
-        const currentPlayer = document.getElementById("deck").dataset.player;
+        const currentPlayer = StateGame.getCurrentPlayer();
         if (currentPlayer === player) {
             const button = StandarizedDocCreation.customElementCreator(
                 {
@@ -44,17 +45,19 @@ export class Nitro {
 
     static activateNitro(player, carSquare) {
         console.log(carSquare);
-        if (this.isNitroActivate(player, carSquare) && PlayerActions.getPowerFromPlayer(player) >= 1) {
+
+        // Revisa que tenga el suficiente poder, si es asi, gasta
+        if (!PlayerActions.spendPower(currentPlayer)) return;
+
+        if (this.isNitroActivate(player, carSquare)) {
             console.log("Se va a activar el nitro...");
             // Cambia el valor de nitro dentro del DOM, y gasta poder
             carSquare.dataset.nitro = parseInt(carSquare.dataset.nitroDuration);
-            PlayerActions.consumePowerForActionInPlayer(player);
             console.log("El nitro sera activado por " + carSquare.dataset.nitroDuration + " turnos");
             // Le quita el nitro al jugador que acaba de activar el nitro
             PlayerActions.removeNitroFromCar(player, carSquare);
             // Actualiza los valores en pantalla
             GameValuesDisplay.updateNitroValue();
-            GameValuesDisplay.updatePowerValue();
             // Agrega lo que acaba de pasar en las notas
             GameNotesDisplay.addNitroNote(player, carSquare);
             // Agrega la clase de estilo de nitro

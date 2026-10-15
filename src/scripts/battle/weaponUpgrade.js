@@ -1,6 +1,9 @@
+import { BoardClick } from "../board/boardActions.js";
 import { DisplayCardInformation } from "../display/displayCardInformation.js";
+import { GameNotesDisplay } from "../display/gameNotesDisplay.js";
 import { GameValuesDisplay } from "../display/gameValuesDisplay.js";
 import { StandarizedDocCreation } from "../display/standardDoc/standarizedDocCreation.js";
+import { StateGame } from "../game/stateGame.js";
 import { DeckUtils } from "../players/DeckUtils.js";
 import { Player } from "../players/Player.js";
 import { PlayerActions } from "../players/playerActions.js";
@@ -14,7 +17,7 @@ export class WeaponUpgrade {
     // Crea el boton para mejorar el arma
     // Es similar al de crear el boton de ataque... Podemos pensar despues fusionar las dos
     static createUpgradeButton(player, zoneNumber, squareNumber, weaponSquare) {
-        const currentPlayer = document.getElementById("deck").dataset.player;
+        const currentPlayer = StateGame.getCurrentPlayer();
         if (currentPlayer === player) {
             const button = StandarizedDocCreation.customElementCreator(
                 {
@@ -34,45 +37,55 @@ export class WeaponUpgrade {
 
     // Mejora el arma (si se puede)
     static upgradeWeapon(weaponSquare, player) {
-        console.log(PlayerActions.getPowerFromPlayer(player));
-        if (PlayerActions.getPowerFromPlayer(player) > 0) {
-            const materialDeck = PlayerActions.getDeckFromPlayer(player, "materials");
-            const materialCount = DeckUtils.countMaterialsInDeck(materialDeck);
+        //console.log(PlayerActions.getPowerFromPlayer(player));
+        if (!PlayerActions.spendPower(player)) return;
 
-            const necesaryMaterials = CheckWeaponUpgrades.convertMaterialArrayToObject(weaponSquare.dataset.materials);
-            console.log(necesaryMaterials);
-            console.log(materialCount);
+        //if (PlayerActions.getPowerFromPlayer(player) > 0) {
+        const materialDeck = PlayerActions.getDeckFromPlayer(player, "materials");
+        const materialCount = DeckUtils.countMaterialsInDeck(materialDeck);
 
-            const canUpgrade = CheckWeaponUpgrades.checkIfEnoughMaterials(materialCount, necesaryMaterials);
-            if (canUpgrade) {
-                console.log("Se puede mejorar!");
-                console.log(DeckUtils.orderMaterialsByQuantity(materialDeck));
-                const attacksLevels = JSON.parse(weaponSquare.dataset.attacks).length;
-                // Convertimos explícitamente a número para evitar coerciones raras en la comparación
-                const currentLevel = Number(weaponSquare.dataset.level);
-                
-                if (currentLevel < attacksLevels) {
-                    console.log("Se va a mejorar!");
-                    // Asignamos el nuevo valor a la propiedad, JS lo convierte a string automáticamente
-                    weaponSquare.dataset.level = currentLevel + 1;
-                    // Se recarga de energia el arma en el proceso
-                    if (weaponSquare.dataset.energy <= weaponSquare.dataset.maxEnergy) {
-                        console.log("Recargar energia...");
-                        const cardInformation = document.getElementById("card-selected-information");
-                        weaponSquare.dataset.energy = weaponSquare.dataset.maxEnergy;
-                        DisplayCardInformation.displayWeaponCardInformationBoard(cardInformation, weaponSquare, player);
-                    }
-                    // - Esto tambien puede ser convertido en una funcion
-                    PlayerActions.consumePowerForActionInPlayer(player);
-                    GameValuesDisplay.updatePowerValue();
-                    // - Esta parte
-                    this.applyUpgradeCost(player, materialDeck, necesaryMaterials);
+        const necesaryMaterials = CheckWeaponUpgrades.convertMaterialArrayToObject(weaponSquare.dataset.materials);
+        console.log(necesaryMaterials);
+        console.log(materialCount);
+
+        const canUpgrade = CheckWeaponUpgrades.checkIfEnoughMaterials(materialCount, necesaryMaterials);
+        if (canUpgrade) {
+            console.log("Se puede mejorar!");
+            console.log(DeckUtils.orderMaterialsByQuantity(materialDeck));
+            const attacksLevels = JSON.parse(weaponSquare.dataset.attacks).length;
+            // Convertimos explícitamente a número para evitar coerciones raras en la comparación
+            const currentLevel = Number(weaponSquare.dataset.level);
+            
+            if (currentLevel < attacksLevels - 1) {
+                console.log("Se va a mejorar!");
+                // Asignamos el nuevo valor a la propiedad, JS lo convierte a string automáticamente
+                weaponSquare.dataset.level = currentLevel + 1;
+
+                // Genera la nota de que se mejoro la arma
+                // Que la mejora de las armas es un trabajo relativamente sencillo, esta funcion tienen que sacar muchas cosas
+                // de otros lugares, entonces lo voy a poner en varios enters para una mayor facilidad
+                GameNotesDisplay.addWeaponUpgrade(
+                    player, 
+                    weaponSquare.dataset.name, 
+                    (parseInt(weaponSquare.dataset.level) + 1),
+                    BoardClick.getCarSquareFromWeaponSquare(weaponSquare).dataset.name
+                );
+
+                // Se recarga de energia el arma en el proceso
+                if (weaponSquare.dataset.energy <= weaponSquare.dataset.maxEnergy) {
+                    console.log("Recargar energia...");
+                    const cardInformation = document.getElementById("card-selected-information");
+                    weaponSquare.dataset.energy = weaponSquare.dataset.maxEnergy;
+                    DisplayCardInformation.displayWeaponCardInformationBoard(cardInformation, weaponSquare, player);
                 }
+                // - Esta parte
+                this.applyUpgradeCost(player, materialDeck, necesaryMaterials);
             }
-        } else {
-            console.log("No hay poder suficiente!");
-            console.log(PlayerActions.getPowerFromPlayer(player));
         }
+        //} else {
+        //    console.log("No hay poder suficiente!");
+        //    console.log(PlayerActions.getPowerFromPlayer(player));
+        //}
     }
 
     static applyUpgradeCost(player, deck, upgradeRequirements) {

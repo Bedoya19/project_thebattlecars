@@ -32,7 +32,6 @@ const materialCard7 = await MaterialCard.loadMaterialObjectFromJSON("category1",
 const materialCard1_3 = await MaterialCard.loadMaterialObjectFromJSON("category1", 7);
 
 
-// Tal vez en un futuro fusionar con Player1? Pero esta es mi unica solucion
 export class Player1 extends Player {
     static _decks = {
         "cars": [carCard, carCard, carCard, carCard, carCard],
@@ -43,7 +42,7 @@ export class Player1 extends Player {
             weaponCard2, weaponCard2, weaponCard2, weaponCard2, weaponCard2, weaponCard2, weaponCard2, weaponCard2, weaponCard2, weaponCard2, 
             weaponCard3, weaponCard3, weaponCard3, weaponCard3, weaponCard3, weaponCard3, weaponCard3, weaponCard3, weaponCard3, weaponCard3
         ],
-        "weapons_pile": [
+        "weapons_storage": [
             weaponCard1, weaponCard1, weaponCard1, weaponCard1, weaponCard1, weaponCard1, weaponCard1, weaponCard1, weaponCard1, weaponCard1,
             weaponCard1, weaponCard1, weaponCard1, weaponCard1, weaponCard1,
             weaponCard2, weaponCard2, weaponCard2, weaponCard2, weaponCard2, weaponCard2, weaponCard2, weaponCard2, weaponCard2, weaponCard2, 

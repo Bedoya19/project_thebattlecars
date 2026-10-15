@@ -110,4 +110,9 @@ export class GameNotesDisplay{
     static addDrawCards(player, cardType, quantity) {
         this.addTurnNote(`${DisplayCardInformation.convertPlayerString(player)} saco ${quantity} cartas de ${cardType} de su pila`);
     }
+
+    // Nota sobre mejora de la carta
+    static addWeaponUpgrade(player, weaponName, weaponLevel, carName) {
+        this.addTurnNote(`${DisplayCardInformation.convertPlayerString(player)} mejoro su "${weaponName}" en el carro "${carName}" a nivel ${weaponLevel}`)
+    }
 }

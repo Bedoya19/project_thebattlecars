@@ -11,7 +11,8 @@ import { StandarizedDocCreation } from "../display/standardDoc/standarizedDocCre
 
 export class StateGame {
     // - Variables del estado del juego -
-    // Carros que siguen teniendo cada jugador
+    // Carros que siguen teniendo cada jugador (puede que esto cambie a futuro, aunque no sabria decir cuando)
+    static #currentPlayer = "player1";
     static #carsPlayer1 = 5;
     static #carsPlayer2 = 5;
     // Rondas y turnos actuales en el juego
@@ -149,4 +150,10 @@ export class StateGame {
             e.preventDefault();
         }, true);
     }
+
+    // Metodos de cambio de jugador y conseguir el jugador actual
+    // Esto es para mayor facilidad y refractorizar para mejor ciertas partes del codigo
+    static getCurrentPlayer() { return this.#currentPlayer; }
+    
+    static switchPlayer() { this.#currentPlayer = this.#currentPlayer === "player1" ? "player2" : "player1"; }
 }
