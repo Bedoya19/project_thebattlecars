@@ -17,7 +17,7 @@ export class GameValuesDisplay {
             <h3 class="game-stat-text game-stat-subtitle-text">Valores:</h3>
             <h3 class="game-stat-text">Actual: <span id="value-local-player">${DisplayCardInformation.convertPlayerString(player)}</span></h3>
             <ul id="game-value-content">
-                <p class="game-stat-text">Carga: <span id="value-local-charge">${PlayerActions.getChargeFromPlayer(player)}</span>-6</p>
+                <p class="game-stat-text">Carga: <span id="value-local-charge">${this.drawDiceFromCharge(PlayerActions.getChargeFromPlayer(player))}</span></p>
                 <p class="game-stat-text">Nitro: <span id="value-local-nitro">${PlayerActions.getNitroFromPlayer(player)}</span></p>
                 <p class="game-stat-text">Poder: ${this.showPowerWithGamemode(player)}</p>
             </ul>
@@ -62,10 +62,37 @@ export class GameValuesDisplay {
         }
     }
 
+    // Dibujar un dado para el poder (por ahora solo va a ser pensado en tiros de 6)
+    static drawDiceFromCharge(charge) {
+        let dice = "";
+        switch (charge) {
+            case 1:
+                dice = "&#9856";
+                break;
+            case 2:
+                dice = "&#9857";
+                break;
+            case 3:
+                dice = "&#9858";
+                break;
+            case 4:
+                dice = "&#9859";
+                break;
+            case 5:
+                dice = "&#9860";
+                break;
+            case 6:
+                dice = "&#9861";
+                break;
+        }
+        return `<span class="dice-charge">${dice}</span>`
+    }
+
+
     // Actualiza el valor de la carga
     static updateChargeValue() {
         document.getElementById("value-local-charge").innerText = PlayerActions.getChargeFromPlayer(
-            StateGame.getCurrentPlayer()
+            this.drawDiceFromCharge(StateGame.getCurrentPlayer())
         );
     }
 

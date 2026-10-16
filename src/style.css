@@ -608,6 +608,21 @@ ul, ol {
 }
 .led.encendido .base   { fill: #00263c; }
 
+/* Temas del dado */
+#value-local-charge {
+    font-size: 5em;
+    line-height: 0.7;  /* Colapsa el exceso de altura vertical */
+    display: inline-block; /* Permite que respete el line-height estricto */
+    vertical-align: middle;
+    vertical-align: middle;
+}
+
+.dice-charge {
+    position: relative;
+    top: -7px;
+}
+
+
 @keyframes nitro-pulse {
     0%, 100% { box-shadow: 0 0 10px 5px #1584d3; }
     50% { box-shadow: 0 0 20px 5px #1584d3; }
