@@ -7,11 +7,15 @@ class ChargerProvider {
         }
     }
 
-    peekCharge() {
+    peekCharge(player) {
         throw new Error(`${this.constructor.name} debe implementar peekCharge()`);
     }
 
-    consumeCharge() {
+    consumeCharge(player) {
         throw new Error(`${this.constructor.name} debe implementar consumeCharge()`);
+    }
+
+    onRoundEnd(player) {
+        console.log("No va a pasar nada...");
     }
 }
