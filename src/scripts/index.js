@@ -69,26 +69,25 @@ deckIcon.addEventListener("click", () => { DisplayCardsInDeck.changeDeckPlayer(d
 const gameNotesWindows = document.getElementById("dialog-gamenotes");
 const gameNotesButton = document.getElementById("see-notes-button");
 const gameNotesCloseButton = document.getElementById("dialog-gamenotes-close");
+// De verdad no tengo ni idea como carajos esto paso de largo de parte mia y de tantas IAs que han visto el codebase
+// Esto es logica de funcionamiento EN EL INDEX, como sucedio esto ??? Porque nadie lo corigio ???
+// Todo el codigo que estaba en este addEventListiener fue movido a otro lado
 gameNotesButton.addEventListener("click", () => {
-    const gameNotesBody = document.querySelector(".dialog-gamenotes-body");
-
-    const notas = getNotes();
-    console.log(notas);
-    gameNotesBody.innerHTML = notas;
-    gameNotesWindows.showModal();
+    GameNotesDisplay.clickAllGameNotesButton(gameNotesWindows);
 });
 
 // Funciones de animacion de cerrar la ventana
+// (porque carajos esto estaba en el index???)
+/*
 function closeAnimationExecute() {
     gameNotesWindows.classList.add("closing");
-}
+}*/
 
 gameNotesCloseButton.addEventListener("click", () => {
-    closeAnimationExecute();
+    GameNotesDisplay.closeAnimationExecute();
 });
 gameNotesWindows.addEventListener("cancel", (e) => {
-    e.preventDefault();
-    closeAnimationExecute();
+    GameNotesDisplay.cancelGameNotes(e, gameNotesWindows);
 })
 gameNotesWindows.addEventListener("animationend", (e) => {
     if (e.animationName === "dialogDisappear") {

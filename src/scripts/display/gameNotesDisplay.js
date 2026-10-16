@@ -16,6 +16,40 @@ import { getNotes } from "../log/gameNotesLog.js";
 
 //export class GameStatsDisplay {
 export class GameNotesDisplay{
+    // Estos metodos antes eran funciones en el index (por razones galaticas)
+    static clickAllGameNotesButton(gameNotesWindows) {
+        const gameNotesBody = document.querySelector(".dialog-gamenotes-body");
+        
+        const notas = getNotes();
+        console.log(notas);
+        gameNotesBody.innerHTML = notas;
+        gameNotesWindows.showModal();
+    }
+
+    static closeAnimationExecute(gameNotesWindows) {
+        gameNotesWindows.classList.add("closing");
+    }
+
+    static cancelGameNotes(e, gameNotesWindows) {
+        e.preventDefault();
+        this.closeAnimationExecute(gameNotesWindows);
+    }
+
+    /*
+    gameNotesWindows.addEventListener("animationend", (e) => {
+    if (e.animationName === "dialogDisappear") {
+        gameNotesWindows.classList.remove("closing");
+        gameNotesWindows.close();
+    }
+})
+    */
+    static closeGameNotesWindows(e, gameNotesWindows) {
+        if (e.animationName === "dialogDisappear") {
+            gameNotesWindows.classList.remove("closing");
+            gameNotesWindows.close();
+        }
+    }
+
     // Reinicia el contenido de las notas de los turnos
     static restartTurnNotes() {
         document.getElementById("turn-notes-content").innerHTML = "";
