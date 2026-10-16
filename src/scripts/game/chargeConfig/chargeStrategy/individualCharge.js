@@ -6,8 +6,9 @@
 import { Player } from "../../../players/NewPlayer.js";
 import { PlayerActions } from "../../../players/playerActions.js";
 import { StateGame } from "../../stateGame.js";
+import { ChargerProvider } from "../chargerProvider.js";
 
-class IndividualCharge {
+export class IndividualCharge extends ChargerProvider {
     constructor() { 
         super(); 
     }

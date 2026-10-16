@@ -1,6 +1,6 @@
 // Pseudo interfaz para la implementacion de los distintos modos de lectura de la carga
 
-class ChargerProvider {
+export class ChargerProvider {
     constructor() {
         if (new.target === ChargerProvider) {
             throw new Error("Shape es abstracta, no se instancia");

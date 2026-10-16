@@ -6,5 +6,5 @@
     "max_turns": 9999,
     "nitro_per_turn": 3,
     "nitro_per_car": 5,
-    "return_weapons": false
+    "return_weapons": true
 }
