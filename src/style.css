@@ -593,6 +593,20 @@ ul, ol {
     background-color: rgb(132, 132, 132);
     color: rgb(24, 24, 24);
 }
+/* Temas del LED del poder */
+.led { height: 3em; vertical-align: middle; }
+
+.led .cuerpo { fill: url(#led-off); }
+.led .base   { fill: #191919; }
+
+.led.encendido {
+    filter: drop-shadow(0 0 6px #0066a3);
+}
+
+.led.encendido .cuerpo { 
+    fill: url(#led-on);
+}
+.led.encendido .base   { fill: #00263c; }
 
 @keyframes nitro-pulse {
     0%, 100% { box-shadow: 0 0 10px 5px #1584d3; }

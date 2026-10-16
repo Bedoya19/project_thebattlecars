@@ -47,7 +47,7 @@ export class Nitro {
         console.log(carSquare);
 
         // Revisa que tenga el suficiente poder, si es asi, gasta
-        if (!PlayerActions.spendPower(currentPlayer)) return;
+        if (!PlayerActions.spendPower(player)) return;
 
         if (this.isNitroActivate(player, carSquare)) {
             console.log("Se va a activar el nitro...");

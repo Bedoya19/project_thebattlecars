@@ -1,17 +1,12 @@
 // Script (por ahora sencillo) que solo lee la informacion del config
 // Despues refractorizar para usar estos metodos en todo lado
 
+import config from "../../configs/config.json" with { type: "json" };
+
 export class LoadConfig {
     // Clase general que devuelve el JSON del config
-    static async loadConfig() {
-        try {
-            const res = await fetch("src/configs/config.json");
-            if (!res.ok) throw new Error(`HTTP Error ${res.status}`);
-
-            return await res.json();
-        } catch (e) {
-            console.error(`Error: ${e}`);
-        }
+    static loadConfig() {
+        return config;
     }
 
     // Devuelve el nitro dado por turn
@@ -24,5 +19,11 @@ export class LoadConfig {
     static async loadNitroPerCar() {
         const data = await this.loadConfig();
         return data["nitro_per_car"];
+    }
+
+    // Devuelve el modo de juego
+    static loadGamemode() {
+        const data = this.loadConfig();
+        return data["gamemode"];
     }
 }
