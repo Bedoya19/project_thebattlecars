@@ -29,6 +29,11 @@ export function getChargeForDisplay(player) {
     }
 }
 
+export function consumeChargeWhenAttack(player) {
+    const chargeMethod = getChargeMethodConfig();
+    return chargerConfigs[chargeMethod].consumeCharge(player);
+}
+
 export function chargeToNextRound(player) {
     const chargeMethod = getChargeMethodConfig();
 
