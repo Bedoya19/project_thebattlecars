@@ -36,6 +36,6 @@ export class LoadConfig {
     // Devuelve sobre la configuracion de la carga
     static loadChargeMethod() {
         const data = this.loadConfig();
-        return data["return_weapons"];
+        return data["charge_method"];
     }
 }

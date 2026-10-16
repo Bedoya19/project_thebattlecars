@@ -17,11 +17,11 @@ function getChargeMethodConfig() {
     return LoadConfig.loadChargeMethod();
 }
 
-export function getChargeForDisplay() {
+export function getChargeForDisplay(player) {
     const chargeMethod = getChargeMethodConfig();
     if (chargeMethod === "random") {
         return "?";
     } else {
-        return chargerConfigs[chargeMethod].peekCharge();
+        return chargerConfigs[chargeMethod].peekCharge(player);
     }
 }

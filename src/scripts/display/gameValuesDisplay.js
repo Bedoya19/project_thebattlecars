@@ -8,6 +8,7 @@ import { PlayerActions } from "../players/playerActions.js";
 import { DisplayCardInformation } from "./displayCardInformation.js";
 import { StateGame } from "../game/stateGame.js";
 import { LoadConfig } from "../game/loadConfig.js";
+import { getChargeForDisplay } from "../game/chargeConfig/chargeMethodFactory.js";
 
 export class GameValuesDisplay {
     // Funcion bastante parecida a updateAllInformation, en donde cambia en su totalidad todo el elemento de los valores locales
@@ -17,7 +18,7 @@ export class GameValuesDisplay {
             <h3 class="game-stat-text game-stat-subtitle-text">Valores:</h3>
             <h3 class="game-stat-text">Actual: <span id="value-local-player">${DisplayCardInformation.convertPlayerString(player)}</span></h3>
             <ul id="game-value-content">
-                <p class="game-stat-text">Carga: <span id="value-local-charge">${this.drawDiceFromCharge(PlayerActions.getChargeFromPlayer(player))}</span></p>
+                <p class="game-stat-text">Carga: <span id="value-local-charge">${this.showChargeValue(StateGame.getCurrentPlayer())}</span></p>
                 <p class="game-stat-text">Nitro: <span id="value-local-nitro">${PlayerActions.getNitroFromPlayer(player)}</span></p>
                 <p class="game-stat-text">Poder: ${this.showPowerWithGamemode(player)}</p>
             </ul>
@@ -87,13 +88,20 @@ export class GameValuesDisplay {
         }
         return `<span class="dice-charge">${dice}</span>`
     }
-    
+
+    // Mostrar la carga dependiendo de que si la configuracion lo permite
+    static showChargeValue(player) {
+        const charge = getChargeForDisplay(player);
+        if (charge === "?") { return "?" }
+        else return this.drawDiceFromCharge(charge);
+    }
 
     // Actualiza el valor de la carga
     static updateChargeValue() {
-        document.getElementById("value-local-charge").innerHTML = this.drawDiceFromCharge(PlayerActions.getChargeFromPlayer(
-            StateGame.getCurrentPlayer()
-        ));
+        // document.getElementById("value-local-charge").innerHTML = this.drawDiceFromCharge(PlayerActions.getChargeFromPlayer(
+        //     StateGame.getCurrentPlayer()
+        // ));
+        document.getElementById("value-local-charge").innerHTML = this.showChargeValue(StateGame.getCurrentPlayer());
     }
 
     // Actualiza el valor de nitro
