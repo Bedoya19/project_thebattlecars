@@ -26,4 +26,9 @@ export class IndividualCharge extends ChargerProvider {
         // Devuelve la carga para ser usada
         return charge;
     }
+
+    onRoundEnd(player) {
+        // Genera una carga aleatoria para el jugador que viene
+        PlayerActions.generateChargeForPlayer(player);
+    }
 }

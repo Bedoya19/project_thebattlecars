@@ -181,7 +181,7 @@ export class DisplayCardInformation {
                 "board",
                 undefined,
                 weaponSquare.dataset.level,
-                getChargeForDisplay(this.convertPlayerString(playerOriginal))
+                getChargeForDisplay(playerOriginal)
             )}
         `;
         //${Attack.createAttackButton(playerOriginal, zoneNumber, squareNumber, weaponSquare)}

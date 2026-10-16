@@ -3,7 +3,7 @@
 */
 
 import { PlayerActions } from "../../../players/playerActions.js";
-import { ChargerProvider } from "../chargerProvider";
+import { ChargerProvider } from "../chargerProvider.js";
 
 export class RandomCharge extends ChargerProvider {
     constructor() {

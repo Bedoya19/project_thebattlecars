@@ -101,8 +101,10 @@ export class Attack {
         }
 
         // Actualiza la Carga
-        PlayerActions.generateChargeForPlayer(currentPlayer);
-        GameValuesDisplay.updateChargeValue();
+        //PlayerActions.generateChargeForPlayer(currentPlayer);
+
+        //GameValuesDisplay.updateChargeValue();
+        
         // Actualiza el Poder (el valor cambiado en pantalla)
         GameValuesDisplay.updatePowerValue();
         // Remueve todos los selectores

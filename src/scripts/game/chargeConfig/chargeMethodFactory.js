@@ -6,10 +6,13 @@
 import { LoadConfig } from "../loadConfig.js";
 import { ChargerProvider } from "./chargerProvider.js";
 import { IndividualCharge } from "./chargeStrategy/individualCharge.js";
+import { RandomCharge } from "./chargeStrategy/randomCharge.js";
 
 // Para este caso, voy a hacerlo con funciones para evitar problemas porque no se si esto seria correcto con clases estaticas
 const informedIndividual = new IndividualCharge();
+const random = new RandomCharge();
 const chargerConfigs = {
+    "random": random,
     "informed_individual": informedIndividual
 }
 
@@ -24,4 +27,10 @@ export function getChargeForDisplay(player) {
     } else {
         return chargerConfigs[chargeMethod].peekCharge(player);
     }
+}
+
+export function chargeToNextRound(player) {
+    const chargeMethod = getChargeMethodConfig();
+
+    chargerConfigs[chargeMethod].onRoundEnd(player);
 }
