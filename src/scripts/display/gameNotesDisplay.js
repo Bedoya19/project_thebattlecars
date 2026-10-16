@@ -19,10 +19,10 @@ export class GameNotesDisplay{
     // Estos metodos antes eran funciones en el index (por razones galaticas)
     static clickAllGameNotesButton(gameNotesWindows) {
         const gameNotesBody = document.querySelector(".dialog-gamenotes-body");
-        
         const notas = getNotes();
         console.log(notas);
-        gameNotesBody.innerHTML = notas;
+
+        gameNotesBody.innerHTML = (notas !== "" ? notas : "No existen notas para mostrar, eso significa que probablemente todavia no se ha hecho ninguna accion en la partida para anotar, y eso queire decir acaba de empezar la partida. ¡Para de perder el tiempo y hora de ir con todo lo que tienes!");
         gameNotesWindows.showModal();
     }
 
@@ -35,14 +35,6 @@ export class GameNotesDisplay{
         this.closeAnimationExecute(gameNotesWindows);
     }
 
-    /*
-    gameNotesWindows.addEventListener("animationend", (e) => {
-    if (e.animationName === "dialogDisappear") {
-        gameNotesWindows.classList.remove("closing");
-        gameNotesWindows.close();
-    }
-})
-    */
     static closeGameNotesWindows(e, gameNotesWindows) {
         if (e.animationName === "dialogDisappear") {
             gameNotesWindows.classList.remove("closing");

@@ -84,7 +84,7 @@ function closeAnimationExecute() {
 }*/
 
 gameNotesCloseButton.addEventListener("click", () => {
-    GameNotesDisplay.closeAnimationExecute();
+    GameNotesDisplay.closeAnimationExecute(gameNotesWindows);
 });
 gameNotesWindows.addEventListener("cancel", (e) => {
     GameNotesDisplay.cancelGameNotes(e, gameNotesWindows);
