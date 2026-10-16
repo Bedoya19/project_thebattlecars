@@ -8,6 +8,7 @@ import { StateGame } from "../game/stateGame.js";
 import { Nitro } from "../battle/nitro.js";
 import { WeaponUpgrade } from "../battle/weaponUpgrade.js";
 import { DeckUtils } from "../players/DeckUtils.js";
+import { getChargeForDisplay } from "../game/chargeConfig/chargeMethodFactory.js";
 
 export class DisplayCardInformation {
     static displayInformationOnDeck(divElement, card, cardId) {
@@ -180,7 +181,7 @@ export class DisplayCardInformation {
                 "board",
                 undefined,
                 weaponSquare.dataset.level,
-                charge
+                getChargeForDisplay(this.convertPlayerString(playerOriginal))
             )}
         `;
         //${Attack.createAttackButton(playerOriginal, zoneNumber, squareNumber, weaponSquare)}
@@ -357,6 +358,8 @@ class WeaponListStatsDisplay {
         for (let i = 0; i < weaponAttacks.length ; i++) {
              
             // Crea una string bonita de cada elemento de attackValues, tambien agrega un resaltado en el ataque respectivo
+            //const attackValues = weaponAttacks[i].join(", ");
+            //if (getChargeForDisplay())
             const attackValues = weaponAttacks[i]
             .map((value, j) => (origin === "board" && parseInt(level) === i && j === charge - 1)
                 ? `<mark>${value}</mark>`
