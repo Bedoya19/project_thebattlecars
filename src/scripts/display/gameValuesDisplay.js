@@ -87,7 +87,7 @@ export class GameValuesDisplay {
         }
         return `<span class="dice-charge">${dice}</span>`
     }
-
+    
 
     // Actualiza el valor de la carga
     static updateChargeValue() {
