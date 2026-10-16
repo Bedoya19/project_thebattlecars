@@ -13,6 +13,7 @@ import { StateGame } from "../game/stateGame.js";
 import { DisplayCardInformation } from "../display/displayCardInformation.js";
 import { DisplayMessageBoxes } from "../display/displayMessageBoxes.js";
 import { GameNotesDisplay } from "../display/gameNotesDisplay.js";
+import { LoadConfig } from "../game/loadConfig.js";
 
 export class Attack {
     // Agrgega el boton de ataque a la informacion si es del jugador indicado
@@ -129,7 +130,9 @@ export class Attack {
             GameInformationDisplay.updateCurrentCarsPlayer(affectedPlayer);
             // Le devuelve las armas al jugador afectado
             // (Porque carajos no marca error cuando no pongo la cantidad de atributos necesarios????????)
-            this.returnWeaponsToDeck(affectedPlayer, weapons);
+            if (LoadConfig.loadReturnWeapons() === true) {
+                this.returnWeaponsToDeck(affectedPlayer, weapons);
+            }
             // Le da nitro de recompensa al jugador que destruyo el carro. Actualiza el valor en la ventana de informacion
             await PlayerActions.giveNitroAfterDestroyedCar(currentPlayer);
             GameValuesDisplay.updateNitroValue();

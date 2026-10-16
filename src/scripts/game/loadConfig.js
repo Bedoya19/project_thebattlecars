@@ -26,4 +26,10 @@ export class LoadConfig {
         const data = this.loadConfig();
         return data["gamemode"];
     }
+
+    // Devuelve si se le devuelven las cartas de arma al jugador
+    static loadReturnWeapons() {
+        const data = this.loadConfig();
+        return data["return_weapons"];
+    }
 }
