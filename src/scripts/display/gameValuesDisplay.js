@@ -91,9 +91,9 @@ export class GameValuesDisplay {
 
     // Actualiza el valor de la carga
     static updateChargeValue() {
-        document.getElementById("value-local-charge").innerText = PlayerActions.getChargeFromPlayer(
-            this.drawDiceFromCharge(StateGame.getCurrentPlayer())
-        );
+        document.getElementById("value-local-charge").innerText = this.drawDiceFromCharge(PlayerActions.getChargeFromPlayer(
+            StateGame.getCurrentPlayer()
+        ));
     }
 
     // Actualiza el valor de nitro
