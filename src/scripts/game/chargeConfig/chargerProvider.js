@@ -20,7 +20,7 @@ export class ChargerProvider {
     }
 
     // Si toca cambiar la carga despues de una rounda, esta es la que se encarga de eso.
-    onRoundEnd(player) {
+    onRoundStart(player) {
         console.log("No va a pasar nada...");
     }
 }

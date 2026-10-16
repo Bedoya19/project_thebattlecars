@@ -37,5 +37,5 @@ export function consumeChargeWhenAttack(player) {
 export function chargeToNextRound(player) {
     const chargeMethod = getChargeMethodConfig();
 
-    chargerConfigs[chargeMethod].onRoundEnd(player);
+    chargerConfigs[chargeMethod].onRoundStart(player);
 }

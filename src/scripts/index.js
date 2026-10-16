@@ -31,6 +31,7 @@ import { PlayerActions } from "./players/playerActions.js";
 // Funcion sobre las notas del juego
 import { getNotes } from "./log/gameNotesLog.js";
 import { StateGame } from "./game/stateGame.js";
+import { chargeToNextRound } from "./game/chargeConfig/chargeMethodFactory.js";
 
 
 // Display del mazo
@@ -114,7 +115,8 @@ GameNotesDisplay.restartTurnNotes();
 
 nextRoundButton.addEventListener("click", () => { MainGame.goToNextRound()});
 
-PlayerActions.generateChargeForPlayer("player1");
+//PlayerActions.generateChargeForPlayer("player1");
+chargeToNextRound("player1");
 GameInformationDisplay.updateAllInformation();
 GameValuesDisplay.updateAllValues("player1");
 
