@@ -130,6 +130,12 @@ export class Player {
         this.charge = Math.floor(Math.random() * 6) + 1;
     }
 
+    // Define una carga en especifico
+    // (util para los modos de carga secuencial)
+    set setCharge(charge) {
+        this.charge = parseInt(charge);
+    }
+
     // Pila de cartas (pile)
 
     // Saca una carta de manera aleatoria de la pila

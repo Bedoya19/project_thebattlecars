@@ -117,6 +117,10 @@ export class PlayerActions {
         return players[player].getWeapons();
     }
 
+    static setSpecificCharge(player, charge) {
+        players[player].setCharge = charge;
+    }
+
     // Agrega una carta a un deck en especifico
     static addCardToPlayerDeck(player, cardType, card) {
         // Se puede agregar otros decks

@@ -105,7 +105,7 @@ export class Attack {
         //PlayerActions.generateChargeForPlayer(currentPlayer);
 
         //GameValuesDisplay.updateChargeValue();
-        consumeChargeWhenAttack(currentPlayer);
+        //consumeChargeWhenAttack(currentPlayer);
         GameValuesDisplay.updateChargeValue();
 
         // Actualiza el Poder (el valor cambiado en pantalla)
@@ -161,7 +161,8 @@ export class Attack {
         // Ya prepara la pagina para atacar
         } else {
             // Consigue la carga del jugador
-            const charge = PlayerActions.getChargeFromPlayer(player);
+            //const charge = PlayerActions.getChargeFromPlayer(player);
+            const charge = consumeChargeWhenAttack(player);
             // Incremento de ataque del arma
             const attackBuff = Number(BoardClick.getCarSquareFromWeaponSquare(weaponSquare).dataset.attBuff);
             
