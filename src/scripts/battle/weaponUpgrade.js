@@ -3,6 +3,7 @@ import { DisplayCardInformation } from "../display/displayCardInformation.js";
 import { GameNotesDisplay } from "../display/gameNotesDisplay.js";
 import { GameValuesDisplay } from "../display/gameValuesDisplay.js";
 import { StandarizedDocCreation } from "../display/standardDoc/standarizedDocCreation.js";
+import { LoadConfig } from "../game/loadConfig.js";
 import { StateGame } from "../game/stateGame.js";
 import { DeckUtils } from "../players/DeckUtils.js";
 import { Player } from "../players/Player.js";
@@ -18,12 +19,12 @@ export class WeaponUpgrade {
     // Es similar al de crear el boton de ataque... Podemos pensar despues fusionar las dos
     static createUpgradeButton(player, zoneNumber, squareNumber, weaponSquare) {
         const currentPlayer = StateGame.getCurrentPlayer();
-        if (currentPlayer === player) {
+        if ((currentPlayer === player) && (LoadConfig.loadWeaponsUpgradeEnabled())) {
             const button = StandarizedDocCreation.customElementCreator(
                 {
                     "element": "button",
                     "id": `upgrade-${zoneNumber}-${squareNumber}`,
-                    "class": "upgrade-button"
+                    "class": ["upgrade-button", "button-weapon"]
                 }
             );
             // Cuando se confirma que el boton funciona, hacemos lo mismo que en el de nitro que si no esta disponible, simplemente no se activa el boton.
@@ -55,7 +56,7 @@ export class WeaponUpgrade {
             const attacksLevels = JSON.parse(weaponSquare.dataset.attacks).length;
             // Convertimos explícitamente a número para evitar coerciones raras en la comparación
             const currentLevel = Number(weaponSquare.dataset.level);
-            
+
             if (currentLevel < attacksLevels - 1) {
                 console.log("Se va a mejorar!");
                 // Asignamos el nuevo valor a la propiedad, JS lo convierte a string automáticamente
@@ -65,8 +66,8 @@ export class WeaponUpgrade {
                 // Que la mejora de las armas es un trabajo relativamente sencillo, esta funcion tienen que sacar muchas cosas
                 // de otros lugares, entonces lo voy a poner en varios enters para una mayor facilidad
                 GameNotesDisplay.addWeaponUpgrade(
-                    player, 
-                    weaponSquare.dataset.name, 
+                    player,
+                    weaponSquare.dataset.name,
                     (parseInt(weaponSquare.dataset.level) + 1),
                     BoardClick.getCarSquareFromWeaponSquare(weaponSquare).dataset.name
                 );

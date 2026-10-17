@@ -66,30 +66,6 @@ export class GameValuesDisplay {
     // Dibujar un dado para el poder (por ahora solo va a ser pensado en tiros de 6)
     static drawDiceFromCharge(charge) {
         return `<img class="dice-charge" src="src/images/dice/dice-${charge}.svg" alt="Dado ${charge}">`;
-
-
-        let dice = "";
-        switch (charge) {
-            case 1:
-                dice = "&#9856";
-                break;
-            case 2:
-                dice = "&#9857";
-                break;
-            case 3:
-                dice = "&#9858";
-                break;
-            case 4:
-                dice = "&#9859";
-                break;
-            case 5:
-                dice = "&#9860";
-                break;
-            case 6:
-                dice = "&#9861";
-                break;
-        }
-        return `<span class="dice-charge">${dice}</span>`
     }
 
     // Mostrar la carga dependiendo de que si la configuracion lo permite

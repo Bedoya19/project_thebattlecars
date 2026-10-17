@@ -1,6 +1,6 @@
 /*
     Metodos del ataque de carro
-    Se va a desarrollar la version funcional con la version que yo diseñe el juego desde un principio: 
+    Se va a desarrollar la version funcional con la version que yo diseñe el juego desde un principio:
     La carga es avisada desde un principio
 */
 import { PlayerActions } from "../players/playerActions.js";
@@ -26,7 +26,7 @@ export class Attack {
                 {
                     "element": "button",
                     "id": `attack-${zoneNumber}-${squareNumber}`,
-                    "class": "attack-button"
+                    "class": ["attack-button", "weapon-button"]
                 }
             );
             button.innerText = "Atacar";
@@ -50,7 +50,7 @@ export class Attack {
 
         // Gasta el poder del ataque. Si no hay, no se hace nada
         if (!PlayerActions.spendPower(currentPlayer)) return;
-    
+
         // Carro atacante (movido para usarse antes)
         const weaponSquare = document.getElementById(`${currentPlayer}-zone${AttackValues.getZone()}-card-weapon-${AttackValues.getSquareNumber()}`);
         const attackingCarSquare = BoardClick.getCarSquareFromWeaponSquare(weaponSquare);
@@ -91,8 +91,8 @@ export class Attack {
 
         // Le baja energia a la arma que se uso para el ataque
         //PlayerActions.consumePowerForActionInPlayer(currentPlayer);
-        
-        
+
+
         --weaponSquare.dataset.energy;
         // Quita la carta del tablero si ya llego a cero de energia
         if (weaponSquare.dataset.energy <= 0) {
@@ -129,8 +129,8 @@ export class Attack {
             // Ya quita de verdad el carro destruido en el tablero despues de usar la informacion para el metodo anterior
             // Esta funcion devuelve las armas que estaban en el carro
             const weapons = BoardClick.removeCarOnBoard(carSquare);
-            // Elimina el carro del jugador afectado, y actualiza el valor en la ventana de informacion 
-            //const affectedPlayer = carSquare.id.slice(0, 7);            
+            // Elimina el carro del jugador afectado, y actualiza el valor en la ventana de informacion
+            //const affectedPlayer = carSquare.id.slice(0, 7);
             StateGame.removeCarFromPlayer(affectedPlayer);
             GameInformationDisplay.updateCurrentCarsPlayer(affectedPlayer);
             // Le devuelve las armas al jugador afectado
@@ -165,10 +165,10 @@ export class Attack {
             const charge = consumeChargeWhenAttack(player);
             // Incremento de ataque del arma
             const attackBuff = Number(BoardClick.getCarSquareFromWeaponSquare(weaponSquare).dataset.attBuff);
-            
+
             // Momento JS esto...
             let attack = parseInt(JSON.parse(weaponSquare.dataset.attacks)[weaponSquare.dataset.level][charge - 1]);
-            console.log("Aumento de ataque:", attackBuff);        
+            console.log("Aumento de ataque:", attackBuff);
             AttackValues.setAttackValues(charge, attack, zoneNumber, squareNumber, attackBuff);
         }
     }

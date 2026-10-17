@@ -38,4 +38,10 @@ export class LoadConfig {
         const data = this.loadConfig();
         return data["charge_method"];
     }
+
+    // Devuelve si esta habilitado las mejoras de las armas
+    static loadWeaponsUpgradeEnabled() {
+        const data = this.loadConfig();
+        return data["weapon_upgrades_enabled"];
+    }
 }
