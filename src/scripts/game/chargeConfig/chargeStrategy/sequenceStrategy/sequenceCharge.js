@@ -10,10 +10,9 @@ export class SequenceCharge extends ChargerProvider {
     constructor(charges) {
         super();
         // El conteo de los ataques, esto va a cambiar la manera que es manejado por parte de las siguientes clases
-        this.attacksCount = { player1: 0, player2: 0 }
+        this.attacksCount = { "player1": 0, "player2": 0 }
         // Se espera que esto de "cargas" sea un array
         this.charges = charges;
-        this.maxCount = charges.length;
     }
 
     // Algunos getters
@@ -25,13 +24,16 @@ export class SequenceCharge extends ChargerProvider {
     }
 
     peekCharge(player) {
-        return this.charges[this.attacks[player] % this.charges.length];
+        console.log(player);
+        console.log(this.charges);
+        console.log(this.attacksCount);
+
+        return this.charges[this.attacksCount[player] % this.charges.length];
     }
 
-    // Ya usando maxCount, esto no va a ser tocado en las clases siguientes
     consumeCharge(player) {
         const charge = this.peekCharge(player);
-        this.attacks[player]++;
+        this.attacksCount[player]++;
         return charge;
     }
     // La generacion de la lista se deja para DualCharge

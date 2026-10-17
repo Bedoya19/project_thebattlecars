@@ -13,7 +13,7 @@ import { GameValuesDisplay } from "../display/gameValuesDisplay.js";
 import { Player1 } from "../players/player1.js";
 import { DisplayCardInformation } from "../display/displayCardInformation.js";
 import { Nitro } from "../battle/nitro.js";
-import { chargeToNextRound } from "./chargeConfig/chargeMethodFactory.js";
+import { chargeToNextRound, startNextTurn } from "./chargeConfig/chargeMethodFactory.js";
 
 // Como lo ha sido siempre en este proyecto, se va a crear una clase
 // En general ha sido asi en todo el proyecto para facilitar la importacion y exportacion de funciones hacia
@@ -56,6 +56,7 @@ export class MainGame {
             GameNotesDisplay.restartAllTurnNotes();
             GameInformationDisplay.updateCurrentRoundAndTurn();
             await GameNotesDisplay.createCurrentTurnNotes();
+            startNextTurn();
         }
         // Genera inmediatamente una carga para el jugador, y actualiza los datos
         const newPlayer = StateGame.getCurrentPlayer();
