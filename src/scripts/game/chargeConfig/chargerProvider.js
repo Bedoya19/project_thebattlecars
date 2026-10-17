@@ -19,8 +19,13 @@ export class ChargerProvider {
         throw new Error(`${this.constructor.name} debe implementar consumeCharge()`);
     }
 
-    // Si toca cambiar la carga despues de una rounda, esta es la que se encarga de eso.
+    // Si toca cambiar la carga despues de una ronda, esta es la que se encarga de eso.
     onRoundStart(player) {
-        console.log("No va a pasar nada...");
+        console.log("No va a pasar nada despues de una ronda...");
+    }
+
+    // Tambien, si toca cambiar algo despues de un turno
+    onTurnStart() {
+        console.log("No va a pasar nada despues de un turno...")
     }
 }
