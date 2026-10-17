@@ -561,6 +561,12 @@ img.image-board {
     color: #d0b312;
     transform: translateY(1px);
 }
+.upgrade-button:disabled {
+    background-color: #8a8466;
+    border-color: #5c5845;
+    color: #4a4a4a;
+    cursor: not-allowed;
+}
 
 .car-nitro-activated {
     position: relative;

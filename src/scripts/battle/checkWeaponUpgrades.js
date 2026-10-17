@@ -1,5 +1,8 @@
 // Hace algunas revisiones extra, que no necesariamente se incluyen en la logica cruda en si de la mejora de las armas
 
+import { PlayerActions } from "../players/playerActions.js";
+import { DeckUtils } from "../players/DeckUtils.js";
+
 export class CheckWeaponUpgrades {
     // Convierte el array que esta en el dataset a un objeto
     // Mucho mas facil manejarlo con ese formato
@@ -28,5 +31,12 @@ export class CheckWeaponUpgrades {
             }
         }
         return upgrade;
+    }
+
+    static hasEnoughMaterials(player, weaponSquare) {
+        const materialDeck = PlayerActions.getDeckFromPlayer(player, "materials");
+        const materialCount = DeckUtils.countMaterialsInDeck(materialDeck);
+        const necesaryMaterials = CheckWeaponUpgrades.convertMaterialArrayToObject(weaponSquare.dataset.materials);
+        return CheckWeaponUpgrades.checkIfEnoughMaterials(materialCount, necesaryMaterials);
     }
 }

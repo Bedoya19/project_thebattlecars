@@ -30,6 +30,9 @@ export class WeaponUpgrade {
             // Cuando se confirma que el boton funciona, hacemos lo mismo que en el de nitro que si no esta disponible, simplemente no se activa el boton.
             button.innerText = "Mejorar";
             button.addEventListener("click", () => { this.upgradeWeapon(weaponSquare, player) })
+            // Deshabilita el boton si no tiene el suficiente material
+            button.disabled = !CheckWeaponUpgrades.hasEnoughMaterials(player, weaponSquare);
+
             return button;
         } else {
             return document.createElement("div");
@@ -42,17 +45,14 @@ export class WeaponUpgrade {
         if (!PlayerActions.spendPower(player)) return;
 
         //if (PlayerActions.getPowerFromPlayer(player) > 0) {
-        const materialDeck = PlayerActions.getDeckFromPlayer(player, "materials");
-        const materialCount = DeckUtils.countMaterialsInDeck(materialDeck);
+        const canUpgrade = CheckWeaponUpgrades.hasEnoughMaterials(player, weaponSquare);
 
-        const necesaryMaterials = CheckWeaponUpgrades.convertMaterialArrayToObject(weaponSquare.dataset.materials);
-        console.log(necesaryMaterials);
-        console.log(materialCount);
-
-        const canUpgrade = CheckWeaponUpgrades.checkIfEnoughMaterials(materialCount, necesaryMaterials);
+        console.log(canUpgrade);
         if (canUpgrade) {
             console.log("Se puede mejorar!");
-            console.log(DeckUtils.orderMaterialsByQuantity(materialDeck));
+            const materialDeck = PlayerActions.getDeckFromPlayer(player, "materials");
+            const necesaryMaterials = CheckWeaponUpgrades.convertMaterialArrayToObject(weaponSquare.dataset.materials);
+            //console.log(DeckUtils.orderMaterialsByQuantity(materialDeck));
             const attacksLevels = JSON.parse(weaponSquare.dataset.attacks).length;
             // Convertimos explícitamente a número para evitar coerciones raras en la comparación
             const currentLevel = Number(weaponSquare.dataset.level);
