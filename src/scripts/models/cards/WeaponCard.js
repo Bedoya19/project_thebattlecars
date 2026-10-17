@@ -74,7 +74,7 @@ export class WeaponCard extends Card {
             "description": this.description,
             "longDescription": this.longDescription,
             "attacks": this.attacks,
-            "energy": 4,
+            "energy": this.energy,
             "materials": this.materials,
             "image": this.image
         })
