@@ -525,8 +525,6 @@ img.image-board {
     padding: 2px 8px;
     cursor: pointer;
     font-family: "Lexend", sans-serif;
-    display: block;
-    margin: auto;
 }
 .nitro-button:hover {
     background-color: #254d68;
@@ -544,6 +542,26 @@ img.image-board {
     pointer-events: none;
     box-shadow: none;
 }
+.button-weapon {
+    margin: 0 2px;
+    padding: 1px 5px;
+    cursor: pointer;
+}
+.upgrade-button {
+    border: 2px solid #665c10;
+    background-color: #d0b312;
+}
+.upgrade-button:hover {
+    background-color: #665c10;
+    color: #cacaca;
+}
+.upgrade-button:active {
+    background-color: #3d370a;
+    border-color: #000000;
+    color: #d0b312;
+    transform: translateY(1px);
+}
+
 .car-nitro-activated {
     position: relative;
     z-index: 10;

@@ -26,7 +26,7 @@ export class Attack {
                 {
                     "element": "button",
                     "id": `attack-${zoneNumber}-${squareNumber}`,
-                    "class": ["attack-button", "weapon-button"]
+                    "class": "attack-button weapon-button"
                 }
             );
             button.innerText = "Atacar";

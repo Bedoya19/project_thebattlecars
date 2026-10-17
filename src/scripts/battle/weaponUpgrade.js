@@ -24,7 +24,7 @@ export class WeaponUpgrade {
                 {
                     "element": "button",
                     "id": `upgrade-${zoneNumber}-${squareNumber}`,
-                    "class": ["upgrade-button", "button-weapon"]
+                    "class": "upgrade-button button-weapon"
                 }
             );
             // Cuando se confirma que el boton funciona, hacemos lo mismo que en el de nitro que si no esta disponible, simplemente no se activa el boton.
