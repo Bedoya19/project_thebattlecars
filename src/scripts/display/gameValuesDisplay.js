@@ -1,5 +1,5 @@
 /*
-    Esta clase cumplira una labor bastante similar a gameNotesDisplay y gameInformationDisplay, aqui simplemente se cambia el documento 
+    Esta clase cumplira una labor bastante similar a gameNotesDisplay y gameInformationDisplay, aqui simplemente se cambia el documento
     dependiendo de la informacion personal de cada jugador.
 */
 import { Player1 } from "../players/player1.js";
@@ -65,6 +65,9 @@ export class GameValuesDisplay {
 
     // Dibujar un dado para el poder (por ahora solo va a ser pensado en tiros de 6)
     static drawDiceFromCharge(charge) {
+        return `<img class="dice-charge" src="src/images/dice/dice-${charge}.svg" alt="Dado ${charge}">`;
+
+
         let dice = "";
         switch (charge) {
             case 1:
