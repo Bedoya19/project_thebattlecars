@@ -636,16 +636,6 @@ ul, ol {
 }
 .led.encendido .base   { fill: #00263c; }
 
-/* Temas del dado */
-#value-local-charge {
-    /*
-    font-size: 5em;
-    line-height: 0.7;
-    display: inline-block;
-    vertical-align: middle;
-    vertical-align: middle; */
-}
-
 .dice-charge {
     width: 35px;
     height: 35px;
