@@ -221,6 +221,10 @@ body {
     color: var(--borde-juego-estadisticas);
 }
 
+#game-value-content {
+    margin-top: 3px;
+}
+
 #game-information {
     display: flex;
     width: 100%;
