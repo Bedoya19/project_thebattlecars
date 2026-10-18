@@ -44,4 +44,10 @@ export class LoadConfig {
         const data = this.loadConfig();
         return data["weapon_upgrades_enabled"];
     }
+
+    // Devuelve el turno maximo del juego
+    static loadMaxTurns() {
+        const data = this.loadConfig();
+        return data["max_turns"];
+    }
 }

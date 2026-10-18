@@ -95,7 +95,12 @@ export class StateGame {
                 "class": "game-stat-subtitle-text"
             }
         );
-        announceWinner.innerText = `El ${playerWinner} es el ganador!`;
+        if (playerWinner !== "tie") {
+            announceWinner.innerText = `El ${playerWinner} es el ganador!`;
+        } else {
+            announceWinner.innerText = `¡Fin de juego, empate!`;
+        }
+        
         statePlayers.appendChild(announceWinner);
         // Me da pereza por ahora hacer una funcion que reinicie la pagina
         // Tal vez despues

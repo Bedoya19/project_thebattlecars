@@ -30,7 +30,7 @@ export function getNotes() {
 }
 
 // Se procesa y crea un mensaje por turno en HTML
-// Esta funcion NO se exporta, porque cual es la razon ?
+// Esta funcion NO se exporta
 function processTurnNote(turn) {
     if (notes[turn]) {
         let message = `<div>

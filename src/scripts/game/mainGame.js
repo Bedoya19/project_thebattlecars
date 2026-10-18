@@ -14,6 +14,7 @@ import { Player1 } from "../players/player1.js";
 import { DisplayCardInformation } from "../display/displayCardInformation.js";
 import { Nitro } from "../battle/nitro.js";
 import { chargeToNextRound, startNextTurn } from "./chargeConfig/chargeMethodFactory.js";
+import { LoadConfig } from "./loadConfig.js";
 
 // Como lo ha sido siempre en este proyecto, se va a crear una clase
 // En general ha sido asi en todo el proyecto para facilitar la importacion y exportacion de funciones hacia
@@ -56,6 +57,15 @@ export class MainGame {
             GameNotesDisplay.restartAllTurnNotes();
             GameInformationDisplay.updateCurrentRoundAndTurn();
             await GameNotesDisplay.createCurrentTurnNotes();
+            if (StateGame.getTurn() === LoadConfig.loadMaxTurns()) {
+                GameNotesDisplay.addLastTurn(
+                    (StateGame.getCarsPlayers1() === StateGame.getCarsPlayers2())
+                );
+            }
+            if (StateGame.getTurn() > LoadConfig.loadMaxTurns()) {
+                this.endGameFromMaxTurn();
+                //console.log("Terminar partida...");
+            }
             startNextTurn();
         }
         // Genera inmediatamente una carga para el jugador, y actualiza los datos
@@ -76,4 +86,15 @@ export class MainGame {
         return PlayerActions.spendPower(player);
     }
 
+    static endGameFromMaxTurn() {
+        let ganador;
+        if (StateGame.getCarsPlayers1() > StateGame.getCarsPlayers2()) {
+            ganador = "Jugador 1";
+        } else if (StateGame.getCarsPlayers1() < StateGame.getCarsPlayers2()) {
+            ganador = "Jugador 2";
+        } else if (StateGame.getCarsPlayers1() === StateGame.getCarsPlayers2()) {
+            ganador = "tie";
+        }
+        StateGame.endGame(ganador)
+    }
 }

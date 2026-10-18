@@ -64,9 +64,9 @@ export class GameNotesDisplay{
     }
 
     // Agrega notas al contenido de las notas
-    static addTurnNote(message) {
+    static addTurnNote(message, save = true) {
         // Guarda la nota en lugar establecido.
-        addNote(message);
+        save ? addNote(message) : undefined;
         this.addNote(message, "turn-notes-content");
     }
     // Agrega notas a la informacion del turno actual
@@ -140,5 +140,12 @@ export class GameNotesDisplay{
     // Nota sobre mejora de la carta
     static addWeaponUpgrade(player, weaponName, weaponLevel, carName) {
         this.addTurnNote(`${DisplayCardInformation.convertPlayerString(player)} mejoro su "${weaponName}" en el carro "${carName}" a nivel ${weaponLevel}`)
+    }
+
+    // Nota sobre ultimo turno
+    static addLastTurn(isInTie) {
+        console.log(isInTie);
+        const message = `<strong>¡ULTIMO TURNO!</strong> ${isInTie ? "¡La partida va a acabar en empate! ¡Es ahora o nunca!" : ""}`;
+        this.addTurnNote(message, false);
     }
 }
