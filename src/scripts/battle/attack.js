@@ -75,7 +75,7 @@ export class Attack {
         const attackPreliminaryValue = (attackValue + attackIncrease + attackNitroIncrease) - resistanceFromAttack;
         const attack = (attackPreliminaryValue >= 0) ? attackPreliminaryValue : 0;
         console.log(attack);
-        const chargeValue = PlayerActions.getChargeFromPlayer(currentPlayer);
+        const chargeValue = AttackValues.getCharge();
 
         // Le baja la vida al carro que se le dio el ataque
         const currentCarHealth = carSquare.dataset.health;
