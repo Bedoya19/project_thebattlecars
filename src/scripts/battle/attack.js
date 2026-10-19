@@ -14,7 +14,7 @@ import { DisplayCardInformation } from "../display/displayCardInformation.js";
 import { DisplayMessageBoxes } from "../display/displayMessageBoxes.js";
 import { GameNotesDisplay } from "../display/gameNotesDisplay.js";
 import { LoadConfig } from "../game/loadConfig.js";
-import { consumeChargeWhenAttack } from "../game/chargeConfig/chargeMethodFactory.js";
+import { consumeChargeWhenAttack, getChargeForUse } from "../game/chargeConfig/chargeMethodFactory.js";
 
 export class Attack {
     // Agrgega el boton de ataque a la informacion si es del jugador indicado
@@ -158,7 +158,7 @@ export class Attack {
         } else {
             // Consigue la carga del jugador
             //const charge = PlayerActions.getChargeFromPlayer(player);
-            const charge = consumeChargeWhenAttack(player);
+            const charge = getChargeForUse(player);
             // Incremento de ataque del arma
             const carSquare = BoardClick.getCarSquareFromWeaponSquare(weaponSquare);
             const attackBuff = Number(carSquare.dataset.attBuff);

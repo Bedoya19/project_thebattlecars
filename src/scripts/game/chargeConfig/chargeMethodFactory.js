@@ -49,3 +49,10 @@ export function startNextTurn() {
     const chargeMethod = getChargeMethodConfig();
     chargerConfigs[chargeMethod].onTurnStart();
 }
+
+// Conseguir la carga para uso (por ejemplo, Attack)
+// Tener MUCHO cuidado en usar esto para lectura general de la carga, ya que acabaria con el chiste que deberia ser la carga
+export function getChargeForUse(player) {
+    const chargeMethod = getChargeMethodConfig();
+    return chargerConfigs[chargeMethod].getCurrentCharge(player);
+}
