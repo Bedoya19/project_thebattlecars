@@ -19,6 +19,12 @@ export class ChargerProvider {
         throw new Error(`${this.constructor.name} debe implementar consumeCharge()`);
     }
 
+    // Devolver la carga SIN cambiarla.
+    // NO debe ser usado para mostrarse en ningun lado este metodo, SOLO uso exclusivo para Attack y muy poco mas
+    getCurrentCharge(player) {
+        throw new Error(`${this.constructor.name} debe implementar getCurrentCharge()`);
+    }
+
     // Si toca cambiar la carga despues de una ronda, esta es la que se encarga de eso.
     onRoundStart(player) {
         console.log("No va a pasar nada despues de una ronda...");

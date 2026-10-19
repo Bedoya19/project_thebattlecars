@@ -5,8 +5,8 @@
 
 import { LoadConfig } from "../loadConfig.js";
 import { ChargerProvider } from "./chargerProvider.js";
-import { IndividualCharge } from "./chargeStrategy/individualCharge.js";
-import { RandomCharge } from "./chargeStrategy/randomCharge.js";
+import { IndividualCharge } from "./chargeStrategy/specificSrategy/individualCharge.js";
+import { RandomCharge } from "./chargeStrategy/specificSrategy/randomCharge.js";
 import { DualCharge } from "./chargeStrategy/sequenceStrategy/dualCharge.js";
 
 // Para este caso, voy a hacerlo con funciones para evitar problemas porque no se si esto seria correcto con clases estaticas

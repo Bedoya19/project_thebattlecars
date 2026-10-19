@@ -31,6 +31,11 @@ export class SequenceCharge extends ChargerProvider {
         return this.charges[this.attacksCount[player] % this.charges.length];
     }
 
+    getCurrentCharge(player) {
+        // Lo mismo, aqui no hay secretos
+        return peekCharge(player);
+    }
+
     consumeCharge(player) {
         const charge = this.peekCharge(player);
         this.attacksCount[player]++;
