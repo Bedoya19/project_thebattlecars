@@ -2,13 +2,13 @@ Explicado los valores del json de configuracion:
 
 "gamemode": El modo de juego principal.
 Existiran distintos modos de juego (los planeados):
-- 'normal': 
+- 'normal':
     El modo de juego normal. Los jugadores solo pueden hacer una accion por ronda
 - 'powers':
     Poderes habilitados. Entre mas avanza el juego, mas acciones por ronda pueden hacer los jugadores, incluyendo usar poderes dependiendo de la cantidad que tengan.
     (se busca que este modo sea el default)
 
-"game_players": 
+"game_players":
 Quienes/quien estan jugando
 - 'local':
     Dos jugadores locales
@@ -17,26 +17,28 @@ Quienes/quien estan jugando
 
 "charge_method": La forma de como se calcula la carga cuando se ataca.
 - 'random':
-    La carga es generada aleatoriamente en el instante que se ataca, es decir, la carga se calcula aleatoriamente en el instante de atacar.
+    La carga es generada aleatoriamente, y el jugador no tiene forma de saber cual es la carga antes de atacar. [implementado]
 - 'informed_individual':
-    La carga es aleatoria, pero el jugador sabe de antemano cual es la carga que le toca antes de atacar.
+    La carga es aleatoria, pero el jugador sabe de antemano cual es la carga que le toca antes de atacar. No sabe cual sera la carga que le sigue (para poderes) y sera distinta de la carga que vera el otro jugador. [implementado]
     (El modo por default)
 - 'informed_dual':
-    El ataque es aleatorio, pero los jugadores saben de antemano cual es la carga. Las cargas se generan por turno y son los mismos para cada jugador.
+    El ataque es aleatorio, pero los jugadores saben de antemano cual es la carga. Las cargas se generan por turno y son los mismos para cada jugador. Es decir, la(s) carga(s) que vera el primer jugador en un turno seran exactamente las mismas, y en ese mismo orden, las cargas que seran para el segundo jugador. [implementado]
 - 'scripted':
-    Las cargas ya estan previstas de antemano para los dos jugadores, y es identica para los dos. Si se contiene la informacion y se cuenta la cantidad de ataques hechos, cada jugador sabe exactamente cual va a ser su carga y la de su enemigo en todo el transcurso de la partida.
+    Las cargas ya estan previstas de antemano para los dos jugadores, y es identica para los dos. Es decir, esta en un JSON todas las cargas que sucederan en la partida, y los jugadores solamente van recorriendo esta lista de cargas mientras atacan. Si se tiene este JSON y se cuenta la cantidad de ataques hechos, cada jugador sabra exactamente cual va a ser su carga y la de su enemigo en todo el transcurso de la partida.
 
-"weapon_upgrades_enabled": 
-Si esta habilitado mejorar las armas. Si esta en false, las cartas de material quedan deshabilitadas y no se podra mejorar ningun arma bajo ningun medio (esto incluye poderes). Puede ser activado o desactivado sin importar el modo de juego.
+"weapon_upgrades_enabled":
+Si esta habilitado mejorar las armas. Si esta en false, las cartas de material quedan deshabilitadas y no se podra mejorar ningun arma bajo ningun medio (esto incluye poderes). Puede ser activado o desactivado sin importar el modo de juego (normal o poderes) (por default: true) [implementado]
 
 "max_turns":
-La cantidad maxima de turnos que puede ir el juego. Si llega al maximo, se da el ganador al que le faltan mas carros. Si los dos jugadores tienen la misma cantidad de carros se da de empate.
+La cantidad maxima de turnos que puede ir el juego. Si llega al maximo, se da el ganador al que le faltan mas carros. Si los dos jugadores tienen la misma cantidad de carros se da de empate. (en las reglas originales el juego se acaba cuando a un jugador se le sean destruidos todos sus carros. SI EN LAS PRUEBAS veo que se puede incentivar un juego defensivo que alarga mucho mas el juego de lo intencionado, tal vez defina una cantidad de turnos por defecto.) (por default: 9999 (virtualmente infinito)) [implementado]
 
 "nitro_per_turn":
-La cantidad de nitro que se le otorga a cada jugador por turno.
+La cantidad de nitro que se le otorga a cada jugador por turno. (por default: 1) [implementado]
 
 "nitro_per_car":
-La cantidad de nitro que se le otorga a cada jugador cada vez que destruya un carro.
+La cantidad de nitro que se le otorga a cada jugador cada vez que destruya un carro. (por default: 3) [implementado]
 
 "return_weapons":
-Si se le devuelve las armas al jugador cuando un carro suyo es destruido
+Si se le devuelve las armas al jugador cuando un carro suyo es destruido (por default: true) [implementado]
+
+Mas configuraciones pueden venir despues
