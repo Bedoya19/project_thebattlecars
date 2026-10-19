@@ -59,12 +59,6 @@ export class Attack {
         const affectedPlayer = carSquare.id.slice(0, 7);
 
         // Valores actuales de carga y ataque
-        //const attackValue = AttackValues.getAttack();
-        //const attackIncrease = AttackValues.getAttackIncrease()
-        // Valor de aumento de ataque del nitro (no se si se puede hacer de forma mas elegante)
-        //const attackNitroIncrease = parseInt(attackingCarSquare.dataset.nitro) !== 0 ? parseInt(attackingCarSquare.dataset.nitroAttack) : 0;
-        //console.log(`Nitro activado en ataque: ${parseInt(attackingCarSquare.dataset.nitro) !== 0}
-        //Aumento de ataque: ${attackNitroIncrease}`); // Prueba rapida
         const attackValue = AttackValues.getSumOfAllAttackValues();
         // El valor que se resta por la resistencia de un posible nitro del carro que se le esta atacando
         const resistanceFromAttack = parseInt(carSquare.dataset.nitro) !== 0 ? parseInt(carSquare.dataset.nitroResistance) : 0;
