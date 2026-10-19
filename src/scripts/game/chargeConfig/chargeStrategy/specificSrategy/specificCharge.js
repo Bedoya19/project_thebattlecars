@@ -28,7 +28,7 @@ export class SpecificCharge extends ChargerProvider {
 
     getCurrentCharge(player) {
         // Sabes que ? Uso peekCharge, en este no hay secretos
-        return this.peekCharge(player);
+        return PlayerActions.getChargeFromPlayer(player);
     }
 
     onRoundStart(player) {
