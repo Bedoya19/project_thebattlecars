@@ -73,13 +73,19 @@ export class WeaponUpgrade {
                 );
 
                 // Se recarga de energia el arma en el proceso
-                if (weaponSquare.dataset.energy <= weaponSquare.dataset.maxEnergy) {
-                    console.log("Recargar energia...");
-                    const cardInformation = document.getElementById("card-selected-information");
-                    weaponSquare.dataset.energy = weaponSquare.dataset.maxEnergy;
-                    DisplayCardInformation.displayWeaponCardInformationBoard(cardInformation, weaponSquare, player);
+                if (LoadConfig.loadReloadEnergyToMax()) {
+                    // Lleva la energia al maximo
+                    if (weaponSquare.dataset.energy <= weaponSquare.dataset.maxEnergy) {
+                        console.log("Recargar energia...");
+                        weaponSquare.dataset.energy = weaponSquare.dataset.maxEnergy;
+                    }
+                } else {
+                    // Suma la energia maxima, sin importar que
+                    weaponSquare.dataset.energy = parseInt(weaponSquare.dataset.energy) + parseInt(weaponSquare.dataset.maxEnergy);
                 }
-                // - Esta parte
+                const cardInformation = document.getElementById("card-selected-information");
+                DisplayCardInformation.displayWeaponCardInformationBoard(cardInformation, weaponSquare, player);
+                
                 this.applyUpgradeCost(player, materialDeck, necesaryMaterials);
             }
         }

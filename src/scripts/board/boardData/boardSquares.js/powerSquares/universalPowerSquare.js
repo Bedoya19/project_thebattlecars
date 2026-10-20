@@ -2,7 +2,7 @@
 
 import { PowerSquare } from "./powerSquare.js";
 
-export class NerfPowerSquare extends PowerSquare {
+export class UniversalPowerSquare extends PowerSquare {
     constructor(card, player) {
         super(card, player);
     }

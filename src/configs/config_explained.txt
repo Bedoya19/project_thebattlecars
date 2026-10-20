@@ -42,3 +42,6 @@ La cantidad de nitro que se le otorga a cada jugador cada vez que destruya un ca
 Si se le devuelve las armas al jugador cuando un carro suyo es destruido (por default: true) [implementado]
 
 Mas configuraciones pueden venir despues
+
+"reload_energy_to_max":
+Si,cuando se mejora un arma, la energia va a la energia "maxima', o suma la energia "maxima". (No se cual sera por default, es una configuracion porque estoy indeciso)

@@ -50,4 +50,10 @@ export class LoadConfig {
         const data = this.loadConfig();
         return data["max_turns"];
     }
+
+    // Devuelve como funciona la recarga de un arma al ser mejorada
+    static loadReloadEnergyToMax() {
+        const data = this.loadConfig();
+        return data["reload_energy_to_max"];
+    }
 }
