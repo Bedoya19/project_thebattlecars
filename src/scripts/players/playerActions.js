@@ -105,7 +105,7 @@ export class PlayerActions {
     }
 
     static returnMaterialToPileIndex(player, index) {
-        players[player].returnMaterialToPile(index);
+        players[player].returnMaterialCardToPile(index);
     }
 
     // La funcion que se usara para las mejoras de las armas
@@ -243,7 +243,7 @@ export class PlayerActions {
         console.log(indices);
 
         //indices.forEach(index => this.removeCardInDeck(player, "materials", index));
-        indices.forEach(index => this.consumeMaterialFromUpgrade(player, "materials", index));
+        indices.forEach(index => this.consumeMaterialFromUpgrade(player, index));
 
         // Llevar a una funcion despues
         const currentDeck = document.getElementById("deck-icon-current").dataset.deck;
