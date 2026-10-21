@@ -104,6 +104,16 @@ export class PlayerActions {
         return players[player].getWeaponFromStorage(weaponName);
     }
 
+    static returnMaterialToPileIndex(player, index) {
+        players[player].returnMaterialToPile(index);
+    }
+
+    // La funcion que se usara para las mejoras de las armas
+    static consumeMaterialFromUpgrade(player, index) {
+        this.returnMaterialToPileIndex(player, index);
+        this.removeCardInDeck(player, "materials", index);
+    }
+
     static removeNitroFromCar(player, carSquare) {
         // Si no es el carSquare, manda error inmediatamente para evitar que cosas raras sucedan.
         if (!(carSquare instanceof HTMLElement) || !carSquare.dataset.nitroQuantity) {
@@ -119,6 +129,10 @@ export class PlayerActions {
 
     static setSpecificCharge(player, charge) {
         players[player].setCharge = charge;
+    }
+
+    static getDeckLengthFromPlayer(player, deck) {
+        return players[player].getDeckLength(deck);
     }
 
     // Agrega una carta a un deck en especifico
@@ -142,11 +156,16 @@ export class PlayerActions {
 
     // Funcion exclusiva para sacar varias cartas de material.
     static getMultipleMaterialCards(player, quantity) {
+        if (this.getDeckLengthFromPlayer(player, "materials_pile") === 0) {
+            console.log("Ya no hay cartas para sacar!");
+            return;
+        }
         if (this.spendPower(player)) {
             try {
                 GameNotesDisplay.addDrawCards(player, "materials", 5);
                 for (let i = 0; i < quantity; i++) {
                     const randomCard = this.getRandomIndividualCardFromPile(player, "materials");
+                    if (randomCard === null) { break; }
                     this.addCardToPlayerDeck(player, "materials", randomCard);
 
                     // Llevar a una funcion despues
@@ -206,7 +225,7 @@ export class PlayerActions {
                 break;
             case "materials":
                 //PlayerActions.getRandomCardFromPlayerPile(player, "materials");
-                PlayerActions.getMultipleMaterialCards(player, 5);
+                PlayerActions.getMultipleMaterialCards(player, 30);
                 break;
             default:
                 console.log("No se puede sacar cartas de este mazo!");
@@ -223,7 +242,8 @@ export class PlayerActions {
 
         console.log(indices);
 
-        indices.forEach(index => this.removeCardInDeck(player, "materials", index));
+        //indices.forEach(index => this.removeCardInDeck(player, "materials", index));
+        indices.forEach(index => this.consumeMaterialFromUpgrade(player, "materials", index));
 
         // Llevar a una funcion despues
         const currentDeck = document.getElementById("deck-icon-current").dataset.deck;

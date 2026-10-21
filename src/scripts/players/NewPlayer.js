@@ -65,12 +65,27 @@ export class Player {
     // Agrega una carta de arma al jugador
     // (Si se van a agregar varias cartas, un for loop sale)
     // ((Aunque podria devolverselo a la pila, por ahora se devuelve al deck como tal))
+    addCardToSpecificDeck(card, deck) {
+        this.decks[deck].push(card);
+    }
+
     addWeaponToDeck(weaponCard) {
-        this.decks["weapons"].push(weaponCard);
+        //this.decks["weapons"].push(weaponCard);
+        this.addCardToSpecificDeck(weaponCard, "weapons");
     }
 
     addMaterialToDeck(materialCard) {
-        this.decks["materials"].push(materialCard);
+        //this.decks["materials"].push(materialCard);
+        this.addCardToSpecificDeck(materialCard, "materials");
+    }
+
+    // Regresa la carta de material a la pila
+    addMaterialToPile(materialCard) {
+        this.addCardToSpecificDeck(materialCard, "materials_pile");
+    }
+
+    returnMaterialCardToPile(index) {
+        this.decks["materials_pile"].push(this.decks["materials"][index]);
     }
 
     // Saca la informacion de una carta de arma de la bodega sacandola del nombre
@@ -147,15 +162,19 @@ export class Player {
         console.log("Deck completo: " + this.decks[deck]);
         console.log("Pila: " + pile);
         console.log("Longitud: " + pile.length);
+        if (pile.length === 0) { return null } // Si esta vacio, no manda undefined (eso despues queda en el deck)
 
         const pileIndex = Math.floor(Math.random() * pile.length);
         const randomCard = pile[pileIndex];
         // Elimina la carta de la pila. Se espera que se agregue a algun otro lado despues
         this.decks[deck].splice(pileIndex, 1);
 
-        
-
         return randomCard;
+    }
+
+    // Esto es para evitar errores
+    getDeckLength(deck) {
+        return this.decks[deck].length;
     }
 
     getRandomWeaponFromPile() {
@@ -180,5 +199,10 @@ export class Player {
             this.subtractPower(power);
             return true;
         }
+    }
+
+    // Llevar la carta a la pila
+    bringCardToPile(card) {
+
     }
 }
