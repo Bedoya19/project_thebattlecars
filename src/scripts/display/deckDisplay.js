@@ -131,4 +131,17 @@ export class DisplayCardsInDeck {
         deckIcon.dataset.deck = deck;
         deckIcon.setAttribute("src", DeckDefaultIconsDir.getDeckIcons()[deck]);
     }
+
+    // Actualiza el deck actual
+    // (una funcion que debi haber hecho hace mucho tiempo...)
+    static refreshDeckDisplay(player, cardType) {
+        const currentDeck = document.getElementById("deck-icon-current").dataset.deck;
+
+        if (currentDeck === cardType) {
+            const deckCards = document.getElementById("deck-cards");
+            const cardInformation = document.getElementById("card-selected-information");
+            deckCards.innerHTML = "";
+            DisplayCardsInDeck.showDeckOfCards(deckCards, PlayerActions.getDeckFromPlayer(player, cardType), cardInformation);
+        }
+    }
 }

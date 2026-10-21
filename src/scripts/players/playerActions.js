@@ -1,6 +1,6 @@
 /*
 Este script va a hacer todos los calculos de los jugadores
-Que van a ser estos calculos? Generalmente de hacerle mostrar al jugador correcta el mazo respectivo, 
+Que van a ser estos calculos? Generalmente de hacerle mostrar al jugador correcta el mazo respectivo,
 quitarle o agregarle cartas a cierto jugador, etc etc.
 Por ahora lo unico que tendra es que revisa si es del jugador 1 o jugador 2, y si es asi elimina una carta de su
 mazo
@@ -82,7 +82,7 @@ export class PlayerActions {
         return true;
     }
 
-    
+
 
     static getChargeFromPlayer(player) {
         return players[player].getCharge();
@@ -154,64 +154,27 @@ export class PlayerActions {
         return players[player].getRandomCardFromPile(`${cardType}_pile`);
     }
 
-    // Funcion exclusiva para sacar varias cartas de material.
-    static getMultipleMaterialCards(player, quantity) {
-        if (this.getDeckLengthFromPlayer(player, "materials_pile") === 0) {
+    // getMultipleMaterialCards y getRandomCardFromPlayePile fueron fusionadas en una sola, la que se presenta a continuacion
+    // (El metodo quedo super limpio, ¿porque sera que no lo logre anteriormente?)
+    static drawCardsFromPile(player, cardType, quantity = 1) {
+        // Revisa si el deck esta vacio
+        if (this.getDeckLengthFromPlayer(player, `${cardType}_pile`) === 0) {
             console.log("Ya no hay cartas para sacar!");
             return;
         }
-        if (this.spendPower(player)) {
-            try {
-                GameNotesDisplay.addDrawCards(player, "materials", 5);
-                for (let i = 0; i < quantity; i++) {
-                    const randomCard = this.getRandomIndividualCardFromPile(player, "materials");
-                    if (randomCard === null) { break; }
-                    this.addCardToPlayerDeck(player, "materials", randomCard);
-
-                    // Llevar a una funcion despues
-                    const deckCards = document.getElementById("deck-cards");
-                    const cardInformation = document.getElementById("card-selected-information");
-                    deckCards.innerHTML = "";
-                    DisplayCardsInDeck.showDeckOfCards(deckCards, this.getDeckFromPlayer(player, "materials"), cardInformation);
-                    // Todo esto de arriba...
-                }
-            } catch (e) {
-                console.log(e);
-                console.log("Probablemente se acabaron las cartas ?")
-            }
-        } else {
-            console.log("No hay poder suficiente!");
+        // Revisa el poder
+        if (!this.spendPower(player)) {
+            return;
         }
-    }
-
-    static getRandomCardFromPlayerPile(player, cardType) {
-        if (this.spendPower(player)) {
-            try {
-                const currentDeck = document.getElementById("deck-icon-current").dataset.deck;
-                if (currentDeck === cardType) {
-                    console.log(cardType);
-                    /* const randomCard = (player === "player1") 
-                        ? Player1.getRandomCardFromPile(`${cardType}_pile`) 
-                        : Player2.getRandomCardFromPile(`${cardType}_pile`); */
-                    //console.log(randomCard);
-                    const randomCard = this.getRandomIndividualCardFromPile(player, cardType);
-                    
-                    this.addCardToPlayerDeck(player, cardType, randomCard);
-                    GameValuesDisplay.updatePowerValue();
-                    GameNotesDisplay.addDrawCard(player, cardType);
-
-                    const deckCards = document.getElementById("deck-cards");
-                    const cardInformation = document.getElementById("card-selected-information");
-                    deckCards.innerHTML = "";
-                    DisplayCardsInDeck.showDeckOfCards(deckCards, this.getDeckFromPlayer(player, cardType), cardInformation);
-                }
-            } catch (e) {
-                console.log(e);
-                console.log(`Ya no hay cartas de ${cardType} disponibles!`);
-            }
-        } else {
-            console.log("No hay poder suficiente!");
+        let actualCardsDrawn = 0;
+        for (let i = 0; i < quantity; i++) {
+            actualCardsDrawn++;
+            const randomCard = this.getRandomIndividualCardFromPile(player, cardType);
+            if (randomCard === null) { break; }
+            this.addCardToPlayerDeck(player, cardType, randomCard);
         }
+        GameNotesDisplay.addDrawCards(player, cardType, actualCardsDrawn);
+        DisplayCardsInDeck.refreshDeckDisplay(player, cardType);
     }
 
     // Funcionalidad al boton de agregar cartas al deck en pantalla
@@ -221,11 +184,11 @@ export class PlayerActions {
 
         switch (currentDeck) {
             case "weapons":
-                PlayerActions.getRandomCardFromPlayerPile(player, "weapons");
+                PlayerActions.drawCardsFromPile(player, "weapons");
                 break;
             case "materials":
                 //PlayerActions.getRandomCardFromPlayerPile(player, "materials");
-                PlayerActions.getMultipleMaterialCards(player, 30);
+                PlayerActions.drawCardsFromPile(player, "materials", 5);
                 break;
             default:
                 console.log("No se puede sacar cartas de este mazo!");
