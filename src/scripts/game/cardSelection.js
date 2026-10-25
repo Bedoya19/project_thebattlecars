@@ -3,12 +3,12 @@
     Esto sera usado por BoardClick despues.
 */
 
-class CardSelection {
+export class CardSelection {
     // El atributo de la carta seleccionada, sera puesta y eliminada varias veces
     static #selected = null;
 
     // Solamente define la carta seleccionada
-    static select(card) {
+    static set(card) {
         this.#selected = card;
     }
 

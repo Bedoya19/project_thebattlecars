@@ -6,6 +6,7 @@ import { BoardClick } from "../board/boardActions.js";
 import { PlayerActions } from "../players/playerActions.js";
 import { StateGame } from "../game/stateGame.js";
 import { LoadConfig } from "../game/loadConfig.js";
+import { CardSelection } from "../game/cardSelection.js";
 
 // Script de mostrar las cartas en el deck.
 
@@ -16,6 +17,10 @@ const clickOnDeckCard = (divInformation, card, cardId) => {
     //const player = document.getElementById("deck").dataset.player;
     //BoardClick.showValidCarSquares(player, carSquares);
     BoardClick.removeAllSelectors();
+
+    CardSelection.set(card);
+    console.log(CardSelection.get());
+
     DisplayCardInformation.displayInformationOnDeck(divInformation, card, cardId);
 }
 
