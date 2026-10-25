@@ -6,10 +6,12 @@
 import { BoardSquare } from "../boardSquare.js";
 
 export class MainBoardSquare extends BoardSquare {
+    #zone;
+
     constructor(card, player, zone) {
         super(card, player);
-        this.zone = zone;
+        this.#zone = zone;   // o this._zone
     }
 
-    get zone() { return this.zone };
+    get zone() { return this.#zone; }
 }

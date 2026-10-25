@@ -17,6 +17,7 @@ export class BoardSquareFactory {
         const carSquare = new CarSquare(carCard, player, (zone + 1));
         board[player]["zone"][zone].carSquare = carSquare;
         console.log(board);
+        return carSquare;
     }
 
     // Crea la casilla de arma
@@ -25,5 +26,6 @@ export class BoardSquareFactory {
         const weaponSquare = new WeaponSquare(weaponCard, player, (zone + 1));
         board[player]["zone"][zone].weaponSquares[pos] = weaponSquare;
         console.log(board);
+        return weaponSquare;
     }
 }

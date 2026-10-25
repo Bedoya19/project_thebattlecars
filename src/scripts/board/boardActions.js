@@ -20,7 +20,7 @@ export class BoardClick {
     // Cuando se hace click en una casilla de carro
     static async clickOnCarSquare(event) {
         const carSquare = event.currentTarget;
-        const carZone = carSquare.id.slice(23);
+        //const carZone = carSquare.id.slice(23);
 
         // Revisa si se va a atacar. Si es asi, hace la funcion de atacar, sino, sigue con el procedimeinto normal de revisar
         // la colocacion de una carta y/o la informacion de esta
@@ -85,6 +85,7 @@ export class BoardClick {
                 console.log("carta agregada exitosamente!");
                 CardSelection.clean();
                 // Actualiza el div de informacion para mostrar la mas reciente carta puesta en el tablero
+                //console.log(carSquareInst.toJSON());
                 DisplayCardInformation.displayCarCardInformationBoard(
                     cardInformation,
                     carSquare,
@@ -140,6 +141,7 @@ export class BoardClick {
             //console.log(e, "Ninguna carta seleccionada! Mostrar aqui que la casilla es del jugador X de la zona Y");
             console.log(e);
             this.removeAllSelectors();
+            CardSelection.clean();
             //DisplayMessageBoxes.createTemporalText(carSquare, "Ninguna cara seleccionada!");
             DisplayCardInformation.displayEmptyCarSquare(cardInformation, carSquare, squarePlayer);
         }

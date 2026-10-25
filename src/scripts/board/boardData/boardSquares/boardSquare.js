@@ -24,4 +24,9 @@ export class BoardSquare {
     get description() { return this.card.description; }
     get longDescription() { return this.card.longDescription; }
     get image() { return this.card.image; }
+
+    // Convertir a JSON
+    toJSON() {
+        return { ...this.card, player: this.player };
+    }
 }

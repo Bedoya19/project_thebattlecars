@@ -7,12 +7,18 @@ import { BoardSquare } from "../boardSquare.js";
 import { MainBoardSquare } from "./mainBoardSquare.js";
 
 export class CarSquare extends MainBoardSquare {
+    #health;
+    #maxHealth;
+    #nitro;
+
     constructor(card, player, zone) {
         super(card, player, zone);
-        this.maxHealth = card.health;
-        this.nitro = 0;
+        this.#health = card.health;
+        this.#maxHealth = card.health;
+        this.#nitro = 0;
     }
 
-    get maxHealth() { return this.maxHealth };
-    get nitro() { return this.nitro };
+    get health() { return this.#health };
+    get maxHealth() { return this.#maxHealth };
+    get nitro() { return this.#nitro };
 }
