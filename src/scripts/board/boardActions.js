@@ -12,6 +12,8 @@ import { WeaponCard } from "../models/cards/WeaponCard.js";
 import { DisplayMessageBoxes } from "../display/displayMessageBoxes.js";
 import { StateGame } from "../game/stateGame.js";
 import { Reason } from "../models/constants/enums.js";
+import { CardSelection } from "../game/cardSelection.js";
+import { CarCard } from "../models/cards/CarCard.js";
 
 export class BoardClick {
     // Cuando se hace click en una casilla de carro
@@ -31,7 +33,8 @@ export class BoardClick {
 
     static createCarCard(carSquare) {
         // Saco de aqui mismo los datos necesarios
-        const cardGeneralInformation = document.getElementById("card-selected-general-information");
+        const carCard = CardSelection.get();
+        //const cardGeneralInformation = document.getElementById("card-selected-general-information");
         //const squarePlayer = this.createImgInBoard(carSquare);
         const squarePlayer = GetDataFromSquare.getPlayerFromSquare(carSquare);
         const cardInformation = document.getElementById("card-selected-information");
@@ -49,21 +52,24 @@ export class BoardClick {
 
             // Revisa que se pueda poner la carta:
             //const validPower = MainGame.calculatePowerForAction(currentPlayer);
-            const checkCarValidation = checkBoard.checkCarSquareAvailability(carBoardPlayer, currentPlayer, carSquare, cardGeneralInformation);
+            const checkCarValidation = checkBoard.checkCarSquareAvailability(carBoardPlayer, currentPlayer, carSquare);
             if (checkCarValidation.ok) {
                 // El resto de los datos
 
 
                 const currentDeck = document.getElementById("deck-icon-current");
                 const deckCards = document.getElementById("deck-cards")
-                const cardObj = JSON.parse(cardGeneralInformation.dataset.card);
+                //const cardObj = JSON.parse(cardGeneralInformation.dataset.card);
+                const cardObj = JSON.parse(carCard.convertCarCardToJSON());
+                console.log(cardObj);
 
                 if (!PlayerActions.spendPower(currentPlayer)) return;
 
                 // Agrega la carta al tablero
                 this.putCarOnBoard(carSquare, cardObj);
                 // Elimina la carta del deck
-                const deckIndex = cardGeneralInformation.dataset.cardId.slice(10);
+                const deck = PlayerActions.getDeckFromPlayer(currentPlayer, "cars");
+                const deckIndex = deck.indexOf(carCard);
                 //Player1.deleteFromDeck("cars", deckIndex);
                 PlayerActions.removeCardInDeck(squarePlayer, "cars", deckIndex);
                 // Reinicia el mazo si se esta mostrando el deck de carros
@@ -74,6 +80,7 @@ export class BoardClick {
                     DisplayCardsInDeck.showDeckOfCards(deckCards, PlayerActions.getDeckFromPlayer(squarePlayer, "cars"), cardInformation);
                 }
                 console.log("carta agregada exitosamente!");
+                CardSelection.clean();
                 // Actualiza el div de informacion para mostrar la mas reciente carta puesta en el tablero
                 DisplayCardInformation.displayCarCardInformationBoard(
                     cardInformation,
@@ -484,7 +491,8 @@ class checkBoard {
             return { ok: false, reason: Reason.OTHER_PLAYER, msg: "La casilla es del otro jugador!" };
         if (!this.checkCarSpace(carSquare))
             return { ok: false, reason: Reason.OCCUPIED, msg: "La casilla ya esta ocupada por otro carro" };
-        if (cardGeneralInformation.dataset.type !== "car")
+        //if (cardGeneralInformation.dataset.type !== "car")
+        if (!CardSelection.isInstanceOf(CarCard))
             return { ok: false, reason: Reason.WRONG_TYPE, msg: "..." };
         if (PlayerActions.getPowerFromPlayer(currentPlayer) < 1)   // solo lee, ya no gasta
             return { ok: false, reason: Reason.NO_POWER, msg: "Ya no se tiene poder!" };

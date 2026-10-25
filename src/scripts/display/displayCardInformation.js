@@ -9,6 +9,7 @@ import { Nitro } from "../battle/nitro.js";
 import { WeaponUpgrade } from "../battle/weaponUpgrade.js";
 import { DeckUtils } from "../players/DeckUtils.js";
 import { getChargeForDisplay } from "../game/chargeConfig/chargeMethodFactory.js";
+import { CardSelection } from "../game/cardSelection.js";
 
 export class DisplayCardInformation {
     static displayInformationOnDeck(divElement, card, cardId) {
@@ -81,15 +82,15 @@ export class DisplayCardInformation {
     // Mostrar la informacion de una carta de carro del tablero
     static displayCarCardInformationBoard(divElement, carSquare, playerOriginal, cardImage, cardName, cardDescription) {
         const parts = carSquare.id.split('-');
-        const zoneNumber = parts[1].slice(4); 
+        const zoneNumber = parts[1].slice(4);
         const squareNumber =  carSquare.id.at(-1);
         console.log("Zona:", zoneNumber, "Casilla", squareNumber);
 
         divElement.innerHTML = `
             ${this.mainCardInformation(this.convertPlayerString(playerOriginal), cardImage, cardName)}
             ${this.generalCarCardInformation(
-                playerOriginal, 
-                carSquare.id.slice(23), 
+                playerOriginal,
+                carSquare.id.slice(23),
                 `<span>${carSquare.dataset.health}</span> / <span>${carSquare.dataset.maxHealth}</span>`,
                 `<span>${carSquare.dataset.capacity}</span> / <span>${carSquare.dataset.maxCapacity}</span>`,
                 carSquare.dataset.attBuff,
@@ -140,7 +141,7 @@ export class DisplayCardInformation {
             </div>
         `;
     }
-    
+
     // Mostrar la informacion de una carta de weapon del deck
     static displayWeaponCardInformationDeck(divElement, card, [json, player], cardId) {
         divElement.innerHTML = `
@@ -162,7 +163,7 @@ export class DisplayCardInformation {
     static displayWeaponCardInformationBoard(divElement, weaponSquare, playerOriginal, cardImage, cardName, cardDescription) {
         console.log("Casilla de arma: ", weaponSquare);
         const parts = weaponSquare.id.split('-');
-        const zoneNumber = parts[1].slice(4); 
+        const zoneNumber = parts[1].slice(4);
         const squareNumber =  weaponSquare.id.at(-1);
         const charge = (playerOriginal === StateGame.getCurrentPlayer())
             ? PlayerActions.getChargeFromPlayer(playerOriginal)
@@ -187,7 +188,7 @@ export class DisplayCardInformation {
         //${Attack.createAttackButton(playerOriginal, zoneNumber, squareNumber, weaponSquare)}
         divElement.appendChild(Attack.createAttackButton(playerOriginal, zoneNumber, squareNumber, weaponSquare));
         divElement.appendChild(WeaponUpgrade.createUpgradeButton(playerOriginal, zoneNumber, squareNumber, weaponSquare));
-    }    
+    }
 
     // Esta funcion lo que hace es que SOLO RECIBE la dataset
 
@@ -237,11 +238,14 @@ export class DisplayCardInformation {
         </div>
         `;
         // Si algo, quita la estetica de casillas validas
+        // Me huele que en algun momento tendre que poner como un "observer" para hacer todas las cosas
+        // que sean necesarios si se deselecciona una carta...
         BoardClick.removeAllSelectors();
+        CardSelection.clean();
     }
 
     // Avisa el ataque que se acaba de hacer
-    // carAttackedElement es la casilla del carro. 
+    // carAttackedElement es la casilla del carro.
     // Va cambiar un poco cuando se pueda ya destruir un carro
     static attackInformation(divElement, carAttackedElement, charge, attack, carDestroyed, weaponDischarged) {
         divElement.innerHTML = `
@@ -281,7 +285,7 @@ export class DisplayCardInformation {
         } else {
             return "<h2></h2>";
         }
-        
+
     }
     // Mostrar una casilla vacia de carro
     static displayEmptyCarSquare(divElement, carSquare, squarePlayer) {
@@ -356,7 +360,7 @@ class WeaponListStatsDisplay {
         console.log(origin, level);
 
         for (let i = 0; i < weaponAttacks.length ; i++) {
-             
+
             // Crea una string bonita de cada elemento de attackValues, tambien agrega un resaltado en el ataque respectivo
             //const attackValues = weaponAttacks[i].join(", ");
             //if (getChargeForDisplay())
@@ -365,7 +369,7 @@ class WeaponListStatsDisplay {
                 ? `<mark>${value}</mark>`
                 : value)
             .join(", ");
-            
+
             // Creacion de cada elemento de la lista
             const attackListLi = this.createListElementInWeapon("card-selected-attack");
             const levelText = `Nivel ${i + 1}: (${attackValues})`;
@@ -398,7 +402,7 @@ class WeaponListStatsDisplay {
 
     // Las siguientes funciones son mas internas de las anteriores dos para evitar repetir tanto codigo
     // Un chingo de funciones estoy haciendo...
-    // Crea de forma mas flexible un elemento li para las listas que usa la informacion de 
+    // Crea de forma mas flexible un elemento li para las listas que usa la informacion de
     static createListElementInWeapon(customClass) {
         const liElement = document.createElement("li");
         liElement.classList.add("card-selected-information");

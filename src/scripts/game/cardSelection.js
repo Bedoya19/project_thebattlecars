@@ -21,4 +21,8 @@ export class CardSelection {
     static clean() {
         this.#selected = null;
     }
+
+    static isInstanceOf(cardInstance) {
+        return this.#selected instanceof cardInstance;
+    }
 }
