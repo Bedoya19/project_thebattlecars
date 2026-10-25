@@ -13,5 +13,6 @@ export class CarSquare extends MainBoardSquare {
         this.nitro = 0;
     }
 
-    // Mas metodos despues...
+    get maxHealth() { return this.maxHealth };
+    get nitro() { return this.nitro };
 }

@@ -32,5 +32,9 @@ function createZonesToPlayer(player) {
     }
 }
 
+function readCarSquare(player, zone) { // zone de 0 - 2
+
+}
+
 createZonesToPlayer("player1");
 createZonesToPlayer("player2");

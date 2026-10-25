@@ -20,6 +20,7 @@ export class BoardClick {
     // Cuando se hace click en una casilla de carro
     static async clickOnCarSquare(event) {
         const carSquare = event.currentTarget;
+        const carZone = carSquare.id.slice(23);
 
         // Revisa si se va a atacar. Si es asi, hace la funcion de atacar, sino, sigue con el procedimeinto normal de revisar
         // la colocacion de una carta y/o la informacion de esta
@@ -67,7 +68,7 @@ export class BoardClick {
                 if (!PlayerActions.spendPower(currentPlayer)) return;
 
                 // Agrega la carta al tablero
-                BoardSquareFactory.crearCarSquare(carCard, currentPlayer, (carZone - 1));
+                BoardSquareFactory.createCarSquare(carCard, currentPlayer, (carZone - 1));
                 this.putCarOnBoard(carSquare, cardObj);
                 // Elimina la carta del deck
                 const deck = PlayerActions.getDeckFromPlayer(currentPlayer, "cars");

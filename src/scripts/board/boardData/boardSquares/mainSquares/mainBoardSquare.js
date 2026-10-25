@@ -11,5 +11,5 @@ export class MainBoardSquare extends BoardSquare {
         this.zone = zone;
     }
 
-    // Los metodos vendran despues...
+    get zone() { return this.zone };
 }
