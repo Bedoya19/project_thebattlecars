@@ -4,9 +4,9 @@
     Creo que por ahora voy a hacer un JSON, separado por los jugadores y zonas.
 */
 
-import { CarSquare } from "./boardSquares.js/mainSquares/carSquare.js";
-import { WeaponSquare } from "./boardSquares.js/mainSquares/weaponSquare.js";
-import { PowerSquare } from "./boardSquares.js/powerSquares/powerSquare.js";
+import { CarSquare } from "./boardSquares/mainSquares/carSquare.js";
+import { WeaponSquare } from "./boardSquares/mainSquares/weaponSquare.js";
+import { PowerSquare } from "./boardSquares/powerSquares/powerSquare.js";
 
 
 export const board = {

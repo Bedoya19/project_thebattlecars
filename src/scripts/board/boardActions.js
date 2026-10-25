@@ -14,6 +14,7 @@ import { StateGame } from "../game/stateGame.js";
 import { Reason } from "../models/constants/enums.js";
 import { CardSelection } from "../game/cardSelection.js";
 import { CarCard } from "../models/cards/CarCard.js";
+import { BoardSquareFactory } from "./boardData/boardSquareFactory.js";
 
 export class BoardClick {
     // Cuando se hace click en una casilla de carro
@@ -55,7 +56,7 @@ export class BoardClick {
             const checkCarValidation = checkBoard.checkCarSquareAvailability(carBoardPlayer, currentPlayer, carSquare);
             if (checkCarValidation.ok) {
                 // El resto de los datos
-
+                const carZone = carSquare.id.slice(23);
 
                 const currentDeck = document.getElementById("deck-icon-current");
                 const deckCards = document.getElementById("deck-cards")
@@ -66,6 +67,7 @@ export class BoardClick {
                 if (!PlayerActions.spendPower(currentPlayer)) return;
 
                 // Agrega la carta al tablero
+                BoardSquareFactory.crearCarSquare(carCard, currentPlayer, (carZone - 1));
                 this.putCarOnBoard(carSquare, cardObj);
                 // Elimina la carta del deck
                 const deck = PlayerActions.getDeckFromPlayer(currentPlayer, "cars");
@@ -93,6 +95,7 @@ export class BoardClick {
                 GameNotesDisplay.carOnBoardTurnNotes(squarePlayer, carSquare.id.slice(23), cardObj.name);
                 this.removeValidCarSquare();
             } else {
+                CardSelection.clean();
                 if (carSquare.dataset.name === "undefined") {
                     DisplayCardInformation.displayEmptyCarSquare(cardInformation, carSquare, squarePlayer);
                     return;
@@ -256,6 +259,7 @@ export class BoardClick {
     // (!OJO!, esta funcion solo permite la version JSON de los datos del carro, NO un objeto de la clase)
     static putCarOnBoard(carSquare, carObj) {
         carSquare.appendChild(this.createImgInBoard(carObj));
+
 
         // Data del carro
         this.changeCarDataOnBoard(carSquare,
