@@ -18,7 +18,7 @@ export class BoardClick {
     static async clickOnCarSquare(event) {
         const carSquare = event.currentTarget;
 
-        // Revisa si se va a atacar. Si es asi, hace la funcion de atacar, sino, sigue con el procedimeinto normal de revisar 
+        // Revisa si se va a atacar. Si es asi, hace la funcion de atacar, sino, sigue con el procedimeinto normal de revisar
         // la colocacion de una carta y/o la informacion de esta
         if ((AttackValues.getPrepareAttack() === true) && (carSquare.id.slice(0, 7) !== StateGame.getCurrentPlayer())) {
             console.log("Se atacara!!!");
@@ -26,7 +26,7 @@ export class BoardClick {
         } else {
             BoardClick.createCarCard(carSquare);
         }
-        
+
     }
 
     static createCarCard(carSquare) {
@@ -40,11 +40,11 @@ export class BoardClick {
             // (no supe hacer algo mejor, para bien y para mal).
             // Primero se consigue los datos necesarios para revisar la disponiblidad de la casilla
             const currentPlayer = StateGame.getCurrentPlayer();
-            
+
             console.log(squarePlayer);
             const carBoardPlayer = carSquare.classList[2];
             console.log(carBoardPlayer);
-            
+
             //console.log("Zone " + carSquare.id.slice(23));
 
             // Revisa que se pueda poner la carta:
@@ -53,7 +53,7 @@ export class BoardClick {
             if (checkCarValidation.ok) {
                 // El resto de los datos
 
-                
+
                 const currentDeck = document.getElementById("deck-icon-current");
                 const deckCards = document.getElementById("deck-cards")
                 const cardObj = JSON.parse(cardGeneralInformation.dataset.card);
@@ -76,11 +76,11 @@ export class BoardClick {
                 console.log("carta agregada exitosamente!");
                 // Actualiza el div de informacion para mostrar la mas reciente carta puesta en el tablero
                 DisplayCardInformation.displayCarCardInformationBoard(
-                    cardInformation, 
-                    carSquare, 
-                    squarePlayer, 
-                    cardObj.image, 
-                    cardObj.name, 
+                    cardInformation,
+                    carSquare,
+                    squarePlayer,
+                    cardObj.image,
+                    cardObj.name,
                     cardObj.description
                 );
                 GameNotesDisplay.carOnBoardTurnNotes(squarePlayer, carSquare.id.slice(23), cardObj.name);
@@ -92,7 +92,7 @@ export class BoardClick {
                 }
                 console.log("Error en poner la carta");
                 console.log(checkCarValidation);
-                
+
                 // Condicion para mostrar el mensaje
                 // (Si lo hago en general, rompo algo)
                 if (checkCarValidation.reason === Reason.NO_POWER) {
@@ -112,13 +112,13 @@ export class BoardClick {
                 //console.log(carSquare.firstElementChild.src);
                 // Muestra la informacion del carro que se hizo clic
                 // (Sorpresivamente funciona bien sin ninguna carta seleccionada)
-                
+
                 DisplayCardInformation.displayCarCardInformationBoard(
-                    cardInformation, 
-                    carSquare, 
-                    squarePlayer, 
-                    carSquare.firstElementChild.src, 
-                    carSquare.dataset.name, 
+                    cardInformation,
+                    carSquare,
+                    squarePlayer,
+                    carSquare.firstElementChild.src,
+                    carSquare.dataset.name,
                     carSquare.dataset.description
                 );
             }
@@ -153,7 +153,7 @@ export class BoardClick {
             const currentPlayer = StateGame.getCurrentPlayer();
             //const weaponBoardPlayer = weaponSquare.classList[0];
             if (checkBoard.checkWeaponSquareAvailability(weaponSquare, weaponSquare.id, currentPlayer, cardGeneralInformation).ok) {
-                
+
                 // Datos generales
                 // (Tal vez fusionar en algun momento con la otra funcion de arriba...?)
                 // A final de todo, es bastante parecido al codigo de arriba, yo creo que se puede resumir ciertos temas.
@@ -198,7 +198,7 @@ export class BoardClick {
                 GameNotesDisplay.weaponOnBoardTurnNotes(squarePlayerAndZone["squarePlayer"], carSquare.dataset.name, cardObj.name);
             } else {
                 // Despues se muestra la informacion del arma aqui
-                
+
                 DisplayCardInformation.displayWeaponCardInformationBoard(
                     cardInformation,
                     weaponSquare,
@@ -210,7 +210,7 @@ export class BoardClick {
             }
         }
         catch (e) {
-            // Si hubo un error, una vez mas, es probable que fuera el JSON de la carta estuviera indefinida. 
+            // Si hubo un error, una vez mas, es probable que fuera el JSON de la carta estuviera indefinida.
             console.log("Error", e);
             //console.log("hola");
             BoardClick.removeAllSelectors();
@@ -263,7 +263,7 @@ export class BoardClick {
             carObj.description
         )
     }
-    
+
     // Quitar una carta de carro del tablero
     // Se va a usar cuando cuando la carta sea destruida
     static removeCarOnBoard(carSquare) {
@@ -282,7 +282,7 @@ export class BoardClick {
             "undefined"
         );
 
-        
+
         // Elimina todas las armas del tablero que estan adjuntas al carro
         const weaponSquares = this.getWeaponSquaresFromCarSquare(carSquare);
         // Igualmente toca sacar el jugador por los siguientes temas
@@ -314,17 +314,17 @@ export class BoardClick {
         }
         return nonEmptySquares;
     }
-     
+
     // Cambiar la data del carro
     static changeCarDataOnBoard(carSquare, name, health, capacity, nitroQuantity, nitroDuration, nitroResistance, nitroAttack, attackBuff, description) {
-        // Lo peor es que esto fue una buena idea, si es necesario agregar un dato mas, aqui se agrega con minima 
+        // Lo peor es que esto fue una buena idea, si es necesario agregar un dato mas, aqui se agrega con minima
         // interferencia de algo.
         carSquare.dataset.name = name;
         carSquare.dataset.health = health;
         carSquare.dataset.maxHealth = health;
         carSquare.dataset.capacity = capacity;
         carSquare.dataset.maxCapacity = capacity;
-        /* 
+        /*
         Este valor en especifico (data-nitro) es el que determina si el nitro esta activado o no.
         Si esta en 0, es que esta desactivado, si esta en otro numero, significa que esta activado y es cuantas rondas faltan para desactivarse
         */
@@ -372,7 +372,7 @@ export class BoardClick {
             "undefined",
             "undefined"
         );
-        // Agrega capacidad al carro ya que ya se descarto un arma  
+        // Agrega capacidad al carro ya que ya se descarto un arma
         const weaponPlayerAndZone = this.getPlayerAndZoneFromWeaponSquare(weaponSquare);
         const carSquare = this.getCarSquareFromWeapon(weaponPlayerAndZone["squarePlayer"], weaponPlayerAndZone["squareZone"]);
         ++carSquare.dataset.capacity;
@@ -453,7 +453,7 @@ export class BoardClick {
         this.removeValidWeaponSquare();
         AttackValues.resetAttackValues();
     }
-}   
+}
 
 // Esta clase revisa si la carta seleccionada puede ser puesta en el tablero
 // Las limitantes pueden incluir desde casilla de jugador incorrecta, a capacidad maxima del carro (tal vez vayan a haber otras despues)
@@ -603,4 +603,4 @@ export class GetDataFromSquare {
         // (Puedo crear un metodo que consigue el numero tho, seria despues)
         return carSquare.classList[3].slice(11);
     }
-} 
+}
