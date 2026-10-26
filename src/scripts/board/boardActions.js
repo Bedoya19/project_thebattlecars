@@ -15,7 +15,7 @@ import { Reason } from "../models/constants/enums.js";
 import { CardSelection } from "../game/cardSelection.js";
 import { CarCard } from "../models/cards/CarCard.js";
 import { BoardSquareFactory } from "./boardData/boardSquareFactory.js";
-import { getCarSquareInst, removeCarSquareFromBoard } from "./boardData/boardManager.js";
+import { getCarSquareInst, getCarSquaresFromBoard, removeCarSquareFromBoard } from "./boardData/boardManager.js";
 
 export class BoardClick {
     // Cuando se hace click en una casilla de carro
@@ -418,7 +418,8 @@ export class BoardClick {
     static showValidCarSquares(player, carSquares) {
         for (const carSquare of carSquares) {
             //console.log(carSquare);
-            if ((carSquare.id.slice(0, 7) === player) && (carSquare.dataset.name === "undefined")) {
+            const carZone = Number(carSquare.id.slice(23));
+            if ((carSquare.id.slice(0, 7) === player) && (getCarSquareInst(player, (carZone - 1)) === null)) {
                 //console.log(carSquare.dataset.name);
                 console.log("Casilla permitida para el jugador");
                 carSquare.classList.add("car-square-valid");
@@ -437,7 +438,8 @@ export class BoardClick {
         // Consigue los carSquares con espacio
         const carSquares = document.getElementsByClassName("card-board-car")
         for (const carSquare of carSquares) {
-            if ((carSquare.id.slice(0, 7) === player) && (carSquare.dataset.name !== "undefined")) {
+            const carZone = Number(carSquare.id.slice(23));
+            if ((carSquare.id.slice(0, 7) === player) && (getCarSquareInst(player, (carZone - 1)) !== null)) {
                 console.log(`Esta libre la zona ${carSquare.id.slice(23)}`);
                 // Variables usados para showValidSquaresByZone()
                 const squarePlayer = carSquare.id.slice(0, 7);
@@ -491,8 +493,10 @@ class checkBoard {
     // Revisa que la casilla de carro no este ocupada
     // Devuelve True si esta vacia la casilla, false si esta ocupada
     static checkCarSpace(carSquare) {
+        const player = GetDataFromSquare.getPlayerFromSquare(carSquare);
+        const carZone = Number(carSquare.id.slice(23));
         console.log(carSquare);
-        if (carSquare.dataset.health === "undefined") {
+        if (getCarSquareInst(player, (carZone - 1)) === null) {
             return true;
         }
         //DisplayMessageBoxes.createTemporalText(carSquare, "El espacio esta ocupado por otro carro!");
@@ -526,11 +530,7 @@ class checkBoard {
     // Devuelve true si efectivamente hay una carta de arma en el tablero (independiente de su disponibilidad)
     // false si no existe ninguna carta puesta en el tablero
     static checkForExistingCarsForWeapon(player) {
-        if (this.getCurrentCarsInBoard(player).length !== 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return getCarSquaresFromBoard(player).length > 0;
         /*
         const carSquaresPlayer = document.getElementsByClassName(`card-board-car-${player}`);
         for (const carSquare of carSquaresPlayer) {
@@ -545,12 +545,16 @@ class checkBoard {
 
     // Devuelve los carros actuales en el tablero
     // Esto sera usado para revisar disponiblidad para las armas, pero puede ser de gran ayuda para despues
+    // (Esta funcion acaba de quedar depreciada por el refractor de las clases de casilla en el codigo)
+    // (TAL VEZ pueda cambias en el futuro)
+    /*
     static getCurrentCarsInBoard(player) {
         const carSquaresPlayer = document.getElementsByClassName(`card-board-car-${player}`);
         return Array.from(carSquaresPlayer).filter(carSquare => {
             return carSquare.dataset.health !== "undefined";
         })
     }
+    */
 
     // Revisa si la zona con el carro puede tener mas armas
     // Si tiene casillas disponibles, las devuelve. Sino, devuelve un false
