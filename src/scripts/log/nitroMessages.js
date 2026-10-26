@@ -4,6 +4,7 @@ import { DisplayCardInformation } from "../display/displayCardInformation.js";
 
 export class NitroMessages {
     static nitroActivated(player, carSquare, carSquareInst) {
+        console.log(carSquareInst);
         return `${DisplayCardInformation.convertPlayerString(player)} activó el nitro de "${carSquareInst.name}"! Ahora tiene +${carSquareInst.nitroAttack} de ataque y reduce ${carSquareInst.nitroResistance} de daño que reciba en cualquier ataque. Mucho ojo!`;
     }
 }

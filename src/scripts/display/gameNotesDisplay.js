@@ -122,8 +122,8 @@ export class GameNotesDisplay{
     }
 
     // Crea una nota sobre la activacion del nitro
-    static addNitroNote(player, carSquare) {
-        this.addTurnNote(NitroMessages.nitroActivated(player, carSquare));
+    static addNitroNote(player, carSquare, carSquareInst) {
+        this.addTurnNote(NitroMessages.nitroActivated(player, carSquare, carSquareInst));
     }
 
     // Nota sobre carta de arma sacada

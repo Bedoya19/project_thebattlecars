@@ -35,7 +35,7 @@ export class Nitro {
                 el carro sigue teniendo el nitro activado.
                 Puede ser un modo extra interesante, pero no es la prioridad en este preciso momento.
             */
-            if (!carSquareInst.isNitroActive()) {
+            if (!this.isNitroBeActivate(player, carSquare, carSquareInst)) {
                 button.disabled = true;
             }
             return button;
@@ -97,6 +97,7 @@ export class Nitro {
     static getCarSquaresWithNitroFromPlayer(player) {
         //return document.querySelectorAll(`.card-board-${player}.car-nitro-activated`);
         const carSquares = getCarSquaresFromBoard(player);
+        console.log(carSquares);
         const carSquaresWithNitro = carSquares.filter((carSquare) => { return carSquare.isNitroActive() });
         return carSquaresWithNitro;
     }

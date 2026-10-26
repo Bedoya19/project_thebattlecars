@@ -13,6 +13,7 @@ import { GameValuesDisplay } from "../display/gameValuesDisplay.js";
 import { GameNotesDisplay } from "../display/gameNotesDisplay.js";
 import { DeckUtils } from "./DeckUtils.js";
 import { StateGame } from "../game/stateGame.js";
+import { CarSquare } from "../board/boardData/boardSquares/mainSquares/carSquare.js";
 
 // Clase que va a hacer todo
 export class PlayerActions {
