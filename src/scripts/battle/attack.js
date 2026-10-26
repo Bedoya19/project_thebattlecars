@@ -121,7 +121,8 @@ export class Attack {
             chargeValue,
             attack,
             carDestroyed,
-            weaponDischarged
+            weaponDischarged,
+            carSquareInst
         );
         // Se muestra en las notas del juego
         console.log("Ataque: " + attack);

@@ -246,35 +246,35 @@ export class DisplayCardInformation {
     // Avisa el ataque que se acaba de hacer
     // carAttackedElement es la casilla del carro.
     // Va cambiar un poco cuando se pueda ya destruir un carro
-    static attackInformation(divElement, carAttackedElement, charge, attack, carDestroyed, weaponDischarged) {
+    static attackInformation(divElement, carAttackedElement, charge, attack, carDestroyed, weaponDischarged, carAttackedInstance) {
         divElement.innerHTML = `
         <div id="card-selected-information">
             <h2 class="card-selected-information">Se acaba de atacar!</h2>
-            ${this.carAfterAttacked(carAttackedElement, carDestroyed, charge, attack)}
+            ${this.carAfterAttacked(carAttackedElement, carDestroyed, charge, attack, carAttackedInstance)}
             ${this.weaponDischargedMessage(weaponDischarged)}
         </div>
         `
     }
     // Lo que le pasa al carro despues del ataque
-    static carAfterAttacked(carAttackedElement, carDestroyed, charge, attack) {
+    static carAfterAttacked(carAttackedElement, carDestroyed, charge, attack, carAttackedInstance) {
         if (carDestroyed) {
             // Mensaje que devuelve el carro destruido
             return `
-            <h2 class="card-selected-information">${carAttackedElement.dataset.name} fue atacado por un ataque de carga ${charge}, que cause un daño de ${attack}. ¡Suficiente para destruirlo!</h2>
+            <h2 class="card-selected-information">${carAttackedInstance.name} fue atacado por un ataque de carga ${charge}, que cause un daño de ${attack}. ¡Suficiente para destruirlo!</h2>
             <h2 class="card-selected-information">Le quedarian al ${this.convertPlayerString(carAttackedElement.id.slice(0,7))} ${StateGame.geCarsFromPlayer(carAttackedElement.id.slice(0,7)) - 1} carros restantes</h2>
             `;
         }
         // Muestra un mensaje especial si el ataque que se intento hacer es 0
         if (attack === 0) {
             return `
-            <h2 class="card-selected-information">Se intento atacar ${carAttackedElement.dataset.name}, pero la carga ${charge} no fue suficiente para que el ataque fuera mayor a 0!</h2>
-            <h2 class="card-selected-information">${carAttackedElement.dataset.name} queda intacto.</h2>
+            <h2 class="card-selected-information">Se intento atacar ${carAttackedInstance.name}, pero la carga ${charge} no fue suficiente para que el ataque fuera mayor a 0!</h2>
+            <h2 class="card-selected-information">${carAttackedInstance.name} queda intacto.</h2>
             `;
         }
         // Mensaje normal que devuelve el carro
         return `
-        <h2 class="card-selected-information">${carAttackedElement.dataset.name} fue atacado por un ataque de carga ${charge}, que cause un daño de ${attack}</h2>
-        <h2 class="card-selected-information">Le queda ${carAttackedElement.dataset.health} de vida</h2>
+        <h2 class="card-selected-information">${carAttackedInstance.name} fue atacado por un ataque de carga ${charge}, que cause un daño de ${attack}</h2>
+        <h2 class="card-selected-information">Le queda ${carAttackedInstance.health} de vida</h2>
         `;
     }
     // Lo que le pasa al arma despues del ataque
