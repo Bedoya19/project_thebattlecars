@@ -9,16 +9,32 @@ import { MainBoardSquare } from "./mainBoardSquare.js";
 export class CarSquare extends MainBoardSquare {
     #health;
     #maxHealth;
-    #nitro;
+    #maxCapacity;
+    #currentNitro;
 
     constructor(card, player, zone) {
         super(card, player, zone);
         this.#health = card.health;
         this.#maxHealth = card.health;
-        this.#nitro = 0;
+        this.#maxCapacity = card.capacity;
+        this.#currentNitro = 0;
     }
 
+    // Los getters de los datos de las cartas de carros
     get health() { return this.#health };
     get maxHealth() { return this.#maxHealth };
-    get nitro() { return this.#nitro };
+    get currentNitro() { return this.#currentNitro };
+    get maxCapacity() { return this.#maxCapacity };
+
+    get capacity() { return this.card.capacity };
+    get attBuff() { return this.card.attBuff };
+    // Consigue los valores de nitro (que no es necesario cambiarlas)
+    get nitroQuantity() { return this.card.nitro[0] };
+    get nitroDuration() { return this.card.nitro[1] };
+    get nitroResistance() { return this.card.nitroBuff[0] };
+    get nitroAttack() { return this.card.nitroBuff[1] };
+
+    toJSON() {
+        return { ...super.toJSON(), health: this.#health, maxHealth: this.#maxHealth, currentNitro: this.#currentNitro, maxCapacity: this.#maxCapacity };
+    }
 }

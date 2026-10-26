@@ -68,7 +68,8 @@ export class BoardClick {
                 if (!PlayerActions.spendPower(currentPlayer)) return;
 
                 // Agrega la carta al tablero
-                BoardSquareFactory.createCarSquare(carCard, currentPlayer, (carZone - 1));
+                const carSquareInst = BoardSquareFactory.createCarSquare(carCard, currentPlayer, (carZone - 1));
+                console.log(carSquareInst);
                 this.putCarOnBoard(carSquare, cardObj);
                 // Elimina la carta del deck
                 const deck = PlayerActions.getDeckFromPlayer(currentPlayer, "cars");
@@ -90,9 +91,10 @@ export class BoardClick {
                     cardInformation,
                     carSquare,
                     squarePlayer,
-                    cardObj.image,
-                    cardObj.name,
-                    cardObj.description
+                    carSquareInst.image,
+                    carSquareInst.name,
+                    carSquareInst.description,
+                    carSquareInst
                 );
                 GameNotesDisplay.carOnBoardTurnNotes(squarePlayer, carSquare.id.slice(23), cardObj.name);
                 this.removeValidCarSquare();

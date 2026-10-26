@@ -26,6 +26,7 @@ export class BoardSquare {
     get image() { return this.card.image; }
 
     // Convertir a JSON
+    // (me sorprende que funcione bien...)
     toJSON() {
         return { ...this.card, player: this.player };
     }

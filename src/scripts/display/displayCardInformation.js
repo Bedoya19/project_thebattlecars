@@ -80,23 +80,22 @@ export class DisplayCardInformation {
         `;
     }
     // Mostrar la informacion de una carta de carro del tablero
-    static displayCarCardInformationBoard(divElement, carSquare, playerOriginal, cardImage, cardName, cardDescription) {
-        const parts = carSquare.id.split('-');
-        const zoneNumber = parts[1].slice(4);
-        const squareNumber =  carSquare.id.at(-1);
+    static displayCarCardInformationBoard(divElement, carSquare, playerOriginal, cardImage, cardName, cardDescription, carSquareInst) {
+        const zoneNumber = carSquareInst.zone;
+        const squareNumber = carSquareInst.zone;
         console.log("Zona:", zoneNumber, "Casilla", squareNumber);
 
         divElement.innerHTML = `
-            ${this.mainCardInformation(this.convertPlayerString(playerOriginal), cardImage, cardName)}
+            ${this.mainCardInformation(this.convertPlayerString(carSquareInst.player), carSquareInst.image, carSquareInst.name)}
             ${this.generalCarCardInformation(
-                playerOriginal,
-                carSquare.id.slice(23),
-                `<span>${carSquare.dataset.health}</span> / <span>${carSquare.dataset.maxHealth}</span>`,
-                `<span>${carSquare.dataset.capacity}</span> / <span>${carSquare.dataset.maxCapacity}</span>`,
-                carSquare.dataset.attBuff,
-                [carSquare.dataset.nitroQuantity, carSquare.dataset.nitroDuration],
-                [carSquare.dataset.nitroResistance, carSquare.dataset.nitroAttack],
-                cardDescription,
+                carSquareInst.player,
+                squareNumber,
+                `<span>${carSquareInst.health}</span> / <span>${carSquareInst.maxHealth}</span>`,
+                `<span>${carSquareInst.capacity}</span> / <span>${carSquareInst.maxCapacity}</span>`,
+                carSquareInst.attBuff,
+                [carSquareInst.nitroQuantity, carSquareInst.nitroDuration],
+                [carSquareInst.nitroResistance, carSquareInst.nitroAttack],
+                carSquareInst.description,
                 "board"
             )
             }

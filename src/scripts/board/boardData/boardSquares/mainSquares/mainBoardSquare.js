@@ -14,4 +14,8 @@ export class MainBoardSquare extends BoardSquare {
     }
 
     get zone() { return this.#zone; }
+
+    toJSON() {
+        return { ...super.toJSON(), zone: this.zone };
+    }
 }
