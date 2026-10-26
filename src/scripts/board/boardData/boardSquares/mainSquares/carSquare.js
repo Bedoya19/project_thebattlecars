@@ -36,10 +36,27 @@ export class CarSquare extends MainBoardSquare {
 
     setCurrentNitro() { this.#currentNitro = this.nitroDuration + 1 };
 
-    // Temas del manejo del nitro
+    // --- Temas del manejo de la vida y la capacidad del carro ---
+    takeDamage(damage) {
+        this.#health -= damage;
+    }
+    isDestroyed() {
+        return (this.#health <= 0) ? true : false;
+    }
+
+    // --- Temas del manejo del nitro ---
     activateNitro() {
         this.setCurrentNitro();
         // No se si pongo mas cosas
+    }
+
+    isCarFull() {
+        return (this.card.capacity <= 0) ? true : false;
+    }
+
+    reduceCapacity() {
+        this.card.capacity -= 1;
+        console.log(this.card.capacity);
     }
 
     // Restarle nitro (usado en el paso de ronda)
