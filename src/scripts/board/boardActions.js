@@ -191,8 +191,12 @@ export class BoardClick {
                 //console.log(`${squarePlayer}-zone${squareZone}-card-car-${squareZone}`);
                 const carSquare = BoardClick.getCarSquareFromWeapon(squarePlayerAndZone["squarePlayer"], squarePlayerAndZone["squareZone"]);
                 //const carSquare = document.getElementById(`${squarePlayer}-zone${squareZone}-card-car-${squareZone}`);
+                //console.log(squarePlayerAndZone);
+                const carSquareInst = getCarSquareInst(squarePlayerAndZone["squarePlayer"], (Number(squarePlayerAndZone["squareZone"]) - 1));
                 console.log(carSquare);
-                carSquare.dataset.capacity = parseInt(carSquare.dataset.capacity) - 1;
+                console.log(carSquareInst);
+                //carSquare.dataset.capacity = parseInt(carSquare.dataset.capacity) - 1;
+                carSquareInst.reduceCapacity();
 
                 console.log("carta de arma agregada exitosamente!");
 
@@ -300,7 +304,7 @@ export class BoardClick {
         const player = GetDataFromSquare.getPlayerFromSquare(carSquare);
         const zone = Number(carSquare.id.slice(23));
 
-        console.log(player, zone)
+        console.log(player, zone);
         removeCarSquareFromBoard(player, (zone - 1));
 
         //console.log(weaponSquares);
@@ -572,13 +576,16 @@ class checkBoard {
 
     // Solamente revisa si en donde se hizo click (en la casilla de arma) se puede colocar un arma
     static checkForCarCapacity(player, zone) {
+        console.log(player);
         console.log(zone);
+
         // Conseguir el jugador y zona del id de weaponSquare
         const carSquare = document.getElementById(`${player}-zone${zone}-card-car-${zone}`);
-        if (carSquare.dataset.capacity === "undefined") {
+        const carSquareInst = getCarSquareInst(player, (zone - 1));
+        if (carSquareInst === null) {
             // No existe carta de carro, igualmente no se puede poner
             return false;
-        } else if (carSquare.dataset.capacity <= 0) {
+        } else if (carSquareInst.capacity <= 0) {
             // Otra vez, se tiene que decir al usuario
             console.log("no tiene capacidad el carro!");
             return false;
