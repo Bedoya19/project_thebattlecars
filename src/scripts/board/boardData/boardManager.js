@@ -54,5 +54,9 @@ export function getCarSquaresFromBoard(player) {
     return carSquares;
 }
 
+export function removeCarSquareFromBoard(player, zone) { // zone de 0 - 2
+    board[player]["zone"][zone].carSquare = null;
+}
+
 createZonesToPlayer("player1");
 createZonesToPlayer("player2");

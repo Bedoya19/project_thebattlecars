@@ -15,7 +15,7 @@ import { Reason } from "../models/constants/enums.js";
 import { CardSelection } from "../game/cardSelection.js";
 import { CarCard } from "../models/cards/CarCard.js";
 import { BoardSquareFactory } from "./boardData/boardSquareFactory.js";
-import { getCarSquareInst } from "./boardData/boardManager.js";
+import { getCarSquareInst, removeCarSquareFromBoard } from "./boardData/boardManager.js";
 
 export class BoardClick {
     // Cuando se hace click en una casilla de carro
@@ -298,6 +298,11 @@ export class BoardClick {
         const weaponSquares = this.getWeaponSquaresFromCarSquare(carSquare);
         // Igualmente toca sacar el jugador por los siguientes temas
         const player = GetDataFromSquare.getPlayerFromSquare(carSquare);
+        const zone = Number(carSquare.id.slice(23));
+
+        console.log(player, zone)
+        removeCarSquareFromBoard(player, (zone - 1));
+
         //console.log(weaponSquares);
         let weaponsFromCarDestroyed = [];
         for (const weaponSquare of weaponSquares) {

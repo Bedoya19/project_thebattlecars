@@ -59,11 +59,15 @@ export class Attack {
         // Jugador afectado (movido para usarse en otras funciones)
         const affectedPlayer = carSquare.id.slice(0, 7);
 
+        // Objeto de la casilla de carro
+        const carZone = Number(carSquare.id.slice(23)); // No se si poner en algun lado esto porque JAMAS me acuerdo como es eso en memoria
+        const carSquareInst = getCarSquareInst(affectedPlayer, (carZone - 1));
+
         // Valores actuales de carga y ataque
         const attackValue = AttackValues.getSumOfAllAttackValues();
         // El valor que se resta por la resistencia de un posible nitro del carro que se le esta atacando
-        const resistanceFromAttack = parseInt(carSquare.dataset.nitro) !== 0 ? parseInt(carSquare.dataset.nitroResistance) : 0;
-        console.log(`Nitro activado en defensa: ${parseInt(carSquare.dataset.nitro) !== 0}
+        const resistanceFromAttack = carSquareInst.isNitroActive() ? parseInt(carSquareInst.nitroResistance) : 0;
+        console.log(`Nitro activado en defensa: ${parseInt(carSquareInst.nitroResistance) !== 0}
         Resistencia: ${resistanceFromAttack}`); // Prueba rapida
 
         // Si por el aumento de ataque queda en negativo el ataque, simplemente lo cambia a 0.
@@ -75,11 +79,12 @@ export class Attack {
         const chargeValue = AttackValues.getCharge();
 
         // Le baja la vida al carro que se le dio el ataque
-        const currentCarHealth = carSquare.dataset.health;
-        carSquare.dataset.health -= attack;
-        const afterAttackCarHealth = carSquare.dataset.health;
+        const currentCarHealth = carSquareInst.health;
+        //carSquare.dataset.health -= attack;
+        carSquareInst.takeDamage(attack);
+        const afterAttackCarHealth = carSquareInst.health;
         // Revisa si el carro quedo destruid
-        if (carSquare.dataset.health <= 0) {
+        if (carSquareInst.isDestroyed()) {
             // Se va a quitar el carro del tablero en otro lugar. Esto es para tener la informacion de
             // la data del carro sin incurrir a hacer mas variables
             console.log("El carro quedo destruido!");
