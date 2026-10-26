@@ -1,4 +1,4 @@
-/* 
+/*
     Metodos del nitro de los carros
     Aqui funcionara todas las funciones necesarias para el nitro de los carros.
     Esto incluye la activacion del nitro, revisar los activados, todo eso.
@@ -12,7 +12,7 @@ import { StateGame } from "../game/stateGame.js";
 export class Nitro {
     // Agrega el boton de activar nitro
     // Ahora que lo pienso... Es bastante similar al otro de ataque... Hmmmm...
-    static createNitroButton(player, zoneNumber, squareNumber, carSquare) {
+    static createNitroButton(player, zoneNumber, squareNumber, carSquare, carSquareInst) {
         // Toca estandarizar esto del jugador
         const currentPlayer = StateGame.getCurrentPlayer();
         if (currentPlayer === player) {

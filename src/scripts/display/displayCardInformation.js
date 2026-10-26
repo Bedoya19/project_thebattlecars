@@ -100,7 +100,7 @@ export class DisplayCardInformation {
             )
             }
        `;
-        divElement.appendChild(Nitro.createNitroButton(carSquareInst.player, zoneNumber, squareNumber, carSquare));
+        divElement.appendChild(Nitro.createNitroButton(carSquareInst.player, zoneNumber, squareNumber, carSquare, carSquareInst));
     }
 
     // Metodo general para el contenido general de la carta de carro (con esto se ahora bastantes lineas)

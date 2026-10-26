@@ -34,17 +34,18 @@ export class CarSquare extends MainBoardSquare {
     get nitroResistance() { return this.card.nitroBuff[0] };
     get nitroAttack() { return this.card.nitroBuff[1] };
 
-    setCurrentNitro() { this.#currentNitro = this.nitroDuration };
+    setCurrentNitro() { this.#currentNitro = this.nitroDuration + 1 };
 
+    // Temas del manejo del nitro
     activateNitro() {
-        nitroStat();
+        this.setCurrentNitro();
         // No se si pongo mas cosas
     }
 
     // Restarle nitro (usado en el paso de ronda)
     reduceNitro() {
         if (this.#currentNitro > 0) {
-            this.currentNitro--;
+            this.#currentNitro--;
         }
         if (this.#currentNitro === 0) {
             console.log("Nitro desactivado");
