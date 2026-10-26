@@ -34,6 +34,28 @@ export class CarSquare extends MainBoardSquare {
     get nitroResistance() { return this.card.nitroBuff[0] };
     get nitroAttack() { return this.card.nitroBuff[1] };
 
+    setCurrentNitro() { this.#currentNitro = this.nitroDuration };
+
+    activateNitro() {
+        nitroStat();
+        // No se si pongo mas cosas
+    }
+
+    // Restarle nitro (usado en el paso de ronda)
+    reduceNitro() {
+        if (this.#currentNitro > 0) {
+            this.currentNitro--;
+        }
+        if (this.#currentNitro === 0) {
+            console.log("Nitro desactivado");
+            // No se si agregar mas cosas....
+        }
+    }
+
+    isNitroActive() {
+        return Boolean(this.#currentNitro);
+    }
+
     toJSON() {
         return { ...super.toJSON(), health: this.#health, maxHealth: this.#maxHealth, currentNitro: this.#currentNitro, maxCapacity: this.#maxCapacity };
     }
