@@ -44,14 +44,18 @@ export class CarSquare extends MainBoardSquare {
         return (this.#health <= 0) ? true : false;
     }
 
+    isCarCapacityFull() {
+        return (this.card.capacity <= 0) ? true : false;
+    }
+
+    reduceCapacity() {
+        this.card.capacity--;
+    }
+
     // --- Temas del manejo del nitro ---
     activateNitro() {
         this.setCurrentNitro();
         // No se si pongo mas cosas
-    }
-
-    isCarFull() {
-        return (this.card.capacity <= 0) ? true : false;
     }
 
     reduceCapacity() {

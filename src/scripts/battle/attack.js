@@ -15,6 +15,7 @@ import { DisplayMessageBoxes } from "../display/displayMessageBoxes.js";
 import { GameNotesDisplay } from "../display/gameNotesDisplay.js";
 import { LoadConfig } from "../game/loadConfig.js";
 import { consumeChargeWhenAttack, getChargeForUse } from "../game/chargeConfig/chargeMethodFactory.js";
+import { getCarSquareInst } from "../board/boardData/boardManager.js";
 
 export class Attack {
     // Agrgega el boton de ataque a la informacion si es del jugador indicado
@@ -158,12 +159,13 @@ export class Attack {
         } else {
             // Consigue la carga del jugador
             //const charge = PlayerActions.getChargeFromPlayer(player);
+            const carSquareInst = getCarSquareInst(player, (zoneNumber - 1));
             const charge = getChargeForUse(player);
             // Incremento de ataque del arma
-            const carSquare = BoardClick.getCarSquareFromWeaponSquare(weaponSquare);
-            const attackBuff = Number(carSquare.dataset.attBuff);
-            const attackNitroIncrease = parseInt(carSquare.dataset.nitro) !== 0 ? parseInt(carSquare.dataset.nitroAttack) : 0;
-
+            //const carSquare = BoardClick.getCarSquareFromWeaponSquare(weaponSquare);
+            //const attackBuff = Number(carSquare.dataset.attBuff);
+            const attackBuff = carSquareInst.attBuff;
+            const attackNitroIncrease = carSquareInst.isNitroActive() ? parseInt(carSquareInst.nitroAttack) : 0;
             // Momento JS esto...
             let attack = parseInt(JSON.parse(weaponSquare.dataset.attacks)[weaponSquare.dataset.level][charge - 1]);
             console.log("Aumento de ataque:", attackBuff);
