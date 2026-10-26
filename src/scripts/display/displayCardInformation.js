@@ -80,7 +80,7 @@ export class DisplayCardInformation {
         `;
     }
     // Mostrar la informacion de una carta de carro del tablero
-    static displayCarCardInformationBoard(divElement, carSquare, playerOriginal, cardImage, cardName, cardDescription, carSquareInst) {
+    static displayCarCardInformationBoard(divElement, carSquare, carSquareInst) {
         const zoneNumber = carSquareInst.zone;
         const squareNumber = carSquareInst.zone;
         console.log("Zona:", zoneNumber, "Casilla", squareNumber);
@@ -100,7 +100,7 @@ export class DisplayCardInformation {
             )
             }
        `;
-        divElement.appendChild(Nitro.createNitroButton(playerOriginal, zoneNumber, squareNumber, carSquare));
+        divElement.appendChild(Nitro.createNitroButton(carSquareInst.player, zoneNumber, squareNumber, carSquare));
     }
 
     // Metodo general para el contenido general de la carta de carro (con esto se ahora bastantes lineas)

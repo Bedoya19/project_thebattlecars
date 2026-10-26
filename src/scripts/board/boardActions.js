@@ -90,10 +90,6 @@ export class BoardClick {
                 DisplayCardInformation.displayCarCardInformationBoard(
                     cardInformation,
                     carSquare,
-                    squarePlayer,
-                    carSquareInst.image,
-                    carSquareInst.name,
-                    carSquareInst.description,
                     carSquareInst
                 );
                 GameNotesDisplay.carOnBoardTurnNotes(squarePlayer, carSquare.id.slice(23), cardObj.name);
