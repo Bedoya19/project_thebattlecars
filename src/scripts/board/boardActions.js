@@ -40,6 +40,7 @@ export class BoardClick {
         //const cardGeneralInformation = document.getElementById("card-selected-general-information");
         //const squarePlayer = this.createImgInBoard(carSquare);
         const squarePlayer = GetDataFromSquare.getPlayerFromSquare(carSquare);
+        const carZone = carSquare.id.slice(23);
         const cardInformation = document.getElementById("card-selected-information");
         try {
             // Consigue un guevo de valores del Document para hacer los cambios respectivos en la pagina
@@ -58,7 +59,6 @@ export class BoardClick {
             const checkCarValidation = checkBoard.checkCarSquareAvailability(carBoardPlayer, currentPlayer, carSquare);
             if (checkCarValidation.ok) {
                 // El resto de los datos
-                const carZone = carSquare.id.slice(23);
 
                 const currentDeck = document.getElementById("deck-icon-current");
                 const deckCards = document.getElementById("deck-cards")
@@ -97,7 +97,7 @@ export class BoardClick {
                 this.removeValidCarSquare();
             } else {
                 CardSelection.clean();
-                if (carSquare.dataset.name === "undefined") {
+                if (getCarSquareInst(squarePlayer, (carZone - 1)) === null) {
                     DisplayCardInformation.displayEmptyCarSquare(cardInformation, carSquare, squarePlayer);
                     return;
                 }
@@ -115,7 +115,7 @@ export class BoardClick {
                 }
                 // Yo de pendejo, tengo que mostrar la informacion de la carta, sin importar de que jugador sea
                 // Igualmente toca revisar si esta vacio cuando esta en las cartas del otro jugador
-                if (carSquare.dataset.name !== "undefined") {
+                if (getCarSquareInst(squarePlayer, (carZone - 1)) !== null) {
                     console.log("Esta es una casilla vacia de carro del otro jugador.");
                 }
                 //console.log(checkBoard.checkCarSquareAvailability(carBoardPlayer, currentPlayer, carSquare)[1]);
@@ -209,7 +209,7 @@ export class BoardClick {
                     cardObj.description
                 );
 
-                GameNotesDisplay.weaponOnBoardTurnNotes(squarePlayerAndZone["squarePlayer"], carSquare.dataset.name, cardObj.name);
+                GameNotesDisplay.weaponOnBoardTurnNotes(squarePlayerAndZone["squarePlayer"], carSquareInst.name, cardObj.name);
             } else {
                 // Despues se muestra la informacion del arma aqui
 
@@ -394,8 +394,10 @@ export class BoardClick {
         );
         // Agrega capacidad al carro ya que ya se descarto un arma
         const weaponPlayerAndZone = this.getPlayerAndZoneFromWeaponSquare(weaponSquare);
-        const carSquare = this.getCarSquareFromWeapon(weaponPlayerAndZone["squarePlayer"], weaponPlayerAndZone["squareZone"]);
-        ++carSquare.dataset.capacity;
+        //const carSquare = this.getCarSquareFromWeapon(weaponPlayerAndZone["squarePlayer"], weaponPlayerAndZone["squareZone"]);
+        //++carSquare.dataset.capacity;
+        const carSquareInst = getCarSquareInst(weaponPlayerAndZone["squarePlayer"], (Number(weaponPlayerAndZone["squareZone"]) - 1));
+        carSquareInst.increaseCapacity();
     }
 
     // Cambiar la data del div de arma

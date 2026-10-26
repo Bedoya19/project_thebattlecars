@@ -51,6 +51,13 @@ export class CarSquare extends MainBoardSquare {
     reduceCapacity() {
         this.card.capacity--;
     }
+    // Este metodo en particular es especifico cuando se quita una carta de arma
+    // Tal vez sea necesario otro metodo cuando lleguen los poderes
+    increaseCapacity() {
+        if (this.card.capacity < this.#maxCapacity) {
+            this.card.capacity++;
+        }
+    }
 
     // --- Temas del manejo del nitro ---
     activateNitro() {
