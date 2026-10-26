@@ -114,13 +114,12 @@ export class PlayerActions {
         this.removeCardInDeck(player, "materials", index);
     }
 
-    static removeNitroFromCar(player, carSquare) {
+    static removeNitroFromCar(player, carSquareInst) {
         // Si no es el carSquare, manda error inmediatamente para evitar que cosas raras sucedan.
-        if (!(carSquare instanceof HTMLElement) || !carSquare.dataset.nitroQuantity) {
-            throw new Error("carSquare inválido o sin dataset de nitro");
+        if (!(carSquareInst instanceof CarSquare)) {
+            throw new Error("carSquare inválido");
         }
-        const nitroToRemove = carSquare.dataset.nitroQuantity;
-        players[player].removeNitro(nitroToRemove);
+        players[player].removeNitro(carSquareInst.nitroQuantity);
     }
 
     static getWeaponsFromPlayer(player) {

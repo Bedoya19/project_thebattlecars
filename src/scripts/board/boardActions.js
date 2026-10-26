@@ -15,6 +15,7 @@ import { Reason } from "../models/constants/enums.js";
 import { CardSelection } from "../game/cardSelection.js";
 import { CarCard } from "../models/cards/CarCard.js";
 import { BoardSquareFactory } from "./boardData/boardSquareFactory.js";
+import { getCarSquareInst } from "./boardData/boardManager.js";
 
 export class BoardClick {
     // Cuando se hace click en una casilla de carro
@@ -122,14 +123,12 @@ export class BoardClick {
                 //console.log(carSquare.firstElementChild.src);
                 // Muestra la informacion del carro que se hizo clic
                 // (Sorpresivamente funciona bien sin ninguna carta seleccionada)
-
+                const zone = Number(carSquare.id.slice(23));
+                const carSquareInst = getCarSquareInst(squarePlayer, (zone - 1));
                 DisplayCardInformation.displayCarCardInformationBoard(
                     cardInformation,
                     carSquare,
-                    squarePlayer,
-                    carSquare.firstElementChild.src,
-                    carSquare.dataset.name,
-                    carSquare.dataset.description
+                    carSquareInst
                 );
             }
         }

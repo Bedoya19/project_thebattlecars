@@ -36,5 +36,23 @@ function readCarSquare(player, zone) { // zone de 0 - 2
 
 }
 
+// Consigue un carSquare del jugador y la zona
+export function getCarSquareInst(player, zone) { // zone de 0 - 2
+    console.log(player, zone);
+    return board[player]["zone"][zone].carSquare;
+}
+
+// Consigue los carSquares que tienen carros
+export function getCarSquaresFromBoard(player) {
+    const carSquares = [];
+    for (let i = 0; i < 3; i++) {
+        const carSquare = board[player]["zone"][i].carSquare;
+        if (carSquare !== null) {
+            carSquares.push(carSquare);
+        }
+    }
+    return carSquares;
+}
+
 createZonesToPlayer("player1");
 createZonesToPlayer("player2");
