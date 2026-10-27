@@ -67,7 +67,7 @@
             "attacks": [
                 [1, 2, 1, 3, 6, 0],
                 [1, 2, 3, 6, 5, 4],
-                [1, 7, 0, 0, 0, 0],
+                [1, 6, 0, 0, 0, 0],
                 [6, 6, 6, 6, 6, 6]
             ],
             "energy": 2,
@@ -94,6 +94,48 @@
             "materials": [
                 ["cardboard", 5],
                 ["foamsheet", 6]
+            ],
+            "image": "./src/images/weapons/.png"
+        },
+        {
+            "id": "weapon-ball-launcher",
+            "category": "category 1",
+            "type": "weapon",
+            "name": "Lanzadora de bolas",
+            "description": "Con un poco de caucho y goma, esta lanzadora hara buenos golpes en sus ultimas cargas sin sacrificar mucho en sus cargas menores. Las mejoras si seran caras.",
+            "longDescription": "Se presenta la 'superbola', como nos gusta llamarlo. Una bola de pura goma que con la suficiente fuerza de caucho. Lo que hace atractivo esta arma es que se usa el caucho para poder balancear mucho mejor la carga de los ataques. Se tiene un evidente pico de ataque en la ultima carga, pero las cargas bajas no son totalmente inutiles. Sin embargo, mejorar el arma no mejora estas primeras cargas, la lanzadora solo fue hecha para que pueda ser reforzada la pelota de goma para que sea mucho mas fuerte. En su ultima mejora se hara el ataque mas alto que veras en este punto de tu carrera, pero se advierte de antemano que conseguir la goma necesaria no sera facil.",
+            "attacks" : [
+                [1, 1, 2, 3, 4, 6],
+                [1, 1, 2, 3, 4, 10],
+                [1, 1, 2, 3, 4, 13],
+                [1, 1, 2, 3, 4, 17]
+            ],
+            "energy": 3,
+            "materials": [
+                ["cardboard", 1],
+                ["rubberband", 1],
+                ["rubberkit", 7]
+            ],
+            "image": "./src/images/weapons/.png"
+        },
+        {
+            "id": "fomi-cymball-dispenser",
+            "category": "category 1",
+            "type": "weapon",
+            "name": "Dispensador de platillos de fomi",
+            "attacks": [
+                [1, 1, 1, 1, 1, 1],
+                [1, 1, 1, 1, 1, 1],
+                [2, 2, 2, 2, 2, 2],
+                [8, 8, 8, 8, 8, 8]
+            ],
+            "description": "Estos son platillos de fomi, platillos de musica, de fomi! Obviamente platillos a algo tan fuerte como carros no haria cosquillas. Pero si se pone el suficiente pengante, tal vez ese fomi quede duro como una piedra...",
+            "longDescription": "Este dispensador dispensa platillos de fomi. Pero 'platillos' de los que ves en una bateria. Son platillos de musica, hechos en fomi. No sirven para tocar musica, ni mucho menos para atacar carros. Esto a duras penas raspa un poco la pintura si mucho. El arma esta diseñada para ponerle mucho, mucho pegante. Se dice que si se pone el suficiente pegante, este se secara de cierta forma que el fomi quedara cristalizado. Seguira sin ser util para hacer musica, o al menos no de forma ordinaria. Pero ya si puede hacerle serio daño a cualquier vehiculo...",
+            "energy": 5,
+            "materials": [
+                ["cardboard", 1],
+                ["foam", 2],
+                ["glue", 6]
             ],
             "image": "./src/images/weapons/.png"
         }
