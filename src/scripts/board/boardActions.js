@@ -145,7 +145,15 @@ export class BoardClick {
     }
 
     // Cuando se hace click a una casilla de arma
+    // Nuevo metodo mas limpio
     static clickOnWeaponSquare(event) {
+        const weaponSquare = event.currentTarget;
+        const squarePlayerAndZone = BoardClick.getPlayerAndZoneFromWeaponSquare(weaponSquare);
+        const cardSelected = CardSelection.get();
+    }
+
+    // Este sera puesto en comentario para obligar que funcione correctamente
+    /* static clickOnWeaponSquare(event) {
         //console.log("hola");
         const weaponSquare = event.currentTarget;
 
@@ -230,7 +238,7 @@ export class BoardClick {
             BoardClick.removeAllSelectors();
             DisplayCardInformation.displayEmptyWeaponSquare(cardInformation, weaponSquare, squarePlayerAndZone["squarePlayer"]);
         }
-    }
+    } */
 
     // Consigue el jugador y zona del id de una casilla de arma
     static getPlayerAndZoneFromWeaponSquare(weaponSquare) {
