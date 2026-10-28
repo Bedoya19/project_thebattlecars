@@ -164,7 +164,7 @@ export class BoardClick {
             return
         }
         if (cardSelected === null) {
-            DisplayCardInformation.displayEmptyWeaponSquare(cardInformation, weaponSquare, squarePlayerAndZone["squarePlayer"]);
+            DisplayCardInformation.displayEmptyWeaponSquare(cardGeneralInformation, weaponSquare, squarePlayerAndZone["squarePlayer"]);
             return;
         }
         if (!checkBoard.checkWeaponSquareAvailability(weaponSquare, weaponSquare.id, squarePlayerAndZone["squarePlayer"], cardGeneralInformation).ok) {
@@ -182,7 +182,7 @@ export class BoardClick {
     }
 
     static createWeaponCard(weaponSquare, cardSelected) {
-        console.log(weaponSquare, cardSelected);
+        
     }
 
     // Este sera puesto en comentario para obligar que funcione correctamente
