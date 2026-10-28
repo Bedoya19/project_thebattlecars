@@ -21,10 +21,12 @@ export class BoardSquareFactory {
     }
 
     // Crea la casilla de arma
-    // !OJO! Similar, zona de 0 - 2 o JS hara cosas raras
-    static createWeaponSquare(weaponCard, player, zone, pos) {
+    // !OJO! Zona de 0 - 2
+    // !OJO! weaponNumber de 0 - 7
+    // No poder cumplir estos requerimientos, JS va a hacer cosas raras
+    static createWeaponSquare(weaponCard, player, zone, weaponNumber) {
         const weaponSquare = new WeaponSquare(weaponCard, player, (zone + 1));
-        board[player]["zone"][zone].weaponSquares[pos] = weaponSquare;
+        board[player]["zone"][zone].weaponSquares[weaponNumber] = weaponSquare;
         console.log(board);
         return weaponSquare;
     }

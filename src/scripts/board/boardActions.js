@@ -150,6 +150,7 @@ export class BoardClick {
         const weaponSquare = event.currentTarget;
         const squarePlayerAndZone = BoardClick.getPlayerAndZoneFromWeaponSquare(weaponSquare);
         const cardSelected = CardSelection.get();
+
     }
 
     // Este sera puesto en comentario para obligar que funcione correctamente
