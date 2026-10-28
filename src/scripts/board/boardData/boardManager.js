@@ -68,7 +68,9 @@ export function getWeaponSquareInst(player, zone, weaponNumber) {
 
 // Crea un weaponSquare mediante la Factory
 export function setWeaponSquareInst(player, zone, weaponNumber, weaponCard) {
-    board[player]["zone"][zone].weaponSquares[weaponNumber] = BoardSquareFactory.createWeaponSquare(weaponCard, player, zone, weaponNumber);
+    const weaponSquareInst = BoardSquareFactory.createWeaponSquare(weaponCard, player, zone, weaponNumber);
+    board[player]["zone"][zone].weaponSquares[weaponNumber] = weaponSquareInst;
+    return weaponSquareInst;
 }
 
 // Elimina el weaponSquare

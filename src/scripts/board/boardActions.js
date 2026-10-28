@@ -15,7 +15,7 @@ import { Reason } from "../models/constants/enums.js";
 import { CardSelection } from "../game/cardSelection.js";
 import { CarCard } from "../models/cards/CarCard.js";
 import { BoardSquareFactory } from "./boardData/boardSquareFactory.js";
-import { getCarSquareInst, getCarSquaresFromBoard, getWeaponSquareInst, removeCarSquareFromBoard } from "./boardData/boardManager.js";
+import { getCarSquareInst, getCarSquaresFromBoard, getWeaponSquareInst, removeCarSquareFromBoard, setWeaponSquareInst } from "./boardData/boardManager.js";
 
 export class BoardClick {
     // Cuando se hace click en una casilla de carro
@@ -188,11 +188,13 @@ export class BoardClick {
 
     static createWeaponCard(weaponSquare, cardSelected, player, zone, weaponNumber) {
         console.log(cardSelected);
-        const imageObj = { image: cardSelected.image };
+        // Objeto como "titere" para mandar a putWeaponOnBoard (para que esta solo la mande al metodo de crear la imagen, NO toca el dataset)
+        const imageObj = { image: cardSelected.image }; 
         BoardClick.putWeaponOnBoard(weaponSquare, imageObj);
 
+        const weaponSquareInst = setWeaponSquareInst(player, (zone - 1), (weaponNumber - 1), cardSelected);
 
-        CardSelection.clean();
+        console.log(weaponSquareInst);
     }
 
     // Este sera puesto en comentario para obligar que funcione correctamente
