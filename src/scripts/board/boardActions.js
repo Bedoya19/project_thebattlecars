@@ -153,9 +153,12 @@ export class BoardClick {
         const weaponNumber = Number(weaponSquare.dataset.weaponNumber);
         const cardSelected = CardSelection.get();
 
+        const currentPlayer = StateGame.getCurrentPlayer();
+
         const weaponSquareInst = getWeaponSquareInst(squarePlayerAndZone["squarePlayer"], (squarePlayerAndZone["squareZone"] - 1), (weaponNumber -  1));
 
         const cardGeneralInformation = document.getElementById("card-selected-general-information");
+        const cardInformation = document.getElementById("card-selected-information");
 
         console.log(weaponSquare, weaponNumber, cardSelected, weaponSquareInst);
 
@@ -164,25 +167,32 @@ export class BoardClick {
             return
         }
         if (cardSelected === null) {
-            DisplayCardInformation.displayEmptyWeaponSquare(cardGeneralInformation, weaponSquare, squarePlayerAndZone["squarePlayer"]);
+            DisplayCardInformation.displayEmptyWeaponSquare(cardInformation, weaponSquare, squarePlayerAndZone["squarePlayer"]);
             return;
         }
-        if (!checkBoard.checkWeaponSquareAvailability(weaponSquare, weaponSquare.id, squarePlayerAndZone["squarePlayer"], cardGeneralInformation).ok) {
+        if (!checkBoard.checkWeaponSquareAvailability(weaponSquare, weaponSquare.id, currentPlayer, cardGeneralInformation).ok) {
             // Despues poner algunos condicionales adicionales
             console.log("No se puede poner la carta")
             return;
         }
-        if (!PlayerActions.spendPower(squarePlayerAndZone["squarePlayer"])) {
+        if (!PlayerActions.spendPower(currentPlayer)) {
             console.log("No hay poder!");
             return;
         }
 
         // Crea la casilla de carro (metodo aparte)
-        BoardClick.createWeaponCard(weaponSquare, cardSelected);
+        BoardClick.createWeaponCard(weaponSquare, cardSelected, currentPlayer, squarePlayerAndZone["squareZone"], weaponNumber);
+
+        BoardClick.removeValidWeaponSquare();
     }
 
-    static createWeaponCard(weaponSquare, cardSelected) {
-        
+    static createWeaponCard(weaponSquare, cardSelected, player, zone, weaponNumber) {
+        console.log(cardSelected);
+        const imageObj = { image: cardSelected.image };
+        BoardClick.putWeaponOnBoard(weaponSquare, imageObj);
+
+
+        CardSelection.clean();
     }
 
     // Este sera puesto en comentario para obligar que funcione correctamente
@@ -412,14 +422,14 @@ export class BoardClick {
         weaponSquare.appendChild(this.createImgInBoard(weaponObj));
 
         // Cambia la data del div para la respectiva arma
-        this.changeWeaponDataOnBoard(
+        /*this.changeWeaponDataOnBoard(
             weaponSquare,
             weaponObj.name,
             weaponObj.description,
             weaponObj.energy,
             JSON.stringify(weaponObj.attacks),
             JSON.stringify(weaponObj.materials)
-        )
+        ) */
     }
 
     // Quita una carta de arma del tablero
@@ -649,7 +659,7 @@ class checkBoard {
             return { ok: false, reason: Reason.OTHER_PLAYER, msg: "La casilla es del otro jugador!" };
         if (!this.checkWeaponSpace(weaponSquare))
             return { ok: false, reason: Reason.OCCUPIED, msg: "La casilla ya esta ocupada por otro carro" };
-        if (cardGeneralInformation.dataset.type !== "weapon")
+        if (!CardSelection.isInstanceOf(WeaponCard))
             return { ok: false, reason: Reason.WRONG_TYPE, msg: "La casilla es la incorrecta!" };
         if (PlayerActions.getPowerFromPlayer(currentPlayer) < 1)   // solo lee, ya no gasta
             return { ok: false, reason: Reason.NO_POWER, msg: "Ya no se tiene poder!" };
