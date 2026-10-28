@@ -305,7 +305,6 @@ export class BoardClick {
         const zone = Number(carSquare.id.slice(23));
 
         console.log(player, zone);
-        removeCarSquareFromBoard(player, (zone - 1));
 
         //console.log(weaponSquares);
         let weaponsFromCarDestroyed = [];
@@ -315,6 +314,9 @@ export class BoardClick {
             //Player2.getWeaponFromStorage(weaponSquare.dataset.name);
             this.removeWeaponOnBoard(weaponSquare);
         }
+
+        removeCarSquareFromBoard(player, (zone - 1));
+
         return weaponsFromCarDestroyed;
     }
     // Consigue todas las armas de una zona en especifico
