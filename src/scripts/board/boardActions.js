@@ -15,7 +15,7 @@ import { Reason } from "../models/constants/enums.js";
 import { CardSelection } from "../game/cardSelection.js";
 import { CarCard } from "../models/cards/CarCard.js";
 import { BoardSquareFactory } from "./boardData/boardSquareFactory.js";
-import { getCarSquareInst, getCarSquaresFromBoard, removeCarSquareFromBoard } from "./boardData/boardManager.js";
+import { getCarSquareInst, getCarSquaresFromBoard, getWeaponSquareInst, removeCarSquareFromBoard } from "./boardData/boardManager.js";
 
 export class BoardClick {
     // Cuando se hace click en una casilla de carro
@@ -147,10 +147,42 @@ export class BoardClick {
     // Cuando se hace click a una casilla de arma
     // Nuevo metodo mas limpio
     static clickOnWeaponSquare(event) {
+        // Consigue todos los datos correspondientes del para la arma
         const weaponSquare = event.currentTarget;
         const squarePlayerAndZone = BoardClick.getPlayerAndZoneFromWeaponSquare(weaponSquare);
+        const weaponNumber = Number(weaponSquare.dataset.weaponNumber);
         const cardSelected = CardSelection.get();
 
+        const weaponSquareInst = getWeaponSquareInst(squarePlayerAndZone["squarePlayer"], (squarePlayerAndZone["squareZone"] - 1), (weaponNumber -  1));
+
+        const cardGeneralInformation = document.getElementById("card-selected-general-information");
+
+        console.log(weaponSquare, weaponNumber, cardSelected, weaponSquareInst);
+
+        if (weaponSquareInst !== null) {
+            // todo: Mostrar informacion mediante el objeto del board
+            return
+        }
+        if (cardSelected === null) {
+            DisplayCardInformation.displayEmptyWeaponSquare(cardInformation, weaponSquare, squarePlayerAndZone["squarePlayer"]);
+            return;
+        }
+        if (!checkBoard.checkWeaponSquareAvailability(weaponSquare, weaponSquare.id, squarePlayerAndZone["squarePlayer"], cardGeneralInformation).ok) {
+            // Despues poner algunos condicionales adicionales
+            console.log("No se puede poner la carta")
+            return;
+        }
+        if (!PlayerActions.spendPower(squarePlayerAndZone["squarePlayer"])) {
+            console.log("No hay poder!");
+            return;
+        }
+
+        // Crea la casilla de carro (metodo aparte)
+        BoardClick.createWeaponCard(weaponSquare, cardSelected);
+    }
+
+    static createWeaponCard(weaponSquare, cardSelected) {
+        console.log(weaponSquare, cardSelected);
     }
 
     // Este sera puesto en comentario para obligar que funcione correctamente
