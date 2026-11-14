@@ -159,7 +159,7 @@ export class DisplayCardInformation {
     }
 
     // Mostrar la informacion de una carta de arma del tablero
-    static displayWeaponCardInformationBoard(divElement, weaponSquare, playerOriginal, cardImage, cardName, cardDescription) {
+    static displayWeaponCardInformationBoard(divElement, weaponSquare, playerOriginal, cardImage, cardName, cardDescription, weaponSquareInst) {
         console.log("Casilla de arma: ", weaponSquare);
         const parts = weaponSquare.id.split('-');
         const zoneNumber = parts[1].slice(4);

@@ -195,6 +195,13 @@ export class BoardClick {
         const weaponSquareInst = setWeaponSquareInst(player, (zone - 1), (weaponNumber - 1), cardSelected);
 
         console.log(weaponSquareInst);
+        console.log(weaponSquareInst.allAttacks);
+        console.log(weaponSquareInst.materials);
+
+        const cardGeneralInformation = document.getElementById("card-selected-general-information");
+
+        
+
     }
 
     // Este sera puesto en comentario para obligar que funcione correctamente
