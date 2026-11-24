@@ -8,11 +8,13 @@ import { MainBoardSquare } from "./mainBoardSquare.js";
 export class WeaponSquare extends MainBoardSquare {
     #maxEnergy;
     #level;
+    #energy;
 
     constructor(card, player, zone) {
         super(card, player, zone);
         this.#maxEnergy = card.energy;
         this.#level = 0;
+        this.#energy = card.energy;
     }
 
     get maxEnergy() { return this.#maxEnergy };

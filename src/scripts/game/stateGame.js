@@ -6,6 +6,7 @@
 
 // Clase que maneja la informacion del juego
 import { BoardClick } from "../board/boardActions.js";
+import { board } from "../board/boardData/boardManager.js";
 import { DisplayCardsInDeck } from "../display/deckDisplay.js";
 import { StandarizedDocCreation } from "../display/standardDoc/standarizedDocCreation.js";
 
@@ -56,6 +57,7 @@ export class StateGame {
         // Devuelve datos que seran usados en otros scripts.
         if (this.#round % 2 !== 0) {
             ++this.#turn;
+            console.log(board);
             return [2, "siguiente ronda, siguiente turno"];
         } else {
             return [1, "siguiente ronda"];

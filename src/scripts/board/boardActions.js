@@ -78,12 +78,7 @@ export class BoardClick {
                 //Player1.deleteFromDeck("cars", deckIndex);
                 PlayerActions.removeCardInDeck(squarePlayer, "cars", deckIndex);
                 // Reinicia el mazo si se esta mostrando el deck de carros
-                if (currentDeck.dataset.deck === "cars") {
-                    console.log("reiniciar mazo...");
-                    deckCards.innerHTML = "";
-                    // Player1.getCards() tendra que cambiar cuando se agrege el jugador 2.
-                    DisplayCardsInDeck.showDeckOfCards(deckCards, PlayerActions.getDeckFromPlayer(squarePlayer, "cars"), cardInformation);
-                }
+                DisplayCardsInDeck.refreshDeckDisplay(squarePlayer, "cars");
                 console.log("carta agregada exitosamente!");
                 CardSelection.clean();
                 // Actualiza el div de informacion para mostrar la mas reciente carta puesta en el tablero
@@ -189,7 +184,7 @@ export class BoardClick {
     static createWeaponCard(weaponSquare, cardSelected, player, zone, weaponNumber) {
         console.log(cardSelected);
         // Objeto como "titere" para mandar a putWeaponOnBoard (para que esta solo la mande al metodo de crear la imagen, NO toca el dataset)
-        const imageObj = { image: cardSelected.image }; 
+        const imageObj = { image: cardSelected.image };
         BoardClick.putWeaponOnBoard(weaponSquare, imageObj);
 
         const weaponSquareInst = setWeaponSquareInst(player, (zone - 1), (weaponNumber - 1), cardSelected);
@@ -200,8 +195,16 @@ export class BoardClick {
 
         const cardGeneralInformation = document.getElementById("card-selected-general-information");
 
-        
+        // Se elimina la carta del mazo
+        // (tal vez puede ser una funcion con carCard...)
+        const squarePlayer = GetDataFromSquare.getPlayerFromSquare(weaponSquare);
+        const deck = PlayerActions.getDeckFromPlayer(squarePlayer, "weapons");
+        const deckIndex = deck.indexOf(cardSelected);
+        //Player1.deleteFromDeck("cars", deckIndex);
+        PlayerActions.removeCardInDeck(squarePlayer, "weapons", deckIndex);
 
+        // Reinicia el mazo si se esta mostrando el deck de carros
+        DisplayCardsInDeck.refreshDeckDisplay(player, "weapons");
     }
 
     // Este sera puesto en comentario para obligar que funcione correctamente
