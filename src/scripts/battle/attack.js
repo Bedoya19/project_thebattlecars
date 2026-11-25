@@ -15,7 +15,7 @@ import { DisplayMessageBoxes } from "../display/displayMessageBoxes.js";
 import { GameNotesDisplay } from "../display/gameNotesDisplay.js";
 import { LoadConfig } from "../game/loadConfig.js";
 import { consumeChargeWhenAttack, getChargeForUse } from "../game/chargeConfig/chargeMethodFactory.js";
-import { getCarSquareInst, getWeaponSquareInst } from "../board/boardData/boardManager.js";
+import { getCarSquareInst, getWeaponSquareInst, removeWeaponSquareFromBoard } from "../board/boardData/boardManager.js";
 
 export class Attack {
     // Agrgega el boton de ataque a la informacion si es del jugador indicado
@@ -58,7 +58,8 @@ export class Attack {
 
         // Instancia del arma usada
         // (Uso ParseInt porque ya se los trucos que JS me sacara si no lo hago)
-        const weaponSquareInst = getWeaponSquareInst(currentPlayer, ParseInt(AttackValues.getZone()) - 1, ParseInt(AttackValues.getSquareNumber()) - 1)
+        const weaponSquareInst = getWeaponSquareInst(currentPlayer, parseInt(AttackValues.getZone()) - 1, parseInt(AttackValues.getSquareNumber()) - 1)
+        const attackingCarSquareInst = getCarSquareInst(weaponSquareInst.player, weaponSquareInst.zone - 1);
 
         // Jugador afectado (movido para usarse en otras funciones)
         const affectedPlayer = carSquare.id.slice(0, 7);
@@ -99,12 +100,13 @@ export class Attack {
         //PlayerActions.consumePowerForActionInPlayer(currentPlayer);
 
 
-        --weaponSquare.dataset.energy;
+        const isDischarged = weaponSquareInst.consumeEnergy();
         // Quita la carta del tablero si ya llego a cero de energia
-        if (weaponSquare.dataset.energy <= 0) {
+        if (isDischarged) {
             console.log("El arma quedo descargada");
             weaponDischarged = true;
             BoardClick.removeWeaponOnBoard(weaponSquare);
+            //removeWeaponSquareFromBoard(currentPlayer, zone, squareNumber);
         }
 
         // Actualiza la Carga
@@ -130,7 +132,18 @@ export class Attack {
         );
         // Se muestra en las notas del juego
         console.log("Ataque: " + attack);
-        GameNotesDisplay.addAttackActionNote(attackingCarSquare, carSquare, weaponSquare, chargeValue, attack, currentCarHealth, afterAttackCarHealth);
+        GameNotesDisplay.addAttackActionNote(
+            attackingCarSquare,
+            carSquare,
+            weaponSquare,
+            chargeValue,
+            attack,
+            currentCarHealth,
+            afterAttackCarHealth,
+            carSquareInst,
+            attackingCarSquareInst,
+            weaponSquareInst
+        );
 
         if (carDestroyed) {
             // Ya quita de verdad el carro destruido en el tablero despues de usar la informacion para el metodo anterior

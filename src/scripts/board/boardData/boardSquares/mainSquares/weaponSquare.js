@@ -22,7 +22,7 @@ export class WeaponSquare extends MainBoardSquare {
     get energy() { return this.card.energy };
     get allAttacks() { return this.card.attacks };
     attacks(level) { return this.card.attacks[level] };
-    attack(level, charge) { return this.attacks(level)[charge] };
+    attack(level, charge) { return this.attacks(level)[charge] }; // Ojo aqui con la carga
     get materials() { return this.card.materials };
 
     increaseLevel() {

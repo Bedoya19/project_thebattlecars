@@ -15,7 +15,7 @@ import { Reason } from "../models/constants/enums.js";
 import { CardSelection } from "../game/cardSelection.js";
 import { CarCard } from "../models/cards/CarCard.js";
 import { BoardSquareFactory } from "./boardData/boardSquareFactory.js";
-import { getCarSquareInst, getCarSquaresFromBoard, getWeaponSquareInst, removeCarSquareFromBoard, setWeaponSquareInst } from "./boardData/boardManager.js";
+import { getAllWeaponSquaresFromZone, getCarSquareInst, getCarSquaresFromBoard, getWeaponSquareInst, removeCarSquareFromBoard, removeWeaponSquareFromBoard, setWeaponSquareInst } from "./boardData/boardManager.js";
 
 export class BoardClick {
     // Cuando se hace click en una casilla de carro
@@ -390,7 +390,8 @@ export class BoardClick {
         let weaponsFromCarDestroyed = [];
         for (const weaponSquare of weaponSquares) {
             //console.log(weaponSquare.dataset.name);
-            weaponsFromCarDestroyed.push(PlayerActions.getWeaponFromStorageFromPlayer(player, weaponSquare.dataset.name));
+            //weaponsFromCarDestroyed.push(PlayerActions.getWeaponFromStorageFromPlayer(player, weaponSquare.name));
+            weaponsFromCarDestroyed.push(weaponSquare.card);
             //Player2.getWeaponFromStorage(weaponSquare.dataset.name);
             this.removeWeaponOnBoard(weaponSquare);
         }
@@ -407,9 +408,9 @@ export class BoardClick {
         const zone = GetDataFromSquare.getZoneFromCarSquare(carSquare);
         // For loop que filta las casillas que no estan vacias, es decir, que tienen un arma
         var nonEmptySquares = [];
-        const squares = document.getElementsByClassName(`card-board-weapon-${player}-${zone}`);
+        const squares = getAllWeaponSquaresFromZone(player, zone);
         for (var i = 0; i < squares.length; i++) {
-            if (squares[i].dataset.name !== "undefined") {
+            if (squares[i].name !== null) {
                 console.log("Casilla no vacia");
                 nonEmptySquares.push(squares[i]);
             }
@@ -463,6 +464,9 @@ export class BoardClick {
 
     // Quita una carta de arma del tablero
     static removeWeaponOnBoard(weaponSquare) {
+        // Elimina la instancia del tablero
+        removeWeaponSquareFromBoard(weaponPlayerAndZone["squarePlayer"], weaponPlayerAndZone["squareZone"], weaponSquare.dataset.weaponNumber);
+
         // Deja la casilla vacia
         weaponSquare.innerHTML = "";
         // Deja toda la data del carro en "undefined"
@@ -480,6 +484,8 @@ export class BoardClick {
         //++carSquare.dataset.capacity;
         const carSquareInst = getCarSquareInst(weaponPlayerAndZone["squarePlayer"], (Number(weaponPlayerAndZone["squareZone"]) - 1));
         carSquareInst.increaseCapacity();
+
+
     }
 
     // Cambiar la data del div de arma
