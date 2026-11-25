@@ -157,8 +157,9 @@ export class BoardClick {
 
         console.log(weaponSquare, weaponNumber, cardSelected, weaponSquareInst);
 
+        // Casilla no es vacia, mostrar la informacion de la carta
         if (weaponSquareInst !== null) {
-            // todo: Mostrar informacion mediante el objeto del board
+            DisplayCardInformation.displayWeaponCardInformationBoard(cardInformation, weaponSquare, weaponSquareInst);
             return
         }
         if (cardSelected === null) {

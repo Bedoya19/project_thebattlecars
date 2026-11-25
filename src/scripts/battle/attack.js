@@ -190,7 +190,7 @@ export class Attack {
             const attackBuff = carSquareInst.attBuff;
             const attackNitroIncrease = carSquareInst.isNitroActive() ? parseInt(carSquareInst.nitroAttack) : 0;
             // Momento JS esto...
-            let attack = parseInt(JSON.parse(weaponSquareInst.attack(weaponSquareInst.level, charge)));
+            const attack = weaponSquareInst.attack(weaponSquareInst.level, charge - 1);
             console.log("Aumento de ataque:", attackBuff);
             AttackValues.setAttackValues(charge, attack, zoneNumber, squareNumber, attackBuff, attackNitroIncrease);
         }

@@ -6,6 +6,9 @@ import { StateGame } from "../game/stateGame.js";
 export class AttackMessages {
     // Genera un mensaje corto sobre que X carro ataco a Y carro
     static carAttacks(carAttackerSquare, carAttackedSquare, weaponSquare, charge, attack, previousCarHealth, afterCarHealth, carAttackedInst, carAttackerInst, weaponSquareInst) {
+        console.log(carAttackedInst);
+        console.log(carAttackerInst);
+        console.log(weaponSquareInst);
         if (attack !== 0) {
             return `${DisplayCardInformation.convertPlayerString(carAttackerSquare.id.slice(0, 7))} ataca a "${carAttackedInst.name}" usando su "${carAttackerInst.name}" y el arma "${weaponSquareInst.name}" teniendo un ${charge}/6 de carga. El ataque es de ${attack}: (${previousCarHealth} > ${afterCarHealth})`;
         }
