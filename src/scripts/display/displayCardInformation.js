@@ -187,7 +187,7 @@ export class DisplayCardInformation {
             )}
         `;
         //${Attack.createAttackButton(playerOriginal, zoneNumber, squareNumber, weaponSquare)}
-        //divElement.appendChild(Attack.createAttackButton(playerOriginal, zoneNumber, squareNumber, weaponSquare));
+        divElement.appendChild(Attack.createAttackButton(playerOriginal, zoneNumber, squareNumber, weaponSquare, weaponSquareInst));
         //divElement.appendChild(WeaponUpgrade.createUpgradeButton(playerOriginal, zoneNumber, squareNumber, weaponSquare));
     }
 

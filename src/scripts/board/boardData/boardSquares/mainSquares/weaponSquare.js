@@ -30,4 +30,12 @@ export class WeaponSquare extends MainBoardSquare {
             this.#level++;
         }
     }
+    isDischarged() {
+        return this.#energy <= 0;
+    }
+
+    consumeEnergy() {
+        this.#energy--;
+        return this.isDischarged();
+    }
 }

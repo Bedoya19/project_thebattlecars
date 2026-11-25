@@ -15,11 +15,11 @@ import { DisplayMessageBoxes } from "../display/displayMessageBoxes.js";
 import { GameNotesDisplay } from "../display/gameNotesDisplay.js";
 import { LoadConfig } from "../game/loadConfig.js";
 import { consumeChargeWhenAttack, getChargeForUse } from "../game/chargeConfig/chargeMethodFactory.js";
-import { getCarSquareInst } from "../board/boardData/boardManager.js";
+import { getCarSquareInst, getWeaponSquareInst } from "../board/boardData/boardManager.js";
 
 export class Attack {
     // Agrgega el boton de ataque a la informacion si es del jugador indicado
-    static createAttackButton(player, zoneNumber, squareNumber, weaponSquare) {
+    static createAttackButton(player, zoneNumber, squareNumber, weaponSquare, weaponSquareInst) {
         const currentPlayer = StateGame.getCurrentPlayer();
         if (currentPlayer === player) {
             //return `<button id="attack-${zoneNumber}-${squareNumber}">Atacar</button>`
@@ -31,7 +31,7 @@ export class Attack {
                 }
             );
             button.innerText = "Atacar";
-            button.addEventListener("click", () => { this.prepareForAttack(weaponSquare, player, zoneNumber, squareNumber) })
+            button.addEventListener("click", () => { this.prepareForAttack(weaponSquare, player, zoneNumber, squareNumber, weaponSquareInst) })
             return button;
         } else {
             // Devuelve un simple div vacio
@@ -55,6 +55,10 @@ export class Attack {
         // Carro atacante (movido para usarse antes)
         const weaponSquare = document.getElementById(`${currentPlayer}-zone${AttackValues.getZone()}-card-weapon-${AttackValues.getSquareNumber()}`);
         const attackingCarSquare = BoardClick.getCarSquareFromWeaponSquare(weaponSquare);
+
+        // Instancia del arma usada
+        // (Uso ParseInt porque ya se los trucos que JS me sacara si no lo hago)
+        const weaponSquareInst = getWeaponSquareInst(currentPlayer, ParseInt(AttackValues.getZone()) - 1, ParseInt(AttackValues.getSquareNumber()) - 1)
 
         // Jugador afectado (movido para usarse en otras funciones)
         const affectedPlayer = carSquare.id.slice(0, 7);
@@ -150,7 +154,7 @@ export class Attack {
     }
 
     // Prepara todo para atacar
-    static prepareForAttack(weaponSquare, player, zoneNumber, squareNumber) {
+    static prepareForAttack(weaponSquare, player, zoneNumber, squareNumber, weaponSquareInst) {
         if (PlayerActions.getPowerFromPlayer(player) <= 0) {
             // Avisar al usuario despues
             console.log("Sin poder requerido");
@@ -158,7 +162,7 @@ export class Attack {
             //console.log(weaponPosData);
             DisplayMessageBoxes.createTemporalText(weaponSquare, "No hay poder suficiente para atacar!");
 
-        } else if (weaponSquare.dataset.energy <= 0) {
+        } else if (weaponSquareInst.energy <= 0) {
             // Tambien avisar al usuario despues (aunque esto es dificil)
             console.log("La arma no tiene la energia suficiente");
         // Ya prepara la pagina para atacar
@@ -173,7 +177,7 @@ export class Attack {
             const attackBuff = carSquareInst.attBuff;
             const attackNitroIncrease = carSquareInst.isNitroActive() ? parseInt(carSquareInst.nitroAttack) : 0;
             // Momento JS esto...
-            let attack = parseInt(JSON.parse(weaponSquare.dataset.attacks)[weaponSquare.dataset.level][charge - 1]);
+            let attack = parseInt(JSON.parse(weaponSquareInst.attack(weaponSquareInst.level, charge)));
             console.log("Aumento de ataque:", attackBuff);
             AttackValues.setAttackValues(charge, attack, zoneNumber, squareNumber, attackBuff, attackNitroIncrease);
         }

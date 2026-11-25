@@ -212,7 +212,6 @@ export class BoardClick {
 
         BoardClick.removeAllSelectors();
 
-        const squarePlayerAndZone = BoardClick.getPlayerAndZoneFromWeaponSquare(weaponSquare);
         const cardInformation = document.getElementById("card-selected-information");
         console.log(weaponSquareInst);
         DisplayCardInformation.displayWeaponCardInformationBoard(
