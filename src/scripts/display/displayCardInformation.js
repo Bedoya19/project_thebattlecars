@@ -159,34 +159,36 @@ export class DisplayCardInformation {
     }
 
     // Mostrar la informacion de una carta de arma del tablero
-    static displayWeaponCardInformationBoard(divElement, weaponSquare, playerOriginal, cardImage, cardName, cardDescription, weaponSquareInst) {
+    static displayWeaponCardInformationBoard(divElement, weaponSquare, weaponSquareInst) {
         console.log("Casilla de arma: ", weaponSquare);
+        console.log("player de la instancia:", weaponSquareInst.player, weaponSquareInst);
         const parts = weaponSquare.id.split('-');
         const zoneNumber = parts[1].slice(4);
-        const squareNumber =  weaponSquare.id.at(-1);
-        const charge = (playerOriginal === StateGame.getCurrentPlayer())
-            ? PlayerActions.getChargeFromPlayer(playerOriginal)
-            : null;
+        const squareNumber = weaponSquare.id.at(-1);
+        const player = weaponSquareInst.player;
+        //const charge = (playerOriginal === StateGame.getCurrentPlayer())
+        //    ? PlayerActions.getChargeFromPlayer(playerOriginal)
+        //    : null;
         console.log("Zona:", zoneNumber, "Casilla", squareNumber);
         // Muy probablemente, cuando ya tenga todo funcionando correctamente, puedo fusionar algunas funciones repetitivas
         divElement.innerHTML = `
-            ${this.mainCardInformation(this.convertPlayerString(playerOriginal), weaponSquare.firstElementChild.src, weaponSquare.dataset.name)}
+            ${this.mainCardInformation(this.convertPlayerString(player), weaponSquareInst.image, weaponSquareInst.name)}
             ${this.generalWeaponCardInformation(
-                this.convertPlayerString(playerOriginal),
+                this.convertPlayerString(player),
                 weaponSquare.id.slice(26),
-                JSON.parse(weaponSquare.dataset.attacks),
-                weaponSquare.dataset.energy,
-                JSON.parse(weaponSquare.dataset.materials),
-                weaponSquare.dataset.description,
+                weaponSquareInst.allAttacks,
+                weaponSquareInst.energy,
+                weaponSquareInst.materials,
+                weaponSquareInst.description,
                 "board",
                 undefined,
-                weaponSquare.dataset.level,
-                getChargeForDisplay(playerOriginal)
+                weaponSquareInst.level,
+                getChargeForDisplay(player)
             )}
         `;
         //${Attack.createAttackButton(playerOriginal, zoneNumber, squareNumber, weaponSquare)}
-        divElement.appendChild(Attack.createAttackButton(playerOriginal, zoneNumber, squareNumber, weaponSquare));
-        divElement.appendChild(WeaponUpgrade.createUpgradeButton(playerOriginal, zoneNumber, squareNumber, weaponSquare));
+        //divElement.appendChild(Attack.createAttackButton(playerOriginal, zoneNumber, squareNumber, weaponSquare));
+        //divElement.appendChild(WeaponUpgrade.createUpgradeButton(playerOriginal, zoneNumber, squareNumber, weaponSquare));
     }
 
     // Esta funcion lo que hace es que SOLO RECIBE la dataset

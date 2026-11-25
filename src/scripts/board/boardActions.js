@@ -205,6 +205,24 @@ export class BoardClick {
 
         // Reinicia el mazo si se esta mostrando el deck de carros
         DisplayCardsInDeck.refreshDeckDisplay(player, "weapons");
+
+        // Reducir capacidad del carro
+        const carSquareInst = getCarSquareInst(player, (zone - 1))
+        carSquareInst.reduceCapacity();
+
+        BoardClick.removeAllSelectors();
+
+        const squarePlayerAndZone = BoardClick.getPlayerAndZoneFromWeaponSquare(weaponSquare);
+        const cardInformation = document.getElementById("card-selected-information");
+        console.log(weaponSquareInst);
+        DisplayCardInformation.displayWeaponCardInformationBoard(
+            cardInformation,
+            weaponSquare,
+            weaponSquareInst
+        );
+
+        CardSelection.clean();
+
     }
 
     // Este sera puesto en comentario para obligar que funcione correctamente

@@ -24,4 +24,10 @@ export class WeaponSquare extends MainBoardSquare {
     attacks(level) { return this.card.attacks[level] };
     attack(level, charge) { return this.attacks(level)[charge] };
     get materials() { return this.card.materials };
+
+    increaseLevel() {
+        if (this.#level < (this.allAttacks.length - 1)) {
+            this.#level++;
+        }
+    }
 }
