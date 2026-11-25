@@ -392,9 +392,11 @@ export class BoardClick {
         for (const weaponSquare of weaponSquares) {
             //console.log(weaponSquare.dataset.name);
             //weaponsFromCarDestroyed.push(PlayerActions.getWeaponFromStorageFromPlayer(player, weaponSquare.name));
+            console.log(weaponSquare);
+            const weaponSquareDOM = document.getElementById(`${weaponSquare.player}-zone${weaponSquare.zone}-card-weapon-${weaponSquare.weaponNumber}`);
             weaponsFromCarDestroyed.push(weaponSquare.card);
             //Player2.getWeaponFromStorage(weaponSquare.dataset.name);
-            this.removeWeaponOnBoard(weaponSquare);
+            this.removeWeaponOnBoard(weaponSquareDOM);
         }
 
         removeCarSquareFromBoard(player, (zone - 1));
@@ -406,12 +408,12 @@ export class BoardClick {
     // Tambien, filtra las casillas vacias para no poner undefined casillas que ya estan undefined
     static getWeaponSquaresFromCarSquare(carSquare) {
         const player = GetDataFromSquare.getPlayerFromSquare(carSquare);
-        const zone = GetDataFromSquare.getZoneFromCarSquare(carSquare);
+        const zone = Number(carSquare.id.slice(23)) - 1;
         // For loop que filta las casillas que no estan vacias, es decir, que tienen un arma
         var nonEmptySquares = [];
         const squares = getAllWeaponSquaresFromZone(player, zone);
         for (var i = 0; i < squares.length; i++) {
-            if (squares[i].name !== null) {
+            if (squares[i] !== null) {
                 console.log("Casilla no vacia");
                 nonEmptySquares.push(squares[i]);
             }
@@ -465,12 +467,16 @@ export class BoardClick {
 
     // Quita una carta de arma del tablero
     static removeWeaponOnBoard(weaponSquare) {
+        const weaponPlayerAndZone = this.getPlayerAndZoneFromWeaponSquare(weaponSquare);
+
         // Elimina la instancia del tablero
-        removeWeaponSquareFromBoard(weaponPlayerAndZone["squarePlayer"], weaponPlayerAndZone["squareZone"], weaponSquare.dataset.weaponNumber);
+        console.log("quitar arma:", weaponPlayerAndZone["squarePlayer"], Number(weaponPlayerAndZone["squareZone"]) - 1, Number(weaponSquare.dataset.weaponNumber) - 1);
+        removeWeaponSquareFromBoard(weaponPlayerAndZone["squarePlayer"], (weaponPlayerAndZone["squareZone"] - 1), weaponSquare.dataset.weaponNumber);
 
         // Deja la casilla vacia
         weaponSquare.innerHTML = "";
         // Deja toda la data del carro en "undefined"
+        /*
         this.changeWeaponDataOnBoard(
             weaponSquare,
             "undefined",
@@ -478,9 +484,8 @@ export class BoardClick {
             "undefined",
             "undefined",
             "undefined"
-        );
+        ); */
         // Agrega capacidad al carro ya que ya se descarto un arma
-        const weaponPlayerAndZone = this.getPlayerAndZoneFromWeaponSquare(weaponSquare);
         //const carSquare = this.getCarSquareFromWeapon(weaponPlayerAndZone["squarePlayer"], weaponPlayerAndZone["squareZone"]);
         //++carSquare.dataset.capacity;
         const carSquareInst = getCarSquareInst(weaponPlayerAndZone["squarePlayer"], (Number(weaponPlayerAndZone["squareZone"]) - 1));
