@@ -10,17 +10,17 @@ export class AttackMessages {
         console.log(carAttackerInst);
         console.log(weaponSquareInst);
         if (attack !== 0) {
-            return `${DisplayCardInformation.convertPlayerString(carAttackerSquare.id.slice(0, 7))} ataca a "${carAttackedInst.name}" usando su "${carAttackerInst.name}" y el arma "${weaponSquareInst.name}" teniendo un ${charge}/6 de carga. El ataque es de ${attack}: (${previousCarHealth} > ${afterCarHealth})`;
+            return `${DisplayCardInformation.convertPlayerString(carAttackerInst)} ataca a "${carAttackedInst.name}" usando su "${carAttackerInst.name}" y el arma "${weaponSquareInst.name}" teniendo un ${charge}/6 de carga. El ataque es de ${attack}: (${previousCarHealth} > ${afterCarHealth})`;
         }
         // Si el ataque no logra ser mayor a 0
-        return `${DisplayCardInformation.convertPlayerString(carAttackerSquare.id.slice(0, 7))} intento atacar a "${carAttackedInst.name}" usando su "${carAttackerInst.name}" y el arma "${weaponSquareInst.name}" teniendo un ${charge}/6 de carga. ¡Pero el ataque no le dio! ${carAttackedInst.name} queda intacto`;
+        return `${DisplayCardInformation.convertPlayerString(carAttackerInst)} intento atacar a "${carAttackedInst.name}" usando su "${carAttackerInst.name}" y el arma "${weaponSquareInst.name}" teniendo un ${charge}/6 de carga. ¡Pero el ataque no le dio! ${carAttackedInst.name} queda intacto`;
     }
 
     // Genera lo que le pasa al carro al ser destruido
     static carDestroyedMessage(carAttackedElement, charge, attack, carAttackedInst) {
         return [
             `${carAttackedInst.name} fue atacado por un ataque de carga ${charge}, que cause un daño de ${attack}. ¡Suficiente para destruirlo!\n`,
-            `Le quedan  ${carAttackedInst.player} carros al ${DisplayCardInformation.convertPlayerString(carAttackedInst.player)}`,
+            `Le quedan  ${StateGame.geCarsFromPlayer(carAttackedInst.player) - 1} carros al ${DisplayCardInformation.convertPlayerString(carAttackedInst.player)}`
         ]
     }
 }

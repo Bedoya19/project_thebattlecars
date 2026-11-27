@@ -102,7 +102,7 @@ export class BoardClick {
                 // Condicion para mostrar el mensaje
                 // (Si lo hago en general, rompo algo)
                 if (checkCarValidation.reason === Reason.NO_POWER) {
-                    DisplayMessageBoxes.createTemporalText(carSquare, checkCarValidation[1]);
+                    DisplayMessageBoxes.createTemporalText(carSquare, checkCarValidation.msg);
                     this.removeValidCarSquare();
                     //DisplayCardInformation.displayEmptyCarSquare(cardInformation, carSquare, squarePlayer);
                     // Este return evita errores raros (no entendi muy bien porque, pero lo evita)
@@ -150,7 +150,7 @@ export class BoardClick {
 
         const currentPlayer = StateGame.getCurrentPlayer();
 
-        const weaponSquareInst = getWeaponSquareInst(squarePlayerAndZone["squarePlayer"], (squarePlayerAndZone["squareZone"] - 1), (weaponNumber -  1));
+        const weaponSquareInst = GetDataFromSquare.getWeaponSquareInstFromDOM(weaponSquare);
 
         const cardGeneralInformation = document.getElementById("card-selected-general-information");
         const cardInformation = document.getElementById("card-selected-information");
@@ -347,6 +347,7 @@ export class BoardClick {
 
 
         // Data del carro
+        /*
         this.changeCarDataOnBoard(carSquare,
             carObj.name,
             carObj.health,
@@ -357,7 +358,7 @@ export class BoardClick {
             carObj.nitroBuff[1],
             carObj.attBuff,
             carObj.description
-        )
+        ) */
     }
 
     // Quitar una carta de carro del tablero
@@ -366,6 +367,7 @@ export class BoardClick {
         carSquare.innerHTML = "";
 
         // La data se va volver undefined
+        /*
         this.changeCarDataOnBoard(carSquare,
             "undefined",
             "undefined",
@@ -377,6 +379,7 @@ export class BoardClick {
             "undefined",
             "undefined"
         );
+        */
 
 
         // Elimina todas las armas del tablero que estan adjuntas al carro

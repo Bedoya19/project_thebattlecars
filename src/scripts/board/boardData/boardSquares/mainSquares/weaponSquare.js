@@ -20,6 +20,7 @@ export class WeaponSquare extends MainBoardSquare {
         this.#weaponNumber = weaponNumber;
     }
 
+    // Getters
     get maxEnergy() { return this.#maxEnergy };
     get level() { return this.#level };
     get energy() { return this.#energy };
@@ -28,9 +29,10 @@ export class WeaponSquare extends MainBoardSquare {
     attack(level, charge) { return (this.attacks(level)[charge]) }; // Ojo aqui con la carga
     get materials() { return this.card.materials };
     get weaponNumber() { return this.#weaponNumber };
+    get isMaxLevel() { return (this.#level >= this.allAttacks.length - 1) };
 
     increaseLevel() {
-        if (this.#level < (this.allAttacks.length - 1)) {
+        if (!this.isMaxLevel) {
             this.#level++;
             return true;
         }

@@ -34,7 +34,7 @@ export class WeaponUpgrade {
 
 
             // Deshabilita el boton si no tiene el suficiente material
-            button.disabled = !CheckWeaponUpgrades.hasEnoughMaterials(player, weaponSquareInst);
+            button.disabled = weaponSquareInst.isMaxLevel || !CheckWeaponUpgrades.hasEnoughMaterials(player, weaponSquareInst);;
 
             return button;
         } else {
@@ -50,7 +50,7 @@ export class WeaponUpgrade {
         //if (PlayerActions.getPowerFromPlayer(player) > 0) {
         const canUpgrade = CheckWeaponUpgrades.hasEnoughMaterials(player, weaponSquareInst);
 
-        console.log(canUpgrade);
+        //console.log(canUpgrade, !weaponSquareInst.isMaxLevel);
         if (canUpgrade) {
             console.log("Se puede mejorar!");
             const materialDeck = PlayerActions.getDeckFromPlayer(player, "materials");
