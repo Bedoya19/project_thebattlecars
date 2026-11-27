@@ -471,7 +471,7 @@ export class BoardClick {
 
         // Elimina la instancia del tablero
         console.log("quitar arma:", weaponPlayerAndZone["squarePlayer"], Number(weaponPlayerAndZone["squareZone"]) - 1, Number(weaponSquare.dataset.weaponNumber) - 1);
-        removeWeaponSquareFromBoard(weaponPlayerAndZone["squarePlayer"], (weaponPlayerAndZone["squareZone"] - 1), weaponSquare.dataset.weaponNumber);
+        removeWeaponSquareFromBoard(weaponPlayerAndZone["squarePlayer"], Number(weaponPlayerAndZone["squareZone"]) - 1, Number(weaponSquare.dataset.weaponNumber) - 1);
 
         // Deja la casilla vacia
         weaponSquare.innerHTML = "";
@@ -615,10 +615,7 @@ class checkBoard {
     // Revisa si la casilla de arma esta vacia
     // Devuelve true si esta vacia, false si esta ocupada
     static checkWeaponSpace(weaponSquare) {
-        if (weaponSquare.dataset.name === "undefined") {
-            return true;
-        }
-        return false;
+        return GetDataFromSquare.getWeaponSquareInstFromDOM(weaponSquare) === null;
     }
     // Revisa si existe por lo menos una carta de carro puesta en el tablero
     // Devuelve true si efectivamente hay una carta de arma en el tablero (independiente de su disponibilidad)
@@ -669,7 +666,8 @@ class checkBoard {
         //console.log(Array.from(weaponSquares));
         // Devuelve las casillas que estan vacias.
         return Array.from(weaponSquares).filter(weaponSquare => {
-            return weaponSquare.dataset.name === "undefined";
+            //return weaponSquare.dataset.name === "undefined";
+            return this.checkWeaponSpace(weaponSquare);
         });
         //console.log(weaponSquares);
     }
@@ -726,5 +724,12 @@ export class GetDataFromSquare {
         // en si
         // (Puedo crear un metodo que consigue el numero tho, seria despues)
         return carSquare.classList[3].slice(11);
+    }
+
+    // Consigue una instancia de casilla de arma usando el DOM
+    static getWeaponSquareInstFromDOM(weaponSquare) {
+        const { squarePlayer, squareZone } = BoardClick.getPlayerAndZoneFromWeaponSquare(weaponSquare);
+        const weaponNumber = Number(weaponSquare.dataset.weaponNumber);
+        return getWeaponSquareInst(squarePlayer, Number(squareZone) - 1, weaponNumber - 1);
     }
 }
