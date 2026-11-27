@@ -10,10 +10,10 @@ export class AttackMessages {
         console.log(carAttackerInst);
         console.log(weaponSquareInst);
         if (attack !== 0) {
-            return `${DisplayCardInformation.convertPlayerString(carAttackerInst)} ataca a "${carAttackedInst.name}" usando su "${carAttackerInst.name}" y el arma "${weaponSquareInst.name}" teniendo un ${charge}/6 de carga. El ataque es de ${attack}: (${previousCarHealth} > ${afterCarHealth})`;
+            return `${DisplayCardInformation.convertPlayerString(carAttackerInst.player)} ataca a "${carAttackedInst.name}" usando su "${carAttackerInst.name}" y el arma "${weaponSquareInst.name}" teniendo un ${charge}/6 de carga. El ataque es de ${attack}: (${previousCarHealth} > ${afterCarHealth})`;
         }
         // Si el ataque no logra ser mayor a 0
-        return `${DisplayCardInformation.convertPlayerString(carAttackerInst)} intento atacar a "${carAttackedInst.name}" usando su "${carAttackerInst.name}" y el arma "${weaponSquareInst.name}" teniendo un ${charge}/6 de carga. ¡Pero el ataque no le dio! ${carAttackedInst.name} queda intacto`;
+        return `${DisplayCardInformation.convertPlayerString(carAttackerInst.player)} intento atacar a "${carAttackedInst.name}" usando su "${carAttackerInst.name}" y el arma "${weaponSquareInst.name}" teniendo un ${charge}/6 de carga. ¡Pero el ataque no le dio! ${carAttackedInst.name} queda intacto`;
     }
 
     // Genera lo que le pasa al carro al ser destruido

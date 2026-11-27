@@ -51,7 +51,7 @@ export class WeaponUpgrade {
         const canUpgrade = CheckWeaponUpgrades.hasEnoughMaterials(player, weaponSquareInst);
 
         //console.log(canUpgrade, !weaponSquareInst.isMaxLevel);
-        if (canUpgrade) {
+        if (canUpgrade && !weaponSquareInst.isMaxLevel) {
             console.log("Se puede mejorar!");
             const materialDeck = PlayerActions.getDeckFromPlayer(player, "materials");
             const necesaryMaterials = CheckWeaponUpgrades.convertMaterialArrayToObject(weaponSquareInst.materials);

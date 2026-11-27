@@ -223,6 +223,8 @@ export class BoardClick {
 
         CardSelection.clean();
 
+        // Agrega las notas de colocar el arma
+        GameNotesDisplay.weaponOnBoardTurnNotes(weaponSquareInst.player, carSquareInst.name, weaponSquareInst.name);
     }
 
     // Este sera puesto en comentario para obligar que funcione correctamente
