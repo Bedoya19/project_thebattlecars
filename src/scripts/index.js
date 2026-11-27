@@ -1,7 +1,7 @@
 // THE BATTLE CARS
 // Proyecto de pratica de programacion en la web
 // Hecho por Bedoya1905
-// Alpha v0.0.01
+// Alpha v0.3: Battle Extra
 
 // Importar Enumso de Categoria, TypeCard y ValidateEnums
 import { Category } from "./models/constants/enums.js";
@@ -15,8 +15,9 @@ import { MaterialCard } from "./models/cards/MaterialCard.js"; // Subclase de Ma
 // Clase de display en el mazo
 import { DisplayCardsInDeck } from "./display/deckDisplay.js";
 import { DisplayCardInformation } from "./display/displayCardInformation.js";
-// Clase de acciones del tablero 
+// Clase de acciones del tablero
 import { BoardClick } from "./board/boardActions.js";
+import { board } from "./board/boardData/boardManager.js";
 //import { image } from "./../images/default_icons/default_cars.png";
 
 import { GameNotesDisplay } from "./display/gameNotesDisplay.js";
@@ -127,6 +128,8 @@ addCardButton.addEventListener("click", () => {
 deckInformationButton.addEventListener("click", () => {
     DisplayCardInformation.getCurrentDeckInformation();
 })
+
+console.log(board);
 
 //console.log(Player1.getCars());
 //console.log(Player1.deleteFromDeck("cars", 1));

@@ -1,4 +1,4 @@
-/* 
+/*
     Metodos del nitro de los carros
     Aqui funcionara todas las funciones necesarias para el nitro de los carros.
     Esto incluye la activacion del nitro, revisar los activados, todo eso.
@@ -8,11 +8,12 @@ import { PlayerActions } from "../players/playerActions.js";
 import { GameValuesDisplay } from "../display/gameValuesDisplay.js";
 import { GameNotesDisplay } from "../display/gameNotesDisplay.js";
 import { StateGame } from "../game/stateGame.js";
+import { getCarSquaresFromBoard } from "../board/boardData/boardManager.js";
 
 export class Nitro {
     // Agrega el boton de activar nitro
     // Ahora que lo pienso... Es bastante similar al otro de ataque... Hmmmm...
-    static createNitroButton(player, zoneNumber, squareNumber, carSquare) {
+    static createNitroButton(player, zoneNumber, squareNumber, carSquare, carSquareInst) {
         // Toca estandarizar esto del jugador
         const currentPlayer = StateGame.getCurrentPlayer();
         if (currentPlayer === player) {
@@ -25,7 +26,7 @@ export class Nitro {
             );
             button.innerText = "Activar Nitro";
             button.addEventListener("click", () => {
-                this.activateNitro(player, carSquare)
+                this.activateNitro(player, carSquare, carSquareInst)
             });
             /*
                 Aqui se hace una anotacion importante para el futuro.
@@ -34,7 +35,7 @@ export class Nitro {
                 el carro sigue teniendo el nitro activado.
                 Puede ser un modo extra interesante, pero no es la prioridad en este preciso momento.
             */
-            if (!this.isNitroActivate(player, carSquare) || carSquare.dataset.nitro !== "0") {
+            if (!this.isNitroBeActivate(player, carSquare, carSquareInst)) {
                 button.disabled = true;
             }
             return button;
@@ -43,34 +44,33 @@ export class Nitro {
         }
     }
 
-    static activateNitro(player, carSquare) {
+    static activateNitro(player, carSquare, carSquareInst) {
         console.log(carSquare);
 
         // Revisa que tenga el suficiente poder, si es asi, gasta
         if (!PlayerActions.spendPower(player)) return;
 
-        if (this.isNitroActivate(player, carSquare)) {
+        if (this.isNitroBeActivate(player, carSquare, carSquareInst)) {
             console.log("Se va a activar el nitro...");
             // Cambia el valor de nitro dentro del DOM, y gasta poder
-            carSquare.dataset.nitro = parseInt(carSquare.dataset.nitroDuration);
-            console.log("El nitro sera activado por " + carSquare.dataset.nitroDuration + " turnos");
+            carSquareInst.activateNitro();
+            console.log("El nitro sera activado por " + carSquareInst.nitroDuration + " turnos");
             // Le quita el nitro al jugador que acaba de activar el nitro
-            PlayerActions.removeNitroFromCar(player, carSquare);
+            PlayerActions.removeNitroFromCar(player, carSquareInst);
             // Actualiza los valores en pantalla
             GameValuesDisplay.updateNitroValue();
             // Agrega lo que acaba de pasar en las notas
-            GameNotesDisplay.addNitroNote(player, carSquare);
+            GameNotesDisplay.addNitroNote(player, carSquare, carSquareInst);
             // Agrega la clase de estilo de nitro
             carSquare.classList.add("car-nitro-activated");
-            //console.log(carSquare.dataset.nitro);
         } else {
             console.log("No se puede activar el nitro...");
         }
     }
 
     // Una simple funcion que sirve para revisar si el nitro puede ser activado
-    static isNitroActivate(player, carSquare) {
-        return PlayerActions.getNitroFromPlayer(player) >= carSquare.dataset.nitroQuantity;
+    static isNitroBeActivate(player, carSquare, carSquareInst) {
+        return PlayerActions.getNitroFromPlayer(player) >= carSquareInst.nitroQuantity;
     }
 
     // Reduce el nitro para todos los carros activados de un jugador
@@ -79,11 +79,11 @@ export class Nitro {
         console.log(carSquaresNitro);
 
         carSquaresNitro.forEach(carSquare => {
-            const currentNitro = parseInt(carSquare.dataset.nitro);
-            carSquare.dataset.nitro = currentNitro - 1;
+            carSquare.reduceNitro();
 
-            if (carSquare.dataset.nitro === "0") {
-                carSquare.classList.remove("car-nitro-activated");
+            if (!carSquare.isNitroActive()) {
+                const carSquareDom = document.getElementById(`${player}-zone${carSquare.zone}-card-car-${carSquare.zone}`)
+                carSquareDom.classList.remove("car-nitro-activated");
             }
         });
     }
@@ -95,6 +95,10 @@ export class Nitro {
     }
     // Consigue las casillas de un jugador en especifico
     static getCarSquaresWithNitroFromPlayer(player) {
-        return document.querySelectorAll(`.card-board-${player}.car-nitro-activated`);
+        //return document.querySelectorAll(`.card-board-${player}.car-nitro-activated`);
+        const carSquares = getCarSquaresFromBoard(player);
+        console.log(carSquares);
+        const carSquaresWithNitro = carSquares.filter((carSquare) => { return carSquare.isNitroActive() });
+        return carSquaresWithNitro;
     }
 }

@@ -113,17 +113,17 @@ export class GameNotesDisplay{
     }
 
     // Crea una nueva nota sobre un ataque
-    static addAttackActionNote(carAttackerSquare, carAttackedSquare, weaponSquare, charge, attack, previousCarHealth, afterCarHealth) {
+    static addAttackActionNote(carAttackerSquare, carAttackedSquare, weaponSquare, charge, attack, previousCarHealth, afterCarHealth, carAttackedInst, carAttackerInst, weaponSquareInst) {
         if (afterCarHealth <= 0) {
-            this.addTurnNote(AttackMessages.carDestroyedMessage(carAttackedSquare, charge, attack));
+            this.addTurnNote(AttackMessages.carDestroyedMessage(carAttackedSquare, charge, attack, carAttackedInst));
         } else {
-            this.addTurnNote(AttackMessages.carAttacks(carAttackerSquare, carAttackedSquare, weaponSquare, charge, attack, previousCarHealth, afterCarHealth));
+            this.addTurnNote(AttackMessages.carAttacks(carAttackerSquare, carAttackedSquare, weaponSquare, charge, attack, previousCarHealth, afterCarHealth, carAttackedInst, carAttackerInst, weaponSquareInst));
         }
     }
 
     // Crea una nota sobre la activacion del nitro
-    static addNitroNote(player, carSquare) {
-        this.addTurnNote(NitroMessages.nitroActivated(player, carSquare));
+    static addNitroNote(player, carSquare, carSquareInst) {
+        this.addTurnNote(NitroMessages.nitroActivated(player, carSquare, carSquareInst));
     }
 
     // Nota sobre carta de arma sacada

@@ -12,13 +12,18 @@ import { WeaponCard } from "../models/cards/WeaponCard.js";
 import { DisplayMessageBoxes } from "../display/displayMessageBoxes.js";
 import { StateGame } from "../game/stateGame.js";
 import { Reason } from "../models/constants/enums.js";
+import { CardSelection } from "../game/cardSelection.js";
+import { CarCard } from "../models/cards/CarCard.js";
+import { BoardSquareFactory } from "./boardData/boardSquareFactory.js";
+import { getAllWeaponSquaresFromZone, getCarSquareInst, getCarSquaresFromBoard, getWeaponSquareInst, removeCarSquareFromBoard, removeWeaponSquareFromBoard, setWeaponSquareInst } from "./boardData/boardManager.js";
 
 export class BoardClick {
     // Cuando se hace click en una casilla de carro
     static async clickOnCarSquare(event) {
         const carSquare = event.currentTarget;
+        //const carZone = carSquare.id.slice(23);
 
-        // Revisa si se va a atacar. Si es asi, hace la funcion de atacar, sino, sigue con el procedimeinto normal de revisar 
+        // Revisa si se va a atacar. Si es asi, hace la funcion de atacar, sino, sigue con el procedimeinto normal de revisar
         // la colocacion de una carta y/o la informacion de esta
         if ((AttackValues.getPrepareAttack() === true) && (carSquare.id.slice(0, 7) !== StateGame.getCurrentPlayer())) {
             console.log("Se atacara!!!");
@@ -26,77 +31,78 @@ export class BoardClick {
         } else {
             BoardClick.createCarCard(carSquare);
         }
-        
+
     }
 
     static createCarCard(carSquare) {
         // Saco de aqui mismo los datos necesarios
-        const cardGeneralInformation = document.getElementById("card-selected-general-information");
+        const carCard = CardSelection.get();
+        //const cardGeneralInformation = document.getElementById("card-selected-general-information");
         //const squarePlayer = this.createImgInBoard(carSquare);
         const squarePlayer = GetDataFromSquare.getPlayerFromSquare(carSquare);
+        const carZone = carSquare.id.slice(23);
         const cardInformation = document.getElementById("card-selected-information");
         try {
             // Consigue un guevo de valores del Document para hacer los cambios respectivos en la pagina
             // (no supe hacer algo mejor, para bien y para mal).
             // Primero se consigue los datos necesarios para revisar la disponiblidad de la casilla
             const currentPlayer = StateGame.getCurrentPlayer();
-            
+
             console.log(squarePlayer);
             const carBoardPlayer = carSquare.classList[2];
             console.log(carBoardPlayer);
-            
+
             //console.log("Zone " + carSquare.id.slice(23));
 
             // Revisa que se pueda poner la carta:
             //const validPower = MainGame.calculatePowerForAction(currentPlayer);
-            const checkCarValidation = checkBoard.checkCarSquareAvailability(carBoardPlayer, currentPlayer, carSquare, cardGeneralInformation);
+            const checkCarValidation = checkBoard.checkCarSquareAvailability(carBoardPlayer, currentPlayer, carSquare);
             if (checkCarValidation.ok) {
                 // El resto de los datos
 
-                
                 const currentDeck = document.getElementById("deck-icon-current");
                 const deckCards = document.getElementById("deck-cards")
-                const cardObj = JSON.parse(cardGeneralInformation.dataset.card);
+                //const cardObj = JSON.parse(cardGeneralInformation.dataset.card);
+                const cardObj = JSON.parse(carCard.convertCarCardToJSON());
+                console.log(cardObj);
 
                 if (!PlayerActions.spendPower(currentPlayer)) return;
 
                 // Agrega la carta al tablero
+                const carSquareInst = BoardSquareFactory.createCarSquare(carCard, currentPlayer, (carZone - 1));
+                console.log(carSquareInst);
                 this.putCarOnBoard(carSquare, cardObj);
                 // Elimina la carta del deck
-                const deckIndex = cardGeneralInformation.dataset.cardId.slice(10);
+                const deck = PlayerActions.getDeckFromPlayer(currentPlayer, "cars");
+                const deckIndex = deck.indexOf(carCard);
                 //Player1.deleteFromDeck("cars", deckIndex);
                 PlayerActions.removeCardInDeck(squarePlayer, "cars", deckIndex);
                 // Reinicia el mazo si se esta mostrando el deck de carros
-                if (currentDeck.dataset.deck === "cars") {
-                    console.log("reiniciar mazo...");
-                    deckCards.innerHTML = "";
-                    // Player1.getCards() tendra que cambiar cuando se agrege el jugador 2.
-                    DisplayCardsInDeck.showDeckOfCards(deckCards, PlayerActions.getDeckFromPlayer(squarePlayer, "cars"), cardInformation);
-                }
+                DisplayCardsInDeck.refreshDeckDisplay(squarePlayer, "cars");
                 console.log("carta agregada exitosamente!");
+                CardSelection.clean();
                 // Actualiza el div de informacion para mostrar la mas reciente carta puesta en el tablero
+                //console.log(carSquareInst.toJSON());
                 DisplayCardInformation.displayCarCardInformationBoard(
-                    cardInformation, 
-                    carSquare, 
-                    squarePlayer, 
-                    cardObj.image, 
-                    cardObj.name, 
-                    cardObj.description
+                    cardInformation,
+                    carSquare,
+                    carSquareInst
                 );
                 GameNotesDisplay.carOnBoardTurnNotes(squarePlayer, carSquare.id.slice(23), cardObj.name);
                 this.removeValidCarSquare();
             } else {
-                if (carSquare.dataset.name === "undefined") {
+                CardSelection.clean();
+                if (getCarSquareInst(squarePlayer, (carZone - 1)) === null) {
                     DisplayCardInformation.displayEmptyCarSquare(cardInformation, carSquare, squarePlayer);
                     return;
                 }
                 console.log("Error en poner la carta");
                 console.log(checkCarValidation);
-                
+
                 // Condicion para mostrar el mensaje
                 // (Si lo hago en general, rompo algo)
                 if (checkCarValidation.reason === Reason.NO_POWER) {
-                    DisplayMessageBoxes.createTemporalText(carSquare, checkCarValidation[1]);
+                    DisplayMessageBoxes.createTemporalText(carSquare, checkCarValidation.msg);
                     this.removeValidCarSquare();
                     //DisplayCardInformation.displayEmptyCarSquare(cardInformation, carSquare, squarePlayer);
                     // Este return evita errores raros (no entendi muy bien porque, pero lo evita)
@@ -104,7 +110,7 @@ export class BoardClick {
                 }
                 // Yo de pendejo, tengo que mostrar la informacion de la carta, sin importar de que jugador sea
                 // Igualmente toca revisar si esta vacio cuando esta en las cartas del otro jugador
-                if (carSquare.dataset.name !== "undefined") {
+                if (getCarSquareInst(squarePlayer, (carZone - 1)) !== null) {
                     console.log("Esta es una casilla vacia de carro del otro jugador.");
                 }
                 //console.log(checkBoard.checkCarSquareAvailability(carBoardPlayer, currentPlayer, carSquare)[1]);
@@ -112,14 +118,12 @@ export class BoardClick {
                 //console.log(carSquare.firstElementChild.src);
                 // Muestra la informacion del carro que se hizo clic
                 // (Sorpresivamente funciona bien sin ninguna carta seleccionada)
-                
+                const zone = Number(carSquare.id.slice(23));
+                const carSquareInst = getCarSquareInst(squarePlayer, (zone - 1));
                 DisplayCardInformation.displayCarCardInformationBoard(
-                    cardInformation, 
-                    carSquare, 
-                    squarePlayer, 
-                    carSquare.firstElementChild.src, 
-                    carSquare.dataset.name, 
-                    carSquare.dataset.description
+                    cardInformation,
+                    carSquare,
+                    carSquareInst
                 );
             }
         }
@@ -129,13 +133,102 @@ export class BoardClick {
             //console.log(e, "Ninguna carta seleccionada! Mostrar aqui que la casilla es del jugador X de la zona Y");
             console.log(e);
             this.removeAllSelectors();
+            CardSelection.clean();
             //DisplayMessageBoxes.createTemporalText(carSquare, "Ninguna cara seleccionada!");
             DisplayCardInformation.displayEmptyCarSquare(cardInformation, carSquare, squarePlayer);
         }
     }
 
     // Cuando se hace click a una casilla de arma
+    // Nuevo metodo mas limpio
     static clickOnWeaponSquare(event) {
+        // Consigue todos los datos correspondientes del para la arma
+        const weaponSquare = event.currentTarget;
+        const squarePlayerAndZone = BoardClick.getPlayerAndZoneFromWeaponSquare(weaponSquare);
+        const weaponNumber = Number(weaponSquare.dataset.weaponNumber);
+        const cardSelected = CardSelection.get();
+
+        const currentPlayer = StateGame.getCurrentPlayer();
+
+        const weaponSquareInst = GetDataFromSquare.getWeaponSquareInstFromDOM(weaponSquare);
+
+        const cardGeneralInformation = document.getElementById("card-selected-general-information");
+        const cardInformation = document.getElementById("card-selected-information");
+
+        console.log(weaponSquare, weaponNumber, cardSelected, weaponSquareInst);
+
+        // Casilla no es vacia, mostrar la informacion de la carta
+        if (weaponSquareInst !== null) {
+            DisplayCardInformation.displayWeaponCardInformationBoard(cardInformation, weaponSquare, weaponSquareInst);
+            return
+        }
+        if (cardSelected === null) {
+            DisplayCardInformation.displayEmptyWeaponSquare(cardInformation, weaponSquare, squarePlayerAndZone["squarePlayer"]);
+            return;
+        }
+        if (!checkBoard.checkWeaponSquareAvailability(weaponSquare, weaponSquare.id, currentPlayer, cardGeneralInformation).ok) {
+            // Despues poner algunos condicionales adicionales
+            console.log("No se puede poner la carta")
+            return;
+        }
+        if (!PlayerActions.spendPower(currentPlayer)) {
+            console.log("No hay poder!");
+            return;
+        }
+
+        // Crea la casilla de carro (metodo aparte)
+        BoardClick.createWeaponCard(weaponSquare, cardSelected, currentPlayer, squarePlayerAndZone["squareZone"], weaponNumber);
+
+        BoardClick.removeValidWeaponSquare();
+    }
+
+    static createWeaponCard(weaponSquare, cardSelected, player, zone, weaponNumber) {
+        console.log(cardSelected);
+        // Objeto como "titere" para mandar a putWeaponOnBoard (para que esta solo la mande al metodo de crear la imagen, NO toca el dataset)
+        const imageObj = { image: cardSelected.image };
+        BoardClick.putWeaponOnBoard(weaponSquare, imageObj);
+
+        const weaponSquareInst = setWeaponSquareInst(player, (zone - 1), (weaponNumber - 1), cardSelected);
+
+        console.log(weaponSquareInst);
+        console.log(weaponSquareInst.allAttacks);
+        console.log(weaponSquareInst.materials);
+
+        const cardGeneralInformation = document.getElementById("card-selected-general-information");
+
+        // Se elimina la carta del mazo
+        // (tal vez puede ser una funcion con carCard...)
+        const squarePlayer = GetDataFromSquare.getPlayerFromSquare(weaponSquare);
+        const deck = PlayerActions.getDeckFromPlayer(squarePlayer, "weapons");
+        const deckIndex = deck.indexOf(cardSelected);
+        //Player1.deleteFromDeck("cars", deckIndex);
+        PlayerActions.removeCardInDeck(squarePlayer, "weapons", deckIndex);
+
+        // Reinicia el mazo si se esta mostrando el deck de carros
+        DisplayCardsInDeck.refreshDeckDisplay(player, "weapons");
+
+        // Reducir capacidad del carro
+        const carSquareInst = getCarSquareInst(player, (zone - 1))
+        carSquareInst.reduceCapacity();
+
+        BoardClick.removeAllSelectors();
+
+        const cardInformation = document.getElementById("card-selected-information");
+        console.log(weaponSquareInst);
+        DisplayCardInformation.displayWeaponCardInformationBoard(
+            cardInformation,
+            weaponSquare,
+            weaponSquareInst
+        );
+
+        CardSelection.clean();
+
+        // Agrega las notas de colocar el arma
+        GameNotesDisplay.weaponOnBoardTurnNotes(weaponSquareInst.player, carSquareInst.name, weaponSquareInst.name);
+    }
+
+    // Este sera puesto en comentario para obligar que funcione correctamente
+    /* static clickOnWeaponSquare(event) {
         //console.log("hola");
         const weaponSquare = event.currentTarget;
 
@@ -153,7 +246,7 @@ export class BoardClick {
             const currentPlayer = StateGame.getCurrentPlayer();
             //const weaponBoardPlayer = weaponSquare.classList[0];
             if (checkBoard.checkWeaponSquareAvailability(weaponSquare, weaponSquare.id, currentPlayer, cardGeneralInformation).ok) {
-                
+
                 // Datos generales
                 // (Tal vez fusionar en algun momento con la otra funcion de arriba...?)
                 // A final de todo, es bastante parecido al codigo de arriba, yo creo que se puede resumir ciertos temas.
@@ -181,8 +274,12 @@ export class BoardClick {
                 //console.log(`${squarePlayer}-zone${squareZone}-card-car-${squareZone}`);
                 const carSquare = BoardClick.getCarSquareFromWeapon(squarePlayerAndZone["squarePlayer"], squarePlayerAndZone["squareZone"]);
                 //const carSquare = document.getElementById(`${squarePlayer}-zone${squareZone}-card-car-${squareZone}`);
+                //console.log(squarePlayerAndZone);
+                const carSquareInst = getCarSquareInst(squarePlayerAndZone["squarePlayer"], (Number(squarePlayerAndZone["squareZone"]) - 1));
                 console.log(carSquare);
-                carSquare.dataset.capacity = parseInt(carSquare.dataset.capacity) - 1;
+                console.log(carSquareInst);
+                //carSquare.dataset.capacity = parseInt(carSquare.dataset.capacity) - 1;
+                carSquareInst.reduceCapacity();
 
                 console.log("carta de arma agregada exitosamente!");
 
@@ -195,10 +292,10 @@ export class BoardClick {
                     cardObj.description
                 );
 
-                GameNotesDisplay.weaponOnBoardTurnNotes(squarePlayerAndZone["squarePlayer"], carSquare.dataset.name, cardObj.name);
+                GameNotesDisplay.weaponOnBoardTurnNotes(squarePlayerAndZone["squarePlayer"], carSquareInst.name, cardObj.name);
             } else {
                 // Despues se muestra la informacion del arma aqui
-                
+
                 DisplayCardInformation.displayWeaponCardInformationBoard(
                     cardInformation,
                     weaponSquare,
@@ -210,13 +307,13 @@ export class BoardClick {
             }
         }
         catch (e) {
-            // Si hubo un error, una vez mas, es probable que fuera el JSON de la carta estuviera indefinida. 
+            // Si hubo un error, una vez mas, es probable que fuera el JSON de la carta estuviera indefinida.
             console.log("Error", e);
             //console.log("hola");
             BoardClick.removeAllSelectors();
             DisplayCardInformation.displayEmptyWeaponSquare(cardInformation, weaponSquare, squarePlayerAndZone["squarePlayer"]);
         }
-    }
+    } */
 
     // Consigue el jugador y zona del id de una casilla de arma
     static getPlayerAndZoneFromWeaponSquare(weaponSquare) {
@@ -250,7 +347,9 @@ export class BoardClick {
     static putCarOnBoard(carSquare, carObj) {
         carSquare.appendChild(this.createImgInBoard(carObj));
 
+
         // Data del carro
+        /*
         this.changeCarDataOnBoard(carSquare,
             carObj.name,
             carObj.health,
@@ -261,15 +360,16 @@ export class BoardClick {
             carObj.nitroBuff[1],
             carObj.attBuff,
             carObj.description
-        )
+        ) */
     }
-    
+
     // Quitar una carta de carro del tablero
     // Se va a usar cuando cuando la carta sea destruida
     static removeCarOnBoard(carSquare) {
         carSquare.innerHTML = "";
 
         // La data se va volver undefined
+        /*
         this.changeCarDataOnBoard(carSquare,
             "undefined",
             "undefined",
@@ -281,20 +381,31 @@ export class BoardClick {
             "undefined",
             "undefined"
         );
+        */
 
-        
+
         // Elimina todas las armas del tablero que estan adjuntas al carro
         const weaponSquares = this.getWeaponSquaresFromCarSquare(carSquare);
         // Igualmente toca sacar el jugador por los siguientes temas
         const player = GetDataFromSquare.getPlayerFromSquare(carSquare);
+        const zone = Number(carSquare.id.slice(23));
+
+        console.log(player, zone);
+
         //console.log(weaponSquares);
         let weaponsFromCarDestroyed = [];
         for (const weaponSquare of weaponSquares) {
             //console.log(weaponSquare.dataset.name);
-            weaponsFromCarDestroyed.push(PlayerActions.getWeaponFromStorageFromPlayer(player, weaponSquare.dataset.name));
+            //weaponsFromCarDestroyed.push(PlayerActions.getWeaponFromStorageFromPlayer(player, weaponSquare.name));
+            console.log(weaponSquare);
+            const weaponSquareDOM = document.getElementById(`${weaponSquare.player}-zone${weaponSquare.zone}-card-weapon-${weaponSquare.weaponNumber}`);
+            weaponsFromCarDestroyed.push(weaponSquare.card);
             //Player2.getWeaponFromStorage(weaponSquare.dataset.name);
-            this.removeWeaponOnBoard(weaponSquare);
+            this.removeWeaponOnBoard(weaponSquareDOM);
         }
+
+        removeCarSquareFromBoard(player, (zone - 1));
+
         return weaponsFromCarDestroyed;
     }
     // Consigue todas las armas de una zona en especifico
@@ -302,29 +413,29 @@ export class BoardClick {
     // Tambien, filtra las casillas vacias para no poner undefined casillas que ya estan undefined
     static getWeaponSquaresFromCarSquare(carSquare) {
         const player = GetDataFromSquare.getPlayerFromSquare(carSquare);
-        const zone = GetDataFromSquare.getZoneFromCarSquare(carSquare);
+        const zone = Number(carSquare.id.slice(23)) - 1;
         // For loop que filta las casillas que no estan vacias, es decir, que tienen un arma
         var nonEmptySquares = [];
-        const squares = document.getElementsByClassName(`card-board-weapon-${player}-${zone}`);
+        const squares = getAllWeaponSquaresFromZone(player, zone);
         for (var i = 0; i < squares.length; i++) {
-            if (squares[i].dataset.name !== "undefined") {
+            if (squares[i] !== null) {
                 console.log("Casilla no vacia");
                 nonEmptySquares.push(squares[i]);
             }
         }
         return nonEmptySquares;
     }
-     
+
     // Cambiar la data del carro
     static changeCarDataOnBoard(carSquare, name, health, capacity, nitroQuantity, nitroDuration, nitroResistance, nitroAttack, attackBuff, description) {
-        // Lo peor es que esto fue una buena idea, si es necesario agregar un dato mas, aqui se agrega con minima 
+        // Lo peor es que esto fue una buena idea, si es necesario agregar un dato mas, aqui se agrega con minima
         // interferencia de algo.
         carSquare.dataset.name = name;
         carSquare.dataset.health = health;
         carSquare.dataset.maxHealth = health;
         carSquare.dataset.capacity = capacity;
         carSquare.dataset.maxCapacity = capacity;
-        /* 
+        /*
         Este valor en especifico (data-nitro) es el que determina si el nitro esta activado o no.
         Si esta en 0, es que esta desactivado, si esta en otro numero, significa que esta activado y es cuantas rondas faltan para desactivarse
         */
@@ -349,21 +460,28 @@ export class BoardClick {
         weaponSquare.appendChild(this.createImgInBoard(weaponObj));
 
         // Cambia la data del div para la respectiva arma
-        this.changeWeaponDataOnBoard(
+        /*this.changeWeaponDataOnBoard(
             weaponSquare,
             weaponObj.name,
             weaponObj.description,
             weaponObj.energy,
             JSON.stringify(weaponObj.attacks),
             JSON.stringify(weaponObj.materials)
-        )
+        ) */
     }
 
     // Quita una carta de arma del tablero
     static removeWeaponOnBoard(weaponSquare) {
+        const weaponPlayerAndZone = this.getPlayerAndZoneFromWeaponSquare(weaponSquare);
+
+        // Elimina la instancia del tablero
+        console.log("quitar arma:", weaponPlayerAndZone["squarePlayer"], Number(weaponPlayerAndZone["squareZone"]) - 1, Number(weaponSquare.dataset.weaponNumber) - 1);
+        removeWeaponSquareFromBoard(weaponPlayerAndZone["squarePlayer"], Number(weaponPlayerAndZone["squareZone"]) - 1, Number(weaponSquare.dataset.weaponNumber) - 1);
+
         // Deja la casilla vacia
         weaponSquare.innerHTML = "";
         // Deja toda la data del carro en "undefined"
+        /*
         this.changeWeaponDataOnBoard(
             weaponSquare,
             "undefined",
@@ -371,11 +489,14 @@ export class BoardClick {
             "undefined",
             "undefined",
             "undefined"
-        );
-        // Agrega capacidad al carro ya que ya se descarto un arma  
-        const weaponPlayerAndZone = this.getPlayerAndZoneFromWeaponSquare(weaponSquare);
-        const carSquare = this.getCarSquareFromWeapon(weaponPlayerAndZone["squarePlayer"], weaponPlayerAndZone["squareZone"]);
-        ++carSquare.dataset.capacity;
+        ); */
+        // Agrega capacidad al carro ya que ya se descarto un arma
+        //const carSquare = this.getCarSquareFromWeapon(weaponPlayerAndZone["squarePlayer"], weaponPlayerAndZone["squareZone"]);
+        //++carSquare.dataset.capacity;
+        const carSquareInst = getCarSquareInst(weaponPlayerAndZone["squarePlayer"], (Number(weaponPlayerAndZone["squareZone"]) - 1));
+        carSquareInst.increaseCapacity();
+
+
     }
 
     // Cambiar la data del div de arma
@@ -396,7 +517,8 @@ export class BoardClick {
     static showValidCarSquares(player, carSquares) {
         for (const carSquare of carSquares) {
             //console.log(carSquare);
-            if ((carSquare.id.slice(0, 7) === player) && (carSquare.dataset.name === "undefined")) {
+            const carZone = Number(carSquare.id.slice(23));
+            if ((carSquare.id.slice(0, 7) === player) && (getCarSquareInst(player, (carZone - 1)) === null)) {
                 //console.log(carSquare.dataset.name);
                 console.log("Casilla permitida para el jugador");
                 carSquare.classList.add("car-square-valid");
@@ -415,7 +537,8 @@ export class BoardClick {
         // Consigue los carSquares con espacio
         const carSquares = document.getElementsByClassName("card-board-car")
         for (const carSquare of carSquares) {
-            if ((carSquare.id.slice(0, 7) === player) && (carSquare.dataset.name !== "undefined")) {
+            const carZone = Number(carSquare.id.slice(23));
+            if ((carSquare.id.slice(0, 7) === player) && (getCarSquareInst(player, (carZone - 1)) !== null)) {
                 console.log(`Esta libre la zona ${carSquare.id.slice(23)}`);
                 // Variables usados para showValidSquaresByZone()
                 const squarePlayer = carSquare.id.slice(0, 7);
@@ -453,7 +576,7 @@ export class BoardClick {
         this.removeValidWeaponSquare();
         AttackValues.resetAttackValues();
     }
-}   
+}
 
 // Esta clase revisa si la carta seleccionada puede ser puesta en el tablero
 // Las limitantes pueden incluir desde casilla de jugador incorrecta, a capacidad maxima del carro (tal vez vayan a haber otras despues)
@@ -469,8 +592,10 @@ class checkBoard {
     // Revisa que la casilla de carro no este ocupada
     // Devuelve True si esta vacia la casilla, false si esta ocupada
     static checkCarSpace(carSquare) {
+        const player = GetDataFromSquare.getPlayerFromSquare(carSquare);
+        const carZone = Number(carSquare.id.slice(23));
         console.log(carSquare);
-        if (carSquare.dataset.health === "undefined") {
+        if (getCarSquareInst(player, (carZone - 1)) === null) {
             return true;
         }
         //DisplayMessageBoxes.createTemporalText(carSquare, "El espacio esta ocupado por otro carro!");
@@ -484,7 +609,8 @@ class checkBoard {
             return { ok: false, reason: Reason.OTHER_PLAYER, msg: "La casilla es del otro jugador!" };
         if (!this.checkCarSpace(carSquare))
             return { ok: false, reason: Reason.OCCUPIED, msg: "La casilla ya esta ocupada por otro carro" };
-        if (cardGeneralInformation.dataset.type !== "car")
+        //if (cardGeneralInformation.dataset.type !== "car")
+        if (!CardSelection.isInstanceOf(CarCard))
             return { ok: false, reason: Reason.WRONG_TYPE, msg: "..." };
         if (PlayerActions.getPowerFromPlayer(currentPlayer) < 1)   // solo lee, ya no gasta
             return { ok: false, reason: Reason.NO_POWER, msg: "Ya no se tiene poder!" };
@@ -494,20 +620,13 @@ class checkBoard {
     // Revisa si la casilla de arma esta vacia
     // Devuelve true si esta vacia, false si esta ocupada
     static checkWeaponSpace(weaponSquare) {
-        if (weaponSquare.dataset.name === "undefined") {
-            return true;
-        }
-        return false;
+        return GetDataFromSquare.getWeaponSquareInstFromDOM(weaponSquare) === null;
     }
     // Revisa si existe por lo menos una carta de carro puesta en el tablero
     // Devuelve true si efectivamente hay una carta de arma en el tablero (independiente de su disponibilidad)
     // false si no existe ninguna carta puesta en el tablero
     static checkForExistingCarsForWeapon(player) {
-        if (this.getCurrentCarsInBoard(player).length !== 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return getCarSquaresFromBoard(player).length > 0;
         /*
         const carSquaresPlayer = document.getElementsByClassName(`card-board-car-${player}`);
         for (const carSquare of carSquaresPlayer) {
@@ -522,12 +641,16 @@ class checkBoard {
 
     // Devuelve los carros actuales en el tablero
     // Esto sera usado para revisar disponiblidad para las armas, pero puede ser de gran ayuda para despues
+    // (Esta funcion acaba de quedar depreciada por el refractor de las clases de casilla en el codigo)
+    // (TAL VEZ pueda cambias en el futuro)
+    /*
     static getCurrentCarsInBoard(player) {
         const carSquaresPlayer = document.getElementsByClassName(`card-board-car-${player}`);
         return Array.from(carSquaresPlayer).filter(carSquare => {
             return carSquare.dataset.health !== "undefined";
         })
     }
+    */
 
     // Revisa si la zona con el carro puede tener mas armas
     // Si tiene casillas disponibles, las devuelve. Sino, devuelve un false
@@ -548,20 +671,24 @@ class checkBoard {
         //console.log(Array.from(weaponSquares));
         // Devuelve las casillas que estan vacias.
         return Array.from(weaponSquares).filter(weaponSquare => {
-            return weaponSquare.dataset.name === "undefined";
+            //return weaponSquare.dataset.name === "undefined";
+            return this.checkWeaponSpace(weaponSquare);
         });
         //console.log(weaponSquares);
     }
 
     // Solamente revisa si en donde se hizo click (en la casilla de arma) se puede colocar un arma
     static checkForCarCapacity(player, zone) {
+        console.log(player);
         console.log(zone);
+
         // Conseguir el jugador y zona del id de weaponSquare
         const carSquare = document.getElementById(`${player}-zone${zone}-card-car-${zone}`);
-        if (carSquare.dataset.capacity === "undefined") {
+        const carSquareInst = getCarSquareInst(player, (zone - 1));
+        if (carSquareInst === null) {
             // No existe carta de carro, igualmente no se puede poner
             return false;
-        } else if (carSquare.dataset.capacity <= 0) {
+        } else if (carSquareInst.capacity <= 0) {
             // Otra vez, se tiene que decir al usuario
             console.log("no tiene capacidad el carro!");
             return false;
@@ -576,7 +703,7 @@ class checkBoard {
             return { ok: false, reason: Reason.OTHER_PLAYER, msg: "La casilla es del otro jugador!" };
         if (!this.checkWeaponSpace(weaponSquare))
             return { ok: false, reason: Reason.OCCUPIED, msg: "La casilla ya esta ocupada por otro carro" };
-        if (cardGeneralInformation.dataset.type !== "weapon")
+        if (!CardSelection.isInstanceOf(WeaponCard))
             return { ok: false, reason: Reason.WRONG_TYPE, msg: "La casilla es la incorrecta!" };
         if (PlayerActions.getPowerFromPlayer(currentPlayer) < 1)   // solo lee, ya no gasta
             return { ok: false, reason: Reason.NO_POWER, msg: "Ya no se tiene poder!" };
@@ -603,4 +730,11 @@ export class GetDataFromSquare {
         // (Puedo crear un metodo que consigue el numero tho, seria despues)
         return carSquare.classList[3].slice(11);
     }
-} 
+
+    // Consigue una instancia de casilla de arma usando el DOM
+    static getWeaponSquareInstFromDOM(weaponSquare) {
+        const { squarePlayer, squareZone } = BoardClick.getPlayerAndZoneFromWeaponSquare(weaponSquare);
+        const weaponNumber = Number(weaponSquare.dataset.weaponNumber);
+        return getWeaponSquareInst(squarePlayer, Number(squareZone) - 1, weaponNumber - 1);
+    }
+}

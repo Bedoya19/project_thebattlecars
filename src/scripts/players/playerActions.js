@@ -1,6 +1,6 @@
 /*
 Este script va a hacer todos los calculos de los jugadores
-Que van a ser estos calculos? Generalmente de hacerle mostrar al jugador correcta el mazo respectivo, 
+Que van a ser estos calculos? Generalmente de hacerle mostrar al jugador correcta el mazo respectivo,
 quitarle o agregarle cartas a cierto jugador, etc etc.
 Por ahora lo unico que tendra es que revisa si es del jugador 1 o jugador 2, y si es asi elimina una carta de su
 mazo
@@ -13,6 +13,7 @@ import { GameValuesDisplay } from "../display/gameValuesDisplay.js";
 import { GameNotesDisplay } from "../display/gameNotesDisplay.js";
 import { DeckUtils } from "./DeckUtils.js";
 import { StateGame } from "../game/stateGame.js";
+import { CarSquare } from "../board/boardData/boardSquares/mainSquares/carSquare.js";
 
 // Clase que va a hacer todo
 export class PlayerActions {
@@ -82,7 +83,7 @@ export class PlayerActions {
         return true;
     }
 
-    
+
 
     static getChargeFromPlayer(player) {
         return players[player].getCharge();
@@ -104,13 +105,22 @@ export class PlayerActions {
         return players[player].getWeaponFromStorage(weaponName);
     }
 
-    static removeNitroFromCar(player, carSquare) {
+    static returnMaterialToPileIndex(player, index) {
+        players[player].returnMaterialCardToPile(index);
+    }
+
+    // La funcion que se usara para las mejoras de las armas
+    static consumeMaterialFromUpgrade(player, index) {
+        this.returnMaterialToPileIndex(player, index);
+        this.removeCardInDeck(player, "materials", index);
+    }
+
+    static removeNitroFromCar(player, carSquareInst) {
         // Si no es el carSquare, manda error inmediatamente para evitar que cosas raras sucedan.
-        if (!(carSquare instanceof HTMLElement) || !carSquare.dataset.nitroQuantity) {
-            throw new Error("carSquare inválido o sin dataset de nitro");
+        if (!(carSquareInst instanceof CarSquare)) {
+            throw new Error("carSquare inválido");
         }
-        const nitroToRemove = carSquare.dataset.nitroQuantity;
-        players[player].removeNitro(nitroToRemove);
+        players[player].removeNitro(carSquareInst.nitroQuantity);
     }
 
     static getWeaponsFromPlayer(player) {
@@ -119,6 +129,10 @@ export class PlayerActions {
 
     static setSpecificCharge(player, charge) {
         players[player].setCharge = charge;
+    }
+
+    static getDeckLengthFromPlayer(player, deck) {
+        return players[player].getDeckLength(deck);
     }
 
     // Agrega una carta a un deck en especifico
@@ -140,59 +154,27 @@ export class PlayerActions {
         return players[player].getRandomCardFromPile(`${cardType}_pile`);
     }
 
-    // Funcion exclusiva para sacar varias cartas de material.
-    static getMultipleMaterialCards(player, quantity) {
-        if (this.spendPower(player)) {
-            try {
-                GameNotesDisplay.addDrawCards(player, "materials", 5);
-                for (let i = 0; i < quantity; i++) {
-                    const randomCard = this.getRandomIndividualCardFromPile(player, "materials");
-                    this.addCardToPlayerDeck(player, "materials", randomCard);
-
-                    // Llevar a una funcion despues
-                    const deckCards = document.getElementById("deck-cards");
-                    const cardInformation = document.getElementById("card-selected-information");
-                    deckCards.innerHTML = "";
-                    DisplayCardsInDeck.showDeckOfCards(deckCards, this.getDeckFromPlayer(player, "materials"), cardInformation);
-                    // Todo esto de arriba...
-                }
-            } catch (e) {
-                console.log(e);
-                console.log("Probablemente se acabaron las cartas ?")
-            }
-        } else {
-            console.log("No hay poder suficiente!");
+    // getMultipleMaterialCards y getRandomCardFromPlayePile fueron fusionadas en una sola, la que se presenta a continuacion
+    // (El metodo quedo super limpio, ¿porque sera que no lo logre anteriormente?)
+    static drawCardsFromPile(player, cardType, quantity = 1) {
+        // Revisa si el deck esta vacio
+        if (this.getDeckLengthFromPlayer(player, `${cardType}_pile`) === 0) {
+            console.log("Ya no hay cartas para sacar!");
+            return;
         }
-    }
-
-    static getRandomCardFromPlayerPile(player, cardType) {
-        if (this.spendPower(player)) {
-            try {
-                const currentDeck = document.getElementById("deck-icon-current").dataset.deck;
-                if (currentDeck === cardType) {
-                    console.log(cardType);
-                    /* const randomCard = (player === "player1") 
-                        ? Player1.getRandomCardFromPile(`${cardType}_pile`) 
-                        : Player2.getRandomCardFromPile(`${cardType}_pile`); */
-                    //console.log(randomCard);
-                    const randomCard = this.getRandomIndividualCardFromPile(player, cardType);
-                    
-                    this.addCardToPlayerDeck(player, cardType, randomCard);
-                    GameValuesDisplay.updatePowerValue();
-                    GameNotesDisplay.addDrawCard(player, cardType);
-
-                    const deckCards = document.getElementById("deck-cards");
-                    const cardInformation = document.getElementById("card-selected-information");
-                    deckCards.innerHTML = "";
-                    DisplayCardsInDeck.showDeckOfCards(deckCards, this.getDeckFromPlayer(player, cardType), cardInformation);
-                }
-            } catch (e) {
-                console.log(e);
-                console.log(`Ya no hay cartas de ${cardType} disponibles!`);
-            }
-        } else {
-            console.log("No hay poder suficiente!");
+        // Revisa el poder
+        if (!this.spendPower(player)) {
+            return;
         }
+        let actualCardsDrawn = 0;
+        for (let i = 0; i < quantity; i++) {
+            actualCardsDrawn++;
+            const randomCard = this.getRandomIndividualCardFromPile(player, cardType);
+            if (randomCard === null) { break; }
+            this.addCardToPlayerDeck(player, cardType, randomCard);
+        }
+        GameNotesDisplay.addDrawCards(player, cardType, actualCardsDrawn);
+        DisplayCardsInDeck.refreshDeckDisplay(player, cardType);
     }
 
     // Funcionalidad al boton de agregar cartas al deck en pantalla
@@ -202,11 +184,11 @@ export class PlayerActions {
 
         switch (currentDeck) {
             case "weapons":
-                PlayerActions.getRandomCardFromPlayerPile(player, "weapons");
+                PlayerActions.drawCardsFromPile(player, "weapons");
                 break;
             case "materials":
                 //PlayerActions.getRandomCardFromPlayerPile(player, "materials");
-                PlayerActions.getMultipleMaterialCards(player, 5);
+                PlayerActions.drawCardsFromPile(player, "materials", 5);
                 break;
             default:
                 console.log("No se puede sacar cartas de este mazo!");
@@ -223,7 +205,8 @@ export class PlayerActions {
 
         console.log(indices);
 
-        indices.forEach(index => this.removeCardInDeck(player, "materials", index));
+        //indices.forEach(index => this.removeCardInDeck(player, "materials", index));
+        indices.forEach(index => this.consumeMaterialFromUpgrade(player, index));
 
         // Llevar a una funcion despues
         const currentDeck = document.getElementById("deck-icon-current").dataset.deck;

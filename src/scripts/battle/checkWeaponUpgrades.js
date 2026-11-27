@@ -7,7 +7,7 @@ export class CheckWeaponUpgrades {
     // Convierte el array que esta en el dataset a un objeto
     // Mucho mas facil manejarlo con ese formato
     static convertMaterialArrayToObject(materialsWeaponArray) {
-        materialsWeaponArray = JSON.parse(materialsWeaponArray);
+        materialsWeaponArray = materialsWeaponArray;
         const materialsCountObj = {};
         for (const materialReq of materialsWeaponArray) {
             materialsCountObj[materialReq[0]] = materialReq[1]
@@ -33,10 +33,10 @@ export class CheckWeaponUpgrades {
         return upgrade;
     }
 
-    static hasEnoughMaterials(player, weaponSquare) {
+    static hasEnoughMaterials(player, weaponSquareInst) {
         const materialDeck = PlayerActions.getDeckFromPlayer(player, "materials");
         const materialCount = DeckUtils.countMaterialsInDeck(materialDeck);
-        const necesaryMaterials = CheckWeaponUpgrades.convertMaterialArrayToObject(weaponSquare.dataset.materials);
+        const necesaryMaterials = CheckWeaponUpgrades.convertMaterialArrayToObject(weaponSquareInst.materials);
         return CheckWeaponUpgrades.checkIfEnoughMaterials(materialCount, necesaryMaterials);
     }
 }

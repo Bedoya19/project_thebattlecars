@@ -15,10 +15,11 @@ import { DisplayMessageBoxes } from "../display/displayMessageBoxes.js";
 import { GameNotesDisplay } from "../display/gameNotesDisplay.js";
 import { LoadConfig } from "../game/loadConfig.js";
 import { consumeChargeWhenAttack, getChargeForUse } from "../game/chargeConfig/chargeMethodFactory.js";
+import { getCarSquareInst, getWeaponSquareInst, removeWeaponSquareFromBoard } from "../board/boardData/boardManager.js";
 
 export class Attack {
     // Agrgega el boton de ataque a la informacion si es del jugador indicado
-    static createAttackButton(player, zoneNumber, squareNumber, weaponSquare) {
+    static createAttackButton(player, zoneNumber, squareNumber, weaponSquare, weaponSquareInst) {
         const currentPlayer = StateGame.getCurrentPlayer();
         if (currentPlayer === player) {
             //return `<button id="attack-${zoneNumber}-${squareNumber}">Atacar</button>`
@@ -30,7 +31,7 @@ export class Attack {
                 }
             );
             button.innerText = "Atacar";
-            button.addEventListener("click", () => { this.prepareForAttack(weaponSquare, player, zoneNumber, squareNumber) })
+            button.addEventListener("click", () => { this.prepareForAttack(weaponSquare, player, zoneNumber, squareNumber, weaponSquareInst) })
             return button;
         } else {
             // Devuelve un simple div vacio
@@ -55,14 +56,23 @@ export class Attack {
         const weaponSquare = document.getElementById(`${currentPlayer}-zone${AttackValues.getZone()}-card-weapon-${AttackValues.getSquareNumber()}`);
         const attackingCarSquare = BoardClick.getCarSquareFromWeaponSquare(weaponSquare);
 
+        // Instancia del arma usada
+        // (Uso ParseInt porque ya se los trucos que JS me sacara si no lo hago)
+        const weaponSquareInst = getWeaponSquareInst(currentPlayer, parseInt(AttackValues.getZone()) - 1, parseInt(AttackValues.getSquareNumber()) - 1)
+        const attackingCarSquareInst = getCarSquareInst(weaponSquareInst.player, weaponSquareInst.zone - 1);
+
         // Jugador afectado (movido para usarse en otras funciones)
         const affectedPlayer = carSquare.id.slice(0, 7);
+
+        // Objeto de la casilla de carro
+        const carZone = Number(carSquare.id.slice(23)); // No se si poner en algun lado esto porque JAMAS me acuerdo como es eso en memoria
+        const carSquareInst = getCarSquareInst(affectedPlayer, (carZone - 1));
 
         // Valores actuales de carga y ataque
         const attackValue = AttackValues.getSumOfAllAttackValues();
         // El valor que se resta por la resistencia de un posible nitro del carro que se le esta atacando
-        const resistanceFromAttack = parseInt(carSquare.dataset.nitro) !== 0 ? parseInt(carSquare.dataset.nitroResistance) : 0;
-        console.log(`Nitro activado en defensa: ${parseInt(carSquare.dataset.nitro) !== 0}
+        const resistanceFromAttack = carSquareInst.isNitroActive() ? parseInt(carSquareInst.nitroResistance) : 0;
+        console.log(`Nitro activado en defensa: ${parseInt(carSquareInst.nitroResistance) !== 0}
         Resistencia: ${resistanceFromAttack}`); // Prueba rapida
 
         // Si por el aumento de ataque queda en negativo el ataque, simplemente lo cambia a 0.
@@ -74,11 +84,12 @@ export class Attack {
         const chargeValue = AttackValues.getCharge();
 
         // Le baja la vida al carro que se le dio el ataque
-        const currentCarHealth = carSquare.dataset.health;
-        carSquare.dataset.health -= attack;
-        const afterAttackCarHealth = carSquare.dataset.health;
+        const currentCarHealth = carSquareInst.health;
+        //carSquare.dataset.health -= attack;
+        carSquareInst.takeDamage(attack);
+        const afterAttackCarHealth = carSquareInst.health;
         // Revisa si el carro quedo destruid
-        if (carSquare.dataset.health <= 0) {
+        if (carSquareInst.isDestroyed()) {
             // Se va a quitar el carro del tablero en otro lugar. Esto es para tener la informacion de
             // la data del carro sin incurrir a hacer mas variables
             console.log("El carro quedo destruido!");
@@ -89,12 +100,13 @@ export class Attack {
         //PlayerActions.consumePowerForActionInPlayer(currentPlayer);
 
 
-        --weaponSquare.dataset.energy;
+        const isDischarged = weaponSquareInst.consumeEnergy();
         // Quita la carta del tablero si ya llego a cero de energia
-        if (weaponSquare.dataset.energy <= 0) {
+        if (isDischarged) {
             console.log("El arma quedo descargada");
             weaponDischarged = true;
             BoardClick.removeWeaponOnBoard(weaponSquare);
+            //removeWeaponSquareFromBoard(currentPlayer, zone, squareNumber);
         }
 
         // Actualiza la Carga
@@ -115,11 +127,23 @@ export class Attack {
             chargeValue,
             attack,
             carDestroyed,
-            weaponDischarged
+            weaponDischarged,
+            carSquareInst
         );
         // Se muestra en las notas del juego
         console.log("Ataque: " + attack);
-        GameNotesDisplay.addAttackActionNote(attackingCarSquare, carSquare, weaponSquare, chargeValue, attack, currentCarHealth, afterAttackCarHealth);
+        GameNotesDisplay.addAttackActionNote(
+            attackingCarSquare,
+            carSquare,
+            weaponSquare,
+            chargeValue,
+            attack,
+            currentCarHealth,
+            afterAttackCarHealth,
+            carSquareInst,
+            attackingCarSquareInst,
+            weaponSquareInst
+        );
 
         if (carDestroyed) {
             // Ya quita de verdad el carro destruido en el tablero despues de usar la informacion para el metodo anterior
@@ -143,7 +167,7 @@ export class Attack {
     }
 
     // Prepara todo para atacar
-    static prepareForAttack(weaponSquare, player, zoneNumber, squareNumber) {
+    static prepareForAttack(weaponSquare, player, zoneNumber, squareNumber, weaponSquareInst) {
         if (PlayerActions.getPowerFromPlayer(player) <= 0) {
             // Avisar al usuario despues
             console.log("Sin poder requerido");
@@ -151,21 +175,22 @@ export class Attack {
             //console.log(weaponPosData);
             DisplayMessageBoxes.createTemporalText(weaponSquare, "No hay poder suficiente para atacar!");
 
-        } else if (weaponSquare.dataset.energy <= 0) {
+        } else if (weaponSquareInst.energy <= 0) {
             // Tambien avisar al usuario despues (aunque esto es dificil)
             console.log("La arma no tiene la energia suficiente");
         // Ya prepara la pagina para atacar
         } else {
             // Consigue la carga del jugador
             //const charge = PlayerActions.getChargeFromPlayer(player);
+            const carSquareInst = getCarSquareInst(player, (zoneNumber - 1));
             const charge = getChargeForUse(player);
             // Incremento de ataque del arma
-            const carSquare = BoardClick.getCarSquareFromWeaponSquare(weaponSquare);
-            const attackBuff = Number(carSquare.dataset.attBuff);
-            const attackNitroIncrease = parseInt(carSquare.dataset.nitro) !== 0 ? parseInt(carSquare.dataset.nitroAttack) : 0;
-
+            //const carSquare = BoardClick.getCarSquareFromWeaponSquare(weaponSquare);
+            //const attackBuff = Number(carSquare.dataset.attBuff);
+            const attackBuff = carSquareInst.attBuff;
+            const attackNitroIncrease = carSquareInst.isNitroActive() ? parseInt(carSquareInst.nitroAttack) : 0;
             // Momento JS esto...
-            let attack = parseInt(JSON.parse(weaponSquare.dataset.attacks)[weaponSquare.dataset.level][charge - 1]);
+            const attack = weaponSquareInst.attack(weaponSquareInst.level, charge - 1);
             console.log("Aumento de ataque:", attackBuff);
             AttackValues.setAttackValues(charge, attack, zoneNumber, squareNumber, attackBuff, attackNitroIncrease);
         }

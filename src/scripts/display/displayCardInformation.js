@@ -9,6 +9,7 @@ import { Nitro } from "../battle/nitro.js";
 import { WeaponUpgrade } from "../battle/weaponUpgrade.js";
 import { DeckUtils } from "../players/DeckUtils.js";
 import { getChargeForDisplay } from "../game/chargeConfig/chargeMethodFactory.js";
+import { CardSelection } from "../game/cardSelection.js";
 
 export class DisplayCardInformation {
     static displayInformationOnDeck(divElement, card, cardId) {
@@ -79,28 +80,27 @@ export class DisplayCardInformation {
         `;
     }
     // Mostrar la informacion de una carta de carro del tablero
-    static displayCarCardInformationBoard(divElement, carSquare, playerOriginal, cardImage, cardName, cardDescription) {
-        const parts = carSquare.id.split('-');
-        const zoneNumber = parts[1].slice(4); 
-        const squareNumber =  carSquare.id.at(-1);
+    static displayCarCardInformationBoard(divElement, carSquare, carSquareInst) {
+        const zoneNumber = carSquareInst.zone;
+        const squareNumber = carSquareInst.zone;
         console.log("Zona:", zoneNumber, "Casilla", squareNumber);
 
         divElement.innerHTML = `
-            ${this.mainCardInformation(this.convertPlayerString(playerOriginal), cardImage, cardName)}
+            ${this.mainCardInformation(this.convertPlayerString(carSquareInst.player), carSquareInst.image, carSquareInst.name)}
             ${this.generalCarCardInformation(
-                playerOriginal, 
-                carSquare.id.slice(23), 
-                `<span>${carSquare.dataset.health}</span> / <span>${carSquare.dataset.maxHealth}</span>`,
-                `<span>${carSquare.dataset.capacity}</span> / <span>${carSquare.dataset.maxCapacity}</span>`,
-                carSquare.dataset.attBuff,
-                [carSquare.dataset.nitroQuantity, carSquare.dataset.nitroDuration],
-                [carSquare.dataset.nitroResistance, carSquare.dataset.nitroAttack],
-                cardDescription,
+                carSquareInst.player,
+                squareNumber,
+                `<span>${carSquareInst.health}</span> / <span>${carSquareInst.maxHealth}</span>`,
+                `<span>${carSquareInst.capacity}</span> / <span>${carSquareInst.maxCapacity}</span>`,
+                carSquareInst.attBuff,
+                [carSquareInst.nitroQuantity, carSquareInst.nitroDuration],
+                [carSquareInst.nitroResistance, carSquareInst.nitroAttack],
+                carSquareInst.description,
                 "board"
             )
             }
        `;
-        divElement.appendChild(Nitro.createNitroButton(playerOriginal, zoneNumber, squareNumber, carSquare));
+        divElement.appendChild(Nitro.createNitroButton(carSquareInst.player, zoneNumber, squareNumber, carSquare, carSquareInst));
     }
 
     // Metodo general para el contenido general de la carta de carro (con esto se ahora bastantes lineas)
@@ -140,7 +140,7 @@ export class DisplayCardInformation {
             </div>
         `;
     }
-    
+
     // Mostrar la informacion de una carta de weapon del deck
     static displayWeaponCardInformationDeck(divElement, card, [json, player], cardId) {
         divElement.innerHTML = `
@@ -159,35 +159,37 @@ export class DisplayCardInformation {
     }
 
     // Mostrar la informacion de una carta de arma del tablero
-    static displayWeaponCardInformationBoard(divElement, weaponSquare, playerOriginal, cardImage, cardName, cardDescription) {
+    static displayWeaponCardInformationBoard(divElement, weaponSquare, weaponSquareInst) {
         console.log("Casilla de arma: ", weaponSquare);
+        console.log("player de la instancia:", weaponSquareInst.player, weaponSquareInst);
         const parts = weaponSquare.id.split('-');
-        const zoneNumber = parts[1].slice(4); 
-        const squareNumber =  weaponSquare.id.at(-1);
-        const charge = (playerOriginal === StateGame.getCurrentPlayer())
-            ? PlayerActions.getChargeFromPlayer(playerOriginal)
-            : null;
+        const zoneNumber = parts[1].slice(4);
+        const squareNumber = weaponSquare.id.at(-1);
+        const player = weaponSquareInst.player;
+        //const charge = (playerOriginal === StateGame.getCurrentPlayer())
+        //    ? PlayerActions.getChargeFromPlayer(playerOriginal)
+        //    : null;
         console.log("Zona:", zoneNumber, "Casilla", squareNumber);
         // Muy probablemente, cuando ya tenga todo funcionando correctamente, puedo fusionar algunas funciones repetitivas
         divElement.innerHTML = `
-            ${this.mainCardInformation(this.convertPlayerString(playerOriginal), weaponSquare.firstElementChild.src, weaponSquare.dataset.name)}
+            ${this.mainCardInformation(this.convertPlayerString(player), weaponSquareInst.image, weaponSquareInst.name)}
             ${this.generalWeaponCardInformation(
-                this.convertPlayerString(playerOriginal),
+                this.convertPlayerString(player),
                 weaponSquare.id.slice(26),
-                JSON.parse(weaponSquare.dataset.attacks),
-                weaponSquare.dataset.energy,
-                JSON.parse(weaponSquare.dataset.materials),
-                weaponSquare.dataset.description,
+                weaponSquareInst.allAttacks,
+                weaponSquareInst.energy,
+                weaponSquareInst.materials,
+                weaponSquareInst.description,
                 "board",
                 undefined,
-                weaponSquare.dataset.level,
-                getChargeForDisplay(playerOriginal)
+                weaponSquareInst.level,
+                getChargeForDisplay(player)
             )}
         `;
         //${Attack.createAttackButton(playerOriginal, zoneNumber, squareNumber, weaponSquare)}
-        divElement.appendChild(Attack.createAttackButton(playerOriginal, zoneNumber, squareNumber, weaponSquare));
-        divElement.appendChild(WeaponUpgrade.createUpgradeButton(playerOriginal, zoneNumber, squareNumber, weaponSquare));
-    }    
+        divElement.appendChild(Attack.createAttackButton(player, zoneNumber, squareNumber, weaponSquare, weaponSquareInst));
+        divElement.appendChild(WeaponUpgrade.createUpgradeButton(player, zoneNumber, squareNumber, weaponSquare, weaponSquareInst));
+    }
 
     // Esta funcion lo que hace es que SOLO RECIBE la dataset
 
@@ -237,41 +239,44 @@ export class DisplayCardInformation {
         </div>
         `;
         // Si algo, quita la estetica de casillas validas
+        // Me huele que en algun momento tendre que poner como un "observer" para hacer todas las cosas
+        // que sean necesarios si se deselecciona una carta...
         BoardClick.removeAllSelectors();
+        CardSelection.clean();
     }
 
     // Avisa el ataque que se acaba de hacer
-    // carAttackedElement es la casilla del carro. 
+    // carAttackedElement es la casilla del carro.
     // Va cambiar un poco cuando se pueda ya destruir un carro
-    static attackInformation(divElement, carAttackedElement, charge, attack, carDestroyed, weaponDischarged) {
+    static attackInformation(divElement, carAttackedElement, charge, attack, carDestroyed, weaponDischarged, carAttackedInstance) {
         divElement.innerHTML = `
         <div id="card-selected-information">
             <h2 class="card-selected-information">Se acaba de atacar!</h2>
-            ${this.carAfterAttacked(carAttackedElement, carDestroyed, charge, attack)}
+            ${this.carAfterAttacked(carAttackedElement, carDestroyed, charge, attack, carAttackedInstance)}
             ${this.weaponDischargedMessage(weaponDischarged)}
         </div>
         `
     }
     // Lo que le pasa al carro despues del ataque
-    static carAfterAttacked(carAttackedElement, carDestroyed, charge, attack) {
+    static carAfterAttacked(carAttackedElement, carDestroyed, charge, attack, carAttackedInstance) {
         if (carDestroyed) {
             // Mensaje que devuelve el carro destruido
             return `
-            <h2 class="card-selected-information">${carAttackedElement.dataset.name} fue atacado por un ataque de carga ${charge}, que cause un daño de ${attack}. ¡Suficiente para destruirlo!</h2>
+            <h2 class="card-selected-information">${carAttackedInstance.name} fue atacado por un ataque de carga ${charge}, que cause un daño de ${attack}. ¡Suficiente para destruirlo!</h2>
             <h2 class="card-selected-information">Le quedarian al ${this.convertPlayerString(carAttackedElement.id.slice(0,7))} ${StateGame.geCarsFromPlayer(carAttackedElement.id.slice(0,7)) - 1} carros restantes</h2>
             `;
         }
         // Muestra un mensaje especial si el ataque que se intento hacer es 0
         if (attack === 0) {
             return `
-            <h2 class="card-selected-information">Se intento atacar ${carAttackedElement.dataset.name}, pero la carga ${charge} no fue suficiente para que el ataque fuera mayor a 0!</h2>
-            <h2 class="card-selected-information">${carAttackedElement.dataset.name} queda intacto.</h2>
+            <h2 class="card-selected-information">Se intento atacar ${carAttackedInstance.name}, pero la carga ${charge} no fue suficiente para que el ataque fuera mayor a 0!</h2>
+            <h2 class="card-selected-information">${carAttackedInstance.name} queda intacto.</h2>
             `;
         }
         // Mensaje normal que devuelve el carro
         return `
-        <h2 class="card-selected-information">${carAttackedElement.dataset.name} fue atacado por un ataque de carga ${charge}, que cause un daño de ${attack}</h2>
-        <h2 class="card-selected-information">Le queda ${carAttackedElement.dataset.health} de vida</h2>
+        <h2 class="card-selected-information">${carAttackedInstance.name} fue atacado por un ataque de carga ${charge}, que cause un daño de ${attack}</h2>
+        <h2 class="card-selected-information">Le queda ${carAttackedInstance.health} de vida</h2>
         `;
     }
     // Lo que le pasa al arma despues del ataque
@@ -281,7 +286,7 @@ export class DisplayCardInformation {
         } else {
             return "<h2></h2>";
         }
-        
+
     }
     // Mostrar una casilla vacia de carro
     static displayEmptyCarSquare(divElement, carSquare, squarePlayer) {
@@ -356,7 +361,7 @@ class WeaponListStatsDisplay {
         console.log(origin, level);
 
         for (let i = 0; i < weaponAttacks.length ; i++) {
-             
+
             // Crea una string bonita de cada elemento de attackValues, tambien agrega un resaltado en el ataque respectivo
             //const attackValues = weaponAttacks[i].join(", ");
             //if (getChargeForDisplay())
@@ -365,7 +370,7 @@ class WeaponListStatsDisplay {
                 ? `<mark>${value}</mark>`
                 : value)
             .join(", ");
-            
+
             // Creacion de cada elemento de la lista
             const attackListLi = this.createListElementInWeapon("card-selected-attack");
             const levelText = `Nivel ${i + 1}: (${attackValues})`;
@@ -398,7 +403,7 @@ class WeaponListStatsDisplay {
 
     // Las siguientes funciones son mas internas de las anteriores dos para evitar repetir tanto codigo
     // Un chingo de funciones estoy haciendo...
-    // Crea de forma mas flexible un elemento li para las listas que usa la informacion de 
+    // Crea de forma mas flexible un elemento li para las listas que usa la informacion de
     static createListElementInWeapon(customClass) {
         const liElement = document.createElement("li");
         liElement.classList.add("card-selected-information");

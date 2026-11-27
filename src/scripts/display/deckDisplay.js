@@ -6,6 +6,7 @@ import { BoardClick } from "../board/boardActions.js";
 import { PlayerActions } from "../players/playerActions.js";
 import { StateGame } from "../game/stateGame.js";
 import { LoadConfig } from "../game/loadConfig.js";
+import { CardSelection } from "../game/cardSelection.js";
 
 // Script de mostrar las cartas en el deck.
 
@@ -16,6 +17,10 @@ const clickOnDeckCard = (divInformation, card, cardId) => {
     //const player = document.getElementById("deck").dataset.player;
     //BoardClick.showValidCarSquares(player, carSquares);
     BoardClick.removeAllSelectors();
+
+    CardSelection.set(card);
+    console.log(CardSelection.get());
+
     DisplayCardInformation.displayInformationOnDeck(divInformation, card, cardId);
 }
 
@@ -130,5 +135,18 @@ export class DisplayCardsInDeck {
         this.showDeckOfCards(divDeck, PlayerActions.getDeckFromPlayer(player, deck), cardInformation);
         deckIcon.dataset.deck = deck;
         deckIcon.setAttribute("src", DeckDefaultIconsDir.getDeckIcons()[deck]);
+    }
+
+    // Actualiza el deck actual
+    // (una funcion que debi haber hecho hace mucho tiempo...)
+    static refreshDeckDisplay(player, cardType) {
+        const currentDeck = document.getElementById("deck-icon-current").dataset.deck;
+
+        if (currentDeck === cardType) {
+            const deckCards = document.getElementById("deck-cards");
+            const cardInformation = document.getElementById("card-selected-information");
+            deckCards.innerHTML = "";
+            DisplayCardsInDeck.showDeckOfCards(deckCards, PlayerActions.getDeckFromPlayer(player, cardType), cardInformation);
+        }
     }
 }
