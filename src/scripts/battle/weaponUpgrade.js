@@ -1,4 +1,5 @@
 import { BoardClick } from "../board/boardActions.js";
+import { getCarSquareInst } from "../board/boardData/boardManager.js";
 import { DisplayCardInformation } from "../display/displayCardInformation.js";
 import { GameNotesDisplay } from "../display/gameNotesDisplay.js";
 import { GameValuesDisplay } from "../display/gameValuesDisplay.js";
@@ -17,7 +18,7 @@ import { CheckWeaponUpgrades } from "./checkWeaponUpgrades.js";
 export class WeaponUpgrade {
     // Crea el boton para mejorar el arma
     // Es similar al de crear el boton de ataque... Podemos pensar despues fusionar las dos
-    static createUpgradeButton(player, zoneNumber, squareNumber, weaponSquare) {
+    static createUpgradeButton(player, zoneNumber, squareNumber, weaponSquare, weaponSquareInst) {
         const currentPlayer = StateGame.getCurrentPlayer();
         if ((currentPlayer === player) && (LoadConfig.loadWeaponsUpgradeEnabled())) {
             const button = StandarizedDocCreation.customElementCreator(
@@ -29,9 +30,11 @@ export class WeaponUpgrade {
             );
             // Cuando se confirma que el boton funciona, hacemos lo mismo que en el de nitro que si no esta disponible, simplemente no se activa el boton.
             button.innerText = "Mejorar";
-            button.addEventListener("click", () => { this.upgradeWeapon(weaponSquare, player) })
+            button.addEventListener("click", () => { this.upgradeWeapon(weaponSquare, player, weaponSquareInst) })
+
+
             // Deshabilita el boton si no tiene el suficiente material
-            button.disabled = !CheckWeaponUpgrades.hasEnoughMaterials(player, weaponSquare);
+            button.disabled = !CheckWeaponUpgrades.hasEnoughMaterials(player, weaponSquareInst);
 
             return button;
         } else {
@@ -40,53 +43,58 @@ export class WeaponUpgrade {
     }
 
     // Mejora el arma (si se puede)
-    static upgradeWeapon(weaponSquare, player) {
+    static upgradeWeapon(weaponSquare, player, weaponSquareInst) {
         //console.log(PlayerActions.getPowerFromPlayer(player));
         if (!PlayerActions.spendPower(player)) return;
 
         //if (PlayerActions.getPowerFromPlayer(player) > 0) {
-        const canUpgrade = CheckWeaponUpgrades.hasEnoughMaterials(player, weaponSquare);
+        const canUpgrade = CheckWeaponUpgrades.hasEnoughMaterials(player, weaponSquareInst);
 
         console.log(canUpgrade);
         if (canUpgrade) {
             console.log("Se puede mejorar!");
             const materialDeck = PlayerActions.getDeckFromPlayer(player, "materials");
-            const necesaryMaterials = CheckWeaponUpgrades.convertMaterialArrayToObject(weaponSquare.dataset.materials);
+            const necesaryMaterials = CheckWeaponUpgrades.convertMaterialArrayToObject(weaponSquareInst.materials);
             //console.log(DeckUtils.orderMaterialsByQuantity(materialDeck));
-            const attacksLevels = JSON.parse(weaponSquare.dataset.attacks).length;
+            //const attacksLevels = weaponSquare.dataset.attacks).length;
             // Convertimos explícitamente a número para evitar coerciones raras en la comparación
-            const currentLevel = Number(weaponSquare.dataset.level);
+            //const currentLevel = Number(weaponSquare.dataset.level);
 
-            if (currentLevel < attacksLevels - 1) {
-                console.log("Se va a mejorar!");
+            const increasedLevel = weaponSquareInst.increaseLevel();
+            if (increasedLevel) {
+            //    console.log("Se va a mejorar!");
                 // Asignamos el nuevo valor a la propiedad, JS lo convierte a string automáticamente
-                weaponSquare.dataset.level = currentLevel + 1;
+                //weaponSquare.dataset.level = currentLevel + 1;
 
                 // Genera la nota de que se mejoro la arma
                 // Que la mejora de las armas es un trabajo relativamente sencillo, esta funcion tienen que sacar muchas cosas
                 // de otros lugares, entonces lo voy a poner en varios enters para una mayor facilidad
                 GameNotesDisplay.addWeaponUpgrade(
                     player,
-                    weaponSquare.dataset.name,
-                    (parseInt(weaponSquare.dataset.level) + 1),
-                    BoardClick.getCarSquareFromWeaponSquare(weaponSquare).dataset.name
+                    weaponSquareInst.name,
+                    (parseInt(weaponSquareInst.level) + 1),
+                    getCarSquareInst(weaponSquareInst.player, weaponSquareInst.zone - 1).name
                 );
 
                 // Se recarga de energia el arma en el proceso
-                if (LoadConfig.loadReloadEnergyToMax()) {
-                    // Lleva la energia al maximo
-                    if (weaponSquare.dataset.energy <= weaponSquare.dataset.maxEnergy) {
-                        console.log("Recargar energia...");
-                        weaponSquare.dataset.energy = weaponSquare.dataset.maxEnergy;
-                    }
-                } else {
+                //if (LoadConfig.loadReloadEnergyToMax()) {
+                //    // Lleva la energia al maximo
+                //    if (weaponSquareInst.energy <= weaponSquare.dataset.maxEnergy) {
+                //        console.log("Recargar energia...");
+                //        weaponSquare.dataset.energy = weaponSquare.dataset.maxEnergy;
+                //    }
+                //} else {
                     // Suma la energia maxima, sin importar que
-                    weaponSquare.dataset.energy = parseInt(weaponSquare.dataset.energy) + parseInt(weaponSquare.dataset.maxEnergy);
-                }
-                const cardInformation = document.getElementById("card-selected-information");
-                DisplayCardInformation.displayWeaponCardInformationBoard(cardInformation, weaponSquare, player);
-                
+                //    weaponSquare.dataset.energy = parseInt(weaponSquare.dataset.energy) + parseInt(weaponSquare.dataset.maxEnergy);
+                //}
+                //
+                // Recarga la energia del arma
+                weaponSquareInst.reloadEnergy(LoadConfig.loadReloadEnergyToMax());
+
                 this.applyUpgradeCost(player, materialDeck, necesaryMaterials);
+
+                const cardInformation = document.getElementById("card-selected-information");
+                DisplayCardInformation.displayWeaponCardInformationBoard(cardInformation, weaponSquare, weaponSquareInst);
             }
         }
         //} else {

@@ -188,7 +188,7 @@ export class DisplayCardInformation {
         `;
         //${Attack.createAttackButton(playerOriginal, zoneNumber, squareNumber, weaponSquare)}
         divElement.appendChild(Attack.createAttackButton(player, zoneNumber, squareNumber, weaponSquare, weaponSquareInst));
-        //divElement.appendChild(WeaponUpgrade.createUpgradeButton(playerOriginal, zoneNumber, squareNumber, weaponSquare));
+        divElement.appendChild(WeaponUpgrade.createUpgradeButton(player, zoneNumber, squareNumber, weaponSquare, weaponSquareInst));
     }
 
     // Esta funcion lo que hace es que SOLO RECIBE la dataset

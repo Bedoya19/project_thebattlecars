@@ -3,6 +3,7 @@
     Almacena datos extra de energia, nivel, y otras cosas
 */
 
+import { LoadConfig } from "../../../../game/loadConfig.js";
 import { MainBoardSquare } from "./mainBoardSquare.js";
 
 export class WeaponSquare extends MainBoardSquare {
@@ -31,7 +32,9 @@ export class WeaponSquare extends MainBoardSquare {
     increaseLevel() {
         if (this.#level < (this.allAttacks.length - 1)) {
             this.#level++;
+            return true;
         }
+        return false;
     }
     isDischarged() {
         return this.#energy <= 0;
@@ -40,5 +43,14 @@ export class WeaponSquare extends MainBoardSquare {
     consumeEnergy() {
         this.#energy--;
         return this.isDischarged();
+    }
+
+    reloadEnergy(reloadToMax) {
+        //const reloadToMax = LoadConfig.loadReloadEnergyToMax();
+        if (reloadToMax) {
+            this.#energy = this.#maxEnergy;
+        } else {
+            this.#energy += this.#maxEnergy;
+        }
     }
 }
