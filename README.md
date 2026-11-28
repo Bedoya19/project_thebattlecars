@@ -177,6 +177,28 @@ El minimum viable producto ya fue, en un sentido tecnico,  logrado. Si se agrega
 #### battle-phantasm
 Este es el ultimo paso para darle "paridad" al juego fisico. Agregar los tipos carros, y los tipos de ataques. Asi, el juego fisico con el digital funcionarian de la exactama misma forma. 
 
-battle-phantasm, como su ultimo paso, sera agregar el kit inicial azul y rojo. Sera 2 series extra que tendra el jugador 1 y jugador 2 respectivamente. Despues de terminar lo anterior de battle-phantasm, este proceso solo sera en dibujar las cartas, sin tocar nada del codigo.
+battle-phantasm tiene que tener estos detalles:
+- Nuevos tipos de carros:
+  - Electrico
+  - Moto
+  - Todoterreno
+- Nuevos tipos de ataques para armas:
+  - Explocion
+  - Fuego
+(Los detalles seran expandidos cuando se implemente estas funciones)
+
+battle-phantasm, como su ultimo paso, sera agregar el kit inicial azul y rojo. Sera 2 series extra que tendra el jugador 1 y jugador 2 respectivamente. Despues de terminar lo anterior de battle-phantasm, este proceso solo sera en dibujar las cartas, sin tocar nada del codigo. Con dos series se dibujaran:
+- 8 carros distintos (5 para cada jugador, los dos tendran un carro que sera el mismo
+- 8 armas distintas (Lanzacohetes, lanzacajas y resortera lo tendran los dos jugadores. Las otras 4 armas seran distintas. Entre estas 4 armas, cada jugador tendra un arma explosiva y de fuego respectivamente)
+- El resto de multiplicaciones de las cartas de materiales
+
+### Despues de battle-phantasm
+Después de terminar battle-phantasm, se tendrán 4 rutas para llevar el desarrollo del juego a corto plazo:
+- powers-basic: Implementar poderes al juego
+- bots-basic: Implementar bots al juego
+- full-cat1: Las 6 series de la Categoria 1 (no se incluye los kits iniciales anteriormente mencionados) (aqui tambien se incluira un deck builder)
+- visual-revamp: Completo cambio a la estetica base del juego (mayormente el tablero)
+
+Se vera después como se llevara el desarrollo del proyecto. 
 
 
